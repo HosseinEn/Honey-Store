@@ -24,7 +24,7 @@
 
     <body class="antialiased">
         <div id="app">
-            <welcome></welcome>
+            <app></app>
         </div>
     </body>
 </html>
