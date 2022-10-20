@@ -12,4 +12,12 @@ class OrderStatus extends Model
     protected $fillable = [
         'name'
     ];
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
+
+    public function order_status_histories() {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
 }

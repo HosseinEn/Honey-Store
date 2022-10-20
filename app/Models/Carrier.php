@@ -13,4 +13,8 @@ class Carrier extends Model
         'name',
         'shipping_price'
     ];
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }

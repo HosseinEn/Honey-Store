@@ -13,4 +13,12 @@ class Discount extends Model
         'name',
         'value'
     ];
+
+    public function products() {
+        return $this->hasMany(Product::class);
+    }
+
+    public function orders() {
+        return $this->hasMany(Order::class);
+    }
 }

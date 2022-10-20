@@ -22,4 +22,32 @@ class Order extends Model
         'invoice_no',
         'shipping_address'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+
+    public function products() {
+        return $this->belongsToMany(Product::class)->withPivot('quantity');
+    }
+
+    public function discount() {
+        return $this->belongsTo(Discount::class);
+    }
+
+    public function order_status() {
+        return $this->belongsTo(OrderStatus::class);
+    }
+
+    public function order_status_histories() {
+        return $this->hasMany(OrderStatusHistory::class);
+    }
+    
+    public function carrier() {
+        return $this->belongsTo(Carrier::class);
+    }
+
+    public function tax() {
+        return $this->belongsTo(Tax::class);
+    }
 }

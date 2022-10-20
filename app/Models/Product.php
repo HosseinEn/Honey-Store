@@ -22,10 +22,22 @@ class Product extends Model
     }
 
     public function users() {
-        return $this->belongsToMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('quantity');
     }
 
     public function attributes() {
-        return $this->belongsToMany(Attribute::class);
+        return $this->belongsToMany(Attribute::class)->withPivot(['stock', 'price']);
+    }
+
+    public function orders() {
+        return $this->belongsToMany(Order::class)->withPivot('quantity');
+    }
+
+    public function discount() {
+        return $this->belongsTo(Discount::class);
+    }
+
+    public function images() {
+        return $this->morphMany(Image::class, 'imageable');
     }
 }
