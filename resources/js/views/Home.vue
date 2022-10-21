@@ -14,23 +14,23 @@
   <!-- end heroBox -->
 
   <!-- between Content -->
-  <div
-    class="container-fluid p-2 bg-danger d-flex justify-content-center align-items-center"
-  >
-    Lorem ipsum dolor sit.
-  </div>
+  <StrapContent />
   <!-- end of between Content -->
 
   <!-- About us section -->
-  <div class="container-fluid">
-    <div class="row bg-secondary text-center">
-      <p>Lorem, ipsum dolor.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <section class="aboutUsButton">
-        <button>d</button>
-      </section>
-    </div>
-  </div>
+  <StrapDemo selectedImage="HoneyCells.jpg">
+    <template v-slot:StrapDemoHeader>
+      <p>Lorem ipsum dolor sit.</p>
+    </template>
+    <template v-slot:StrapDemoSummery>
+      <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
+    </template>
+    <template v-slot:StrapDemoBtn>
+      <router-link :to="{ name: 'aboutUs' }">
+        <button>درباره ما</button>
+      </router-link>
+    </template>
+  </StrapDemo>
   <!-- end of about section -->
 
   <!-- main content -->
@@ -42,83 +42,62 @@
       </div>
     </div>
   </div>
-
   <!-- end of main content -->
 
   <!-- section 2 -->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-6">
-        <section class="left text-center">
-          <p>Lorem, ipsum.</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
-            error.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-            aut! Iure voluptatum fugiat expedita eaque vero dolorem minus
-            sapiente voluptas.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-            voluptates vero a nesciunt. Consequatur, vel?
-          </p>
-        </section>
-        <div
-          class="section2Button d-flex justify-content-center align-items-center"
-        >
-          <button>d</button>
-        </div>
-      </div>
-      <div class="col-6"><section class="right">d</section></div>
-    </div>
-  </div>
+  <MainContentTemplate reversed="0" imageSelected="HoneyCells.jpg">
+    <template v-slot:mainContentHeader>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContent>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با
+      هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته
+      حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها
+      شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ
+      پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+      دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد
+      نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای
+      موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+  </MainContentTemplate>
   <!-- end of section 2-->
 
   <!-- section 3 -->
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-6">
-        <section class="left">dd</section>
-      </div>
-      <div class="col-6">
-        <section class="right text-center">
-          <p>Lorem, ipsum.</p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum,
-            error.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae,
-            aut! Iure voluptatum fugiat expedita eaque vero dolorem minus
-            sapiente voluptas.
-          </p>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolore
-            voluptates vero a nesciunt. Consequatur, vel?
-          </p>
-        </section>
-        <div
-          class="section3Button d-flex justify-content-center align-items-center"
-        >
-          <button>d</button>
-        </div>
-      </div>
-    </div>
-  </div>
+  <MainContentTemplate reversed="1" imageSelected="HoneyCells.jpg">
+    <template v-slot:mainContentHeader>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContent>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با
+      هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته
+      حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها
+      شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ
+      پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
+      دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد
+      نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای
+      موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+  </MainContentTemplate>
   <!-- end of section 3-->
 
   <!-- Order section -->
-  <div class="container-fluid">
-    <div class="row bg-secondary text-center">
-      <p>Lorem, ipsum dolor.</p>
-      <p>Lorem ipsum dolor sit amet.</p>
-      <section class="OrderUsButton">
-        <button>d</button>
-      </section>
-    </div>
-  </div>
+  <StrapDemo selectedImage="HoneyCells.jpg">
+    <template v-slot:StrapDemoHeader>
+      <p>Lorem ipsum dolor sit.</p>
+    </template>
+    <template v-slot:StrapDemoSummery>
+      <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
+    </template>
+    <template v-slot:StrapDemoBtn>
+      <router-link :to="{ name: 'shop' }">
+        <button id="StrapDemoBtn">فروشگاه</button>
+      </router-link>
+    </template>
+  </StrapDemo>
   <!-- end of Order section -->
 
   <Footer />
@@ -129,13 +108,19 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import SingleProduct from "../components/SingleProduct.vue";
+import StrapContent from "../components/StrapContent.vue";
+import MainContentTemplate from "../components/MainContentTemplate.vue";
+import StrapDemo from "../components/StrapDemo.vue";
 
 export default {
   name: "HomeView",
   components: {
     Navbar,
     Footer,
-    SingleProduct
+    SingleProduct,
+    StrapContent,
+    StrapDemo,
+    MainContentTemplate,
   },
 };
 </script>
