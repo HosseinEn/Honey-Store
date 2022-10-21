@@ -10,10 +10,14 @@
         class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
       >
         <ul>
-          <li class="mb-4">w</li>
-          <li>d</li>
-          <li>d</li>
-          <li>d</li>
+          <li class="mb-4">صفحات</li>
+          <li><router-link :to="{ name: 'shop' }">فروشگاه</router-link></li>
+          <li>
+            <router-link :to="{ name: 'aboutUs' }">درباره ما</router-link>
+          </li>
+          <li>
+            <router-link :to="{ name: 'home' }">خانه</router-link>
+          </li>
           <li>a</li>
         </ul>
       </div>
@@ -64,5 +68,10 @@ export default {
 <style scoped>
 ul li:first-child {
   font-size: 20px;
+  font-family: var(--mainFont);
+}
+ul {
+  direction: rtl;
+  list-style-type: none;
 }
 </style>
