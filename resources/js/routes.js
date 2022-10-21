@@ -4,6 +4,7 @@ import Home from "./views/Home.vue";
 import Account from './views/Account.vue'
 import Shop from './views/Shop.vue'
 import AboutUs from './views/AboutUs.vue'
+import Login from './auth/Login.vue'
 
 const routes = [
   {
@@ -25,6 +26,11 @@ const routes = [
     path : '/about-us',
     name : 'aboutUs',
     component: AboutUs
+  },
+  {
+    path : '/login',
+    name : 'login',
+    component: Login
   }
 ];
 
