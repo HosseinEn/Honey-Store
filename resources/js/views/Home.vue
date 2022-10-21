@@ -100,6 +100,9 @@
   </StrapDemo>
   <!-- end of Order section -->
 
+  <!-- Information Slider -->
+  <InformationSlider />
+  <!-- End Information Slider -->
   <Footer />
 </template>
 
@@ -111,6 +114,7 @@ import SingleProduct from "../components/SingleProduct.vue";
 import StrapContent from "../components/StrapContent.vue";
 import MainContentTemplate from "../components/MainContentTemplate.vue";
 import StrapDemo from "../components/StrapDemo.vue";
+import InformationSlider from "../components/InformationSlider.vue";
 
 export default {
   name: "HomeView",
@@ -121,6 +125,7 @@ export default {
     StrapContent,
     StrapDemo,
     MainContentTemplate,
+    InformationSlider,
   },
 };
 </script>
@@ -151,4 +156,5 @@ export default {
   display: flex;
   flex-wrap: wrap;
 }
+
 </style>
