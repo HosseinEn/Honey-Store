@@ -73,7 +73,7 @@
     </div>
   </div>
 </template>
-
+sjfoidsjoifjoisdjfoij
 <script>
 export default {
   name: "Footer",
