@@ -1,4 +1,54 @@
 :root {
-    --mainColor : #FEB800;
-    --secondColor : #251B07;
+  --mainColor: #feb800;
+  --secondColor: #251b07;
+  --thirdColor: #dd9903;
+  --forthColor: #f5f2f0;
+  --mainFont: "Noto Nastaliq Urdu", serif;
+}
+body {
+  background-color: var(--forthColor) !important;
+  overflow-x: hidden;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.container-fluid {
+  padding: 0 !important;
+}
+a,
+a:hover,
+a:focus,
+a:active,
+a:visited {
+  text-decoration: none !important;
+  color: inherit !important;
+}
+.mainContentButton button {
+  background-color: var(--mainColor);
+  padding: 0.7rem 1.2rem 1rem;
+  border-radius: 5px;
+  transition: all 0.5s linear;
+  color: white;
+  font-size: 1.3rem;
+  font-family: var(--mainFont);
+}
+.mainContentButton button:hover {
+  background-color: var(--thirdColor);
+}
+.StrapDemoBtn {
+  background-color: transparent;
+  border : 2px solid white;
+  color : white;
+  border-radius: 5px;
+  padding : 0.4rem 1.5rem 0.7rem;
+  font-family: var(--mainFont);
+  font-size: 1.1rem;
+  transition: all 0.5s linear;
+  margin-top: 1rem;
+}
+.StrapDemoBtn:hover {
+  background-color: rgb(224, 224, 224);
+  color : rgb(76, 76, 76)
+}
+.StrapDemoHeader {
+  margin-bottom: 2rem;
 }

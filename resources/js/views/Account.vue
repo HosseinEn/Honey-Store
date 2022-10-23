@@ -1,11 +1,11 @@
 <template>
   <Navbar />
-    <div class="container p-5">
-        <div class="row">
-            <div class="col-6">dawdaw</div>
-            <div class="col-6">dawdaw</div>
-        </div>
+  <div class="container p-5">
+    <div class="row">
+      <div class="col-6">dawdaw</div>
+      <div class="col-6">dawdaw</div>
     </div>
+  </div>
   <Footer />
 </template>
 
