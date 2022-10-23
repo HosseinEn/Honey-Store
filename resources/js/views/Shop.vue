@@ -5,6 +5,9 @@
       <div class="row filterRow"></div>
       <div class="productRow">
         <SingleProduct />
+        <SingleProduct />
+        <SingleProduct />
+           <SingleProduct />
       </div>
     </div>
   </div>

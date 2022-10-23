@@ -13,6 +13,9 @@ export default {
 </script>
 
 <style scoped>
+.container-fluid {
+  background-color: white
+}
 div p {
     margin: 10px;
     font-weight: bold;

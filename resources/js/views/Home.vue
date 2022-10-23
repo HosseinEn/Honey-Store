@@ -18,16 +18,16 @@
   <!-- end of between Content -->
 
   <!-- About us section -->
-  <StrapDemo selectedImage="HoneyCells.jpg">
+  <StrapDemo selectedImage="HoneyBlock.jpg">
     <template v-slot:StrapDemoHeader>
-      <p>Lorem ipsum dolor sit.</p>
+      <h1 class="StrapDemoHeader">Lorem ipsum dolor sit.</h1>
     </template>
     <template v-slot:StrapDemoSummery>
       <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
     </template>
     <template v-slot:StrapDemoBtn>
-      <router-link :to="{ name: 'aboutUs' }">
-        <button>درباره ما</button>
+      <router-link :to="{ name: 'aboutUs' }" @click="this.scrollToTop">
+        <button class="StrapDemoBtn pt-0">درباره ما</button>
       </router-link>
     </template>
   </StrapDemo>
@@ -87,19 +87,51 @@
   <!-- Order section -->
   <StrapDemo selectedImage="HoneyCells.jpg">
     <template v-slot:StrapDemoHeader>
-      <p>Lorem ipsum dolor sit.</p>
+      <h1 class="StrapDemoHeader">ما را بیشتر بشناسید</h1>
     </template>
     <template v-slot:StrapDemoSummery>
       <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
     </template>
     <template v-slot:StrapDemoBtn>
-      <router-link :to="{ name: 'shop' }">
-        <button id="StrapDemoBtn">فروشگاه</button>
+      <router-link :to="{ name: 'shop' }" @click="this.scrollToTop">
+        <button class="StrapDemoBtn">فروشگاه</button>
       </router-link>
     </template>
   </StrapDemo>
   <!-- end of Order section -->
 
+  <!-- section 4 -->
+  <MainContentTemplateVTwo reversed="0" imageSelected="VerticalHoneyHome.jpg" imageSelectedTwo="HoneyCells.jpg">
+    <template v-slot:mainContentHeader>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContent>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای
+      موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+
+     <template v-slot:mainContentHeaderTwo>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContentTwo>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای
+      موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+
+     <template v-slot:mainContentHeaderThree>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+
+    <template v-slot:mainContentContentThree>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+  </MainContentTemplateVTwo>
+  <!-- end of section 4-->
   <Footer />
 </template>
 
@@ -111,6 +143,7 @@ import SingleProduct from "../components/SingleProduct.vue";
 import StrapContent from "../components/StrapContent.vue";
 import MainContentTemplate from "../components/MainContentTemplate.vue";
 import StrapDemo from "../components/StrapDemo.vue";
+import MainContentTemplateVTwo from "../components/MainContentTemplateVTwo.vue"
 
 export default {
   name: "HomeView",
@@ -121,6 +154,12 @@ export default {
     StrapContent,
     StrapDemo,
     MainContentTemplate,
+    MainContentTemplateVTwo
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
   },
 };
 </script>
