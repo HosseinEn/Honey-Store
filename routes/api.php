@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\TypeController;
 use App\Models\Type;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -31,4 +32,10 @@ Route::fallback(function() {
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::get('/is-logged', function() {
+    return response()->json([
+        'isLogged' => Auth::check()
+    ]);
 });
