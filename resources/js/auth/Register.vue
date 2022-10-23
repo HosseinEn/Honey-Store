@@ -1,8 +1,14 @@
 <template>
     <div class="w-50 m-auto">
         <div class="card card-body">
-            {{ this.isLogged }}
             <form>
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" placeholder="Enter your name..." class="form-control"
+                    v-model="name"
+                    :class="[{'is-invalid': this.errors !== null && this.errors.name ? true : false }]">
+                </div>
+                <span style="color: red;" v-if="this.errors !== null && this.errors.name">{{ this.errors.name[0] }}</span>
                 <div class="form-group">
                     <label for="email">E-mail</label>
                     <input type="text" name="email" placeholder="Enter your email..." class="form-control"
@@ -11,16 +17,20 @@
                 </div>
                 <span style="color: red;" v-if="this.errors !== null && this.errors.email">{{ this.errors.email[0] }}</span>
                 <div class="form-group">
-                    <label for="password">password</label>
+                    <label for="password">Password</label>
                     <input type="password" name="password" placeholder="Enter your password..." class="form-control"
                     v-model="password"
                     :class="[{'is-invalid': this.errors !== null && this.errors.password ? true : false }]">
                 </div>
                 <span style="color: red;" v-if="this.errors !== null && this.errors.password">{{ this.errors.password[0] }}</span>
-                <button type="submit" name="Login" class="btn btn-primary" id="" :disabled="loading" @click.prevent="login">Login</button>
-            </form>
-            <form>
-                <button type="submit" @click.prevent="logout">logout</button>
+                <div class="form-group">
+                    <label for="password_confirmation">Password Confirm</label>
+                    <input type="password" name="password_confirmation" placeholder="Enter your password confirmation..." class="form-control"
+                    v-model="password_confirmation"
+                    :class="[{'is-invalid': this.errors !== null && this.errors.password_confirmation ? true : false }]">
+                </div>
+                <span style="color: red;" v-if="this.errors !== null && this.errors.password_confirmation">{{ this.errors.password_confirmation[0] }}</span>
+                <button type="submit" name="Register" class="btn btn-primary" id="" :disabled="loading" @click.prevent="register">Register</button>
             </form>
         </div>
     </div>
@@ -35,36 +45,27 @@ import axios from 'axios';
         data() {
             return{
                 errors: null,
+                name: null,
                 email: null,
                 password: null,
+                password_confirmation: null,
                 loading: false,
                 isLogged: null,
             }
         },
-        created() {
-            axios.get('/api/is-logged').then(response => {
-                this.isLogged = response.data.isLogged;
-            });
-        },
         methods: {
-            async logout() {
-                await window.axios.post('/logout').then(response => {
-                    console.log(response.data);
-                });
-                this.isLogged = false;
-            },
-            async login() {
+            async register() {
                 this.loading = true;
                 this.errors = null;
                 try {
                     await window.axios.get('/sanctum/csrf-cookie');
-                    await window.axios.post('/login', {
+                    await window.axios.post('/register', {
+                        name: this.name,
                         email: this.email,
-                        password: this.password
+                        password: this.password,
+                        password_confirmation: this.password_confirmation
                     });
-                    this.isLogged = true;
-                    // TODO redirect to admin panel
-                    // this.$router.push({'name' : 'home'}) 
+                    this.$router.push({'name' : 'home'}) 
                 } catch (error) {
                     this.errors = error.response && error.response.data.errors;
                 }

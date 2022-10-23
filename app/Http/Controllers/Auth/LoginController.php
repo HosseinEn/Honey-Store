@@ -42,10 +42,17 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         if($request->isXmlHttpRequest()) {
-            // return response()->json([
-            //     'success' => 'Login done successfully!'
-            // ]);
-            return redirect('/');
+            return response()->json([
+                'success' => 'Login done successfully!'
+            ]);
+            // return redirect('/');
         }
+    }
+
+    protected function loggedOut(Request $request)
+    {
+        return response()->json([
+            'success' => 'Logout done successfully!'
+        ]);
     }
 }

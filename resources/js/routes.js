@@ -5,6 +5,8 @@ import Account from './views/Account.vue'
 import Shop from './views/Shop.vue'
 import AboutUs from './views/AboutUs.vue'
 import Login from './auth/Login.vue'
+import Register from './auth/Register.vue'
+import axios from "axios";
 
 const routes = [
   {
@@ -30,7 +32,32 @@ const routes = [
   {
     path : '/login',
     name : 'login',
-    component: Login
+    component: Login,
+    // beforeEnter: (to, from, next) => {
+    //   axios.get('/api/is-logged').then(() => {
+    //     next()
+    //   }).catch(() => {
+    //     return next({ name : 'dashboard'})
+    //   })
+    // }
+  },
+  {
+    path : '/register',
+    name : 'register',
+    component: Register,
+    beforeEnter: (to, from, next) => {
+      axios.get('/api/is-logged').then((response) => {
+        if(response.data.isLogged) {
+          next({name : 'home'});
+        }
+        else {
+          next();
+        }
+        console.log(response.data.isLogged)
+      }).catch(() => {
+        return next({ name : 'home'})
+      })
+    }
   }
 ];
 
