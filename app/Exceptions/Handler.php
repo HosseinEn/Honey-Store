@@ -2,8 +2,12 @@
 
 namespace App\Exceptions;
 
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Exception;
 use Throwable;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Facades\Route as FacadesRoute;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -36,6 +40,20 @@ class Handler extends ExceptionHandler
     {
         $this->reportable(function (Throwable $e) {
             //
+        });
+
+        // $this->renderable(function (Exception $e, $request) {
+        //     // dd("ada");
+        //     // dd($request->expectsJson());
+        //     if($request->expectsJson() && $e instanceof NotFoundHttpException){
+        //         return Route::respondWithRoute('api.fallback');
+        //     }
+        // });
+
+        $this->renderable(function (NotFoundHttpException $e, $request) {
+            if ($request->is('api/*') && $request->expectsJson()) {
+                return FacadesRoute::respondWithRoute('api.fallback');
+            }
         });
     }
 }
