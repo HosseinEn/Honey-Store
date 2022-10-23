@@ -11,14 +11,24 @@
       >
         <ul>
           <li class="mb-4">صفحات</li>
-          <li><router-link :to="{ name: 'shop' }">فروشگاه</router-link></li>
           <li>
-            <router-link :to="{ name: 'aboutUs' }">درباره ما</router-link>
+            <router-link :to="{ name: 'shop' }" @click="this.scrollToTop"
+              >فروشگاه</router-link
+            >
           </li>
           <li>
-            <router-link :to="{ name: 'home' }">خانه</router-link>
+            <router-link :to="{ name: 'aboutUs' }" @click="this.scrollToTop"
+              >درباره ما</router-link
+            >
           </li>
-          <router-link :to="{ name: 'account' }">ثبت نام/ لاگین</router-link>
+          <li>
+            <router-link :to="{ name: 'home' }" @click="this.scrollToTop"
+              >خانه</router-link
+            >
+          </li>
+          <router-link :to="{ name: 'account' }" @click="this.scrollToTop"
+            >ثبت نام/ لاگین</router-link
+          >
         </ul>
       </div>
       <div
@@ -43,13 +53,21 @@
           <li>a</li>
         </ul>
       </div>
-      <div
-        class="col col-6 col-md-3 d-flex justify-content-center align-items-center"
-      >
+      <div class="col col-6 col-md-3 d-flex justify-content-center">
         <ul class="socialMediaList">
           <li class="mb-4">ما رو در فضای مجازی دنبال کنید</li>
-          <li><i class="fa-brands fa-instagram" onclick="window.location.href='www.google.com'"></i></li>
-          <li><i class="fa-solid fa-envelope" onclick="window.location.href='www.google.com'"></i></li>
+          <li>
+            <i
+              class="fa-brands fa-instagram"
+              onclick="window.location.href='www.google.com'"
+            ></i>
+          </li>
+          <li>
+            <i
+              class="fa-solid fa-envelope"
+              onclick="window.location.href='www.google.com'"
+            ></i>
+          </li>
         </ul>
       </div>
     </div>
@@ -60,15 +78,20 @@
 export default {
   name: "Footer",
   components: {},
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+  },
 };
 </script>
 
 <style scoped>
 .container-fluid {
-  color : white;
+  color: white;
   background-color: var(--secondColor);
 }
-ul li{
+ul li {
   transition: all 0.5s linear;
 }
 ul li:first-child {
@@ -76,14 +99,13 @@ ul li:first-child {
   font-family: var(--mainFont);
 }
 ul li:not(:first-child):hover {
-  color : var(--mainColor)
+  color: var(--mainColor);
 }
 ul {
   direction: rtl;
   list-style-type: none;
 }
 .socialMediaList {
-  float: left;
 }
 .listsContainer {
   position: relative;

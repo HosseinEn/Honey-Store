@@ -1,8 +1,36 @@
 <template>
   <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg">
+  <nav class="navbar navbar-expand-lg" ref="navbar" id="navabr">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Navbar</a>
+
+      <div
+        class="collapse navbar-collapse text-center"
+        id="navbarSupportedContent"
+      >
+        <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+          <li class="nav-item">
+            <router-link :to="{ name: 'shop' }" @click="this.scrollToTop"
+              >فروشگاه</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'aboutUs' }" @click="this.scrollToTop"
+              >درباره ما</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'home' }" @click="this.scrollToTop"
+              >خانه</router-link
+            >
+          </li>
+          <li class="nav-item">
+            <router-link :to="{ name: 'account' }" @click="this.scrollToTop"
+              >ثبت نام/ لاگین</router-link
+            >
+          </li>
+        </ul>
+      </div>
       <button
         class="navbar-toggler"
         type="button"
@@ -14,36 +42,6 @@
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-          </li>
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Dropdown
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link disabled">Disabled</a>
-          </li>
-        </ul>
-      </div>
     </div>
   </nav>
   <!-- End of Navbar -->
@@ -53,7 +51,46 @@
 export default {
   name: "Navbar",
   components: {},
+  mounted() {
+    window.onscroll = function () {
+      if (document.documentElement.scrollTop > 50) {
+        document.getElementById("navabr").style.backgroundColor =
+          "rgb(15, 3, 1,0.9)";
+      } else {
+        document.getElementById("navabr").style.backgroundColor = "transparent";
+      }
+    };
+  },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0, 0);
+    },
+  },
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.navbar {
+  margin: 0 !important;
+  width: 100%;
+  background-color: transparent;
+  padding: 1.5rem 6rem 1.5rem;
+  position: sticky;
+  left: 0;
+  top: 0;
+  transition: all 0.6s linear;
+  color: white;
+  z-index: 2;
+}
+.navbar-toggler {
+  color: white;
+  background-color: white;
+}
+li a {
+  margin-left: 1.5rem;
+  transition : all 0.5s linear
+}
+li:hover {
+  color: var(--mainColor)
+}
+</style>
