@@ -24,7 +24,7 @@ export default {
   components: {},
   data() {
     return {
-      imageUrl: "/images/" + this.selectedImage + "",
+      imageUrl: "./images/" + this.selectedImage + "",
     };
   },
 };

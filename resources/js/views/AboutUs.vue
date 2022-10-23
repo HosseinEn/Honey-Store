@@ -74,25 +74,52 @@
   <!-- End StrapIamgeContent -->
 
   <!-- Contnt 2 -->
-  <MainContentTemplate reversed="1" imageSelected="HoneyCells.jpg">
+  <MainContentTemplateVThree reversed="1" imageSelected="HoneyCells.jpg">
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
     <template v-slot:mainContentContent>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با
-      هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته
-      حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها
-      شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ
-      پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
-      دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد
-      نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای
-      موجود طراحی اساسا مورد استفاده قرار گیرد.
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات
+      پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
     </template>
-  </MainContentTemplate>
+
+    <template v-slot:mainContentHeaderTwo>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContentTwo>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات
+      پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+
+    <template v-slot:mainContentHeaderThree>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+
+    <template v-slot:mainContentContentThree>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quo illum
+      adipisci fugiat maxime quae, incidunt doloribus porro eligendi dicta ut
+      laboriosam sint iure inventore et animi obcaecati eos expedita? طراحان
+      گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده
+      قرار گیرد.
+    </template>
+  </MainContentTemplateVThree>
   <!-- End Content 2 -->
 
+  <!-- Location -->
+  <div class="container">
+    <div class="row text-center mb-5">
+      <h3>Lorem ipsum dolor sit.</h3>
+    </div>
+    <div class="row d-flex justify-content-center align-content-center">
+      <iframe src="http://maps.google.com/maps?q=36.53452247491392, 52.66613078421115&z=15&output=embed"></iframe>
+    </div>
+  </div>
+  <!-- End of Location -->
   <Footer />
 </template>
 
@@ -102,6 +129,7 @@ import Footer from "../components/Footer.vue";
 import StrapContent from "../components/StrapContent.vue";
 import MainContentTemplate from "../components/MainContentTemplate.vue";
 import StrapDemo from "../components/StrapDemo.vue";
+import MainContentTemplateVThree from "../components/MainContentTemplateVThree.vue";
 
 export default {
   name: "about-us",
@@ -111,11 +139,22 @@ export default {
     StrapContent,
     StrapDemo,
     MainContentTemplate,
+    MainContentTemplateVThree,
   },
+  mounted(){
+    
+  }
 };
 </script>
 
 <style scoped>
+iframe {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 100%;
+  margin-bottom: 2rem;
+  /* The width is the width of the web page */
+}
 .contentRight {
   text-align: right;
   background-color: red;
