@@ -29,11 +29,11 @@ class TypeController extends Controller
         ]);
         // dump($types->pluck('name'));
 
-        // return new JsonResponse([
-        //     'data' => $types
-        // ]);
+        return new JsonResponse([
+            'data' => $types
+        ]);
 
-        return $types;
+        // return $types;
 
         // $types = Type::all()->paginate(self::PAGINATEDBY);
         // $pageNumberMultiplyPaginationSize = $this->calculate($request);
