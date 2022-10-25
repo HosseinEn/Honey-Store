@@ -1,6 +1,9 @@
 <template>
   <section class="productItem">
-    <section class="imageContainer"></section>
+    <section
+      class="imageContainer"
+      v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
+    ></section>
     <section class="content text-center">
       <div class="productTitle">aa</div>
       <div class="productPrice">eee</div>
@@ -13,7 +16,13 @@
 export default {
   name: "singleProduct",
   components: {},
-  prop: [],
+  props: ["imageSelected"],
+  data() {
+    return {
+      imageUrl: "/images/" + this.imageSelected + "",
+      // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
+    };
+  },
 };
 </script>
 
@@ -31,7 +40,7 @@ export default {
 @media only screen and (min-width: 800px) {
   .productItem {
     width: 33% !important;
-      margin-bottom: 3rem !important;
+    margin-bottom: 3rem !important;
   }
 }
 .productItem {
@@ -44,9 +53,9 @@ export default {
 .imageContainer {
   width: 100%;
   height: 325px;
-  background-image: url("/images/HoneyCells.jpg");
   overflow: hidden;
-  background-color: blue;
+  background-repeat: no-repeat;
+  background-size: auto 325px;
 }
 .productTitle {
   font-size: 1.7rem;

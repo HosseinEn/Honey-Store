@@ -1,17 +1,19 @@
 <template>
   <Navbar />
-  <!-- heroBox -->
-
-  <section class="heroboxBG">
-    <div class="heroBoxContetContainer bg-primary">
-      <h3>TITLE</h3>
-      <h4>DESCRIPTION Lorem ipsum dolor sit.</h4>
-      <span>Lorem, ispansum.</span>
-      <button>dawdawd</button>
-    </div>
-  </section>
-
-  <!-- end heroBox -->
+  <!-- Intro -->
+  <IntroTemplate imageSelected="HoneyBlock.jpg">
+    <template v-slot:mainContentHeader>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentDesc>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentDescTwo>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+   
+  </IntroTemplate>
+  <!-- end Intro -->
 
   <!-- between Content -->
   <StrapContent />
@@ -36,16 +38,23 @@
   <!-- main content -->
   <div class="container-fluid">
     <div class="container">
-      <div class="row"></div>
+      <div class="row text-center pt-5 pb-0 shopHeader">
+        <h3>طراحی های گرافیک</h3>
+      </div>
       <div class="productRow">
-        <SingleProduct />
+        <SingleProduct imageSelected="HoneyBlock.jpg" />
+        <SingleProduct imageSelected="HoneyBlock.jpg" />
       </div>
     </div>
   </div>
   <!-- end of main content -->
 
   <!-- section 2 -->
-  <MainContentTemplate reversed="0" imageSelected="HoneyCells.jpg">
+  <MainContentTemplate
+    reversed="0"
+    imageSelected="HoneyCells.jpg"
+    textAlign="1"
+  >
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
@@ -54,12 +63,14 @@
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
       که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با
       هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته
-      حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها
-      شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ
-      پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و
-      دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد
-      نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای
-      موجود طراحی اساسا مورد استفاده قرار گیرد.
+      حال و آینده، شناخت فراوان جامعه و متخصصان را می ه و مجله در ستون و
+      سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای
+      متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه
+      درصد گذشته حال طلبllllllllllllllllllllllllllllllllllllllllllllllllوجود
+      طراحی اساسص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این
+      صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط
+      سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و
+      جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
     </template>
   </MainContentTemplate>
   <!-- end of section 2-->
@@ -101,34 +112,39 @@
   <!-- end of Order section -->
 
   <!-- section 4 -->
-  <MainContentTemplateVTwo reversed="0" imageSelected="VerticalHoneyHome.jpg" imageSelectedTwo="HoneyCells.jpg">
+  <MainContentTemplateVTwo
+    reversed="0"
+    imageSelected="VerticalHoneyHome.jpg"
+    imageSelectedTwo="HoneyCells.jpg"
+  >
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
     <template v-slot:mainContentContent>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای
-      موجود طراحی اساسا مورد استفاده قرار گیرد.
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات
+      پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
     </template>
 
-     <template v-slot:mainContentHeaderTwo>
+    <template v-slot:mainContentHeaderTwo>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
     <template v-slot:mainContentContentTwo>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
       طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
-      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای
-      موجود طراحی اساسا مورد استفاده قرار گیرد.
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات
+      پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
     </template>
 
-     <template v-slot:mainContentHeaderThree>
+    <template v-slot:mainContentHeaderThree>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
 
     <template v-slot:mainContentContentThree>
       لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
-      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده قرار گیرد.
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد
+      استفاده قرار گیرد.
     </template>
   </MainContentTemplateVTwo>
   <!-- end of section 4-->
@@ -143,7 +159,8 @@ import SingleProduct from "../components/SingleProduct.vue";
 import StrapContent from "../components/StrapContent.vue";
 import MainContentTemplate from "../components/MainContentTemplate.vue";
 import StrapDemo from "../components/StrapDemo.vue";
-import MainContentTemplateVTwo from "../components/MainContentTemplateVTwo.vue"
+import MainContentTemplateVTwo from "../components/MainContentTemplateVTwo.vue";
+import IntroTemplate from "../components/IntroTemplate.vue";
 
 export default {
   name: "HomeView",
@@ -154,7 +171,8 @@ export default {
     StrapContent,
     StrapDemo,
     MainContentTemplate,
-    MainContentTemplateVTwo
+    MainContentTemplateVTwo,
+    IntroTemplate,
   },
   methods: {
     scrollToTop() {
@@ -164,30 +182,12 @@ export default {
 };
 </script>
 <style scoped>
-.heroBoxContetContainer {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-}
-.heroboxBG {
-  text-align: center;
-  width: 100%;
-  height: 100vh;
-  background-color: yellow;
-}
-.heroBoxContetContainer span {
-  border-bottom: 4px solid red;
-}
-.heroBoxContetContainer button {
-  position: absolute;
-  transform: translate(-50%, 0);
-  left: 50%;
-  display: block;
-  background-color: green;
-}
 .productRow {
   display: flex;
   flex-wrap: wrap;
+}
+.shopHeader h3 {
+  color: var(--mainColor);
+  font-family: var(--mainFont);
 }
 </style>

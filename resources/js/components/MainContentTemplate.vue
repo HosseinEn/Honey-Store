@@ -22,8 +22,14 @@
         class="col-12 col-lg-6 m-0 p-0"
         :class="{ 'order-1': reversed, 'order-2': reversed == false }"
       >
-        <div class="mainContents">
-          <h3 class="text-center mb-5">
+        <div
+          class="mainContents"
+          :class="{
+            textAlignClass: textAlign,
+            textAlignClassCenter: textAlign == false,
+          }"
+        >
+          <h3 class="mb-5">
             <slot name="mainContentHeader"></slot>
           </h3>
           <p>
@@ -41,7 +47,7 @@
 <script>
 export default {
   name: "mainContent",
-  props: ["reversed", "imageSelected"],
+  props: ["reversed", "imageSelected", "textAlign"],
   data() {
     return {
       imageUrl: "/images/" + this.imageSelected + "",
@@ -54,23 +60,44 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (max-width: 1300px) {
+ .mainContents {
+  padding: 4rem 6vw 2rem !important;
+}
+}
 .mainContents {
-  padding: 7rem 5rem 7rem;
+  width : 100%;
+  padding: 4rem 10vw 2rem;
   text-align: center;
   height: auto;
-  max-height: 700px;
+}
+.mainContents p {
+  font-family: var(--thirdFont);
+  font-size: 1.1rem;
 }
 .mainContents h3 {
   font-family: var(--mainFont);
+  font-size: 2rem;
+  line-height: 3.3rem;
+}
+.textAlignClass {
+  text-align: right !important;
+}
+.textAlignClassCenter {
+  text-align: center !important;
 }
 .imageContainerContent {
   width: 100%;
   overflow: hidden;
-  height: 83vh;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: auto 100vh;
 }
 .imageSmallContainer {
   width: 60vh;
   overflow: hidden;
   height: 50vh;
+  background-repeat: no-repeat;
+  background-size: auto 50vh;
 }
 </style>
