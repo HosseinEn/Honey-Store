@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateTypeRequest extends FormRequest
+class StoreAdminTypeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,9 @@ class UpdateTypeRequest extends FormRequest
     public function rules()
     {
         return [
-            
+            "name" => "required|max:255|unique:types",
+            "slug" => "unique:types"
         ];
     }
+
 }

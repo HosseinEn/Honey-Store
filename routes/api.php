@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\Admin\TypeController;
 use App\Models\Type;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -18,16 +17,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::name('api.')->middleware('auth:sanctum')->namespace('App\Http\Controllers\Api')->group(function()  {
+Route::name('api.')->prefix('admin')->middleware('auth:sanctum')->namespace('App\Http\Controllers\Api\Admin')->group(function()  {
     Route::apiResource('types', 'TypeController');
     Route::apiResource('attributes', 'AttributeController');
 });
 
-Route::fallback(function() {
-    return new JsonResponse([
-            'message' => "Model Not Found"
-        ], 404);
-})->name("api.fallback");
+// Route::fallback(function() {
+//     return new JsonResponse([
+//             'message' => "Model Not Found"
+//         ], 404);
+// })->name("api.fallback");
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

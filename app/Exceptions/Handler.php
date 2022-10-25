@@ -50,10 +50,10 @@ class Handler extends ExceptionHandler
         //     }
         // });
 
-        $this->renderable(function (NotFoundHttpException $e, $request) {
-            if ($request->is('api/*') && $request->expectsJson()) {
-                return FacadesRoute::respondWithRoute('api.fallback');
-            }
-        });
+        // $this->renderable(function (NotFoundHttpException $e, $request) {
+        //     if ($request->is('api/*') && $request->expectsJson()) {
+        //         return FacadesRoute::respondWithRoute('api.fallback');
+        //     }
+        // });
     }
 }
