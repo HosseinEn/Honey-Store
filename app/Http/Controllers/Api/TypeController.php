@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Api;
 
 use App\Models\Type;
 use Illuminate\Http\Request;
@@ -23,6 +23,7 @@ class TypeController extends Controller
     public function index(Request $request)
     {
         // $types = Type::all()->paginate(self::PAGINATEDBY);
+
         $perPage = $request->input('per_page') ?? self::PAGINATEDBY;
         $types = Type::orderBy("created_at", "desc")->paginate($perPage)->appends([
             'per_page' => $perPage
@@ -54,12 +55,13 @@ class TypeController extends Controller
         // $request->validate([
         //     "slug" => Rule::unique("tags", "slug")
         // ]);
-        dump($request->slug);
         // $request->name = "آ ا ب پ ت ث ج چ ح خ د ذ ر ز ژ س ش ص ض ط ظ ع غ ف ق ک  گ ل م ن و ه ی"; 
         // $request->name = "سوییت بیبی جیزز"; 
         // $request->name = "سوییت بیبی جیزز"; 
-        $request->slug = $this->make_slug($request, '-');
-        dump($request->slug);
+        $request->merge([
+            "slug"=>$this->make_slug($request, '-')
+        ]);
+        // dump($request->all());
         $type = Type::create($request->all());
         return new JsonResponse([
             'data' => $type

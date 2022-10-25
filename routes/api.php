@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::prefix('v1')->name('api.v1.')->middleware('auth:sanctum')->namespace('App\Http\Controllers\Api\V1')->group(function()  {
+Route::name('api.')->middleware('auth:sanctum')->namespace('App\Http\Controllers\Api')->group(function()  {
     Route::apiResource('types', 'TypeController');
     Route::apiResource('attributes', 'AttributeController');
 });
