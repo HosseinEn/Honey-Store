@@ -10,8 +10,7 @@ class Attribute extends Model
     use HasFactory;
 
     protected $fillable = [
-        'weight',
-        'size'
+        'weight'
     ];
 
     public function products() {

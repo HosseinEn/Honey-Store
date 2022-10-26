@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminTypeRequest;
-use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateAdminTypeRequest;
 use Illuminate\Validation\Rule;
 
@@ -20,10 +19,7 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
-        $perPage = $request->input('per_page') ?? self::PAGINATEDBY;
-        $types = Type::orderBy("created_at", "desc")->paginate($perPage)->appends([
-            'per_page' => $perPage
-        ]);
+        $types = Type::orderBy("created_at", "desc")->get();
         return new JsonResponse([
             'type' => $types
         ]);
