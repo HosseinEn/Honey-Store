@@ -1,43 +1,58 @@
 <template>
   <Navbar />
+
+  <!-- Intro -->
+  <IntroTemplate imageSelected="HoneyBlock.jpg">
+    <template v-slot:mainContentHeader>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentDesc>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentDescTwo>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+   
+  </IntroTemplate>
+  <!-- end Intro -->
+
   <StrapContent />
-  <div class="container">
-    <div class="row d-flex">
-      <!-- Right -->
-      <div class="col-12 col-md-8 order-2 bg-primary d-flex">
-        <div class="contentRight">
-          <h3 class="d-block">سشیشیشصیشاتصذشی</h3>
-          <p>
-            لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با
-            استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در
-            ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و
-            کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد. کتابهای زیادی
-            در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه و متخصصان را
-            می طلبد تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی
-            الخصوص طراحان خلاقی و فرهنگ پیشرو در زبان فارسی ایجاد کرد. در این
-            صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها و
-            شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل حروفچین
-          </p>
-          <p>
-            و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای
-            شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود
-            ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال
-            و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها
-            شنا
-          </p>
-          <ul>
-            <h4>طل</h4>
-            <li>م است و برای شرایط</li>
-            <li>م است و برای شرایط</li>
-            <li>م است و برای شرایط</li>
-          </ul>
-          <p>dwadwdawdawdwaa</p>
-        </div>
-      </div>
-      <!-- Left -->
-      <div class="col col-md-4 order-1 d-md-block d-none">e</div>
-    </div>
-  </div>
+  <!-- section 0 -->
+  <MainContentTemplateVTwo
+    reversed="0"
+    imageSelected="VerticalHoneyHome.jpg"
+    imageSelectedTwo="HoneyCells.jpg"
+  >
+    <template v-slot:mainContentHeader> سشیشیشصیشاتصذشی </template>
+    <template v-slot:mainContentContent>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از
+      طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف
+      بهبود ابزارهای کاربردی می باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال
+      و آینده شناخت فراوان جامعه و متخصصان را می طلبد تا با نرم افزارها شناخت
+      بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی و فرهنگ پیشرو در
+      زبان فارسی ایجاد کرد. در این صورت می توان امید داشت که تمام و دشواری موجود
+      در ارائه راهکارها و شرایط سخت تایپ به پایان رسد وزمان مورد نیاز شامل
+      حروفچین
+    </template>
+
+    <template v-slot:mainContentContentTwo>
+      و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط
+      فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می
+      باشد. کتابهای زیادی در شصت و سه درصد گذشته، حال و آینده شناخت فراوان جامعه
+      و متخصصان را می طلبد تا با نرم افزارها شنا
+    </template>
+    <template v-slot:mainContentContentThree>
+      <ul>
+        <h4>طل</h4>
+        <li>م است و برای شرایط</li>
+        <li>م است و برای شرایط</li>
+        <li>م است و برای شرایط</li>
+      </ul>
+      <p>dwadwdawdawdwaa</p>
+    </template>
+  </MainContentTemplateVTwo>
+  <!-- end of section 0-->
 
   <!-- Content 1 -->
   <MainContentTemplate reversed="0" imageSelected="HoneyCells.jpg" class="mt-5">
@@ -116,7 +131,9 @@
       <h3>Lorem ipsum dolor sit.</h3>
     </div>
     <div class="row d-flex justify-content-center align-content-center">
-      <iframe src="http://maps.google.com/maps?q=36.53452247491392, 52.66613078421115&z=15&output=embed"></iframe>
+      <iframe
+        src="http://maps.google.com/maps?q=36.53452247491392, 52.66613078421115&z=15&output=embed"
+      ></iframe>
     </div>
   </div>
   <!-- End of Location -->
@@ -130,20 +147,22 @@ import StrapContent from "../components/StrapContent.vue";
 import MainContentTemplate from "../components/MainContentTemplate.vue";
 import StrapDemo from "../components/StrapDemo.vue";
 import MainContentTemplateVThree from "../components/MainContentTemplateVThree.vue";
+import MainContentTemplateVTwo from "../components/MainContentTemplateVTwo.vue";
+import IntroTemplate from "../components/IntroTemplate.vue";
 
 export default {
   name: "about-us",
   components: {
     Navbar,
+    IntroTemplate,
     Footer,
     StrapContent,
     StrapDemo,
     MainContentTemplate,
     MainContentTemplateVThree,
+    MainContentTemplateVTwo,
   },
-  mounted(){
-    
-  }
+  mounted() {},
 };
 </script>
 

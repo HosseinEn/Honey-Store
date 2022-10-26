@@ -75,7 +75,7 @@ export default {
   width: 100%;
   background-color: transparent;
   padding: 1.5rem 6rem 1.5rem;
-  position: sticky;
+  position: fixed;
   left: 0;
   top: 0;
   transition: all 0.6s linear;

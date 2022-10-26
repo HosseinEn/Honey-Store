@@ -4,6 +4,8 @@
   --thirdColor: #dd9903;
   --forthColor: #f5f2f0;
   --mainFont: "Noto Nastaliq Urdu", serif;
+  --secondFont :'Amiri', serif;
+  --thirdFont : 'Vazirmatn', sans-serif;
 }
 body {
   background-color: var(--forthColor) !important;
