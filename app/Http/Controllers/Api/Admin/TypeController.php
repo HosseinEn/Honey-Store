@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminTypeRequest;
 use App\Http\Requests\StoreTypeRequest;
 use App\Http\Requests\UpdateAdminTypeRequest;
+use Illuminate\Validation\Rule;
 
 class TypeController extends Controller
 {
@@ -80,6 +81,9 @@ class TypeController extends Controller
         if($this->slugUpdated($request->slug, $type->slug)) {
             $request->merge([
                 'slug' => $this->make_slug($request)
+            ]);
+            $request->validate([
+                'slug' => Rule::unique('types')->ignore($type->id)
             ]);
         }
         $type->update($request->all());

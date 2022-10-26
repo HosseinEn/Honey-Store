@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateAdminTypeRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class UpdateAdminTypeRequest extends FormRequest
     {
         return [
             "name" => "required|max:255",
-            "slug" => ""
+            "slug" => "required"
         ];
     }
 }
