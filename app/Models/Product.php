@@ -14,7 +14,8 @@ class Product extends Model
         'type_id', 
         'description', 
         'stock', 
-        'rating'
+        'rating',
+        'status'
     ];
 
     public function type() {

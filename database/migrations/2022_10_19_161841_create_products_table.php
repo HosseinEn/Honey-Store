@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('discount_id')->references('id')->on('discounts');
             $table->bigInteger('stock');
-            $table->bigInteger('rating');
+            $table->bigInteger('rating')->default(0);
             $table->tinyInteger('status');
             $table->text('description');
             $table->timestamps();

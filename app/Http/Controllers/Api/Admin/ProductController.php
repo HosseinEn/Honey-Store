@@ -8,7 +8,8 @@ use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class ProductController extends Controller
+class
+ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -31,12 +32,45 @@ class ProductController extends Controller
      */
     public function store(StoreAdminProductRequest $request)
     {
-        // attribute_{id}_price
-        // attribute_{id}_stock
-        return $request->images;
+        $neededData = [
+            'name',
+            'type_id',
+            'discount_id',
+            'description',
+            'status',
+            'images',
+            'stock'
+        ];
+
+        $totalStock = 0;
+
+        foreach ($request->except($neededData) as $attributes) {
+            foreach ($attributes as $attribute_id => $values) {       
+                $totalStock += $values['stock'];
+            };
+        };
+
+        $request->merge([
+            'stock' => $totalStock
+        ]);
+
+        $product = Product::create($request->only($neededData));
+        
+        foreach ($request->except($neededData) as $attributes) {
+            foreach ($attributes as $attribute_id => $values) {       
+                $product->attributes()->syncWithOutDetaching([
+                    $attribute_id => [
+                        'stock' => $values['stock'],
+                        'price' => $values['price']
+                    ]
+                ]);
+            };
+        };
+
+
         // TODO multiple images must be handled
         // if($request->hasFile('images')) {
-            
+
         // }
     }
 
