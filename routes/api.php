@@ -20,14 +20,8 @@ use Illuminate\Support\Facades\Route;
 Route::name('api.')->prefix('admin')->middleware('auth:sanctum')->namespace('App\Http\Controllers\Api\Admin')->group(function()  {
     Route::apiResource('types', 'TypeController');
     Route::apiResource('attributes', 'AttributeController');
+    Route::apiResource('products', 'ProductController');
 });
-
-// Route::fallback(function() {
-//     return new JsonResponse([
-//             'message' => "Model Not Found"
-//         ], 404);
-// })->name("api.fallback");
-
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

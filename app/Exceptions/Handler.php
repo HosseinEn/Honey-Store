@@ -41,19 +41,5 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
-
-        // $this->renderable(function (Exception $e, $request) {
-        //     // dd("ada");
-        //     // dd($request->expectsJson());
-        //     if($request->expectsJson() && $e instanceof NotFoundHttpException){
-        //         return Route::respondWithRoute('api.fallback');
-        //     }
-        // });
-
-        // $this->renderable(function (NotFoundHttpException $e, $request) {
-        //     if ($request->is('api/*') && $request->expectsJson()) {
-        //         return FacadesRoute::respondWithRoute('api.fallback');
-        //     }
-        // });
     }
 }
