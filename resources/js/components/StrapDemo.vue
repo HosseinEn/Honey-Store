@@ -6,8 +6,8 @@
         :style="{ 'background-image': 'url(' + imageUrl + ')' }"
       >
         <div class="content">
-          <slot name="StrapDemoHeader"></slot>
-          <slot name="StrapDemoSummery"></slot>
+          <p class="strapHeader"><slot name="StrapDemoHeader"></slot></p>
+          <p><slot name="StrapDemoSummery"></slot></p>
           <section class="OrderUsButton">
             <slot name="StrapDemoBtn"></slot>
           </section>
@@ -43,13 +43,19 @@ export default {
   background-size: cover;
   width: 100%;
 }
+.strapHeader {
+  font-family: var(--thirdFont);
+  font-weight: bold;
+  font-size : 5rem !important;
+}
+
 .content {
   position: relative;
   width: 100%;
   height: 100%;
   left: 0;
   top: 0;
-  padding: 5rem 10rem 5rem;
+  padding: 6rem 10rem 6rem;
   backdrop-filter: brightness(40%);
 }
 </style>

@@ -2,7 +2,7 @@
   <Navbar />
 
   <!-- Intro -->
-  <IntroTemplate imageSelected="HoneyBlock.jpg">
+  <IntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>

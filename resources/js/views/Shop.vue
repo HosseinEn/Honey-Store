@@ -1,21 +1,18 @@
 <template>
   <Navbar />
     <!-- Intro -->
-  <IntroTemplate imageSelected="HoneyBlock.jpg">
+  <MiniIntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
     <template v-slot:mainContentDesc>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
-    <template v-slot:mainContentDescTwo>
-      شما یک طراح هستین و یا با طراحی های گرافیک
-    </template>
    
-  </IntroTemplate>
+  </MiniIntroTemplate>
   <!-- end Intro -->
 
-  <div class="container fluid">
+  <div class="container-fluid mt-5">
     <div class="container">
       <div class="row filterRow"></div>
       <div class="productRow">
@@ -34,6 +31,7 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import SingleProduct from "../components/SingleProduct.vue";
 import IntroTemplate from "../components/IntroTemplate.vue";
+import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 
 export default {
   name: "shop",
@@ -42,6 +40,7 @@ export default {
     IntroTemplate,
     Footer,
     SingleProduct,
+    MiniIntroTemplate
   },
 };
 </script>

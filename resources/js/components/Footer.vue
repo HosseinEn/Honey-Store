@@ -32,18 +32,36 @@
         </ul>
       </div>
       <div
-        class="col col-6 col-md-3 d-flex justify-content-center align-items-center listsContainer"
+        class="col col-6 col-md-2 d-flex justify-content-center align-items-center listsContainer"
       >
         <ul>
-          <li class="mb-4">w</li>
-          <li>d</li>
-          <li>d</li>
-          <li>d</li>
-          <li>a</li>
+          <li class="mb-4">اطلاعات</li>
+          <li class="d-flex justify-content-center">
+            <span class="iconFooter">
+              <i class="fa fa-home" aria-hidden="true"></i>
+            </span>
+            <span>خیابان گلها،کوچه مریم،انتهای پلاک 4</span>
+          </li>
+          <li class="d-flex justify-content-center">
+            <span class="iconFooter">
+              <i class="fa fa-info-circle" aria-hidden="true"></i>
+            </span>
+            <span>ara76@gmail.com</span>
+          </li>
+          <li>
+            <span class="iconFooter">
+              <i class="fa-brands fa-whatsapp"></i>
+            </span>
+            <span><span>09119894671+</span></span>
+          </li>
+          <!-- <li class="d-flex justify-content-center">
+            <section>place 2</section>
+            <section>place 1</section>
+          </li> -->
         </ul>
       </div>
       <div
-        class="col col-6 col-md-1 d-flex justify-content-center align-items-center"
+        class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
       >
         <ul>
           <li class="mb-4">w</li>
@@ -93,8 +111,13 @@ export default {
 ul li {
   transition: all 0.5s linear;
 }
+ul li:not(:first-child) {
+  font-family: var(--thirdFont);
+  font-size: 1.1rem;
+}
 ul li:first-child {
-  font-size: 20px;
+  font-size: 1.4rem;
+  font-weight: bold;
   font-family: var(--mainFont);
 }
 ul li:not(:first-child):hover {
@@ -104,7 +127,9 @@ ul {
   direction: rtl;
   list-style-type: none;
 }
-.socialMediaList {
+ul li span {
+  margin-right: 0.5rem;
+  margin-bottom: 0.2rem;
 }
 .listsContainer {
   position: relative;

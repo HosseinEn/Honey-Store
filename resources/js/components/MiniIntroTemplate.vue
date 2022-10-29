@@ -4,11 +4,10 @@
     v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
   >
     <div class="heroBoxContetContainer">
-      <h3 class="m-5">
+      <h3 class="m-4">
         <slot name="mainContentHeader"></slot>
       </h3>
-      <h4 class="m-3"><slot name="mainContentDesc"></slot></h4>
-      <span><slot name="mainContentDescTwo"></slot></span>
+      <h4 class="m-4"><slot name="mainContentDesc"></slot></h4>
     </div>
   </section>
 </template>
@@ -45,19 +44,21 @@ export default {
   width: 60%;
   position: absolute;
   left: 50%;
-  top: 50%;
-  backdrop-filter: blur(8px);
-  padding: 3rem;
+  top: 30%;
+  backdrop-filter: blur(5px);
+  padding: 2rem;
   transform: translate(-50%, -50%);
 }
 .heroboxBG {
+  color: white;
   text-align: center;
   width: 100%;
   min-width: 1100px;
   overflow: hidden;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  height: 100vh;
+  background-position: 50% 50%;
+  height: 60vh;
 }
 .heroBoxContetContainer span {
   border-bottom: 3px solid red;
