@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StoreAdminProductRequest extends FormRequest
+class UpdateAdminProductRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -19,7 +19,6 @@ class StoreAdminProductRequest extends FormRequest
     public function messages() 
     {
         return [
-            'images.required' => 'انتخاب تصویر اجباری است!',
             'images.max' => 'حداکثر :max تصویر می توانید انتخاب نمایید!',
             'type_id.required' => ' نوع محصول را انتخاب نمایید!',
             'type_id.exists' => 'یک نوع معتبر را انتخاب نمایید!',
@@ -38,7 +37,7 @@ class StoreAdminProductRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'images' => 'required|array|max:3',
+            'images' => 'array|max:3',
             'images.*' => 'image|mimes:jpeg,jpg,png,gif',
             'type_id' => 'required',
             'status' => 'required',

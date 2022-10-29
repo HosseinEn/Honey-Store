@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use Database\Seeders\TypeTableSeeder;
-use Database\Seeders\AttributeTableSeeder;
+use Database\Seeders\TypesTableSeeder;
+use Database\Seeders\AttributesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -15,10 +15,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        \App\Models\User::factory(1)->createAdmin()->create();
         $this->call([
-            TypeTableSeeder::class,
-            AttributeTableSeeder::class,
+            TypesTableSeeder::class,
+            AttributesTableSeeder::class,
+            DiscountsTableSeeder::class
         ]);
     }
 }

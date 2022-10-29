@@ -10,12 +10,20 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', 
-        'type_id', 
+        'name',
+        'slug',
+        'type_id',
+        'discount_id',
         'description', 
-        'stock', 
+        'stock',
+        'status',
         'rating'
     ];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 
     public function type() {
         return $this->belongsTo(Type::class);
