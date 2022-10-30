@@ -73,6 +73,41 @@
     <span>Asaln MAzarim</span>
   </div>
   <!-- End Strap -->
+
+  <!-- Info -->
+  <ProductPageInfo
+    reversed="0"
+    imageSelected="VerticalHoneyHome.jpg"
+    imageSelectedTwo="HoneyCells.jpg"
+  >
+    <template v-slot:mainContentHeader>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContent>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات
+      پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+
+    <template v-slot:mainContentHeaderTwo>
+      شما یک طراح هستین و یا با طراحی های گرافیک
+    </template>
+    <template v-slot:mainContentContentTwo>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان
+      که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات
+      پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد.
+    </template>
+    
+    <template v-slot:mainContentContentThree>
+      لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از
+      طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد
+      استفاده قرار گیرد.
+    </template>
+  </ProductPageInfo>
+  <!-- end of Info-->
+
   <Footer />
 </template>
 
@@ -80,6 +115,7 @@
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
+import ProductPageInfo from "../components/ProductPageInfo.vue"
 
 export default {
   name: "shopingPage",
@@ -87,6 +123,7 @@ export default {
     Navbar,
     Footer,
     MiniIntroTemplate,
+    ProductPageInfo
   },
 };
 </script>
