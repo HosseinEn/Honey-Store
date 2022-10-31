@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -30,7 +31,7 @@ class Product extends Model
     }
 
     public function users() {
-        return $this->belongsToMany(User::class)->withPivot('quantity');
+        return $this->belongsToMany(User::class)->withPivot(['quantity', 'attribute_id']);
     }
 
     public function attributes() {
@@ -47,6 +48,10 @@ class Product extends Model
 
     public function image() {
         return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function scopeIsActive(Builder $query) {
+        return $query->where('status', 1);
     }
 
     protected static function boot() {

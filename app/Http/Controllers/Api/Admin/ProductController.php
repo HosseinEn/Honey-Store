@@ -37,7 +37,10 @@ ProductController extends Controller
     public function store(StoreAdminProductRequest $request)
     {
         $request->merge(['slug' =>$this-> make_slug($request)]);
-        $request->validate(['slug' => 'unique:products']);
+        $request->validate([
+            'product_attributes' => 'required',
+            'slug' => 'unique:products'
+        ]);
         $dataForInsert = [
             'name',
             'slug',
@@ -88,7 +91,7 @@ ProductController extends Controller
      */
     public function show(Product $product)
     {
-        $product->load('attributes', 'images');
+        $product->load('attributes', 'image');
         return new JsonResponse([
             'product' => $product
         ]);
@@ -107,7 +110,9 @@ ProductController extends Controller
             $request->merge(['slug' =>$this-> make_slug($request)]);
             $request->validate(['slug' => 'unique:products']);
         }
-
+        $request->validate([
+            'product_attributes' => 'required'
+        ]);
         $totalStock = 0;
         $product->attributes()->detach();
         foreach ($request->product_attributes as $attribute_id => $values) {

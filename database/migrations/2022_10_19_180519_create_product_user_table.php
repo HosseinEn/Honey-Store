@@ -19,7 +19,9 @@ class CreateProductUserTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->integer('quantity');
+            $table->unsignedBigInteger('attribute_id');
+            $table->foreign('attribute_id')->references('id')->on('attributes');
+            $table->integer('quantity')->default(1);
             $table->timestamps();
         });
     }

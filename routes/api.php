@@ -23,11 +23,11 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum')->namespace('App
     Route::apiResource('types', 'TypeController');
     Route::apiResource('attributes', 'AttributeController');
     Route::apiResource('products', 'ProductController');
-    Route::post('delete-product-image/{product}', 'ProductController@deleteImage')->name('delete.product.image');
-    Route::post('add-product-image/{product}', 'ProductController@addImage')->name('add.product.image');
 });
 
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
+
+Route::post('add-to-cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'addToCart'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
