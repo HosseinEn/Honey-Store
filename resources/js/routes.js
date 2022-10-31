@@ -7,6 +7,7 @@ import AboutUs from './views/AboutUs.vue'
 import Login from './auth/Login.vue'
 import Register from './auth/Register.vue'
 import axios from "axios";
+import ShopingPage from './views/ShopingPage.vue'
 
 const routes = [
   {
@@ -58,6 +59,9 @@ const routes = [
         return next({ name : 'home'})
       })
     }
+    path : '/x',
+    name : 'xx',
+    component: ShopingPage
   }
 ];
 

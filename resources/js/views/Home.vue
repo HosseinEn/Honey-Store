@@ -1,7 +1,7 @@
 <template>
   <Navbar />
   <!-- Intro -->
-  <IntroTemplate imageSelected="HoneyBlock.jpg">
+  <IntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
@@ -22,7 +22,7 @@
   <!-- About us section -->
   <StrapDemo selectedImage="HoneyBlock.jpg">
     <template v-slot:StrapDemoHeader>
-      <h1 class="StrapDemoHeader">Lorem ipsum dolor sit.</h1>
+      <h1 class="StrapDemoHeader">Lسلت0ثدخزm dolor sit.</h1>
     </template>
     <template v-slot:StrapDemoSummery>
       <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
@@ -36,7 +36,7 @@
   <!-- end of about section -->
 
   <!-- main content -->
-  <div class="container-fluid">
+  <div class="container-fluid demoProduct">
     <div class="container">
       <div class="row text-center pt-5 pb-0 shopHeader">
         <h3>طراحی های گرافیک</h3>
@@ -52,7 +52,7 @@
   <!-- section 2 -->
   <MainContentTemplate
     reversed="0"
-    imageSelected="HoneyCells.jpg"
+    imageSelected="HoneyBlock2.jpg"
     textAlign="1"
   >
     <template v-slot:mainContentHeader>
@@ -76,7 +76,7 @@
   <!-- end of section 2-->
 
   <!-- section 3 -->
-  <MainContentTemplate reversed="1" imageSelected="HoneyCells.jpg">
+  <MainContentTemplate reversed="1" imageSelected="HoneyBlock.jpg">
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
@@ -96,12 +96,12 @@
   <!-- end of section 3-->
 
   <!-- Order section -->
-  <StrapDemo selectedImage="HoneyCells.jpg">
+  <StrapDemo selectedImage="HoneyBlock2.jpg">
     <template v-slot:StrapDemoHeader>
       <h1 class="StrapDemoHeader">ما را بیشتر بشناسید</h1>
     </template>
     <template v-slot:StrapDemoSummery>
-      <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
+      <p class="StrapDemoSum">Lorem ipsum dolor sdwadawawdwadwit.</p>
     </template>
     <template v-slot:StrapDemoBtn>
       <router-link :to="{ name: 'shop' }" @click="this.scrollToTop">
@@ -189,5 +189,12 @@ export default {
 .shopHeader h3 {
   color: var(--mainColor);
   font-family: var(--mainFont);
+}
+.StrapDemoHeader {
+  font-size: 4rem;
+}
+.StrapDemoSum {
+  font-family: var(--thirdFont);
+  font-size : 2rem
 }
 </style>

@@ -7,8 +7,7 @@
       <h3 class="m-5">
         <slot name="mainContentHeader"></slot>
       </h3>
-      <h4 class="m-3"><slot name="mainContentDesc"></slot></h4>
-      <span><slot name="mainContentDescTwo"></slot></span>
+      <h4 class="m-4"><slot name="mainContentDesc"></slot></h4>
     </div>
   </section>
 </template>
@@ -43,28 +42,32 @@ export default {
 }
 .heroBoxContetContainer {
   width: 60%;
-  font-family: var(--thirdFont);
   position: absolute;
   left: 50%;
-  top: 50%;
-  backdrop-filter: blur(8px);
-  padding: 3rem;
+  top: 30%;
+  font-family: var(--thirdFont);
+  backdrop-filter: blur(5px);
+  padding: 2rem;
   transform: translate(-50%, -50%);
 }
+.heroBoxContetContainer h3 {
+  font-family: var(--mainFont);
+}
 .heroboxBG {
+  color: white;
   text-align: center;
   width: 100%;
   min-width: 1100px;
   overflow: hidden;
   background-size: 100% auto;
   background-repeat: no-repeat;
-  height: 100vh;
+  background-position: 50% 50%;
+  height: 60vh;
 }
 .heroBoxContetContainer span {
   border-bottom: 3px solid red;
 }
 .heroBoxContetContainer h3 {
-  font-size: 2.5rem;
-  font-family: var(--mainFont);
+  font-size: 2.2rem;
 }
 </style>
