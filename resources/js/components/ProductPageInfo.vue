@@ -30,7 +30,7 @@
             <slot name="mainContentContent"></slot>
           </p>
 
-          <h3 class="mb-5">
+          <h3 class="mb-4 mt-4">
             <slot name="mainContentHeaderTwo"></slot>
           </h3>
           <p>
@@ -67,7 +67,9 @@ export default {
 
 <style scoped>
 .mainContents {
+  font-family: var(--thirdFont);
   margin-top: 2rem;
+  font-size: 1.1rem;
   padding: 5rem 3rem 5rem;
   height: auto;
   direction: rtl;
@@ -77,7 +79,12 @@ export default {
 }
 .mainContents h3 {
   font-family: var(--mainFont);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+  color: var(--mainColor);
+}
+.mainContents h3:first-child {
+  font-family: var(--mainFont);
+  font-size: 1.7rem;
   color: var(--mainColor);
 }
 .imageContainerContentV2 {

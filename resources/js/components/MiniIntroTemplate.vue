@@ -4,7 +4,7 @@
     v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
   >
     <div class="heroBoxContetContainer">
-      <h3 class="m-4">
+      <h3 class="m-5">
         <slot name="mainContentHeader"></slot>
       </h3>
       <h4 class="m-4"><slot name="mainContentDesc"></slot></h4>
@@ -45,9 +45,13 @@ export default {
   position: absolute;
   left: 50%;
   top: 30%;
+  font-family: var(--thirdFont);
   backdrop-filter: blur(5px);
   padding: 2rem;
   transform: translate(-50%, -50%);
+}
+.heroBoxContetContainer h3 {
+  font-family: var(--mainFont);
 }
 .heroboxBG {
   color: white;

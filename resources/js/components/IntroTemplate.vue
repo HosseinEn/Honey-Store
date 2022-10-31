@@ -43,6 +43,7 @@ export default {
 }
 .heroBoxContetContainer {
   width: 60%;
+  font-family: var(--thirdFont);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -63,6 +64,7 @@ export default {
   border-bottom: 3px solid red;
 }
 .heroBoxContetContainer h3 {
-  font-size: 2.2rem;
+  font-size: 2.5rem;
+  font-family: var(--mainFont);
 }
 </style>

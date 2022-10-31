@@ -44,11 +44,11 @@
           </p>
 
           <!-- Size -->
-          <p>سایز :</p>
+          <h5>سایز :</h5>
           <div class="sizeContainer"></div>
 
           <!-- Count -->
-          <p class="mt-3">dawdawdw :</p>
+          <h5 class="mt-3">dawdawdw :</h5>
           <section>
             <input
               type="number"
@@ -182,14 +182,21 @@ button:hover {
   width: 70%;
   height: auto;
   direction: rtl;
+  font-family: var(--thirdFont);
   padding: 2rem 3rem;
 }
 .formContainer h3 {
-  margin-bottom: 1rem;
+  margin-bottom: 1.3rem;
   margin-top: 1rem;
-  font-size: 2.5rem;
+  font-size: 2.2rem;
   color: var(--mainColor);
-  font-family: var(--secondFont);
+  font-family: var(--mainFont);
+}
+.formContainer h5 {
+  margin-bottom: 2rem;
+  font-size: 1.6rem;
+  color: var(--mainColor);
+  font-family: var(--mainFont);
 }
 .imageContainer {
   width: 100%;

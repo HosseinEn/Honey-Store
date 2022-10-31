@@ -44,7 +44,7 @@ export default {
   width: 100%;
 }
 .strapHeader {
-  font-family: var(--thirdFont);
+  font-family: var(--mainFont);
   font-weight: bold;
   font-size : 5rem !important;
 }
@@ -54,6 +54,7 @@ export default {
   width: 100%;
   height: 100%;
   left: 0;
+  font-family: var(--thirdFont);
   top: 0;
   padding: 6rem 10rem 6rem;
   backdrop-filter: brightness(40%);

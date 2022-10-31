@@ -22,7 +22,7 @@
   <!-- About us section -->
   <StrapDemo selectedImage="HoneyBlock.jpg">
     <template v-slot:StrapDemoHeader>
-      <h1 class="StrapDemoHeader">Lorem ipsum dolor sit.</h1>
+      <h1 class="StrapDemoHeader">Lسلت0ثدخزm dolor sit.</h1>
     </template>
     <template v-slot:StrapDemoSummery>
       <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
