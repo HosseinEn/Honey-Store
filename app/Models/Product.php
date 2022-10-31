@@ -45,18 +45,16 @@ class Product extends Model
         return $this->belongsTo(Discount::class);
     }
 
-    public function images() {
-        return $this->morphMany(Image::class, 'imageable');
+    public function image() {
+        return $this->morphOne(Image::class, 'imageable');
     }
 
     protected static function boot() {
         parent::boot();
 
         static::deleting(function($product) {
-            foreach($product->images as $image) {
-                $image->delete();
-            }
             $product->attributes()->detach();
+            $product->image->delete();
         });
     }
 }

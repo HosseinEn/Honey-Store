@@ -19,13 +19,12 @@ class StoreAdminProductRequest extends FormRequest
     public function messages() 
     {
         return [
-            'images.required' => 'انتخاب تصویر اجباری است!',
-            'images.max' => 'حداکثر :max تصویر می توانید انتخاب نمایید!',
             'type_id.required' => ' نوع محصول را انتخاب نمایید!',
             'type_id.exists' => 'یک نوع معتبر را انتخاب نمایید!',
             'status.required' => 'وضعیت محصول را مشخص نمایید',
-            'images.*.image' => 'فایل انتخابی باید یک تصویر باشد!',
-            'images.*.mimes' => 'لطفا یک تصویر با پسوندهای روبه رو آپلود نمایید: jpeg, jpg, png, gif'
+            'image.required' => 'انتخاب یک تصویر الزامی است! ',
+            'image.image' => 'فایل انتخابی باید یک تصویر باشد!',
+            'image.mimes' => 'لطفا یک تصویر با پسوندهای روبه رو آپلود نمایید: jpeg, jpg, png, gif'
         ];
     }
 
@@ -38,8 +37,7 @@ class StoreAdminProductRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'images' => 'required|array|max:3',
-            'images.*' => 'image|mimes:jpeg,jpg,png,gif',
+            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
             'type_id' => 'required',
             'status' => 'required',
             'description' => 'required'
