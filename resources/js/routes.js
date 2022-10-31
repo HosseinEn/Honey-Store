@@ -59,6 +59,8 @@ const routes = [
         return next({ name : 'home'})
       })
     }
+  },
+  {
     path : '/x',
     name : 'xx',
     component: ShopingPage
