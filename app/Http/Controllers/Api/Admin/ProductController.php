@@ -9,6 +9,7 @@ use App\Models\Image;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class
 ProductController extends Controller
@@ -74,6 +75,10 @@ ProductController extends Controller
                 $product->images()->save(Image::make(['path' => $path]));
             }
         }
+
+        return new JsonResponse([
+            'success' => 'محصول با موفقیت ذخیره شد!'
+        ]);
     }
  
     /**
@@ -122,26 +127,47 @@ ProductController extends Controller
 
         $request->merge(['stock' => $totalStock]);
 
-        // TODO separate method for replacing image
-        return $product->update($request->all());
+        $product->update($request->all());
 
+        return new JsonResponse([
+            'success' => 'محصول با موفقیت ویرایش شد!'
+        ]);
     }
 
-    // public function deleteImage(Product $product) {
-    //     if ($product->images()->count() == 1) {
-    //         return message that product must have at least one image
-    //     }
-    // }
-    
-    // public function replaceImage(Request $request, Product $product) {
-    //     $image = Image::findOrFail($request->image_id);
-    //     $image->product()->disassociate();
-    //     $image->delete();
-    //     if ($request->hasFile('image')) {
-    //         $path = $request->file('image')->store('public/product_images');
-    //         $product->images()->save(Image::make(['path' => $path]));
-    //     }
-    // }
+    public function deleteImage(Request $request, Product $product) {
+        if ($product->images()->count() == 1) {
+            throw ValidationException::withMessages([
+                'image_id' => ['محصول باید حداقل یک تصویر داشته باشد!']
+            ]);
+        }
+        else {
+            $request->validate([
+                'image_id' => 'required|exists:images,id'
+            ]); 
+            $product->images->filter(function($image) use ($request) {
+                return $image->id == $request->image_id;
+            })->first()->delete();
+            return new JsonResponse([
+                'success' => 'تصویر با موفقیت حذف گردید.'
+            ]);
+        }
+    }
+
+    public function addImage(Request $request, Product $product) {
+        if ($product->images->count() == 3) {
+            throw ValidationException::withMessages([
+                'image' => ['امکان افزودن بیش از سه تصویر برای محصول نمی باشد!']
+            ]);
+        }
+        else {
+            // TODO adding three separate inputs for images
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,gif'
+            ]);
+            $path = $request->file('image')->store('public/product_images');
+            $product->images()->save(Image::make(['path' => $path]));
+        }
+    }
 
     private function slugUpdated($requestSlug, $modelSlug) {
         return $requestSlug !== $modelSlug;
@@ -155,6 +181,9 @@ ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        //
+        $product->delete();
+        return new JsonResponse([
+            'success' => 'محصول با موفقیت حذف گردید!'
+        ]);
     }
 }

@@ -48,4 +48,15 @@ class Product extends Model
     public function images() {
         return $this->morphMany(Image::class, 'imageable');
     }
+
+    protected static function boot() {
+        parent::boot();
+
+        static::deleting(function($product) {
+            foreach($product->images as $image) {
+                $image->delete();
+            }
+            $product->attributes()->detach();
+        });
+    }
 }
