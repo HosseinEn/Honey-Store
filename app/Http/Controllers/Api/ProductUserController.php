@@ -15,6 +15,7 @@ class ProductUserController extends Controller
 {
     public function index() {
         $products = Auth::user()->products;
+        $products->load('attributes');
         $totalPrice = 0;
         foreach ($products as $product) {
             $attribute_id = $product->pivot->attribute_id;
