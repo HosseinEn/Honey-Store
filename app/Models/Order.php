@@ -35,13 +35,33 @@ class Order extends Model
         return $this->belongsTo(Discount::class);
     }
 
-    public function order_status() {
-        return $this->belongsTo(OrderStatus::class);
+
+    // public function order_status()
+    // {
+    //     return $this->hasManyThrough(
+    //         // required
+    //         OrderStatus::class, // the related model
+    //         OrderStatusHistory::class, // the pivot model
+
+    //         // optional
+    //         'order_id', // the current model id in the pivot
+    //         'id', // the id of related model
+    //         'id', // the id of current model
+    //         'order_status_id' // the related model id in the pivot
+    //     );
+    // }
+
+    public function order_statuses() {
+        return $this->belongsToMany(OrderStatus::class, 
+                                    'order_status_histories', 
+                                    'order_id', 
+                                    'order_status_id')
+                                    ->withPivot('status_date');
     }
 
-    public function order_status_histories() {
-        return $this->hasMany(OrderStatusHistory::class);
-    }
+    // public function order_status_histories() {
+    //     return $this->hasMany(OrderStatusHistory::class);
+    // }
     
     public function carrier() {
         return $this->belongsTo(Carrier::class);

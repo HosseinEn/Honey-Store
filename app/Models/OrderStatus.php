@@ -14,10 +14,14 @@ class OrderStatus extends Model
     ];
 
     public function orders() {
-        return $this->hasMany(Order::class);
+        return $this->belongsToMany(Order::class, 
+                                    'order_status_histories', 
+                                    'order_id', 
+                                    'order_status_id')
+                                    ->withPivot('status_date');
     }
 
-    public function order_status_histories() {
-        return $this->hasMany(OrderStatusHistory::class);
-    }
+    // public function order_status_histories() {
+    //     return $this->hasMany(OrderStatusHistory::class);
+    // }
 }

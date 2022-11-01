@@ -23,7 +23,7 @@ class CreateOrdersTable extends Migration
             // $table->foreign('carrier_id')->references('id')->on('carriers');
             // $table->unsignedBigInteger('tax_id');
             // $table->foreign('tax_id')->references('id')->on('taxes');
-            $table->unsignedBigInteger('discount_id');
+            $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('discount_id')->references('id')->on('discounts');
             $table->date('delivery_date')->nullable();
             $table->decimal('total_price');

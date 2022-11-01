@@ -19,6 +19,7 @@ class CreateOrderStatusHistoriesTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->unsignedBigInteger('order_status_id');
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
+            $table->date('status_date')->nullable();
             $table->timestamps();
         });
     }

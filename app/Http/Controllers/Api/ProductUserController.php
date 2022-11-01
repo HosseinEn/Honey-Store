@@ -12,11 +12,13 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddToCartRequest;
+use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
 class ProductUserController extends Controller
 {
     public function index() {
+        // dump(Auth::user()->products);
         $products = Auth::user()->products;
         $totalPrice = $this->calculatePrice();
         return new JsonResponse([
@@ -65,36 +67,63 @@ class ProductUserController extends Controller
     }
 
     /* NOT COMPLETEEEEEEEEEEEED AND NOT TESTED */
-    public function checkoutCart(Request $request) {
-        // TODO tax and carrier ignored
-        $user = Auth::user();
-        $order = Order::create([
-            'user_id' => $user->id,
-            'order_status_id' => OrderStatus::where('name', 'در انتظار تایید اپراتور')->first()->id,
-            // 'carrier_id' => ,
-            // 'tax_id' => ,
-            'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
-            'delivery_date' => null,
-            'total_price' => $this->calculatePrice(),
-            // 'total_weight' => 
-            'invoice_no' => Str::random(20),
-            'shipping_address' => $request->address,
-            'billing_no' => Str::random(20)
-        ]);
-        $products = $user->products;
+    public function checkoutCart(Request $request, User $user) {
 
-        foreach ($products as $product) {
-            $order->products()->attach([
-                $product->id => [
-                    'quantity' => $product->pivot->quantity,
-                    'attribute_id' => $product->pivot->attribute_id
-                ]
+        if($user->products->isEmpty()) {
+            throw ValidationException::withMessages([
+                'message' => ['سبد خرید خالی است']
             ]);
         }
-        $user->products()->detach();
+        else {
+            // TODO tax and carrier ignored
+            // dump($user->id);
+            // $user = Auth::user();
+            // dump($user);
+            $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+            // dump("status ok");
 
-        return new JsonResponse([
-            'order' => $order
-        ]);
+            $order = Order::create([
+                'user_id' => $user->id,
+                'order_status_id' => $order_status->id,
+                // 'carrier_id' => ,
+                // 'tax_id' => ,
+                'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
+                'delivery_date' => null,
+                'total_price' => $this->calculatePrice(),
+                // 'total_weight' => 
+                'invoice_no' => Str::random(20),
+                'shipping_address' => $request->address,
+                'billing_no' => Str::random(20)
+            ]);
+
+            $order->order_statuses()->attach([
+                $order_status->id => [
+                    'status_date' => $order_status->created_at,
+                ]
+            ]);
+            
+            $products = $user->products;
+
+            foreach ($products as $product) {
+                $order->products()->attach([
+                    $product->id => [
+                        'quantity' => $product->pivot->quantity,
+                        'attribute_id' => $product->pivot->attribute_id
+                    ]
+                ]);
+            }
+            $user->products()->detach();
+
+            return new JsonResponse([
+                'order' => $order
+            ]);
+        }
     }
+
+    public function updateCart(Request $request, User $user) {
+
+        
+        
+    }
+
 }

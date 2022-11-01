@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Database\Seeders\TypesTableSeeder;
 use Database\Seeders\AttributesTableSeeder;
+use Database\Seeders\OrderStatusesTableSeeder;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,7 +21,8 @@ class DatabaseSeeder extends Seeder
             TypesTableSeeder::class,
             AttributesTableSeeder::class,
             DiscountsTableSeeder::class,
-            // TaxesTableSeeder::class
+            TaxesTableSeeder::class,
+            OrderStatusesTableSeeder::class,
         ]);
     }
 }
