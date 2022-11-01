@@ -28,6 +28,7 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum')->namespace('App
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 
 Route::post('add-to-cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'addToCart'])->middleware('auth:sanctum');
+Route::get('cart', [App\Http\Controllers\Api\ProductUserController::class, 'index'])->middleware('auth:sanctum');
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

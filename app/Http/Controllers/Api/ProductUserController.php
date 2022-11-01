@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddToCartRequest;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -12,26 +13,34 @@ use Illuminate\Validation\ValidationException;
 
 class ProductUserController extends Controller
 {
-    public function addToCart(Request $request, Product $product) {
+    public function index() {
+        $products = Auth::user()->products;
+        $totalPrice = 0;
+        foreach ($products as $product) {
+            $attribute_id = $product->pivot->attribute_id;
+            $quantity = $product->pivot->quantity;
+            $price = $product->attributes->where('id', $attribute_id)->first()->pivot->price;
+            $totalPrice += $price * $quantity;              
+        }
+        return new JsonResponse([
+            'products' => $products,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+
+    public function addToCart(AddToCartRequest $request, Product $product) {
         $user = Auth::user();
+
         $productAlreadyAddedToCart = DB::table('product_user')->where('attribute_id', $request->attribute_id)
                                                               ->where('product_id', $product->id)
-                                                              ->exists();
+                                                              ->where('user_id', $user->id)
+                                                              ->exists();                                                    
         if($productAlreadyAddedToCart) {
             throw ValidationException::withMessages([
                 'attribute_id' => ['محصول  با این وزن هم اکنون به کارت افزوده شد!']
             ]);
         }
-        $request->validate([
-            'quantity' => 'required|int|min:1',
-            'attribute_id' => 'required|exists:attributes,id'
-        ], [
-            'quantity.required' => 'وارد کردن تعداد اجباری است!',
-            'quantity.int' => 'لطفا یک عدد را برای تعداد وارد نمایید!',
-            'quantity.min' => 'حداقل یک را برای تعداد می توانید وارد نمایید!',
-            'attribute_id.required' => 'لطفا یک گزینه از وزن ها را انتخاب نمایید!',
-            'attribute_id.exists' => 'یک گزینه معتبر انتخاب نمایید! '
-        ]);
+
         $user->products()->attach([
             $product->id => [
                 'quantity' => $request->quantity, 
