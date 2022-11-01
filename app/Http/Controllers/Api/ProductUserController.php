@@ -2,18 +2,31 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Models\Order;
+use App\Models\Product;
+use Illuminate\Support\Str;
+use App\Models\OrderStatus;
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\AddToCartRequest;
-use App\Models\Product;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class ProductUserController extends Controller
 {
     public function index() {
+        $products = Auth::user()->products;
+        $totalPrice = $this->calculatePrice();
+        return new JsonResponse([
+            'products' => $products,
+            'totalPrice' => $totalPrice
+        ]);
+    }
+
+    private function calculatePrice() {
+        // TODO tax and carrier price ignored
         $products = Auth::user()->products;
         $products->load('attributes');
         $totalPrice = 0;
@@ -23,10 +36,7 @@ class ProductUserController extends Controller
             $price = $product->attributes->where('id', $attribute_id)->first()->pivot->price;
             $totalPrice += $price * $quantity;              
         }
-        return new JsonResponse([
-            'products' => $products,
-            'totalPrice' => $totalPrice
-        ]);
+        return $totalPrice;
     }
 
     public function addToCart(AddToCartRequest $request, Product $product) {
@@ -51,6 +61,40 @@ class ProductUserController extends Controller
 
         return new JsonResponse([
             'success' => 'محصول با موفقیت به کارت افزوده شد!' 
+        ]);
+    }
+
+    /* NOT COMPLETEEEEEEEEEEEED AND NOT TESTED */
+    public function checkoutCart(Request $request) {
+        // TODO tax and carrier ignored
+        $user = Auth::user();
+        $order = Order::create([
+            'user_id' => $user->id,
+            'order_status_id' => OrderStatus::where('name', 'در انتظار تایید اپراتور')->first()->id,
+            // 'carrier_id' => ,
+            // 'tax_id' => ,
+            'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
+            'delivery_date' => null,
+            'total_price' => $this->calculatePrice(),
+            // 'total_weight' => 
+            'invoice_no' => Str::random(20),
+            'shipping_address' => $request->address,
+            'billing_no' => Str::random(20)
+        ]);
+        $products = $user->products;
+
+        foreach ($products as $product) {
+            $order->products()->attach([
+                $product->id => [
+                    'quantity' => $product->pivot->quantity,
+                    'attribute_id' => $product->pivot->attribute_id
+                ]
+            ]);
+        }
+        $user->products()->detach();
+
+        return new JsonResponse([
+            'order' => $order
         ]);
     }
 }

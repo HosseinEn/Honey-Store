@@ -19,7 +19,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             TypesTableSeeder::class,
             AttributesTableSeeder::class,
-            DiscountsTableSeeder::class
+            DiscountsTableSeeder::class,
+            // TaxesTableSeeder::class
         ]);
     }
 }

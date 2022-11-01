@@ -11,15 +11,15 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
-        'product_id',
         'order_status_id',
-        'carrier_id',
-        'tax_id',
+        // 'carrier_id',
+        // 'tax_id',
         'discount_id',
         'delivery_date',
         'total_price',
-        'total_weight',
+        // 'total_weight',
         'invoice_no',
+        'billing_no',
         'shipping_address'
     ];
 
