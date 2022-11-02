@@ -29,6 +29,9 @@ class OrderStatusesTableSeeder extends Seeder
             ],
             [
                 'name' => 'ارسال شده'
+            ],
+            [
+                'name' => 'لغو شده'
             ]
         ]);
 

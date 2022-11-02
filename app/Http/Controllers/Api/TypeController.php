@@ -87,10 +87,10 @@ class TypeController extends Controller
      */
     public function update(Request $request, Type $type)
     {
-        dump($type);
-        dump($request->name);
+        // dump($type);
+        // dump($request->name);
         $type->update($request->all());
-        dump($type);
+        // dump($type);
         return new JsonResponse([
             'data' => $type
         ]);

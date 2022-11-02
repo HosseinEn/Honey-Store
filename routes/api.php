@@ -32,6 +32,11 @@ Route::post('check-out-cart', [App\Http\Controllers\Api\ProductUserController::c
 Route::get('cart', [App\Http\Controllers\Api\ProductUserController::class, 'index'])->middleware('auth:sanctum');
 Route::post('cart/increase-amount', [App\Http\Controllers\Api\ProductUserController::class, 'increaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/decrease-amount', [App\Http\Controllers\Api\ProductUserController::class, 'decreaseAmount'])->middleware('auth:sanctum');
+Route::post('cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'removeFromCart'])->middleware('auth:sanctum');
+
+Route::get('orders/{user}', [App\Http\Controllers\Api\OrderHistoryController::class, 'index'])->middleware('auth:sanctum');
+Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\OrderHistoryController::class, 'cancelOrder'])->middleware('auth:sanctum');
+
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();

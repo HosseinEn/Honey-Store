@@ -2,23 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
+use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use Illuminate\Support\Str;
 use App\Models\OrderStatus;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddToCartRequest;
-use App\Models\User;
 use Illuminate\Validation\ValidationException;
 
 class ProductUserController extends Controller
 {
     public function index() {
-        // dump(Auth::user()->products);
         $products = Auth::user()->products;
         $totalPrice = $this->calculatePrice();
         return new JsonResponse([
@@ -32,6 +32,7 @@ class ProductUserController extends Controller
             'product_user_id' => 'required'
         ]);
         $pivotRec = DB::table('product_user')->where('id', $request->product_user_id)->get();
+        
         if ($pivotRec->isEmpty()) {
             throw ValidationException::withMessages([
                 'product_user_id' => ['محصولی با مشخصات داده شده یافت نشد!']
@@ -84,7 +85,7 @@ class ProductUserController extends Controller
             $attribute_id = $product->cart->attribute_id;
             $quantity = $product->cart->quantity;
             $price = $product->attributes->where('id', $attribute_id)->first()->attribute_product->price;
-            $totalPrice += $price * $quantity;              
+            $totalPrice += $price * $quantity;         
         }
         return $totalPrice;
     }
@@ -141,6 +142,7 @@ class ProductUserController extends Controller
                 }
                 else {
                     DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
+                        
                         $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
                         $product->cart->attribute_id,
                         $product->id
@@ -157,6 +159,7 @@ class ProductUserController extends Controller
 
             // TODO tax and carrier ignored
             $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+            // dump("status ok");
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_status_id' => $order_status->id,
@@ -171,6 +174,7 @@ class ProductUserController extends Controller
                 'billing_no' => Str::random(20)
             ]);
 
+            // static status_date
             $order->order_statuses()->attach([
                 $order_status->id => [
                     'status_date' => $order_status->created_at,
@@ -193,10 +197,16 @@ class ProductUserController extends Controller
         }
     }
 
-    public function updateCart(Request $request, User $user) {
-
-        
-        
+    public function removeFromCart(Request $request) {
+        $user = Auth::user();
+        // $user->products()->detach($request->product_user_id);
+        $user->products()->wherePivot('id', '=', $request->product_user_id)->detach();
+        $products = $user->products;
+        // $totalPrice = $this->calculatePrice();
+        return new JsonResponse([
+            'products' => $products,
+            // 'totalPrice' => $totalPrice
+        ]);
     }
 
 }
