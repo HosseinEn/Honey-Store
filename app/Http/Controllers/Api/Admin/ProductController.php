@@ -23,6 +23,7 @@ ProductController extends Controller
     public function index()
     {
         $products = Product::get();
+        $products->load('attributes');
         return new JsonResponse([
             'products' => $products
         ]);

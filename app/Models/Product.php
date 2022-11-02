@@ -31,11 +31,13 @@ class Product extends Model
     }
 
     public function users() {
-        return $this->belongsToMany(User::class)->withPivot(['quantity', 'attribute_id']);
+        return $this->belongsToMany(User::class)->as('cart')
+                                                ->withPivot(['id', 'quantity', 'attribute_id']);
     }
 
     public function attributes() {
-        return $this->belongsToMany(Attribute::class)->withPivot(['stock', 'price']);
+        return $this->belongsToMany(Attribute::class)->as('attribute_product')
+                                                     ->withPivot(['stock', 'price']);
     }
 
     public function orders() {

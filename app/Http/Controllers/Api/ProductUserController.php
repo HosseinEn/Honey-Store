@@ -27,15 +27,46 @@ class ProductUserController extends Controller
         ]);
     }
 
+    public function increaseAmount(Request $request) {
+        $request->validate([
+            'product_user_id' => 'required'
+        ]);
+        $pivotRec = DB::table('product_user')->where('id', $request->product_user_id)->get();
+        $quantity = $pivotRec->first()->quantity + 1;
+        DB::update('update product_user set quantity = ? where id = ?', [
+            $quantity,
+            $request->product_user_id
+        ]);
+        return DB::table('product_user')->where('id', $request->product_user_id)->get();
+    }
+
+    public function decreaseAmount(Request $request) {
+        $request->validate([
+            'product_user_id' => 'required'
+        ]);
+        $pivotRec = DB::table('product_user')->where('id', $request->product_user_id)->get();
+        $quantity = $pivotRec->first()->quantity - 1;
+        if ($quantity === 0) {
+            throw ValidationException::withMessages([
+                'product_user_id' => ['نمی توان تعداد را به صفر کاهش داد، لطفا در صورت تمایل محصول را از کارت حذف نمایید!']
+            ]);
+        }
+        DB::update('update product_user set quantity = ? where id = ?', [
+            $quantity,
+            $request->product_user_id
+        ]);
+        return DB::table('product_user')->where('id', $request->product_user_id)->get();
+    }
+
     private function calculatePrice() {
         // TODO tax and carrier price ignored
         $products = Auth::user()->products;
         $products->load('attributes');
         $totalPrice = 0;
         foreach ($products as $product) {
-            $attribute_id = $product->pivot->attribute_id;
-            $quantity = $product->pivot->quantity;
-            $price = $product->attributes->where('id', $attribute_id)->first()->pivot->price;
+            $attribute_id = $product->cart->attribute_id;
+            $quantity = $product->cart->quantity;
+            $price = $product->attributes->where('id', $attribute_id)->first()->attribute_product->price;
             $totalPrice += $price * $quantity;              
         }
         return $totalPrice;
@@ -50,7 +81,7 @@ class ProductUserController extends Controller
                                                               ->exists();                                                    
         if($productAlreadyAddedToCart) {
             throw ValidationException::withMessages([
-                'attribute_id' => ['محصول  با این وزن هم اکنون به کارت افزوده شد!']
+                'attribute_id' => ['محصول  با این وزن از قبل به کارت افزوده شده است!']
             ]);
         }
 
@@ -66,22 +97,49 @@ class ProductUserController extends Controller
         ]);
     }
 
-    /* NOT COMPLETEEEEEEEEEEEED AND NOT TESTED */
-    public function checkoutCart(Request $request, User $user) {
 
+    public function checkoutCart(Request $request) {
+        $user = Auth::user();
         if($user->products->isEmpty()) {
             throw ValidationException::withMessages([
                 'message' => ['سبد خرید خالی است']
             ]);
         }
         else {
-            // TODO tax and carrier ignored
-            // dump($user->id);
-            // $user = Auth::user();
-            // dump($user);
-            $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
-            // dump("status ok");
 
+            /* checking if given quantity is available in stock */
+
+            $products = $user->products;
+
+            $products->load('attributes');
+
+   
+            foreach ($products as $product) {
+                $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
+                if ($selectedAttribute->attribute_product->stock < $product->cart->quantity) {
+                    throw ValidationException::withMessages([
+                        'quantity' => ['لطفا با توجه به تعداد سفارش را انجام دهید. تعداد موجود: ' . $selectedAttribute->attribute_product->stock
+                        . ' محصول: ' . $product->name . ' وزن:' . $selectedAttribute->weight]
+                    ]);
+                }
+                else {
+                    DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
+                        $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
+                        $product->cart->attribute_id,
+                        $product->id
+                    ]);
+                }
+            }
+
+
+
+            /* sending request to bank */
+
+
+            /* create order */
+
+            // TODO tax and carrier ignored
+            $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_status_id' => $order_status->id,
@@ -101,14 +159,12 @@ class ProductUserController extends Controller
                     'status_date' => $order_status->created_at,
                 ]
             ]);
-            
-            $products = $user->products;
 
             foreach ($products as $product) {
                 $order->products()->attach([
                     $product->id => [
-                        'quantity' => $product->pivot->quantity,
-                        'attribute_id' => $product->pivot->attribute_id
+                        'quantity' => $product->cart->quantity,
+                        'attribute_id' => $product->cart->attribute_id
                     ]
                 ]);
             }
