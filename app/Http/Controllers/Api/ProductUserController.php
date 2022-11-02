@@ -32,7 +32,19 @@ class ProductUserController extends Controller
             'product_user_id' => 'required'
         ]);
         $pivotRec = DB::table('product_user')->where('id', $request->product_user_id)->get();
+        if ($pivotRec->isEmpty()) {
+            throw ValidationException::withMessages([
+                'product_user_id' => ['محصولی با مشخصات داده شده یافت نشد!']
+            ]);
+        }
         $quantity = $pivotRec->first()->quantity + 1;
+        $product = Product::findOrFail($pivotRec->first()->product_id);
+        $stock = $product->attributes->where('id', $pivotRec->first()->attribute_id)->first()->attribute_product->stock;
+        if ($stock < $quantity) {
+            throw ValidationException::withMessages([
+                'product_user_id' => ['امکان افزودن به کارت بیشتر از موجودی محصول امکان پذیر نمی باشد. موجودی: !' . $stock]
+            ]);
+        }
         DB::update('update product_user set quantity = ? where id = ?', [
             $quantity,
             $request->product_user_id
@@ -45,6 +57,11 @@ class ProductUserController extends Controller
             'product_user_id' => 'required'
         ]);
         $pivotRec = DB::table('product_user')->where('id', $request->product_user_id)->get();
+        if ($pivotRec->isEmpty()) {
+            throw ValidationException::withMessages([
+                'product_user_id' => ['محصولی با مشخصات داده شده یافت نشد!']
+            ]);
+        }
         $quantity = $pivotRec->first()->quantity - 1;
         if ($quantity === 0) {
             throw ValidationException::withMessages([
