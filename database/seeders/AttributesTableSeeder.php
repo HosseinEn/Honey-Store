@@ -14,7 +14,7 @@ class AttributesTableSeeder extends Seeder
      */
     public function run()
     {
-        $attributes = collect([1, 2, 5, 10, 15]);
+        $attributes = collect([0.5, 1, 5, 10, 15]);
 
         $attributes->each(function($type) {
             Attribute::create([

@@ -28,55 +28,53 @@ class OrderHistoryController extends Controller
         ]);
     }
 
-    public function cancelOrder($order, Request $request)
+    public function cancelOrder(Order $order, Request $request)
     {
-        $order = Order::findOrFail($order);
-        // $user = Auth::user();
 
-        if ($order->order_status_id === 5) {
+        if (OrderStatus::findOrFail($order->order_status_id)->name == 'ارسال شده') {
             throw ValidationException::withMessages([
                 'order_status_id' => ['سفارش موردنظر در مرحله ارسال است و لغو آن امکان پذیر نمی‌باشد']
             ]);
         }
-        if ($order->order_status_id === 6) {
+        
+        if (OrderStatus::findOrFail($order->order_status_id)->name == 'لغو شده') {
             throw ValidationException::withMessages([
                 'order_status_id' => ['این سفارش از پیش لغو شده است']
             ]);
         }
-        else {
 
-            $products = $order->products;
 
-            $products->load('attributes');
+        $products = $order->products;
 
-            foreach ($products as $product) {
+        $products->load('attributes');
 
-                $selectedAttribute = $product->attributes->where('id', $product->ordered->attribute_id)->first();
+        foreach ($products as $product) {
 
-                DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
-                    $selectedAttribute->attribute_product->stock += $product->ordered->quantity,
-                    $product->ordered->attribute_id,
-                    $product->id
-                ]);
+            $selectedAttribute = $product->attributes->where('id', $product->ordered->attribute_id)->first();
 
-                $order_status = OrderStatus::where('name', 'لغو شده')->first();
-                
-                // static status_date
-                $order->order_statuses()->attach([
-                    $order_status->id => [
-                        'status_date' => $order_status->created_at,
-                    ]
-                ]);
-
-                $order->products()->detach();        
-            }
-
-            $order->update(["order_status_id"=>$order_status->id]);
-
-            return new JsonResponse([
-                'order' => Order::findOrFail($order->id),
+            DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
+                $selectedAttribute->attribute_product->stock += $product->ordered->quantity,
+                $product->ordered->attribute_id,
+                $product->id
             ]);
+
+            $order_status = OrderStatus::where('name', 'لغو شده')->first();
+            
+            // static status_date
+            $order->order_statuses()->attach([
+                $order_status->id => [
+                    'status_date' => now(),
+                ]
+            ]);
+
+            // $order->products()->detach(); 
         }
+
+        $order->update(["order_status_id"=>$order_status->id]);
+
+        return new JsonResponse([
+            'order' => $order
+        ]);
     }
 
     /**

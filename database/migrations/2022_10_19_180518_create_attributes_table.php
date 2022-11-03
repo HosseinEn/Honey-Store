@@ -15,7 +15,7 @@ class CreateAttributesTable extends Migration
     {
         Schema::create('attributes', function (Blueprint $table) {
             $table->id();
-            $table->integer('weight');
+            $table->decimal('weight');
             $table->timestamps();
         });
     }

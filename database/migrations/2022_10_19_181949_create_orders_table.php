@@ -26,7 +26,7 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('discount_id')->references('id')->on('discounts');
             $table->date('delivery_date')->nullable();
-            $table->decimal('total_price');
+            $table->bigInteger('total_price');
             // $table->decimal('total_weight');
             $table->string('invoice_no');
             $table->text('shipping_address');

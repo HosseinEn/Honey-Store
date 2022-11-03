@@ -176,7 +176,7 @@ class ProductUserController extends Controller
             // static status_date
             $order->order_statuses()->attach([
                 $order_status->id => [
-                    'status_date' => $order_status->created_at,
+                    'status_date' => now(),
                 ]
             ]);
 

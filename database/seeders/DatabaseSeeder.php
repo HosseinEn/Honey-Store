@@ -23,6 +23,7 @@ class DatabaseSeeder extends Seeder
             DiscountsTableSeeder::class,
             TaxesTableSeeder::class,
             OrderStatusesTableSeeder::class,
+            ProductsTableSeeder::class
         ]);
     }
 }

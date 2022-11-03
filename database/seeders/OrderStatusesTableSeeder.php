@@ -16,7 +16,7 @@ class OrderStatusesTableSeeder extends Seeder
     {
         $statuses = collect([
             [
-                'name' => 'در انتظار تایید اپراتور'
+                'name' => 'در انتظار تایید اپراتور',
             ],
             [
                 'name' => 'تایید شده'
