@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\OrderStatus;
-use App\Models\User;
-use Dotenv\Exception\ValidationException;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
 {
@@ -110,12 +110,15 @@ class OrderController extends Controller
             ]);
         }
 
+        // DB::connection()->enableQueryLog();
 
         $products = $order->products;
 
         $products->load('attributes');
 
         foreach ($products as $product) {
+
+            $product->update(["stock" => $product->stock + $product->ordered->quantity]);
 
             $selectedAttribute = $product->attributes->where('id', $product->ordered->attribute_id)->first();
 
@@ -136,6 +139,8 @@ class OrderController extends Controller
 
             // $order->products()->detach(); 
         }
+
+        // dd(DB::getQueryLog());
 
         $order->update(["order_status_id"=>$order_status->id]);
 

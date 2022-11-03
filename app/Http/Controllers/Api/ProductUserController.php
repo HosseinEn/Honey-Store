@@ -140,6 +140,8 @@ class ProductUserController extends Controller
                     ]);
                 }
                 else {
+                    $product->update(["stock" => $product->stock - $product->cart->quantity]);
+
                     DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
                         
                         $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
