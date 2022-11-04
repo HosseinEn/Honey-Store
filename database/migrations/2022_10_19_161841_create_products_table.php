@@ -19,8 +19,8 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->unsignedBigInteger('type_id');
             $table->foreign('type_id')->references('id')->on('types');
-            $table->unsignedBigInteger('discount_id')->nullable();
-            $table->foreign('discount_id')->references('id')->on('discounts');
+            // $table->unsignedBigInteger('discount_id')->nullable();
+            // $table->foreign('discount_id')->references('id')->on('discounts');
             $table->bigInteger('stock');
             $table->bigInteger('rating')->default(0);
             $table->tinyInteger('status');

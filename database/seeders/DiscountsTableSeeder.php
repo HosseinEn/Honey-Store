@@ -15,9 +15,9 @@ class DiscountsTableSeeder extends Seeder
     public function run()
     {
         $discounts = collect([
-            ['dis1', 10],
-            ['dis2', 20],
-            ['dis3', 30]
+            ['تخفیف 1', 5],
+            ['تخفیف 2', 10],
+            ['تخفیف 3', 15]
         ]);
 
         $discounts->each(function($discount) {

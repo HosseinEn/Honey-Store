@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
+use App\Models\Discount;
 use App\Models\OrderStatus;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -20,10 +21,13 @@ class ProductUserController extends Controller
 {
     public function index() {
         $products = Auth::user()->products;
-        $totalPrice = $this->calculatePrice();
+        list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice();
+        // $totalPrice = $this->calculatePrice();
+        // $totalPriceWithDiscount = $this->calculatePrice();
         return new JsonResponse([
             'products' => $products,
-            'totalPrice' => $totalPrice
+            'totalPrice' => $totalPrice,
+            'totalPriceWithDiscount' => $totalPriceWithDiscount
         ]);
     }
 
@@ -80,13 +84,24 @@ class ProductUserController extends Controller
         $products = Auth::user()->products;
         $products->load('attributes');
         $totalPrice = 0;
+        $totalPriceAfterDiscount = 0;
         foreach ($products as $product) {
             $attribute_id = $product->cart->attribute_id;
             $quantity = $product->cart->quantity;
             $price = $product->attributes->where('id', $attribute_id)->first()->attribute_product->price;
+            $discount_id = $product->attributes->where('id', $attribute_id)->first()->attribute_product->discount_id;
             $totalPrice += $price * $quantity;         
+            
+            if ($discount_id){
+                $dis_val = Discount::findOrFail($discount_id)->value;
+                $totalDiscount = $price * $quantity * $dis_val / 100;         
+                $totalPriceAfterDiscount = $totalPrice - $totalDiscount; 
+            }
+            else{
+                $totalPriceAfterDiscount = $totalPrice; 
+            }
         }
-        return $totalPrice;
+        return [$totalPrice, $totalPriceAfterDiscount];
     }
 
     public function addToCart(AddToCartRequest $request, Product $product) {
@@ -161,6 +176,8 @@ class ProductUserController extends Controller
             // TODO tax and carrier ignored
             $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
             // dump("status ok");
+            list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice();
+
             $order = Order::create([
                 'user_id' => $user->id,
                 'order_status_id' => $order_status->id,
@@ -168,7 +185,7 @@ class ProductUserController extends Controller
                 // 'tax_id' => ,
                 'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
                 'delivery_date' => null,
-                'total_price' => $this->calculatePrice(),
+                'total_price' => $totalPrice,
                 // 'total_weight' => 
                 'invoice_no' => Str::random(20),
                 'shipping_address' => $request->address,

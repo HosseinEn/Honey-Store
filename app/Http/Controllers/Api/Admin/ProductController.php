@@ -46,7 +46,7 @@ ProductController extends Controller
             'name',
             'slug',
             'type_id',
-            'discount_id',
+            // 'discount_id',
             'description',
             'status',
             'image',
@@ -58,6 +58,7 @@ ProductController extends Controller
             $request->validate([
                 "product_attributes.{$attribute_id}.stock" => "required|int",
                 "product_attributes.{$attribute_id}.price" => "required|int",
+                "product_attributes.{$attribute_id}.discount_id" => "nullable",
             ]);
             $totalStock += $values['stock'];
         }
@@ -69,7 +70,8 @@ ProductController extends Controller
             $product->attributes()->syncWithOutDetaching([
                 $attribute_id => [
                     'stock' => $values['stock'],
-                    'price' => $values['price']
+                    'price' => $values['price'],
+                    'discount_id' => $values['discount_id']
                 ]
             ]);
         }  
@@ -120,12 +122,14 @@ ProductController extends Controller
             $request->validate([
                 "product_attributes.{$attribute_id}.stock" => "required|int",
                 "product_attributes.{$attribute_id}.price" => "required|int",
+                "product_attributes.{$attribute_id}.discount_id" => "nullable"
             ]);
             $totalStock += $values['stock'];
             $product->attributes()->syncWithOutDetaching([
                 $attribute_id => [
                     'stock' => $values['stock'],
-                    'price' => $values['price']
+                    'price' => $values['price'],
+                    'discount_id' => $values['discount_id']
                 ]
             ]);
         }

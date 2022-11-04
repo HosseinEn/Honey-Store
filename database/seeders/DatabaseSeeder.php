@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Database\Seeders\TypesTableSeeder;
+use Database\Seeders\CarrierTableSeeder;
 use Database\Seeders\AttributesTableSeeder;
 use Database\Seeders\OrderStatusesTableSeeder;
 
@@ -23,7 +24,8 @@ class DatabaseSeeder extends Seeder
             DiscountsTableSeeder::class,
             TaxesTableSeeder::class,
             OrderStatusesTableSeeder::class,
-            ProductsTableSeeder::class
+            ProductsTableSeeder::class,
+            CarrierTableSeeder::class
         ]);
     }
 }

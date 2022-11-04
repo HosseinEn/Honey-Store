@@ -6,6 +6,7 @@ use App\Models\Image;
 use App\Models\Product;
 use App\Models\Type;
 use App\Models\Attribute;
+use App\Models\Discount;
 use Illuminate\Database\Seeder;
 
 class ProductsTableSeeder extends Seeder
@@ -19,11 +20,14 @@ class ProductsTableSeeder extends Seeder
     {
         $products = Product::factory(5)->make();
         $types = Type::get();
+        $discounts = Discount::get()->pluck('id');
+        $discounts->push(Null);
+
         $attributes = Attribute::get();
         
         foreach ($products as $product) {
             $product->type_id = $types->random(1)->first()->id;
-            $product->discount_id = null;
+            // $product->discount_id = null;
             $product->stock = 0;
             $product->save();
             $product->image()->save(Image::make(['path' => 'seed']));
@@ -33,7 +37,8 @@ class ProductsTableSeeder extends Seeder
                 $product->attributes()->attach([
                     $attribute->id => [
                         'stock' => $stock = random_int(1, 1000),
-                        'price' => random_int(100000, 1000000)
+                        'price' => random_int(100000, 1000000),
+                        'discount_id' => $discounts->random()
                     ]
                 ]);
                 $totalStock += $stock;
