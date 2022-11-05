@@ -27,7 +27,6 @@ class ProductsTableSeeder extends Seeder
         
         foreach ($products as $product) {
             $product->type_id = $types->random(1)->first()->id;
-            // $product->discount_id = null;
             $product->stock = 0;
             $product->save();
             $product->image()->save(Image::make(['path' => 'seed']));

@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::isActive()->get();
+        $products = Product::with('image', 'type')->isActive()->get();
         return new JsonResponse([
             'products' => $products
         ]);

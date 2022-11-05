@@ -16,10 +16,12 @@
     <div class="container">
       <div class="row filterRow"></div>
       <div class="productRow">
-        <SingleProduct imageSelected="HoneyBlock.jpg" />
-        <SingleProduct imageSelected="HoneyBlock.jpg" />
-        <SingleProduct imageSelected="HoneyBlock.jpg" />
-        <SingleProduct imageSelected="HoneyBlock.jpg" />
+        
+          <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
+          <SingleProduct v-for="product in products"
+              :key="product.id" v-bind="product" imageSelected="HoneyBlock.jpg" :product="product"/>
+
+        
       </div>
     </div>
   </div>
@@ -32,9 +34,15 @@ import Footer from "../components/Footer.vue";
 import SingleProduct from "../components/SingleProduct.vue";
 import IntroTemplate from "../components/IntroTemplate.vue";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
+import axios from "axios";
 
 export default {
   name: "shop",
+  data() {
+    return {
+      products: null
+    };
+  },
   components: {
     Navbar,
     IntroTemplate,
@@ -42,10 +50,20 @@ export default {
     SingleProduct,
     MiniIntroTemplate
   },
+  mounted(){
+    axios.get('api/products').then(response => {
+      console.log(response.data.products);
+      this.products = response.data.products;
+    });
+  }
 };
 </script>
 
 <style scoped>
+#productVfor {
+  width: 50%;
+  height: auto;
+}
 .productRow {
   display: flex;
   flex-wrap: wrap;

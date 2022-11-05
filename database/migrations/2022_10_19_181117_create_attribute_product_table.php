@@ -22,7 +22,7 @@ class CreateAttributeProductTable extends Migration
             $table->unsignedBigInteger('discount_id')->nullable();
             $table->foreign('discount_id')->references('id')->on('discounts');
             $table->integer('stock');
-            $table->decimal('price');
+            $table->bigInteger('price');
             $table->timestamps();
         });
     }

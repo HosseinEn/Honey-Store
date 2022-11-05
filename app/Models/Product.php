@@ -44,10 +44,6 @@ class Product extends Model
         return $this->belongsToMany(Order::class)->withPivot('quantity');
     }
 
-    public function discount() {
-        return $this->belongsTo(Discount::class);
-    }
-
     public function image() {
         return $this->morphOne(Image::class, 'imageable');
     }

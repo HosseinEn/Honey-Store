@@ -61,8 +61,9 @@ const routes = [
     }
   },
   {
-    path : '/x',
-    name : 'xx',
+    path : '/product/:id',
+    name : 'product',
+    props : true,
     component: ShopingPage
   }
 ];

@@ -5,10 +5,12 @@
       v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
     ></section>
     <section class="content text-center">
-      <div class="productTitle">aa</div>
+      <div class="productTitle">{{product.name}}</div>
       <div class="productPrice">eee</div>
     </section>
-    <button class="productButton">مشاهده محصول</button>
+    <button class="productButton">
+      <router-link :to="{ name : 'product', params : {id : product.id} }">مشاهده محصول</router-link>
+      </button>
   </section>
 </template>
 
@@ -16,13 +18,16 @@
 export default {
   name: "singleProduct",
   components: {},
-  props: ["imageSelected"],
+  props: ["imageSelected", "product"],
   data() {
     return {
       imageUrl: "/images/" + this.imageSelected + "",
       // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
     };
   },
+  mounted(){
+    console.log(this.product.name)
+  }
 };
 </script>
 

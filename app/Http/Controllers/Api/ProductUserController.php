@@ -84,18 +84,20 @@ class ProductUserController extends Controller
         $products = Auth::user()->products;
         $products->load('attributes');
         $totalPrice = 0;
+        $discounts = Discount::get();
         $totalPriceAfterDiscount = 0;
         foreach ($products as $product) {
             $attribute_id = $product->cart->attribute_id;
             $quantity = $product->cart->quantity;
-            $price = $product->attributes->where('id', $attribute_id)->first()->attribute_product->price;
-            $discount_id = $product->attributes->where('id', $attribute_id)->first()->attribute_product->discount_id;
+            $selectedAttribute = $product->attributes->where('id', $attribute_id)->first();
+            $price = $selectedAttribute->attribute_product->price;
+            $discount_id = $selectedAttribute->attribute_product->discount_id;
             $totalPrice += $price * $quantity;         
             
             if ($discount_id){
-                $dis_val = Discount::findOrFail($discount_id)->value;
-                $totalDiscount = $price * $quantity * $dis_val / 100;         
-                $totalPriceAfterDiscount = $totalPrice - $totalDiscount; 
+                $dis_val = $discounts->where('id', $discount_id)->first()->value;
+                $productPriceAfterDiscount = $price * $quantity (1 - $dis_val / 100); 
+                $totalPriceAfterDiscount += $productPriceAfterDiscount; 
             }
             else{
                 $totalPriceAfterDiscount = $totalPrice; 
