@@ -64,7 +64,7 @@
                 >
                 <div
                   style="color: red"
-                  v-if="this.errors !== null && this.authorizationError"
+                  v-if="this.authorizationError"
                   >{{ this.authorizationError }}</div
                 >
               </section>
