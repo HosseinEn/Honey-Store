@@ -1,7 +1,10 @@
 <template>
   <Navbar />
   <!-- Intro -->
-  <IntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
+  <IntroTemplate
+    imageSelected="HoneyBlock.jpg"
+    imageForSmall="VerticalHoneyHome.jpg"
+  >
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
@@ -11,7 +14,6 @@
     <template v-slot:mainContentDescTwo>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
-   
   </IntroTemplate>
   <!-- end Intro -->
 
@@ -42,8 +44,13 @@
         <h3>طراحی های گرافیک</h3>
       </div>
       <div class="productRow">
-        <SingleProduct imageSelected="HoneyBlock.jpg" />
-        <SingleProduct imageSelected="HoneyBlock.jpg" />
+        <SingleProduct
+          v-for="product in products"
+          :key="product.id"
+          v-bind="product"
+          imageSelected="HoneyBlock.jpg"
+          :product="product"
+        />
       </div>
     </div>
   </div>
@@ -179,6 +186,17 @@ export default {
       window.scrollTo(0, 0);
     },
   },
+  mounted() {
+    axios.get("api/products").then((response) => {
+      console.log(response.data.products);
+      this.products = response.data.products;
+    });
+  },
+  data() {
+    return {
+      products: null,
+    };
+  },
 };
 </script>
 <style scoped>
@@ -195,6 +213,6 @@ export default {
 }
 .StrapDemoSum {
   font-family: var(--thirdFont);
-  font-size : 2rem
+  font-size: 2rem;
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-    <div class="w-50 m-auto">
+    <div class="w-100 m-auto">
         <div class="card card-body">
             <form>
                 <div class="form-group">

@@ -1,14 +1,16 @@
 <template>
   <Navbar />
-    <!-- Intro -->
-  <MiniIntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
+  <!-- Intro -->
+  <MiniIntroTemplate
+    imageSelected="HoneyBlock.jpg"
+    imageForSmall="VerticalHoneyHome.jpg"
+  >
     <template v-slot:mainContentHeader>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
     <template v-slot:mainContentDesc>
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
-   
   </MiniIntroTemplate>
   <!-- end Intro -->
 
@@ -16,12 +18,14 @@
     <div class="container">
       <div class="row filterRow"></div>
       <div class="productRow">
-        
-          <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
-          <SingleProduct v-for="product in products"
-              :key="product.id" v-bind="product" imageSelected="HoneyBlock.jpg" :product="product"/>
-
-        
+        <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
+        <SingleProduct
+          v-for="product in products"
+          :key="product.id"
+          v-bind="product"
+          imageSelected="HoneyBlock.jpg"
+          :product="product"
+        />
       </div>
     </div>
   </div>
@@ -40,7 +44,7 @@ export default {
   name: "shop",
   data() {
     return {
-      products: null
+      products: null,
     };
   },
   components: {
@@ -48,14 +52,14 @@ export default {
     IntroTemplate,
     Footer,
     SingleProduct,
-    MiniIntroTemplate
+    MiniIntroTemplate,
   },
-  mounted(){
-    axios.get('api/products').then(response => {
+  mounted() {
+    axios.get("api/products").then((response) => {
       console.log(response.data.products);
       this.products = response.data.products;
     });
-  }
+  },
 };
 </script>
 
