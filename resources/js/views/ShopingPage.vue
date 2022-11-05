@@ -51,7 +51,6 @@
               <section>
                 <input type="number" name="quantity" min="0" :max="getStock()" step="1" v-model="quantityNumber"/> 
                 <button type="submit" class="mb-3">Add to Cart</button>
-                {{getDiscount()}}
                 <div
                   style="color: red"
                   v-if="this.errors !== null && this.errors.attribute_id"
@@ -187,17 +186,17 @@ export default {
         }
       }
     },
-    getDiscount() {
-      for(var i = 0; i < this.singleProduct.attributes.length; i++) {
-        if (this.singleProduct.attributes[i].id == this.attribute_id) {
-          console.log(this.singleProduct.attributes[i].attribute_product.discount_id);
-          axios.get('/api/discounts' + discount_id).then(response => {
-            this.discount = response.data.discount;
-          })
-          // return this.singleProduct.attributes[i].attribute_product.stock;
-        }
-      }
-    }
+    // getDiscount() {
+    //   for(var i = 0; i < this.singleProduct.attributes.length; i++) {
+    //     if (this.singleProduct.attributes[i].id == this.attribute_id) {
+    //       console.log(this.singleProduct.attributes[i].attribute_product.discount_id);
+    //       axios.get('/api/discounts' + discount_id).then(response => {
+    //         this.discount = response.data.discount;
+    //       })
+    //       // return this.singleProduct.attributes[i].attribute_product.stock;
+    //     }
+    //   }
+    // }
   }
 };
 </script>
