@@ -50,7 +50,23 @@
               <h5 class="mt-3">dawdawdw :</h5>
               <section>
                 <input type="number" name="quantity" min="0" :max="getStock()" step="1" v-model="quantityNumber"/> 
-                <button type="submit">Add to Cart</button>
+                <button type="submit" class="mb-3">Add to Cart</button>
+                {{getDiscount()}}
+                <div
+                  style="color: red"
+                  v-if="this.errors !== null && this.errors.attribute_id"
+                  >{{ this.errors.attribute_id[0] }}</div
+                >
+                <div
+                  style="color: red"
+                  v-if="this.errors !== null && this.errors.quantity"
+                  >{{ this.errors.quantity[0] }}</div
+                >
+                <div
+                  style="color: red"
+                  v-if="this.errors !== null && this.authorizationError"
+                  >{{ this.authorizationError }}</div
+                >
               </section>
             </form>
           </section>
@@ -116,7 +132,9 @@ export default {
       singleProduct: null,
       attribute_id : null,
       maxStock : null,
-      quantityNumber : null
+      quantityNumber : null,
+      errors: null,
+      authorizationError: null
     }
   },
   props: ["id"],
@@ -139,14 +157,44 @@ export default {
       this.attribute_id = e;
     },
     handleSubmit(){
-      console.log(this.attribute_id)
-      console.log(this.quantityNumber)
+      // console.log(this.attribute_id)
+      // console.log(this.quantityNumber)
+      axios.post(`/api/add-to-cart/${this.singleProduct.slug}`, {
+        attribute_id: this.attribute_id,
+        quantity: this.quantityNumber
+      })
+      .then(response => {
+        this.errors = null;
+        this.authorizationError = null;
+        // this.button.style = disable
+        // this.button.style = enable
+        console.log(response);
+      })
+      .catch(errors => {
+        if(errors.response.status === 401) {
+          this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+        }
+        else {
+          this.errors = errors.response && errors.response.data.errors;
+        }
+      })
     },
     getStock() {
       for(var i = 0; i < this.singleProduct.attributes.length; i++) {
         if (this.singleProduct.attributes[i].id == this.attribute_id) {
-          console.log(this.singleProduct.attributes[i].attribute_product.stock);
+          // console.log(this.singleProduct.attributes[i].attribute_product.stock);
           return this.singleProduct.attributes[i].attribute_product.stock;
+        }
+      }
+    },
+    getDiscount() {
+      for(var i = 0; i < this.singleProduct.attributes.length; i++) {
+        if (this.singleProduct.attributes[i].id == this.attribute_id) {
+          console.log(this.singleProduct.attributes[i].attribute_product.discount_id);
+          axios.get('/api/discounts' + discount_id).then(response => {
+            this.discount = response.data.discount;
+          })
+          // return this.singleProduct.attributes[i].attribute_product.stock;
         }
       }
     }
