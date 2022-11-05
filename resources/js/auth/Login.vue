@@ -113,6 +113,7 @@ export default {
 label {
   margin-bottom: 0.4rem;
    margin-top: 0.7rem;
+   font-weight:500;
 }
 #submit {
     background-color: #DFDCDE;
@@ -125,5 +126,14 @@ label {
 }
 #submit:hover {
      background-color: #b1b0b1;
+}
+input {
+  background-color: white;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active  {
+      -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 </style>
