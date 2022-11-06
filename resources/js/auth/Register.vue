@@ -148,16 +148,17 @@ label {
   font-weight: 500;
 }
 #submit {
-  background-color: #dfdcde;
+  background-color: var(--mainColor);
   margin-top: 1rem;
   width: 50%;
   transition: all 0.5s linear;
-  color: black;
+  color: var(--secondColor);
   border: 1px solid black;
   height: auto;
 }
 #submit:hover {
-  background-color: #b1b0b1;
+  background-color: var(--thirdColor);
+  color: white;
 }
 input {
   background-color: white;
