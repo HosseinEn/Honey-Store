@@ -20,7 +20,7 @@ class CreateAttributeProductTable extends Migration
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->unsignedBigInteger('discount_id')->nullable();
-            $table->foreign('discount_id')->references('id')->on('discounts');
+            $table->foreign('discount_id')->references('id')->on('discounts')->onDelete('set null');
             $table->integer('stock');
             $table->bigInteger('price');
             $table->timestamps();

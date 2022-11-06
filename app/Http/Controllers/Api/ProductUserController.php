@@ -96,7 +96,7 @@ class ProductUserController extends Controller
             
             if ($discount_id){
                 $dis_val = $discounts->where('id', $discount_id)->first()->value;
-                $productPriceAfterDiscount = $price * $quantity (1 - $dis_val / 100); 
+                $productPriceAfterDiscount = $price * $quantity * (1 - $dis_val / 100); 
                 $totalPriceAfterDiscount += $productPriceAfterDiscount; 
             }
             else{
