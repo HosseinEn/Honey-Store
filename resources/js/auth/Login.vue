@@ -131,6 +131,7 @@ label {
 }
 input {
   background-color: white;
+    border : 1px solid var(--secondColor)
 }
 input:-webkit-autofill,
 input:-webkit-autofill:hover,

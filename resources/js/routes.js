@@ -1,13 +1,14 @@
 // import VueRouter from 'vue-router';
 import * as VueRouter from "vue-router";
 import Home from "./views/Home.vue";
-import Account from './views/Account.vue'
-import Shop from './views/Shop.vue'
-import AboutUs from './views/AboutUs.vue'
-import Login from './auth/Login.vue'
-import Register from './auth/Register.vue'
+import Account from "./views/Account.vue";
+import Shop from "./views/Shop.vue";
+import AboutUs from "./views/AboutUs.vue";
+import Login from "./auth/Login.vue";
+import Register from "./auth/Register.vue";
 import axios from "axios";
-import ShopingPage from './views/ShopingPage.vue'
+import ShopingPage from "./views/ShopingPage.vue";
+import Cart from "./views/Cart.vue";
 
 const routes = [
   {
@@ -16,23 +17,23 @@ const routes = [
     name: "home",
   },
   {
-    path: '/account',
-    name : 'account',
-    component: Account
+    path: "/account",
+    name: "account",
+    component: Account,
   },
   {
-    path : '/shop',
-    name : 'shop',
-    component: Shop
+    path: "/shop",
+    name: "shop",
+    component: Shop,
   },
   {
-    path : '/about-us',
-    name : 'aboutUs',
-    component: AboutUs
+    path: "/about-us",
+    name: "aboutUs",
+    component: AboutUs,
   },
   {
-    path : '/login',
-    name : 'login',
+    path: "/login",
+    name: "login",
     component: Login,
     // beforeEnter: (to, from, next) => {
     //   axios.get('/api/is-logged').then(() => {
@@ -43,29 +44,37 @@ const routes = [
     // }
   },
   {
-    path : '/register',
-    name : 'register',
+    path: "/register",
+    name: "register",
     component: Register,
     beforeEnter: (to, from, next) => {
-      axios.get('/api/is-logged').then((response) => {
-        if(response.data.isLogged) {
-          next({name : 'home'});
-        }
-        else {
-          next();
-        }
-        console.log(response.data.isLogged)
-      }).catch(() => {
-        return next({ name : 'home'})
-      })
-    }
+      axios
+        .get("/api/is-logged")
+        .then((response) => {
+          if (response.data.isLogged) {
+            next({ name: "home" });
+          } else {
+            next();
+          }
+          console.log(response.data.isLogged);
+        })
+        .catch(() => {
+          return next({ name: "home" });
+        });
+    },
   },
   {
-    path : '/product/:id',
-    name : 'product',
-    props : true,
-    component: ShopingPage
-  }
+    path: "/product/:id",
+    name: "product",
+    props: true,
+    component: ShopingPage,
+  },
+  {
+    path: "/cart",
+    name: "cart",
+    props: true,
+    component: Cart,
+  },
 ];
 
 const router = VueRouter.createRouter({

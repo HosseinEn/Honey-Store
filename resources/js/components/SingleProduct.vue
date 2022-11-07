@@ -9,7 +9,7 @@
       <div class="productPrice">eee</div>
     </section>
     <button class="productButton">
-      <router-link :to="{ name : 'product', params : {id : product.id} }">مشاهده محصول</router-link>
+      <router-link :to="{ name : 'product', params : {id : product.slug} }">مشاهده محصول</router-link>
       </button>
   </section>
 </template>
