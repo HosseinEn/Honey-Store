@@ -26,7 +26,7 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('discounts', 'DiscountController');
     Route::get('orders/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'index'])->middleware('auth:sanctum');
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder'])->middleware('auth:sanctum');
-
+    
 });
 
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
@@ -37,7 +37,7 @@ Route::get('cart', [App\Http\Controllers\Api\ProductUserController::class, 'inde
 Route::post('cart/increase-amount', [App\Http\Controllers\Api\ProductUserController::class, 'increaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/decrease-amount', [App\Http\Controllers\Api\ProductUserController::class, 'decreaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'removeFromCart'])->middleware('auth:sanctum');
-
+Route::get('/xxx', [App\Http\Controllers\Api\HomeController::class, 'index']);
 
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

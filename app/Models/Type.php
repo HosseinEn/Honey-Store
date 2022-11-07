@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Traits\sharedMethodsInModels;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Type extends Model
 {
-    use HasFactory;
+    use HasFactory, sharedMethodsInModels;
 
     protected $fillable = ['name', 'slug'];
 
