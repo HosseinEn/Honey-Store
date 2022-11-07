@@ -107,6 +107,7 @@ class ProductUserController extends Controller
     }
 
     public function addToCart(AddToCartRequest $request, Product $product) {
+        return $request->all();
         $user = Auth::user();
 
         $productAlreadyAddedToCart = DB::table('product_user')->where('attribute_id', $request->attribute_id)
