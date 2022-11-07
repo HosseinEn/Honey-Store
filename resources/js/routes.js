@@ -8,6 +8,8 @@ import Login from './auth/Login.vue'
 import Register from './auth/Register.vue'
 import axios from "axios";
 import ShopingPage from './views/ShopingPage.vue'
+import TestPayment from './components/TestPayment.vue'
+import PaymentDone from './components/PaymentDone.vue'
 
 const routes = [
   {
@@ -65,6 +67,16 @@ const routes = [
     name : 'product',
     props : true,
     component: ShopingPage
+  },
+  {
+    path : '/test-payment',
+    name : 'test_payment',
+    component: TestPayment
+  },
+  {
+    path : '/payment-done',
+    name : 'payment_done',
+    component: PaymentDone
   }
 ];
 

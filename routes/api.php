@@ -31,12 +31,17 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 
 Route::post('add-to-cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'addToCart'])->middleware('auth:sanctum');
-Route::post('check-out-cart', [App\Http\Controllers\Api\ProductUserController::class, 'checkoutCart'])->middleware('auth:sanctum');
+Route::post('checkout-cart', [App\Http\Controllers\Api\ProductUserController::class, 'checkoutCart'])->middleware('auth:sanctum');
 Route::get('cart', [App\Http\Controllers\Api\ProductUserController::class, 'index'])->middleware('auth:sanctum');
 Route::post('cart/increase-amount', [App\Http\Controllers\Api\ProductUserController::class, 'increaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/decrease-amount', [App\Http\Controllers\Api\ProductUserController::class, 'decreaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'removeFromCart'])->middleware('auth:sanctum');
-
+Route::get('callback-payment', [App\Http\Controllers\Api\ProductUserController::class, 'paymentCallbackMethod'])
+                                                                    // ->middleware('auth:sanctum')
+                                                                    ->name('paymentCallbackURL');
+// Route::post('create-order', [App\Http\Controllers\Api\ProductUserController::class, 'createOrder'])
+//                                                 ->middleware('auth:sanctum')
+//                                                 ->name('create.order');
 
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

@@ -19,8 +19,9 @@ class Order extends Model
         'total_price',
         // 'total_weight',
         'invoice_no',
-        'billing_no',
-        'shipping_address'
+        'reference_id',
+        'shipping_address',
+        'transaction_id'
     ];
 
     public function user() {
