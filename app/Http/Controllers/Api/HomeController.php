@@ -11,70 +11,54 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+
+
+    public function getProductsByIDs($allProducts, $product_attribute_ids) {
+        $resultProducts = collect([]);
+        foreach ($product_attribute_ids as $pa_id) {
+            $singleProductModel = $allProducts->where('id', $pa_id->product_id);
+            $singleProductModel->load(['attributes' => function ($query) use ($pa_id){
+                $query->where('attributes.id', $pa_id->attribute_id);
+            }]);
+            $resultProducts->push($singleProductModel);
+         }
+         return $resultProducts;
+    }
+
     public function index() {
+        $products = Product::get();
+
+
+        $pivotMostSale = DB::table('order_product')
+        ->select('product_id', 'attribute_id', DB::raw('SUM(quantity) as total_quantity'))
+        ->groupBy('product_id', 'attribute_id')
+        ->orderBy('total_quantity', 'desc')
+        ->take(3)
+        ->get();
+
+        $mostSaleProducts = $this->getProductsByIDs($products, $pivotMostSale);
+       
+    
+
+
+
+        $pivotProducts = DB::table('attribute_product')
+        ->select('product_id', 'attribute_id');
 
         
-        // $pivotMostSale = DB::table('order_product')
-        // ->select('product_id', 'attribute_id', DB::raw('SUM(quantity) as total_quantity'))
-        // ->groupBy('product_id', 'attribute_id')
-        // ->orderBy('total_quantity', 'desc')
-        // ->take(3)
-        // ->get();
+        $pivotMostExpensiveProducts = $pivotProducts
+            ->orderBy('price', 'desc')
+            ->take(3)
+            ->get();
 
-        // $retrivedMostSaleProductModels = collect([]);
-        // foreach ($pivotMostSale as $rawProduct) {
-        //     $singleProductModel = Product::where('id', $rawProduct->product_id)->get();
-        //     $selectedAttribute = $singleProductModel->first()->attributes->where('id', $rawProduct->attribute_id)->first();
-            
-        //     // $singleProductModel->load('attributes');
-            
-        //     $singleProductModel->load(['attributes' => function ($query) use ($selectedAttribute){
-        //         $query->where('attributes.id', $selectedAttribute->id);
-        //     }]);
+        $pivotCheapestProducts = $pivotProducts
+            ->orderBy('price', 'asc')
+            ->take(3)
+            ->get(); 
 
-        //     $retrivedMostSaleProductModels->push($singleProductModel);
-        // }
+        $mostExpensiveProducts = $this->getProductsByIDs($products, $pivotMostExpensiveProducts);
 
-
-
-        // $mostExpensiveProducts = DB::table('attribute_product')
-        // ->orderBy('price', 'desc')
-        // ->take(3)
-        // ->get();
-
-        // $retrivedExpensiveProductModels = collect([]);
-        // foreach ($mostExpensiveProducts as $rawProduct) {
-        //     $singleProductModel = Product::where('id', $rawProduct->product_id)->get();
-        //     $selectedAttribute = $singleProductModel->first()->attributes->where('id', $rawProduct->attribute_id)->first();
-            
-        //     // $singleProductModel->load('attributes');
-            
-        //     $singleProductModel->load(['attributes' => function ($query) use ($selectedAttribute){
-        //         $query->where('attributes.id', $selectedAttribute->id);
-        //     }]);
-
-        //     $retrivedExpensiveProductModels->push($singleProductModel);
-        // }
-
-
-        // $cheapestProducts = DB::table('attribute_product')
-        // ->orderBy('price', 'asc')
-        // ->take(10)
-        // ->get();
-        
-        // $retrivedCheapestProductModels = collect([]);
-        // foreach ($cheapestProducts as $rawProduct) {
-        //     $singleProductModel = Product::where('id', $rawProduct->product_id)->get();
-        //     $selectedAttribute = $singleProductModel->first()->attributes->where('id', $rawProduct->attribute_id)->first();
-            
-        //     // $singleProductModel->load('attributes');
-            
-        //     $singleProductModel->load(['attributes' => function ($query) use ($selectedAttribute){
-        //         $query->where('attributes.id', $selectedAttribute->id);
-        //     }]);
-            
-        //     $retrivedCheapestProductModels->push($singleProductModel);
-        // }
+        $cheapestProducts = $this->getProductsByIDs($products, $pivotMostExpensiveProducts);
 
 
 
@@ -102,11 +86,11 @@ class HomeController extends Controller
         return new JsonResponse([
             // 'products' => $products,
             // 'pivotRec' => $pivotMostSale,
-            // 'retrivedMostSaleProductModels' => $retrivedMostSaleProductModels,
+            // 'retrievedMostSaleProductModels' => $retrievedMostSaleProductModels,
             // 'MostExpensiveProducts' => $mostExpensiveProducts,
-            // 'retrivedProductModels' => $retrivedExpensiveProductModels,
+            // 'retrievedProductModels' => $retrievedExpensiveProductModels,
             // 'cheapestProducts' => $cheapestProducts,
-            // 'retrivedProductModels' => $retrivedCheapestProductModels,
+            // 'retrievedProductModels' => $retrievedCheapestProductModels,
             'discountsPriorities' => $discountsPriorities,
             'orderedDiscounts' => $highestDiscounts,
         ]);
