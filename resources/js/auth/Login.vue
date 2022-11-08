@@ -45,17 +45,18 @@
           v-if="this.errors !== null && this.errors.password"
           >{{ this.errors.password[0] }}</span
         >
-        <div class="row d-flex justify-content-center align-items-center">        <button
-          type="submit"
-          name="Login"
-          class="btn btn-primary"
-          id="submit"
-          :disabled="loading"
-          @click.prevent="login"
-        >
-          Login
-        </button></div>
-
+        <div class="row d-flex justify-content-center align-items-center">
+          <button
+            type="submit"
+            name="Login"
+            class="btn btn-primary"
+            id="submit"
+            :disabled="loading"
+            @click.prevent="login"
+          >
+            Login
+          </button>
+        </div>
       </form>
       <form>
         <button type="submit" @click.prevent="logout">logout</button>
@@ -112,18 +113,30 @@ export default {
 <style scoped>
 label {
   margin-bottom: 0.4rem;
-   margin-top: 0.7rem;
+  margin-top: 0.7rem;
+  font-weight: 500;
 }
 #submit {
-    background-color: #DFDCDE;
-    margin-top: 1rem;
-    width : 50%;
-    transition : all 0.5s linear;
-    color : black;
-    border : 1px solid black;
-    height : auto;
+  background-color: var(--mainColor);
+  margin-top: 1rem;
+  width: 50%;
+  transition: all 0.5s linear;
+  color: var(--secondColor);
+  border: 1px solid black;
+  height: auto;
 }
 #submit:hover {
-     background-color: #b1b0b1;
+  background-color: var(--thirdColor);
+  color: white;
+}
+input {
+  background-color: white;
+    border : 1px solid var(--secondColor)
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 </style>

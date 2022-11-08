@@ -62,6 +62,6 @@ export default {
 }
 .formHeader {
   direction: rtl;
-  margin-bottom : 1rem
+  margin-bottom: 1rem;
 }
 </style>

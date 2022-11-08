@@ -95,4 +95,12 @@ export default {
   overflow: hidden;
   height: 50vh;
 }
+h3:first-child {
+  font-size :2rem;
+  color : var(--thirdColor)
+}
+h3 {
+  font-size: 1.3rem;
+}
+
 </style>

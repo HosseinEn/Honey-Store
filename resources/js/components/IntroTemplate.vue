@@ -3,13 +3,16 @@
     class="heroboxBG"
     v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
   >
-    <div class="heroBoxContetContainer">
+  <div class="allContainer">
+      <div class="heroBoxContetContainer">
       <h3 class="m-5">
         <slot name="mainContentHeader"></slot>
       </h3>
       <h4 class="m-3"><slot name="mainContentDesc"></slot></h4>
       <span><slot name="mainContentDescTwo"></slot></span>
     </div>
+  </div>
+  
   </section>
 </template>
 
@@ -66,5 +69,12 @@ export default {
 .heroBoxContetContainer h3 {
   font-size: 2.5rem;
   font-family: var(--mainFont);
+}
+.allContainer {
+  width: 100%;
+position: relative;
+ backdrop-filter: brightness(70%);
+ color : white;
+  height: 100%;
 }
 </style>
