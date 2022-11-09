@@ -37,8 +37,14 @@ Route::get('cart', [App\Http\Controllers\Api\ProductUserController::class, 'inde
 Route::post('cart/increase-amount', [App\Http\Controllers\Api\ProductUserController::class, 'increaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/decrease-amount', [App\Http\Controllers\Api\ProductUserController::class, 'decreaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'removeFromCart'])->middleware('auth:sanctum');
-Route::get('/xxx', [App\Http\Controllers\Api\HomeController::class, 'index']);
 
+Route::controller(App\Http\Controllers\Api\FilterController::class)->group(function() {
+    Route::get('most-sale-product', 'filterByMostSale');
+    Route::get('most-expensive-product', 'filterByMostExpensive');
+    Route::get('cheapest-product', 'filterByCheapest');
+    Route::get('most-discounted-product', 'filterByMostDiscounted');
+    Route::get('types/{type}', 'filterByType');
+});
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
