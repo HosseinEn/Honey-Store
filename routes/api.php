@@ -24,8 +24,10 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('attributes', 'AttributeController');
     Route::apiResource('products', 'ProductController');
     Route::apiResource('discounts', 'DiscountController');
-    Route::get('orders/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'index'])->middleware('auth:sanctum');
-    Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder'])->middleware('auth:sanctum');
+    Route::apiResource('orders', 'OrderController');
+
+    Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
+    Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);
 
 });
 

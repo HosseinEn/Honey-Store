@@ -20,17 +20,12 @@ class OrderController extends Controller
      */
     public function index()
     {
-
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $orders = Order::orderBy("created_at", "desc")->get();
+        $totalOrderPrice = Order::get()->sum('total_price');
+        return new JsonResponse([
+            'orders' => $orders,
+            'totalOrderPrice' => $totalOrderPrice
+        ]);
     }
 
     /**
@@ -56,21 +51,15 @@ class OrderController extends Controller
     }
 
     public function showUserOrder(User $user) {
+        
         $orders = $user->orders;
+        $canceledOrderStatus = OrderStatus::where('name', 'لغو شده')->first();
+
+        $totalSpent = $user->orders->where('order_status_id','!=', $canceledOrderStatus->id)->sum('total_price');
         return new JsonResponse([
             'orders' => $orders,
+            'totalSpent' => $totalSpent,
         ]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Order $order)
-    {
-        //
     }
 
     /**

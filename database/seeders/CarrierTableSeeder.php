@@ -15,9 +15,9 @@ class CarrierTableSeeder extends Seeder
     public function run()
     {
         $carriers = collect([
-            ['حمال 1', 10000],
-            ['حمال 2', 20000],
-            ['حمال 3', 30000]
+            ['پست معمولی', 10000],
+            ['پست پیشتاز', 20000],
+            ['پست فوری', 30000]
         ]);
 
         $carriers->each(function($carrier) {

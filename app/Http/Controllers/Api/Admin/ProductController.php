@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Api\Admin;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreAdminProductRequest;
-use App\Http\Requests\UpdateAdminProductRequest;
 use App\Models\Image;
 use App\Models\Product;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
+use App\Http\Requests\StoreAdminProductRequest;
+use App\Http\Requests\UpdateAdminProductRequest;
 
 class
 ProductController extends Controller
@@ -94,9 +95,16 @@ ProductController extends Controller
      */
     public function show(Product $product)
     {
+        $pivotProductSalesSoFar = DB::table('order_product')
+            ->select('product_id', 'attribute_id', DB::raw('SUM(quantity) as total_quantity'))
+            ->groupBy('product_id', 'attribute_id')
+            ->having('product_id', $product->id)
+            ->get();
+        
         $product->load('attributes', 'image');
         return new JsonResponse([
-            'product' => $product
+            'product' => $product,
+            'pivotProductSalesSoFar' => $pivotProductSalesSoFar,
         ]);
     }
 

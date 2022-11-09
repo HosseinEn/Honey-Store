@@ -6,6 +6,7 @@ use App\Models\Discount;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreAdminDiscountRequest;
 use App\Http\Requests\UpdateAdminDiscountRequest;
 
 class DiscountController extends Controller
@@ -29,7 +30,7 @@ class DiscountController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdminDiscountRequest $request)
     {
         $discount = Discount::create($request->all());
         return new JsonResponse([

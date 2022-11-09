@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Attribute;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -32,10 +33,12 @@ class UpdateAdminAttributeRequest extends FormRequest
      */
     public function rules()
     {
+        $ignoreWeight = Attribute::findOrFail(substr($this->getRequestUri(), -1))->first()->weight;
+
         return [
             'weight' => [
                 'required',
-                Rule::unique('attributes')->ignore($this->id)
+                Rule::unique('attributes')->whereNotIn('weight', [$ignoreWeight]), 
             ]
         ];
     }
