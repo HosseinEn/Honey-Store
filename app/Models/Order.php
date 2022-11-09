@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Order extends Model
 {
@@ -70,4 +71,13 @@ class Order extends Model
     public function tax() {
         return $this->belongsTo(Tax::class);
     }
+
+    public function scopeLatest(Builder $query) {
+        return $query->orderBy(static::CREATED_AT, 'DESC');
+    }
+
+    // public function scopeMostSaleProduct(Builder $query) {
+    //     return $query->orderBy(static::product_id, 'DESC');
+    // }
+
 }

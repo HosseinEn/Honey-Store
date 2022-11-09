@@ -19,7 +19,7 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
-        $types = Type::orderBy("created_at", "desc")->get();
+        $types = Type::latest()->get();
         return new JsonResponse([
             'type' => $types
         ]);
