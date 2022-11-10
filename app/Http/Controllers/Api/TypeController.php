@@ -16,6 +16,8 @@ class TypeController extends Controller
      */
     public function index(Request $request)
     {
+
+
         $types = Type::all();
         dump($types->pluck('name'));
 

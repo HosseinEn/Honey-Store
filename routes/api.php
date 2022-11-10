@@ -28,6 +28,7 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
 
     Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);
+    Route::get('orders/update-status/{order}/{status}', [App\Http\Controllers\Api\Admin\OrderController::class, 'updateOrderStatus']);
 
 });
 
@@ -46,6 +47,8 @@ Route::controller(App\Http\Controllers\Api\FilterController::class)->group(funct
     Route::get('cheapest-product', 'filterByCheapest');
     Route::get('most-discounted-product', 'filterByMostDiscounted');
     Route::get('types/{type}', 'filterByType');
+
+    Route::get('admin/orders/filtered-by-status/{status}', 'ordersFilterByStatus');
 });
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {

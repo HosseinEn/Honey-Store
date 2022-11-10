@@ -25,15 +25,12 @@ class UpdateAdminDiscountRequest extends FormRequest
      */
     public function rules()
     {
-        $ignoreDiscount = Discount::findOrFail(substr($this->getRequestUri(), -1))->first()->name;
-        // dd($ignoreDiscount);
-
         return [
             "name" => [
                 "required",
                 "max:255",
-                Rule::unique('discounts')->whereNotIn('name', [$ignoreDiscount]), 
-                // Rule::unique('discounts')->ignore($this->id), 
+                // Rule::unique('discounts')->whereNotIn('name', [$ignoreDiscount]), 
+                // Rule::unique('discounts')->ignore(substr($this->getRequestUri(), -1)), 
             ],
             "value" => "required"
         ];

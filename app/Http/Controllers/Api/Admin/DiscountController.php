@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminDiscountRequest;
-use App\Http\Requests\UpdateAdminDiscountRequest;
 
 class DiscountController extends Controller
 {
@@ -60,10 +60,19 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateAdminDiscountRequest $request, $id)
+    public function update(Request $request, Discount $discount)
     {
-        $discount = Discount::findOrFail($id);
-        $discount->update($request->all());
+        $validatedData = $this->validate(
+                $request,
+                [
+                    "name" => 'required|unique:discounts,name,'.$discount->id,
+                    "value" => 'required',
+                ],
+                ["name.unique" => 'تخفیف با این نام قبلا ثبت شده است']
+            );
+
+        // $discount->update($request->all());
+        $discount->update($validatedData);
         return new JsonResponse([
             'discount' => $discount
         ]);
@@ -75,9 +84,8 @@ class DiscountController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Discount $discount)
     {
-        $discount = Discount::findOrFail($id);
         $discount->delete();
         return new JsonResponse([
             'success' => 'Discount destroyed successfully!'
