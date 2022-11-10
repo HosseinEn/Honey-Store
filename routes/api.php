@@ -25,7 +25,6 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('products', 'ProductController');
     Route::apiResource('discounts', 'DiscountController');
     Route::apiResource('orders', 'OrderController');
-
     Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);
 
@@ -40,7 +39,13 @@ Route::post('cart/increase-amount', [App\Http\Controllers\Api\ProductUserControl
 Route::post('cart/decrease-amount', [App\Http\Controllers\Api\ProductUserController::class, 'decreaseAmount'])->middleware('auth:sanctum');
 Route::post('cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'removeFromCart'])->middleware('auth:sanctum');
 
-
+Route::controller(App\Http\Controllers\Api\FilterController::class)->group(function() {
+    Route::get('most-sale-product', 'filterByMostSale');
+    Route::get('most-expensive-product', 'filterByMostExpensive');
+    Route::get('cheapest-product', 'filterByCheapest');
+    Route::get('most-discounted-product', 'filterByMostDiscounted');
+    Route::get('types/{type}', 'filterByType');
+});
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
