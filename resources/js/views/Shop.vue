@@ -26,15 +26,26 @@
           />
         </section>
       </div>
-      <div class="productRow">
+      <div >
         <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
-        <SingleProduct
-          v-for="product in products"
-          :key="product.id"
-          v-bind="product"
-          imageSelected="HoneyBlock.jpg"
-          :product="product"
-        />
+        <div class="productRow" v-if="showAllProducts">
+          <SingleProduct
+            v-for="product in products"
+            :key="product.id"
+            v-bind="product"
+            imageSelected="HoneyBlock.jpg"
+            :product="product"
+          />
+        </div>
+        <div class="productRow" v-else>
+          <SingleProduct
+            v-for="product in filteredProducts"
+            :key="product.id"
+            v-bind="product"
+            imageSelected="HoneyBlock.jpg"
+            :product="product"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -55,8 +66,10 @@ export default {
   data() {
     return {
       products: null,
+      filteredProducts: null,
       currentFilter: "all",
       honeyType: "all",
+      showAllProducts: true
     };
   },
   components: {
@@ -74,8 +87,34 @@ export default {
   },
   computed: {
     filterdProduct() {
-      if (this.currentFilter === "all") {
-        return this.products.filter((products) => {});
+      console.log('called');
+      this.showAllProducts = false;
+      if (this.currentFilter === "cheapest") {
+        axios.get('api/filters?filterBy=cheapest')
+          .then(response => {
+            this.filteredProducts = response.data;
+          })
+      }
+      else if (this.currentFilter === "expensive") {
+        axios.get('api/filters?filterBy=expensive')
+          .then(response => {
+            this.filteredProducts = response.data;
+          })
+      }
+      else if (this.currentFilter === "mostDiscounted") {
+        axios.get('api/filters?filterBy=mostDiscounted')
+          .then(response => {
+            this.filteredProducts = response.data;
+          })
+      }
+      else if (this.currentFilter === "mostSale") {
+        axios.get('api/filters?filterBy=mostSale')
+          .then(response => {
+            this.filteredProducts = response.data;
+          })
+      }
+      else {
+        this.filteredProducts = this.products;
       }
     },
   },

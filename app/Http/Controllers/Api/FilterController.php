@@ -24,9 +24,42 @@ class FilterController extends Controller
         return $result;
     }
 
-    public function filterByMostSale() {
-        $products = Product::isActive()->get();
-        $products->load('attributes');
+  
+    public function filterBy(Request $request) {
+        $products = $request->products;
+        if ($request->has('filterBy')) {
+            if ($request->filter_by === "mostSale") {
+                $mostSaleProducts = $this->filterByMostSale($products);
+                return new JsonResponse([
+                    'mostSaleProducts' => $mostSaleProducts,
+                ]);
+            }
+            else if ($request->filter_by === "cheapest") {
+                $cheapestProducts = $this->filterByCheapest($products);
+                return new JsonResponse([
+                    'cheapestProducts' => $cheapestProducts,
+                ]);
+            }
+            else if ($request->filter_by === "mostExpensive") {
+                $mostExpensiveProducts = $this->filterByMostExpensive($products);
+                return new JsonResponse([
+                    'mostExpensiveProducts' => $mostExpensiveProducts,
+                ]);
+            }
+            else if ($request->filter_by === "mostDiscounted") { 
+                $mostDiscountedProducts = $this->filterByMostDiscounted($products);
+                return new JsonResponse([
+                    'mostDiscountedProducts' => $mostDiscountedProducts
+                ]);
+            }
+        }
+    }
+
+
+
+    private function filterByMostSale($products) {
+        // $products = Product::isActive()->get();
+        // $products->load('attributes');
         $pivotMostSale = DB::table('order_product')
         ->select('product_id', 'attribute_id', DB::raw('SUM(quantity) as total_quantity'))
         ->groupBy('product_id', 'attribute_id')
@@ -35,42 +68,52 @@ class FilterController extends Controller
 
         $mostSaleProducts = $this->getProductsByIDs($products, $pivotMostSale, 'most_sale_attribute');
         
-        return new JsonResponse([
-            'mostSaleProducts' => $mostSaleProducts,
-        ]);
+        return $mostSaleProducts;
+        // return new JsonResponse([
+        //     'mostSaleProducts' => $mostSaleProducts,
+        // ]);
     }
 
-    private function pivotDataForSortingByPrice() {
-        $products = Product::isActive()->get();
-        $products->load('attributes');
+    // private function pivotDataForSortingByPrice() {
+    //     $products = Product::isActive()->get();
+    //     $products->load('attributes');
+    //     $pivotProducts = DB::table('attribute_product')
+    //     ->select('product_id', 'attribute_id', 'price')
+    //     ->get();
+    //     return [$products, $pivotProducts];
+    // }
+
+    public function filterByMostExpensive($products) {
+        // list($products, $pivotProducts) = $this->pivotDataForSortingByPrice();
+            //     $products = Product::isActive()->get();
+    //     $products->load('attributes');
         $pivotProducts = DB::table('attribute_product')
         ->select('product_id', 'attribute_id', 'price')
         ->get();
-        return [$products, $pivotProducts];
-    }
-
-    public function filterByMostExpensive() {
-        list($products, $pivotProducts) = $this->pivotDataForSortingByPrice();
         $pivotMostExpensiveProducts = $pivotProducts->sortBy('price', null, true);
         $mostExpensiveProducts = $this->getProductsByIDs($products, $pivotMostExpensiveProducts, 'most_expensive_attribute');
-
-        return new JsonResponse([
-            'mostExpensiveProducts' => $mostExpensiveProducts,
-        ]);
+        return $mostExpensiveProducts;
+        // return new JsonResponse([
+        //     'mostExpensiveProducts' => $mostExpensiveProducts,
+        // ]);
     }
 
-    public function filterByCheapest() {
-        list($products, $pivotProducts) = $this->pivotDataForSortingByPrice();
+    public function filterByCheapest($products) {
+        // list($products, $pivotProducts) = $this->pivotDataForSortingByPrice();
+        $pivotProducts = DB::table('attribute_product')
+        ->select('product_id', 'attribute_id', 'price')
+        ->get();
         $pivotCheapestProducts = $pivotProducts->sortBy('price', null, false);
         $cheapestProducts = $this->getProductsByIDs($products, $pivotCheapestProducts, 'cheapest_attribute');
-        return new JsonResponse([
-            'cheapestProducts' => $cheapestProducts,
-        ]);
+        return $cheapestProducts;
+        // return new JsonResponse([
+        //     'cheapestProducts' => $cheapestProducts,
+        // ]);
     }
 
-    public function filterByMostDiscounted() {
-        $products = Product::isActive()->get();
-        $products->load('attributes');
+    public function filterByMostDiscounted($products) {
+        // $products = Product::isActive()->get();
+        // $products->load('attributes');
       
         $mostDiscountedProducts = collect([]);
         $joinResult = DB::table('discounts')
@@ -88,9 +131,10 @@ class FilterController extends Controller
             ]);
         }
 
-        return new JsonResponse([
-            'mostDiscountedProducts' => $mostDiscountedProducts
-        ]);
+        return $mostDiscountedProducts;
+        // return new JsonResponse([
+        //     'mostDiscountedProducts' => $mostDiscountedProducts
+        // ]);
     }
 
     public function filterByType(Type $type) {

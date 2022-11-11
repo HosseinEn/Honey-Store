@@ -23706,8 +23706,10 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       products: null,
+      filteredProducts: null,
       currentFilter: "all",
-      honeyType: "all"
+      honeyType: "all",
+      showAllProducts: true
     };
   },
   components: {
@@ -23726,8 +23728,27 @@ __webpack_require__.r(__webpack_exports__);
   },
   computed: {
     filterdProduct: function filterdProduct() {
-      if (this.currentFilter === "all") {
-        return this.products.filter(function (products) {});
+      var _this2 = this;
+      console.log('called');
+      this.showAllProducts = false;
+      if (this.currentFilter === "cheapest") {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=cheapest').then(function (response) {
+          _this2.filteredProducts = response.data;
+        });
+      } else if (this.currentFilter === "expensive") {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=expensive').then(function (response) {
+          _this2.filteredProducts = response.data;
+        });
+      } else if (this.currentFilter === "mostDiscounted") {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=mostDiscounted').then(function (response) {
+          _this2.filteredProducts = response.data;
+        });
+      } else if (this.currentFilter === "mostSale") {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=mostSale').then(function (response) {
+          _this2.filteredProducts = response.data;
+        });
+      } else {
+        this.filteredProducts = this.products;
       }
     }
   }
@@ -24124,28 +24145,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       activeFilter: $props.currentFilter === 'all'
     })
-  }, " 1assa ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " همه ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
       return $options.changeFilter('mostD');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       activeFilter: $props.currentFilter === 'mostD'
     })
-  }, " a2ssa ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " بیشترین تخفیف ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[2] || (_cache[2] = function ($event) {
       return $options.changeFilter('expensive');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       activeFilter: $props.currentFilter === 'expensive'
     })
-  }, " 3assa ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, " گران ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[3] || (_cache[3] = function ($event) {
       return $options.changeFilter('cheap');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       activeFilter: $props.currentFilter === 'cheap'
     })
-  }, " a4ssa ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, " ارزان ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "honeyType",
     id: "honeyType",
     "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
@@ -25359,6 +25380,11 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   }, "Filter BY :", -1 /* HOISTED */);
 });
 var _hoisted_7 = {
+  key: 0,
+  "class": "productRow"
+};
+var _hoisted_8 = {
+  key: 1,
   "class": "productRow"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -25386,14 +25412,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onHoneyTypeFunction: _cache[1] || (_cache[1] = function ($event) {
       return $data.honeyType = $event;
     })
-  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.products, function (product) {
+  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), $data.showAllProducts ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.products, function (product) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product.id
     }, product, {
       imageSelected: "HoneyBlock.jpg",
       product: product
     }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.filteredProducts, function (product) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+      key: product.id
+    }, product, {
+      imageSelected: "HoneyBlock.jpg",
+      product: product
+    }), null, 16 /* FULL_PROPS */, ["product"]);
+  }), 128 /* KEYED_FRAGMENT */))]))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
