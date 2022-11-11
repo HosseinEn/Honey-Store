@@ -23,7 +23,7 @@ ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::get();
+        $products = Product::ignoreOutOfStock()->get();
         $products->load([
             'attributes' => function($query) {
                 return $query->where('stock', '!=', 0);
