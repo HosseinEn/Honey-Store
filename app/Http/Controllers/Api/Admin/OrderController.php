@@ -18,25 +18,16 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $orders = Order::orderBy("created_at", "desc")->get();
-        $totalOrderPrice = Order::get()->sum('total_price');
+        $totalOrderPrice = $orders->sum('total_price');
+
         return new JsonResponse([
             'orders' => $orders,
             'totalOrderPrice' => $totalOrderPrice
         ]);
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**
@@ -71,7 +62,49 @@ class OrderController extends Controller
      */
     public function update(Request $request, Order $order)
     {
-        //
+        
+    }
+
+    public function updateOrderStatus(Order $order, OrderStatus $status)
+    {        
+        // static status_date
+        $order->order_statuses()->syncWithoutDetaching([
+            $status->id => [
+                'status_date' => now(),
+            ]
+        ]);
+
+        $order->update(["order_status_id"=>$status->id]);
+
+        if ($status->name == 'لغو شده') {
+
+            $products = $order->products;
+            $products->load('attributes');
+
+            foreach ($products as $product) {
+
+                $product->update(["stock" => $product->stock + $product->ordered->quantity]);
+                $selectedAttribute = $product->attributes->where('id', $product->ordered->attribute_id)->first();
+
+                DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
+                    $selectedAttribute->attribute_product->stock += $product->ordered->quantity,
+                    $product->ordered->attribute_id,
+                    $product->id
+                ]);
+            }
+
+            // static status_date
+            $order->order_statuses()->syncWithoutDetaching([
+                $status->id => [
+                    'status_date' => now(),
+                ]
+            ]);
+
+            $order->products()->detach();
+        }
+        return new JsonResponse([
+            'order' => $order
+        ]);
     }
 
     /**
@@ -99,40 +132,16 @@ class OrderController extends Controller
             ]);
         }
 
+        $order_status = OrderStatus::where('name', 'درخواست لغو')->first();
         // DB::connection()->enableQueryLog();
-
-        $products = $order->products;
-
-        $products->load('attributes');
-
-        foreach ($products as $product) {
-
-            $product->update(["stock" => $product->stock + $product->ordered->quantity]);
-
-            $selectedAttribute = $product->attributes->where('id', $product->ordered->attribute_id)->first();
-
-            DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
-                $selectedAttribute->attribute_product->stock += $product->ordered->quantity,
-                $product->ordered->attribute_id,
-                $product->id
-            ]);
-
-            $order_status = OrderStatus::where('name', 'لغو شده')->first();
-            
-            // static status_date
-            $order->order_statuses()->attach([
-                $order_status->id => [
-                    'status_date' => now(),
-                ]
-            ]);
-
-            // $order->products()->detach(); 
-        }
-
-        // dd(DB::getQueryLog());
+        // static status_date
+        $order->order_statuses()->syncWithoutDetaching([
+            $order_status->id => [
+                'status_date' => now(),
+            ]
+        ]);
 
         $order->update(["order_status_id"=>$order_status->id]);
-
         return new JsonResponse([
             'order' => $order
         ]);

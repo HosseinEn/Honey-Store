@@ -27,6 +27,7 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('orders', 'OrderController');
     Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);
+    Route::get('orders/update-status/{order}/{status}', [App\Http\Controllers\Api\Admin\OrderController::class, 'updateOrderStatus']);
 
 });
 
@@ -49,6 +50,8 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 Route::get('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy']);
+Route::get('admin/orders/filtered-by-status/{status}', 'ordersFilterByStatus');
+
 Route::get('/is-logged', function() {
     return response()->json([
         'isLogged' => Auth::check()
