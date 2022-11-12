@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Admin;
 
 use App\Models\Attribute;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreAdminAttributeRequest;
@@ -56,9 +57,19 @@ class AttributeController extends Controller
      * @param  \App\Models\Attribute  $attribute
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(UpdateAdminAttributeRequest $request, Attribute $attribute)
+    public function update(Request $request, Attribute $attribute)
     {
-        $attribute->update($request->all());
+        $validatedData = $this->validate(
+            $request,
+            [
+                "weight" => 'required|unique:attributes,id,'.$attribute->id,
+            ],
+            [
+                "weight.unique" => 'ویژگی با این وزن قبلا ثبت شده است'
+            ]
+        );
+
+        $attribute->update($validatedData);
         return new JsonResponse([
             'type' => $attribute
         ]);

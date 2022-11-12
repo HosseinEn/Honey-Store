@@ -33,12 +33,10 @@ class UpdateAdminAttributeRequest extends FormRequest
      */
     public function rules()
     {
-        $ignoreWeight = Attribute::findOrFail(substr($this->getRequestUri(), -1))->first()->weight;
-
         return [
             'weight' => [
                 'required',
-                Rule::unique('attributes')->whereNotIn('weight', [$ignoreWeight]), 
+                // Rule::unique('attributes')->whereNotIn('weight', [$ignoreWeight]), 
             ]
         ];
     }

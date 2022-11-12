@@ -3,25 +3,25 @@
     @click="changeFilter('all')"
     :class="{ activeFilter: currentFilter === 'all' }"
   >
-    1assa
+    همه
   </button>
   <button
     @click="changeFilter('mostD')"
     :class="{ activeFilter: currentFilter === 'mostD' }"
   >
-    a2ssa
+    بیشترین تخفیف
   </button>
   <button
     @click="changeFilter('expensive')"
     :class="{ activeFilter: currentFilter === 'expensive' }"
   >
-    3assa
+    گران ترین
   </button>
   <button
     @click="changeFilter('cheap')"
     :class="{ activeFilter: currentFilter === 'cheap' }"
   >
-    a4ssa
+    ارزان ترین
   </button>
   <select
     name="honeyType"

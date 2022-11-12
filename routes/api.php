@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-// TODO add is_admin middleware
+// Admin endpoints
 Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->namespace('App\Http\Controllers\Api\Admin')->group(function()  {
     Route::apiResource('types', 'TypeController');
     Route::apiResource('attributes', 'AttributeController');
@@ -27,29 +27,30 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('orders', 'OrderController');
     Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);
+    Route::get('orders/update-status/{order}/{status}', [App\Http\Controllers\Api\Admin\OrderController::class, 'updateOrderStatus']);
 
+});
+
+// User endpoints
+Route::middleware('auth:sanctum')->group(function() {
+    Route::controller(App\Http\Controllers\Api\ProductUserController::class)->group(function() {
+        Route::post('add-to-cart/{product}', 'addToCart');
+        Route::post('check-out-cart', 'checkoutCart');
+        Route::get('cart', 'index');
+        Route::post('cart/increase-amount', 'increaseAmount');
+        Route::post('cart/decrease-amount', 'decreaseAmount');
+        Route::post('cart/{product}', 'removeFromCart');
+    });
+    Route::apiResource('orders', App\Http\Controllers\Api\OrderController::class);
+    Route::controller(App\Http\Controllers\Api\OrderController::class)->group(function() {
+        Route::get('user-order-products/{order}', 'showUserOrderProducts');
+        Route::post('order-cancellation-request/{order}', 'orderCancellationRequest');
+    });
 });
 
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
-
-Route::post('add-to-cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'addToCart'])->middleware('auth:sanctum');
-Route::post('check-out-cart', [App\Http\Controllers\Api\ProductUserController::class, 'checkoutCart'])->middleware('auth:sanctum');
-Route::get('cart', [App\Http\Controllers\Api\ProductUserController::class, 'index'])->middleware('auth:sanctum');
-Route::post('cart/increase-amount', [App\Http\Controllers\Api\ProductUserController::class, 'increaseAmount'])->middleware('auth:sanctum');
-Route::post('cart/decrease-amount', [App\Http\Controllers\Api\ProductUserController::class, 'decreaseAmount'])->middleware('auth:sanctum');
-Route::post('cart/{product}', [App\Http\Controllers\Api\ProductUserController::class, 'removeFromCart'])->middleware('auth:sanctum');
-
-Route::controller(App\Http\Controllers\Api\FilterController::class)->group(function() {
-    Route::get('most-sale-product', 'filterByMostSale');
-    Route::get('most-expensive-product', 'filterByMostExpensive');
-    Route::get('cheapest-product', 'filterByCheapest');
-    Route::get('most-discounted-product', 'filterByMostDiscounted');
-    Route::get('types/{type}', 'filterByType');
-});
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
+Route::get('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy']);
+Route::get('admin/orders/filtered-by-status/{status}', 'ordersFilterByStatus');
 
 Route::get('/is-logged', function() {
     return response()->json([
