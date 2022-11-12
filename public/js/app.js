@@ -23731,24 +23731,12 @@ __webpack_require__.r(__webpack_exports__);
       var _this2 = this;
       console.log('called');
       this.showAllProducts = false;
-      if (this.currentFilter === "cheapest") {
-        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=cheapest').then(function (response) {
-          _this2.filteredProducts = response.data;
-        });
-      } else if (this.currentFilter === "expensive") {
-        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=expensive').then(function (response) {
-          _this2.filteredProducts = response.data;
-        });
-      } else if (this.currentFilter === "mostDiscounted") {
-        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=mostDiscounted').then(function (response) {
-          _this2.filteredProducts = response.data;
-        });
-      } else if (this.currentFilter === "mostSale") {
-        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/filters?filterBy=mostSale').then(function (response) {
-          _this2.filteredProducts = response.data;
-        });
-      } else {
+      if (this.currentFilter === 'all') {
         this.filteredProducts = this.products;
+      } else {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/sort-products?sortBy=' + this.currentFilter).then(function (response) {
+          _this2.filteredProducts = response.data;
+        });
       }
     }
   }

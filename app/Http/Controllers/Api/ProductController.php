@@ -10,7 +10,13 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::with('image', 'type')->isActive()->get();
+        $products = Product::with([
+            'attributes' => function($query) {
+                return $query->where('stock', '!=', 0);
+            },
+            'image', 
+            'type'
+        ])->isActive()->get();
         return new JsonResponse([
             'products' => $products
         ]);
@@ -20,7 +26,12 @@ class ProductController extends Controller
         if($product->status !== 1) {
             return abort(404);
         }
-        $product->load('attributes', 'image');
+        $product->load([
+            'attributes'  => function($query) {
+                return $query->where('stock', '!=', 0);
+            }, 
+            'image'
+        ]);
         return new JsonResponse([
             'product' => $product
         ]);

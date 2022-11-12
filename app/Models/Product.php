@@ -41,10 +41,6 @@ class Product extends Model
                                                      ->withPivot(['stock', 'price', 'discount_id']);
     }
 
-    public function scopeIgnoreOutOfStock(Builder $query) {
-        return $query->where('stock', '!=', 0);
-    }
-
     public function orders() {
         return $this->belongsToMany(Order::class)->as('ordered')->withPivot(['quantity', 'attribute_id']);
     }

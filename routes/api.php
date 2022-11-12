@@ -48,13 +48,7 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
-Route::controller(App\Http\Controllers\Api\FilterController::class)->group(function() {
-    Route::get('most-sale-product', 'filterByMostSale');
-    Route::get('most-expensive-product', 'filterByMostExpensive');
-    Route::get('cheapest-product', 'filterByCheapest');
-    Route::get('most-discounted-product', 'filterByMostDiscounted');
-    Route::get('types/{type}', 'filterByType');
-});
+Route::get('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy']);
 Route::get('/is-logged', function() {
     return response()->json([
         'isLogged' => Auth::check()

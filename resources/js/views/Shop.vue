@@ -89,32 +89,14 @@ export default {
     filterdProduct() {
       console.log('called');
       this.showAllProducts = false;
-      if (this.currentFilter === "cheapest") {
-        axios.get('api/filters?filterBy=cheapest')
-          .then(response => {
-            this.filteredProducts = response.data;
-          })
-      }
-      else if (this.currentFilter === "expensive") {
-        axios.get('api/filters?filterBy=expensive')
-          .then(response => {
-            this.filteredProducts = response.data;
-          })
-      }
-      else if (this.currentFilter === "mostDiscounted") {
-        axios.get('api/filters?filterBy=mostDiscounted')
-          .then(response => {
-            this.filteredProducts = response.data;
-          })
-      }
-      else if (this.currentFilter === "mostSale") {
-        axios.get('api/filters?filterBy=mostSale')
-          .then(response => {
-            this.filteredProducts = response.data;
-          })
+      if (this.currentFilter === 'all') {
+        this.filteredProducts = this.products;
       }
       else {
-        this.filteredProducts = this.products;
+        axios.get('api/sort-products?sortBy=' + this.currentFilter)
+          .then(response => {
+            this.filteredProducts = response.data;
+          })
       }
     },
   },
