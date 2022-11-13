@@ -23784,22 +23784,37 @@ __webpack_require__.r(__webpack_exports__);
       _this.products = response.data.products;
     });
   },
-  computed: {
-    getFilteredProducts: function getFilteredProducts() {
+  methods: {
+    changeFilter: function changeFilter(currentFilter) {
       var _this2 = this;
-      if (this.currentFilter === 'all') {
-        return this.products;
-      } else if (this.currentFilter != null) {
-        // console.log('called');
-        axios__WEBPACK_IMPORTED_MODULE_5___default().post('api/sort-products?sortBy=' + this.currentFilter, {
-          'products': this.products
-        }).then(function (response) {
-          _this2.filteredProducts = response.data.filteredData;
-        });
-        return this.filteredProducts;
-      }
-      this.currentFilter = null;
+      console.log(currentFilter);
+      this.currentFilter = currentFilter;
+      axios__WEBPACK_IMPORTED_MODULE_5___default().post('api/sort-products?sortBy=' + currentFilter, {
+        'products': this.products
+      }).then(function (response) {
+        _this2.filteredProducts = response.data.filteredData;
+        console.log(_this2.filteredProducts);
+      });
     }
+  },
+  computed: {
+    // getFilteredProducts() {
+    //   console.log('called');
+    //   if (this.currentFilter === 'all') {
+    //     return this.products
+    //   }
+    //   else if (this.currentFilter != null) {
+    //     axios.post('api/sort-products?sortBy=' + this.currentFilter, {
+    //       'products' : this.products
+    //     })
+    //       .then(response => {
+    //         this.filteredProducts = response.data.filteredData;
+    //       })
+    //     this.currentFilter = null;
+    //     console.log(this.filteredProducts)
+    //     return this.filteredProducts
+    //   }
+    // },
   }
 });
 
@@ -25565,7 +25580,6 @@ var _hoisted_8 = {
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar");
   var _component_MiniIntroTemplate = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("MiniIntroTemplate");
-  var _component_FilterNav = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("FilterNav");
   var _component_SingleProduct = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("SingleProduct");
   var _component_Footer = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Footer");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Intro "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MiniIntroTemplate, {
@@ -25579,22 +25593,49 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_2];
     }),
     _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end Intro "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_FilterNav, {
-    currentFilter: $data.currentFilter,
-    onHandleFilter: _cache[0] || (_cache[0] = function ($event) {
-      return $data.currentFilter = $event;
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end Intro "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [_hoisted_6, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <FilterNav\n            :currentFilter=\"currentFilter\"\n            @handleFilter=\"currentFilter = $event\"\n            @honeyTypeFunction=\"honeyType = $event\"\n          /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[0] || (_cache[0] = function ($event) {
+      return $options.changeFilter('all');
     }),
-    onHoneyTypeFunction: _cache[1] || (_cache[1] = function ($event) {
-      return $data.honeyType = $event;
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      activeFilter: $data.currentFilter === 'all'
     })
-  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), this.currentFilter === 'all' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.getFilteredProducts, function (product) {
+  }, " همه ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[1] || (_cache[1] = function ($event) {
+      return $options.changeFilter('mostDiscounted');
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      activeFilter: $data.currentFilter === 'mostDiscounted'
+    })
+  }, " بیشترین تخفیف ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[2] || (_cache[2] = function ($event) {
+      return $options.changeFilter('mostExpensive');
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      activeFilter: $data.currentFilter === 'mostExpensive'
+    })
+  }, " گران ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[3] || (_cache[3] = function ($event) {
+      return $options.changeFilter('cheapest');
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      activeFilter: $data.currentFilter === 'cheapest'
+    })
+  }, " ارزان ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return $options.changeFilter('mostSale');
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      activeFilter: $data.currentFilter === 'mostSale'
+    })
+  }, " مرتب سازی ", 2 /* CLASS */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), $data.currentFilter === 'all' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.products, function (product) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product.id
     }, product, {
       imageSelected: "HoneyBlock.jpg",
       product: product
     }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.getFilteredProducts, function (product) {
+  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.filteredProducts) + " ", 1 /* TEXT */), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.filteredProducts, function (product) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product['product'].id
     }, product['product'], {

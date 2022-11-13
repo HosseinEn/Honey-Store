@@ -19,18 +19,48 @@
       <div class="row filterRow text-center">
         <h3 class="mb-3">Filter BY :</h3>
         <section>
-          <FilterNav
+          <!-- <FilterNav
             :currentFilter="currentFilter"
             @handleFilter="currentFilter = $event"
             @honeyTypeFunction="honeyType = $event"
-          />
+          /> -->
+          <button
+            @click="changeFilter('all')"
+            :class="{ activeFilter: currentFilter === 'all' }"
+          >
+            همه
+          </button>
+          <button
+            @click="changeFilter('mostDiscounted')"
+            :class="{ activeFilter: currentFilter === 'mostDiscounted' }"
+          >
+            بیشترین تخفیف
+          </button>
+          <button
+            @click="changeFilter('mostExpensive')"
+            :class="{ activeFilter: currentFilter === 'mostExpensive' }"
+          >
+            گران ترین
+          </button>
+          <button
+            @click="changeFilter('cheapest')"
+            :class="{ activeFilter: currentFilter === 'cheapest' }"
+          >
+            ارزان ترین
+          </button>
+          <button
+            @click="changeFilter('mostSale')"
+            :class="{ activeFilter: currentFilter === 'mostSale' }"
+          >
+            مرتب سازی
+          </button>
         </section>
       </div>
       <div >
         <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
-        <div class="productRow" v-if="this.currentFilter === 'all'">
+        <div class="productRow" v-if="currentFilter === 'all'">
           <SingleProduct
-            v-for="product in getFilteredProducts"
+            v-for="product in products"
             :key="product.id"
             v-bind="product"
             imageSelected="HoneyBlock.jpg"
@@ -38,8 +68,9 @@
           />
         </div>
         <div class="productRow" v-else>
+          {{ filteredProducts }}
           <SingleProduct
-            v-for="product in getFilteredProducts"
+            v-for="product in filteredProducts"
             :key="product['product'].id"
             v-bind="product['product']"
             imageSelected="HoneyBlock.jpg"
@@ -84,23 +115,37 @@ export default {
       this.products = response.data.products;
     });
   },
-  computed: {
-    getFilteredProducts() {
-      if (this.currentFilter === 'all') {
-        return this.products
-      }
-      else if (this.currentFilter != null) {
-        // console.log('called');
-        axios.post('api/sort-products?sortBy=' + this.currentFilter, {
+  methods: {
+    changeFilter(currentFilter) {
+      console.log(currentFilter)
+      this.currentFilter = currentFilter;
+      axios.post('api/sort-products?sortBy=' + currentFilter, {
           'products' : this.products
         })
           .then(response => {
             this.filteredProducts = response.data.filteredData;
+            console.log(this.filteredProducts)
           })
-        return this.filteredProducts
       }
-      this.currentFilter = null;
-    },
+  },
+  computed: {
+    // getFilteredProducts() {
+    //   console.log('called');
+    //   if (this.currentFilter === 'all') {
+    //     return this.products
+    //   }
+    //   else if (this.currentFilter != null) {
+    //     axios.post('api/sort-products?sortBy=' + this.currentFilter, {
+    //       'products' : this.products
+    //     })
+    //       .then(response => {
+    //         this.filteredProducts = response.data.filteredData;
+    //       })
+    //     this.currentFilter = null;
+    //     console.log(this.filteredProducts)
+    //     return this.filteredProducts
+    //   }
+    // },
   },
 };
 </script>
