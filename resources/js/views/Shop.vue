@@ -30,7 +30,7 @@
         <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
         <div class="productRow" v-if="this.currentFilter === 'all'">
           <SingleProduct
-            v-for="product in filterdProduct"
+            v-for="product in getFilteredProducts"
             :key="product.id"
             v-bind="product"
             imageSelected="HoneyBlock.jpg"
@@ -38,19 +38,13 @@
           />
         </div>
         <div class="productRow" v-else>
-          hello
-          {{ filterdProduct }}
-          <!-- <div v-for="product in filterdProduct">
-            hello
-            {{ product['product'] }}
-          </div> -->
-          <!-- <SingleProduct
-            v-for="product in filterdProduct"
+          <SingleProduct
+            v-for="product in getFilteredProducts"
             :key="product['product'].id"
             v-bind="product['product']"
             imageSelected="HoneyBlock.jpg"
             :product="product['product']"
-          /> -->
+          />
         </div>
       </div>
     </div>
@@ -75,7 +69,6 @@ export default {
       filteredProducts: null,
       currentFilter: "all",
       honeyType: "all",
-      showAllProducts: true
     };
   },
   components: {
@@ -92,24 +85,21 @@ export default {
     });
   },
   computed: {
-    filterdProduct() {
-      console.log('current filter is all: ' + (this.currentFilter === 'all'));
+    getFilteredProducts() {
       if (this.currentFilter === 'all') {
-        console.log(this.products)
         return this.products
       }
-      else {
-        this.showAllProducts = false;
+      else if (this.currentFilter != null) {
+        // console.log('called');
         axios.post('api/sort-products?sortBy=' + this.currentFilter, {
           'products' : this.products
         })
           .then(response => {
-            // this.filteredProducts = response.data.mostDiscountedProducts.original.mostDiscountedProducts;
-            console.log(response.data.mostDiscountedProducts.original)
-            this.filterdProducts = response.data.mostDiscountedProducts.original.mostDiscountedProducts
-            return this.filteredProducts;
+            this.filteredProducts = response.data.filteredData;
           })
+        return this.filteredProducts
       }
+      this.currentFilter = null;
     },
   },
 };

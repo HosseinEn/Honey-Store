@@ -23767,8 +23767,7 @@ __webpack_require__.r(__webpack_exports__);
       products: null,
       filteredProducts: null,
       currentFilter: "all",
-      honeyType: "all",
-      showAllProducts: true
+      honeyType: "all"
     };
   },
   components: {
@@ -23786,23 +23785,20 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   computed: {
-    filterdProduct: function filterdProduct() {
+    getFilteredProducts: function getFilteredProducts() {
       var _this2 = this;
-      console.log('current filter is all: ' + (this.currentFilter === 'all'));
       if (this.currentFilter === 'all') {
-        console.log(this.products);
         return this.products;
-      } else {
-        this.showAllProducts = false;
+      } else if (this.currentFilter != null) {
+        // console.log('called');
         axios__WEBPACK_IMPORTED_MODULE_5___default().post('api/sort-products?sortBy=' + this.currentFilter, {
           'products': this.products
         }).then(function (response) {
-          // this.filteredProducts = response.data.mostDiscountedProducts.original.mostDiscountedProducts;
-          console.log(response.data.mostDiscountedProducts.original);
-          _this2.filterdProducts = response.data.mostDiscountedProducts.original.mostDiscountedProducts;
-          return _this2.filteredProducts;
+          _this2.filteredProducts = response.data.filteredData;
         });
+        return this.filteredProducts;
       }
+      this.currentFilter = null;
     }
   }
 });
@@ -25591,14 +25587,21 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onHoneyTypeFunction: _cache[1] || (_cache[1] = function ($event) {
       return $data.honeyType = $event;
     })
-  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), this.currentFilter === 'all' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filterdProduct, function (product) {
+  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), this.currentFilter === 'all' ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.getFilteredProducts, function (product) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product.id
     }, product, {
       imageSelected: "HoneyBlock.jpg",
       product: product
     }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" hello " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.filterdProduct), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div v-for=\"product in filterdProduct\">\n            hello\n            {{ product['product'] }}\n          </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct\n            v-for=\"product in filterdProduct\"\n            :key=\"product['product'].id\"\n            v-bind=\"product['product']\"\n            imageSelected=\"HoneyBlock.jpg\"\n            :product=\"product['product']\"\n          /> ")]))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.getFilteredProducts, function (product) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+      key: product['product'].id
+    }, product['product'], {
+      imageSelected: "HoneyBlock.jpg",
+      product: product['product']
+    }), null, 16 /* FULL_PROPS */, ["product"]);
+  }), 128 /* KEYED_FRAGMENT */))]))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
