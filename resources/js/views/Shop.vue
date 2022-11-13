@@ -68,7 +68,7 @@
           />
         </div>
         <div class="productRow" v-else>
-          {{ filteredProducts }}
+          <!-- {{ filteredProducts }} -->
           <SingleProduct
             v-for="product in filteredProducts"
             :key="product['product'].id"
@@ -124,28 +124,8 @@ export default {
         })
           .then(response => {
             this.filteredProducts = response.data.filteredData;
-            console.log(this.filteredProducts)
           })
       }
-  },
-  computed: {
-    // getFilteredProducts() {
-    //   console.log('called');
-    //   if (this.currentFilter === 'all') {
-    //     return this.products
-    //   }
-    //   else if (this.currentFilter != null) {
-    //     axios.post('api/sort-products?sortBy=' + this.currentFilter, {
-    //       'products' : this.products
-    //     })
-    //       .then(response => {
-    //         this.filteredProducts = response.data.filteredData;
-    //       })
-    //     this.currentFilter = null;
-    //     console.log(this.filteredProducts)
-    //     return this.filteredProducts
-    //   }
-    // },
   },
 };
 </script>
@@ -158,5 +138,22 @@ export default {
 .productRow {
   display: flex;
   flex-wrap: wrap;
+}
+button {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--thirdColor);
+  border-radius: 10px;
+  transition: all 0.5s linear;
+}
+select {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
+  background-color: var(--thirdColor);
+  border-radius: 5px 5px 0px 0px;
+}
+.activeFilter {
+  background-color: var(--secondColor) !important;
+  color: var(--mainColor) !important;
 }
 </style>

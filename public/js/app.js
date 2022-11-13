@@ -23793,28 +23793,8 @@ __webpack_require__.r(__webpack_exports__);
         'products': this.products
       }).then(function (response) {
         _this2.filteredProducts = response.data.filteredData;
-        console.log(_this2.filteredProducts);
       });
     }
-  },
-  computed: {
-    // getFilteredProducts() {
-    //   console.log('called');
-    //   if (this.currentFilter === 'all') {
-    //     return this.products
-    //   }
-    //   else if (this.currentFilter != null) {
-    //     axios.post('api/sort-products?sortBy=' + this.currentFilter, {
-    //       'products' : this.products
-    //     })
-    //       .then(response => {
-    //         this.filteredProducts = response.data.filteredData;
-    //       })
-    //     this.currentFilter = null;
-    //     console.log(this.filteredProducts)
-    //     return this.filteredProducts
-    //   }
-    // },
   }
 });
 
@@ -25635,7 +25615,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       imageSelected: "HoneyBlock.jpg",
       product: product
     }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.filteredProducts) + " ", 1 /* TEXT */), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.filteredProducts, function (product) {
+  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ filteredProducts }} "), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.filteredProducts, function (product) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product['product'].id
     }, product['product'], {
@@ -31797,7 +31777,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#productVfor[data-v-530160d6] {\n  width: 50%;\n  height: auto;\n}\n.productRow[data-v-530160d6] {\n  display: flex;\n  flex-wrap: wrap;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#productVfor[data-v-530160d6] {\n  width: 50%;\n  height: auto;\n}\n.productRow[data-v-530160d6] {\n  display: flex;\n  flex-wrap: wrap;\n}\nbutton[data-v-530160d6] {\n  margin-left: 0.5rem;\n  padding: 0.5rem;\n  background-color: var(--thirdColor);\n  border-radius: 10px;\n  transition: all 0.5s linear;\n}\nselect[data-v-530160d6] {\n  margin-left: 0.5rem;\n  padding: 0.5rem;\n  background-color: var(--thirdColor);\n  border-radius: 5px 5px 0px 0px;\n}\n.activeFilter[data-v-530160d6] {\n  background-color: var(--secondColor) !important;\n  color: var(--mainColor) !important;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
