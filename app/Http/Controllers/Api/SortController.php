@@ -27,27 +27,27 @@ class SortController extends Controller
 
   
     public function sortBy(Request $request) {
-        $products = $request->products;
-        if ($request->has('filterBy')) {
-            if ($request->filter_by === "mostSale") {
+        $products = collect($request->products);
+        if ($request->has('sortBy')) {
+            if ($request->sortBy === "mostSale") {
                 $mostSaleProducts = $this->filterByMostSale($products);
                 return new JsonResponse([
                     'mostSaleProducts' => $mostSaleProducts,
                 ]);
             }
-            else if ($request->filter_by === "cheapest") {
+            else if ($request->sortBy === "cheapest") {
                 $cheapestProducts = $this->filterByCheapest($products);
                 return new JsonResponse([
                     'cheapestProducts' => $cheapestProducts,
                 ]);
             }
-            else if ($request->filter_by === "mostExpensive") {
+            else if ($request->sortBy === "mostExpensive") {
                 $mostExpensiveProducts = $this->filterByMostExpensive($products);
                 return new JsonResponse([
                     'mostExpensiveProducts' => $mostExpensiveProducts,
                 ]);
             }
-            else if ($request->filter_by === "mostDiscounted") { 
+            else if ($request->sortBy === "mostDiscounted") { 
                 $mostDiscountedProducts = $this->filterByMostDiscounted($products);
                 return new JsonResponse([
                     'mostDiscountedProducts' => $mostDiscountedProducts
@@ -113,7 +113,7 @@ class SortController extends Controller
     }
 
     public function filterByMostDiscounted($products) {
-        // $products = Product::isActive()->get();
+        $products = Product::isActive()->get();
         // $products->load('attributes');
         $mostDiscountedProducts = collect([]);
         $joinResult = DB::table('discounts')
@@ -121,19 +121,31 @@ class SortController extends Controller
             ->select('product_id', 'attribute_id', 'value')
             ->orderBy('discounts.value', 'desc')
             ->get();
-        
+
         foreach($joinResult as $jr) {
             $product = $products->where('id', $jr->product_id)->first();
-            $attributes = $product->attributes->where('id', $jr->attribute_id)->first();
-            $mostDiscountedProducts->push([
-                'product' => $product, 
-                'most_discounted_attribute' => $attributes
-            ]);
+            if ($product['attributes']) {
+                $attributes = collect($product['attributes'])->where('id', $jr->attribute_id)->first();
+                // dump($product, $attributes);
+                $mostDiscountedProducts->push([
+                    'product' => $product, 
+                    'most_discounted_attribute' => $attributes
+                ]);
+            }
         }
 
-        return $mostDiscountedProducts;
-        // return new JsonResponse([
-        //     'mostDiscountedProducts' => $mostDiscountedProducts
-        // ]);
+        // foreach($joinResult as $jr) {
+        //     $product = $products->where('id', $jr->product_id)->first();
+        //     $attributes = $product->attributes->where('id', $jr->attribute_id)->first();
+        //     $mostDiscountedProducts->push([
+        //         'product' => $product, 
+        //         'most_discounted_attribute' => $attributes
+        //     ]);
+        // }
+
+        // dd($mostDiscountedProducts);
+        return new JsonResponse([
+            'mostDiscountedProducts' => $mostDiscountedProducts
+        ]);
     }
 }

@@ -6,22 +6,28 @@
     همه
   </button>
   <button
-    @click="changeFilter('mostD')"
-    :class="{ activeFilter: currentFilter === 'mostD' }"
+    @click="changeFilter('mostDiscounted')"
+    :class="{ activeFilter: currentFilter === 'mostDiscounted' }"
   >
     بیشترین تخفیف
   </button>
   <button
-    @click="changeFilter('expensive')"
-    :class="{ activeFilter: currentFilter === 'expensive' }"
+    @click="changeFilter('mostExpensive')"
+    :class="{ activeFilter: currentFilter === 'mostExpensive' }"
   >
     گران ترین
   </button>
   <button
-    @click="changeFilter('cheap')"
-    :class="{ activeFilter: currentFilter === 'cheap' }"
+    @click="changeFilter('cheapest')"
+    :class="{ activeFilter: currentFilter === 'cheapest' }"
   >
     ارزان ترین
+  </button>
+  <button
+    @click="changeFilter('mostSale')"
+    :class="{ activeFilter: currentFilter === 'mostSale' }"
+  >
+    مرتب سازی
   </button>
   <select
     name="honeyType"
