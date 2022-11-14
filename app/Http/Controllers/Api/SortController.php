@@ -17,10 +17,17 @@ class SortController extends Controller
         $result = collect([]);
         foreach($product_attribute_ids as $pa_id) {
             $product = $allProducts->where('id', $pa_id->product_id)->first();
-            $result->push([
-                'product' => $product, 
-                $filteredBy => collect($product['attributes'])->where('id', $pa_id->attribute_id)->first()
-            ]);
+            if($product['attributes']) {
+                $attribute = collect($product['attributes'])
+                        ->where('attribute_product.stock', '!=', 0)
+                        ->where('id', $pa_id->attribute_id)->first();
+                if ($attribute) {
+                    $result->push([
+                        'product' => $product, 
+                        'filteredAttribute' => $attribute
+                    ]);
+                }
+            }
         }
         return $result;
     }
@@ -100,11 +107,17 @@ class SortController extends Controller
         foreach($joinResult as $jr) {
             $product = $products->where('id', $jr->product_id)->first();
             if ($product['attributes']) {
-                $attributes = collect($product['attributes'])->where('id', $jr->attribute_id)->first();
-                $mostDiscountedProducts->push([
-                    'product' => $product, 
-                    'most_discounted_attribute' => $attributes
-                ]);
+                $attribute = collect($product['attributes'])
+                    ->where('attribute_product.stock', '!=', 0)
+                    ->where('id', $jr->attribute_id)->first();
+                    if ($attribute) {
+                        $attribute['attribute_product']['discount_value'] = $jr->value;
+                        $mostDiscountedProducts->push([
+                            'product' => $product, 
+                            'filteredAttribute' => $attribute,
+                            // 'discount_value' => $jr->value
+                        ]);
+                }
             }
         }
         return $mostDiscountedProducts;
