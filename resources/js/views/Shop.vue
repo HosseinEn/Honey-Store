@@ -85,7 +85,9 @@ export default {
                 return (this.filteredProducts = this.products);
             } else {
                 axios
-                    .get("api/sort-products?sortBy=" + this.currentFilter)
+                    .post("api/sort-products?sortBy=" + this.currentFilter, {
+                        products: this.products,
+                    })
                     .then((response) => {
                         return (this.filteredProducts = response.data);
                     });

@@ -6,8 +6,8 @@
     همه
   </button>
   <button
-    @click="changeFilter('mostD')"
-    :class="{ activeFilter: currentFilter === 'mostD' }"
+    @click="changeFilter('mostDiscount')"
+    :class="{ activeFilter: currentFilter === 'mostDiscount' }"
   >
     بیشترین تخفیف
   </button>

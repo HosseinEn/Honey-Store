@@ -23794,7 +23794,9 @@ __webpack_require__.r(__webpack_exports__);
         console.log("called in ALL");
         return this.filteredProducts = this.products;
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_5___default().get("api/sort-products?sortBy=" + this.currentFilter).then(function (response) {
+        axios__WEBPACK_IMPORTED_MODULE_5___default().post("api/sort-products?sortBy=" + this.currentFilter, {
+          products: this.products
+        }).then(function (response) {
           return _this2.filteredProducts = response.data;
         });
       }
@@ -24222,10 +24224,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, " همه ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $options.changeFilter('mostD');
+      return $options.changeFilter('mostDiscount');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      activeFilter: $props.currentFilter === 'mostD'
+      activeFilter: $props.currentFilter === 'mostDiscount'
     })
   }, " بیشترین تخفیف ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[2] || (_cache[2] = function ($event) {
