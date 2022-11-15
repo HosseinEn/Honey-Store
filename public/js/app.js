@@ -23788,13 +23788,14 @@ __webpack_require__.r(__webpack_exports__);
   computed: {
     filterdProduct: function filterdProduct() {
       var _this2 = this;
-      console.log('called');
+      console.log("called");
       this.showAllProducts = false;
-      if (this.currentFilter === 'all') {
-        this.filteredProducts = this.products;
+      if (this.currentFilter === "all") {
+        console.log("called in ALL");
+        return this.filteredProducts = this.products;
       } else {
-        axios__WEBPACK_IMPORTED_MODULE_5___default().get('api/sort-products?sortBy=' + this.currentFilter).then(function (response) {
-          _this2.filteredProducts = response.data;
+        axios__WEBPACK_IMPORTED_MODULE_5___default().get("api/sort-products?sortBy=" + this.currentFilter).then(function (response) {
+          return _this2.filteredProducts = response.data;
         });
       }
     }
@@ -25546,11 +25547,6 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
   }, "Filter BY :", -1 /* HOISTED */);
 });
 var _hoisted_7 = {
-  key: 0,
-  "class": "productRow"
-};
-var _hoisted_8 = {
-  key: 1,
   "class": "productRow"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -25578,21 +25574,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onHoneyTypeFunction: _cache[1] || (_cache[1] = function ($event) {
       return $data.honeyType = $event;
     })
-  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), $data.showAllProducts ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.products, function (product) {
+  }, null, 8 /* PROPS */, ["currentFilter"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <SingleProduct :v-bind=\"product\" :imageSelected=\"product.image.path\" /> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($options.filterdProduct, function (product) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product.id
     }, product, {
       imageSelected: "HoneyBlock.jpg",
       product: product
     }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_8, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.filteredProducts, function (product) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
-      key: product.id
-    }, product, {
-      imageSelected: "HoneyBlock.jpg",
-      product: product
-    }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))]))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }), 128 /* KEYED_FRAGMENT */))])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -31747,7 +31736,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n#productVfor[data-v-530160d6] {\r\n  width: 50%;\r\n  height: auto;\n}\n.productRow[data-v-530160d6] {\r\n  display: flex;\r\n  flex-wrap: wrap;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n#productVfor[data-v-530160d6] {\r\n    width: 50%;\r\n    height: auto;\n}\n.productRow[data-v-530160d6] {\r\n    display: flex;\r\n    flex-wrap: wrap;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
