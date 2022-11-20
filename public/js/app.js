@@ -24224,32 +24224,39 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     })
   }, " همه ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[1] || (_cache[1] = function ($event) {
-      return $options.changeFilter('mostDiscount');
+      return $options.changeFilter('mostDiscounted');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      activeFilter: $props.currentFilter === 'mostDiscount'
+      activeFilter: $props.currentFilter === 'mostDiscounted'
     })
   }, " بیشترین تخفیف ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[2] || (_cache[2] = function ($event) {
-      return $options.changeFilter('expensive');
+      return $options.changeFilter('mostExpensive');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      activeFilter: $props.currentFilter === 'expensive'
+      activeFilter: $props.currentFilter === 'mostExpensive'
     })
   }, " گران ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     onClick: _cache[3] || (_cache[3] = function ($event) {
-      return $options.changeFilter('cheap');
+      return $options.changeFilter('cheapest');
     }),
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      activeFilter: $props.currentFilter === 'cheap'
+      activeFilter: $props.currentFilter === 'cheapest'
     })
-  }, " ارزان ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, " ارزان ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    onClick: _cache[4] || (_cache[4] = function ($event) {
+      return $options.changeFilter('mostSale');
+    }),
+    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
+      activeFilter: $props.currentFilter === 'mostSale'
+    })
+  }, " مرتب سازی ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "honeyType",
     id: "honeyType",
-    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
       return $data.honeyType = $event;
     }),
-    onChange: _cache[5] || (_cache[5] = function ($event) {
+    onChange: _cache[6] || (_cache[6] = function ($event) {
       return $options.onChange();
     })
   }, _hoisted_5, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.honeyType]])], 64 /* STABLE_FRAGMENT */);
