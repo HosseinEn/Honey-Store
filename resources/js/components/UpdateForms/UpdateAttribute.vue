@@ -8,6 +8,11 @@
 
                 <label for="">a</label>
                 <input type="text" />
+                <div v-for="attribute in attributes">
+                    <input type="text" name="product_attributes[{{ attribute.id }}][price]">
+                    <input type="text" name="product_attributes[{{ attribute.id }}][stock]">
+                    <input type="text" name="product_attributes[{{ attribute.id }}][discount_id]">
+                </div>
             </form>
         </div>
         </div>
@@ -16,8 +21,17 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
     name: "createForm",
+    mounted() {
+        axios.get("/sanctum/csrf-cookie");
+        axios.post("");
+    },
+    methods: {
+
+    }
 };
 </script>
 

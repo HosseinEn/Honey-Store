@@ -50,7 +50,7 @@ Route::middleware('auth:sanctum')->group(function() {
 
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 Route::get('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy']);
-Route::get('admin/orders/filtered-by-status/{status}', 'ordersFilterByStatus');
+Route::get('admin/orders/filtered-by-status/{status}', [App\Http\Controllers\Api\FilterController::class, 'ordersFilterByStatus']);
 
 Route::get('/is-logged', function() {
     return response()->json([
