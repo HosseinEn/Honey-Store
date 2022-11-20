@@ -19,8 +19,10 @@ class AttributeController extends Controller
      */
     public function index(Request $request)
     {
-        $attributes = Attribute::orderBy("created_at", "desc")->get();
-        return $attributes;
+        $attributes = Attribute::orderBy("weight", "asc")->get();
+        return new JsonResponse([
+            'attributes' => $attributes
+        ]);
     }
 
     /**
@@ -33,7 +35,7 @@ class AttributeController extends Controller
     {
         $attribute = Attribute::create($request->all());
         return new JsonResponse([
-            'type' => $attribute
+            'attribute' => $attribute
         ]);
     }
 

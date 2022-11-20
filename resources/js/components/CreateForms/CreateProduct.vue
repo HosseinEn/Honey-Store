@@ -91,6 +91,22 @@
                             {{ error }}
                         </div>
                     </div>
+                    <br>
+                    <!-- {{ attributes }} -->
+                    <div v-for="attribute in attributes">
+                        <br />
+                        وزن:  {{ attribute.weight }} کیلوگرم
+                        <br />
+                        <label for="">قیمت:</label>
+                        <input type="text" name="product_attributes[attribute.id][price]">
+                        <label for="">تعداد:</label>
+                        <input type="text" name="product_attributes[attribute.id][stock]">
+                        <label for="">تخفیف:</label>
+                        <select name="product_attributes[{{ attribute.id }}][discount_id]" id="">
+                            <option value="">بدون تخفیف</option>
+                            <option v-for="discount in discounts" value="{{ discount.id }}">{{ discount.value }}%</option>
+                        </select>
+                    </div>
                     <br />
                     <label for="description">description محصول:</label>
                     <textarea
@@ -98,8 +114,7 @@
                         cols="30"
                         rows="10"
                         class="adminFormTextare adminFormInputSelectTextarea"
-                    >
-                    </textarea>
+                    ></textarea>
                     <div style="color: red" v-if="this.authorizationError">
                         {{ this.authorizationError }}
                     </div>
@@ -130,9 +145,20 @@ export default {
             name: null,
             slug: null,
             status: null,
+            attributes: null,
+            discounts: null,
         };
     },
-    mounted() {},
+    mounted() {
+        axios.get("/api/admin/attributes")
+        .then(response => {
+            this.attributes = response.data.attributes;
+        });
+        axios.get("/api/admin/discounts")
+        .then(response => {
+            this.discounts = response.data.discounts;
+        });
+    },
     methods: {
         submit() {
             console.log("hello");
