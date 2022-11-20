@@ -32,7 +32,7 @@ class StoreAdminAttributeRequest extends FormRequest
     public function rules()
     {
         return [
-            'weight' => 'required|unique:attributes'
+            'weight' => 'required|numeric|unique:attributes'
         ];
     }
 }

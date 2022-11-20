@@ -71,6 +71,25 @@
                   v-model="quantityNumber"
                 />
                 <button type="submit">Add to Cart</button>
+                <div
+                  style="color: red"
+                  v-if="this.errors != null && this.errors.attribute_id">
+                    <div v-for="error in this.errors.attribute_id">
+                      {{ error }}
+                  </div>
+                </div>
+                <div
+                  style="color: red"
+                  v-if="this.errors != null && this.errors.quantity">
+                    <div v-for="error in this.errors.quantity">
+                      {{ error }}
+                  </div>
+                </div>
+                <div
+                  style="color: red"
+                  v-if="this.authorizationError"
+                  >{{ this.authorizationError }}</div
+                >
               </section>
             </form>
           </section>
@@ -143,6 +162,7 @@ export default {
   data() {
     return {
       singleProduct: null,
+      errors: null,
       attribute_id: null,
       maxStock: null,
       quantityNumber: null,
@@ -166,10 +186,6 @@ export default {
     Loading,
   },
   mounted() {
-    // fetch('/api/products/' + this.id)
-    //   .then(res => res.json())
-    //   .then(data => this.singleProduct = data)
-    //   .catch(err => console.log(err.message));
     axios
       .get("/api/products/" + this.id)
       .then((response) => (this.singleProduct = response.data.product));
@@ -183,9 +199,24 @@ export default {
       }
       this.boxes[index].isShowing = !this.boxes[index].isShowing;
     },
-    handleSubmit() {
-      console.log(this.attribute_id);
-      console.log(this.quantityNumber);
+    handleSubmit(){
+      axios.post(`/api/add-to-cart/${this.singleProduct.slug}`, {
+        attribute_id: this.attribute_id,
+        quantity: this.quantityNumber
+      })
+      .then(response => {
+        this.errors = null;
+        this.authorizationError = null;
+      })
+      .catch(errors => {
+        if(errors.response.status === 401) {
+          this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+        }
+        else {
+          this.errors = errors.response && errors.response.data.errors;
+          console.log(this.errors);
+        }
+      })
     },
     getStock() {
       for (var i = 0; i < this.singleProduct.attributes.length; i++) {
