@@ -93,28 +93,47 @@
                     </div>
                     <br>
                     <!-- {{ attributes }} -->
-                    <div v-for="attribute in attributes">
+                    <div v-for="attribute in attributes" :key="attribute.id">
                         <br />
                         وزن:  {{ attribute.weight }} کیلوگرم
                         <br />
                         <label for="">قیمت:</label>
-                        <input type="text" name="product_attributes[attribute.id][price]">
+                        <!-- <input type="text" :name="product_attribute[attribute.id][price]"> -->
+                        <!-- <input type="text" :name="attribute.id"> -->
+                        <input type="text" :name="`product_attributes[${attribute.id}][price]`">
                         <label for="">تعداد:</label>
-                        <input type="text" name="product_attributes[attribute.id][stock]">
+                        <input type="text" :name="`product_attributes[${attribute.id}][stock]`">
                         <label for="">تخفیف:</label>
-                        <select name="product_attributes[{{ attribute.id }}][discount_id]" id="">
+                        <select :name="`product_attributes[${attribute.id}][discount_id]`">
                             <option value="">بدون تخفیف</option>
                             <option v-for="discount in discounts" value="{{ discount.id }}">{{ discount.value }}%</option>
                         </select>
                     </div>
+                    <div
+                        style="color: red"
+                        v-if="this.errors !== null && this.errors.product_attributes"
+                    >
+                        <div v-for="error in this.errors.product_attributes" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
                     <br />
-                    <label for="description">description محصول:</label>
+                    <label for="description">توضیحات محصول:</label>
                     <textarea
                         name="description"
+                        v-model="description"
                         cols="30"
                         rows="10"
                         class="adminFormTextare adminFormInputSelectTextarea"
                     ></textarea>
+                    <div
+                        style="color: red"
+                        v-if="this.errors !== null && this.errors.description"
+                    >
+                        <div v-for="error in this.errors.description" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
                     <div style="color: red" v-if="this.authorizationError">
                         {{ this.authorizationError }}
                     </div>
@@ -145,6 +164,7 @@ export default {
             name: null,
             slug: null,
             status: null,
+            description: null,
             attributes: null,
             discounts: null,
         };
@@ -161,10 +181,35 @@ export default {
     },
     methods: {
         submit() {
-            console.log("hello");
-            console.log(this.$refs.image.value);
-            // axios.get("/sanctum/csrf-cookie");
-            // axios.post("api/admin/products");
+            const imageFile = this.$refs.image.value;
+            var data = {
+                "name": this.name,
+                "slug": this.slug,
+                "status": this.status,
+                "description": this.description,
+                "image" : imageFile
+            }
+            const product_attributes_inputs = document.querySelectorAll("input[name^='product_attributes[']")
+            product_attributes_inputs.forEach(pa => {
+                if (pa.value != "") {
+                    data[pa.name] = pa.value;
+                }
+            });
+            axios.get("/sanctum/csrf-cookie");
+            axios.post("/api/admin/products", data)
+            .then(response => {
+                console.log(response)
+                this.errors = null;
+                this.authorizationError = null;
+            })
+            .catch(errors => {
+                if (errors.response.status === 401) {
+                    this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+                }
+                else {
+                    this.errors = errors.response && errors.response.data.errors;
+                }
+            });
         },
     },
 };

@@ -36,8 +36,10 @@ ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreAdminProductRequest $request)
+    public function store(Request $request)
     {
+        // change request to StoreAdminProductRequest ###################################################################################################
+        dd($request->all());
         $request->merge(['slug' =>$this-> make_slug($request)]);
         $request->validate([
             'product_attributes' => 'required',
@@ -47,7 +49,6 @@ ProductController extends Controller
             'name',
             'slug',
             'type_id',
-            // 'discount_id',
             'description',
             'status',
             'image',

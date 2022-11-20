@@ -20,7 +20,7 @@ class DiscountController extends Controller
     {
         $discounts = Discount::orderBy("created_at", "desc")->get();
         return new JsonResponse([
-            'type' => $discounts
+            'discounts' => $discounts
         ]);
     }
 
