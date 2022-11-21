@@ -74,6 +74,26 @@
                             {{ error }}
                         </div>
                     </div>
+
+                    <label for="type_id">نوع محصول:</label>
+                    <select 
+                        name="type_id"
+                        v-model="type_id"
+                        class="adminFormSelect adminFormInputSelectTextarea"
+                        >
+                        <option value="">انتخاب کنید</option>
+                        <option v-for="type_id in types" :key="type_id.id" :value="`${type_id.id}`">{{ type_id.name }}</option>
+                    </select>
+                    <div
+                        style="color: red"
+                        v-if="this.errors !== null && this.errors.type_id"
+                    >
+                        <div v-for="error in this.errors.type_id" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
+                    <br>
+
                     <label for="status">وضعیت محصول:</label>
                     <select
                         name="status"
@@ -163,10 +183,12 @@ export default {
             errors: null,
             name: null,
             slug: null,
+            type_id: null,
             status: null,
             description: null,
             attributes: null,
             discounts: null,
+            types: null,
         };
     },
     mounted() {
@@ -178,13 +200,19 @@ export default {
         .then(response => {
             this.discounts = response.data.discounts;
         });
+        axios.get("/api/admin/types")
+        .then(response => {
+            this.types = response.data.types;
+        });
     },
     methods: {
         submit() {
             const imageFile = this.$refs.image.value;
+            console.log(imageFile);
             var data = {
                 "name": this.name,
                 "slug": this.slug,
+                "type_id": this.type_id,
                 "status": this.status,
                 "description": this.description,
                 "image" : imageFile
@@ -195,6 +223,7 @@ export default {
                     data[pa.name] = pa.value;
                 }
             });
+            console.log(data);
             axios.get("/sanctum/csrf-cookie");
             axios.post("/api/admin/products", data)
             .then(response => {
@@ -208,6 +237,7 @@ export default {
                 }
                 else {
                     this.errors = errors.response && errors.response.data.errors;
+                    console.log(this.errors);
                 }
             });
         },

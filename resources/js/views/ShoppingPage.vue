@@ -87,9 +87,9 @@
                 </div>
                 <div
                   style="color: red"
-                  v-if="this.authorizationError"
-                  >{{ this.authorizationError }}</div
-                >
+                  v-if="this.authorizationError">
+                  {{ this.authorizationError }}
+                </div>
               </section>
             </form>
           </section>
@@ -211,6 +211,7 @@ export default {
       .catch(errors => {
         if(errors.response.status === 401) {
           this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+          this.errors = errors.response.status
         }
         else {
           this.errors = errors.response && errors.response.data.errors;
