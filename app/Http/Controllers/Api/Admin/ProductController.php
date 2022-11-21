@@ -36,21 +36,9 @@ ProductController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreAdminProductRequest $request)
     {
-        // change request to StoreAdminProductRequest ###################################################################################################
-        // dd($request->image);
-        // dd($request->all());
         $request->merge(['slug' =>$this-> make_slug($request)]);
-        $request->validate([
-            'name' => 'required|min:3',
-            'image' => 'required|image|mimes:jpeg,jpg,png,gif',
-            'type_id' => 'required',
-            'status' => 'required',
-            'description' => 'required',
-            'product_attributes' => 'required',
-            'slug' => 'unique:products'
-        ]);
         $dataForInsert = [
             'name',
             'slug',
@@ -64,15 +52,20 @@ ProductController extends Controller
         $totalStock = 0;
         foreach ($request->product_attributes as $attribute_id => $values) {
             $request->validate([
-                "product_attributes.{$attribute_id}.stock" => "required|int",
-                "product_attributes.{$attribute_id}.price" => "required|int",
+                "product_attributes.{$attribute_id}.stock" => "required|numeric",
+                "product_attributes.{$attribute_id}.price" => "required|numeric",
                 "product_attributes.{$attribute_id}.discount_id" => "nullable",
+            ], [
+                "product_attributes.*.stock.required" => 'پر کردن فیلد تعداد برای این وزن الزامی است!',
+                "product_attributes.*.stock.numeric" => 'لطفا یک مقدار عددی برای تعداد وارد نمایید!',
+                "product_attributes.*.price.required" => 'پر کردن فیلد قیمت برای این وزن الزامی است!',
+                "product_attributes.*.price.numeric" => 'لطفا یک مقدار عددی برای قیمت وارد نمایید!'
             ]);
             $totalStock += $values['stock'];
         }
 
         $request->merge(['stock' => $totalStock]);
-
+        dd($request->all());
         $product = Product::create($request->only($dataForInsert));
         foreach ($request->product_attributes as $attribute_id => $values) {
             $product->attributes()->syncWithOutDetaching([

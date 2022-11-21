@@ -165,6 +165,7 @@ export default {
       errors: null,
       attribute_id: null,
       maxStock: null,
+      authorizationError: null,
       quantityNumber: null,
       boxes: [
         { isShowing: false },
@@ -211,7 +212,6 @@ export default {
       .catch(errors => {
         if(errors.response.status === 401) {
           this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
-          this.errors = errors.response.status
         }
         else {
           this.errors = errors.response && errors.response.data.errors;
