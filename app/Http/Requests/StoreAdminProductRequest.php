@@ -35,6 +35,7 @@ class StoreAdminProductRequest extends FormRequest
      */
     public function rules()
     {
+        // dd($this->name);
         return [
             'name' => 'required|min:3',
             'image' => 'required|image|mimes:jpeg,jpg,png,gif',

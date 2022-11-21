@@ -51,21 +51,24 @@
                         </div>
                     </div>
 
-                    <label for="image">تصویر محصول:</label>
-                    <input
-                        type="file"
-                        name="image"
-                        ref="image"
-                        class="adminFormInputSelectTextarea"
-                        :class="[
-                            {
-                                'is-invalid':
-                                    this.errors !== null && this.errors.image
-                                        ? true
-                                        : false,
-                            },
-                        ]"
-                    />
+                    <label>تصویر محصول:
+                        <input 
+                            type="file"
+                            class="adminFormInputSelectTextarea"
+                            :class="[
+                                {
+                                    'is-invalid':
+                                        this.errors !== null && this.errors.image
+                                            ? true
+                                            : false,
+                                },
+                            ]"
+                            @change="handleFileUpload( $event )"/>
+                    </label>
+                    <br>
+
+
+
                     <div
                         style="color: red"
                         v-if="this.errors !== null && this.errors.image"
@@ -180,6 +183,7 @@ export default {
     name: "createForm",
     data() {
         return {
+            file: '',
             errors: null,
             name: null,
             slug: null,
@@ -206,40 +210,111 @@ export default {
         });
     },
     methods: {
+        
+        handleFileUpload( event ){
+            this.file = event.target.files[0];
+        },
+
         submit() {
-            const imageFile = this.$refs.image.value;
-            console.log(imageFile);
-            var data = {
-                "name": this.name,
-                "slug": this.slug,
-                "type_id": this.type_id,
-                "status": this.status,
-                "description": this.description,
-                "image" : imageFile
-            }
-            const product_attributes_inputs = document.querySelectorAll("input[name^='product_attributes[']")
-            product_attributes_inputs.forEach(pa => {
-                if (pa.value != "") {
-                    data[pa.name] = pa.value;
-                }
-            });
-            console.log(data);
-            axios.get("/sanctum/csrf-cookie");
-            axios.post("/api/admin/products", data)
-            .then(response => {
-                console.log(response)
-                this.errors = null;
-                this.authorizationError = null;
-            })
-            .catch(errors => {
-                if (errors.response.status === 401) {
-                    this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
-                }
-                else {
-                    this.errors = errors.response && errors.response.data.errors;
-                    console.log(this.errors);
-                }
-            });
+
+
+                let formData = new FormData();
+				
+				formData.append('name' , this.name);
+				// formData.append('image', this.file);
+                formData.append('type_id' , this.type_id);
+                formData.append('status' , this.status);
+                formData.append('description' , this.description);
+                formData.append('slug' , this.slug);
+
+                // for (const key of formData.keys()) {
+                //     data.append()
+                // }
+
+                // for (const value of formData.values()) {
+                //     console.log(value);
+                // }
+
+                const product_attributes_inputs = document.querySelectorAll("input[name^='product_attributes[']")
+                product_attributes_inputs.forEach(pa => {
+                    if (pa.value != "") {
+                        // formData.get(pa.name) = pa.value;
+                        formData.set(pa.name, pa.value);
+                    }
+                });
+
+                // for (const key of formData.keys()) {
+                //     console.log(key);
+                // }
+
+                // for (const value of formData.values()) {
+                //     console.log(value);
+                // }
+                
+                console.log(formData);
+
+                axios.get("/sanctum/csrf-cookie");
+                axios.post("/api/admin/products",
+					formData,
+					{
+						headers: {
+                            'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
+						}
+					}
+				)
+                .then(response => {
+                    console.log(response)
+                    this.errors = null;
+                    this.authorizationError = null;
+                })
+                .catch(errors => {
+                    if (errors.response.status === 401) {
+                        this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+                    }
+                    else {
+                        this.errors = errors.response && errors.response.data.errors;
+                        console.log(this.errors);
+                    }
+                });
+
+
+            // var data = {
+            //     "name": this.name,
+            //     "slug": this.slug,
+            //     "type_id": this.type_id,
+            //     "status": this.status,
+            //     "description": this.description,
+            // }
+
+            // console.log(data);
+            // const product_attributes_inputs = document.querySelectorAll("input[name^='product_attributes[']")
+            // product_attributes_inputs.forEach(pa => {
+            //     if (pa.value != "") {
+            //         data[pa.name] = pa.value;
+            //     }
+            // });
+            // console.log(data);
+            // axios.get("/sanctum/csrf-cookie");
+            // axios.post("/api/admin/products", data,
+			// 		{
+			// 			headers: {
+			// 					'Content-Type': 'multipart/form-data'
+			// 			}
+			// 		})
+            // .then(response => {
+            //     console.log(response)
+            //     this.errors = null;
+            //     this.authorizationError = null;
+            // })
+            // .catch(errors => {
+            //     if (errors.response.status === 401) {
+            //         this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+            //     }
+            //     else {
+            //         this.errors = errors.response && errors.response.data.errors;
+            //         console.log(this.errors);
+            //     }
+            // });
         },
     },
 };
