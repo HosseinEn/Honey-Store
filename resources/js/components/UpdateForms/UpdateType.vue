@@ -1,38 +1,112 @@
 <template>
-    <div class="container">
+    <div v-if="loading">
+        <Loading />
+    </div>
+    <div v-else class="container">
         <div class="row">
             <div class="formContainer">
-            <form>
-                <label for="">a</label>
-                <input type="text" />
-
-                <label for="">a</label>
-                <input type="text" />
-                <div v-for="attribute in attributes">
-                    <input type="text" name="product_attributes[{{ attribute.id }}][price]">
-                    <input type="text" name="product_attributes[{{ attribute.id }}][stock]">
-                    <input type="text" name="product_attributes[{{ attribute.id }}][discount_id]">
+                <form>
+                    <div v-if="success" style="color : green;">
+                        ویرایش با موفقیت انجام شد!
+                    </div>
+                    <label for="name">نام:</label>
+                    <input type="text" name="name" v-model="name" :class="[
+                        {
+                            'is-invalid':
+                                this.errors !== null && this.errors.name ? true : false,
+                        },
+                    ]"/>
+                <div
+                  style="color: red"
+                  v-if="this.errors != null && this.errors.name">
+                    <div v-for="error in this.errors.name">
+                      {{ error }}
+                  </div>
                 </div>
-            </form>
+                    <label for="slug">اسلاگ:</label>
+                    <input type="text" name="slug" v-model="slug" :class="[
+                        {
+                            'is-invalid':
+                                this.errors !== null && this.errors.slug ? true : false,
+                        },
+                    ]"/>
+                    <div
+                        style="color: red"
+                        v-if="this.errors !== null && this.errors.slug"
+                    >
+                        <div v-for="error in this.errors.slug" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
+                    <div
+                    style="color: red"
+                    v-if="this.authorizationError"
+                    >{{ this.authorizationError }}</div
+                    >
+                        <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
+                            @click.prevent="submit">
+                            ایجاد
+                        </button>
+                </form>
+            </div>
         </div>
-        </div>
-        
     </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Loading from "../../components/Loading.vue";
+
 
 export default {
     name: "createForm",
+    props: ["slugkey"],
+    components: {
+        Loading
+    },
+    data() {
+        return {    
+            name: null,
+            slug: null,
+            errors: null,
+            success: false,
+            loading: true,
+        };
+    },
+
     mounted() {
-        axios.get("/sanctum/csrf-cookie");
-        axios.post("");
+        axios.get("/api/admin/types/" + this.slugkey)
+        .then(response => {
+            console.log(response.data)
+            this.name = response.data.type.name;
+            this.slug = response.data.type.slug;
+            this.loading = false;
+        })
     },
     methods: {
-
+        submit() {
+            axios.get("/sanctum/csrf-cookie");
+            axios.put("/api/admin/types/" + this.slugkey, {
+                'name': this.name,
+                'slug': this.slug
+            })
+            .then(response => {
+                this.errors = null;
+                this.authorizationError = null;
+                this.success = true;
+            })
+            .catch(errors => {
+                this.success = false;
+                if (errors.response.status === 401) {
+                    this.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
+                }
+                else {
+                    this.errors = errors.response && errors.response.data.errors;
+                }
+            })
+        }
     }
-};
+}
 </script>
 
 <style scoped>

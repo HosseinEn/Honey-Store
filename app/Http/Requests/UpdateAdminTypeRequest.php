@@ -26,7 +26,6 @@ class UpdateAdminTypeRequest extends FormRequest
     {
         return [
             "name" => "required|max:255",
-            "slug" => "required"
         ];
     }
 }

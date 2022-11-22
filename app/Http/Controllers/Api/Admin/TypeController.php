@@ -51,7 +51,7 @@ class TypeController extends Controller
     public function show(Type $type)
     {
         return new JsonResponse([
-            'type' => $type->first()
+            'type' => $type
         ]);
     }
 

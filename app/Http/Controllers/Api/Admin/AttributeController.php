@@ -48,7 +48,7 @@ class AttributeController extends Controller
     public function show(Attribute $attribute)
     {
         return new JsonResponse([
-            'type' => $attribute
+            'attribute' => $attribute
         ]);
     }
 
@@ -61,10 +61,15 @@ class AttributeController extends Controller
      */
     public function update(Request $request, Attribute $attribute)
     {
+        // dd($request->weight, $attribute->weight);
         $validatedData = $this->validate(
             $request,
             [
-                "weight" => 'required|unique:attributes,id,'.$attribute->id,
+                "weight" => [
+                    'required', 
+                    'numeric', 
+                    Rule::unique('attributes')->ignore($attribute->id)
+                ],
             ],
             [
                 "weight.unique" => 'ویژگی با این وزن قبلا ثبت شده است'

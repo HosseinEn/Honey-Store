@@ -66,7 +66,7 @@ class DiscountController extends Controller
                 $request,
                 [
                     "name" => 'required|unique:discounts,name,'.$discount->id,
-                    "value" => 'required',
+                    "value" => 'required|numeric|min:0,max:100',
                 ],
                 ["name.unique" => 'تخفیف با این نام قبلا ثبت شده است']
             );

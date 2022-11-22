@@ -25,10 +25,13 @@
                         },
                     ]"/>
                     <div
-                    style="color: red"
-                    v-if="this.errors !== null && this.errors.slug"
-                    >{{ this.errors.slug[0] }}</div
+                        style="color: red"
+                        v-if="this.errors !== null && this.errors.slug"
                     >
+                        <div v-for="error in this.errors.slug" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
                     <div
                     style="color: red"
                     v-if="this.authorizationError"

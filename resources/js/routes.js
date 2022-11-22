@@ -141,7 +141,7 @@ const routes = [
                 },
             },
             {
-                path: "/admin/types/edit/:slug",
+                path: "/admin/types/edit/:slugkey",
                 props: true,
                 components: {
                     mainContent: UpdateType,
