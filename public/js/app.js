@@ -25461,31 +25461,34 @@ var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
 var _hoisted_10 = {
   "class": "productRow"
 };
-var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
-var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می ه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال طلبllllllllllllllllllllllllllllllllllllllllllllllllوجود طراحی اساسص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
-var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_11 = {
+  "class": "productItem"
+};
+var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می ه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال طلبllllllllllllllllllllllllllllllllllllllllllllllllوجود طراحی اساسص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
+var _hoisted_14 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
+var _hoisted_15 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
+var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
     "class": "StrapDemoHeader"
   }, "ما را بیشتر بشناسید", -1 /* HOISTED */);
 });
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "StrapDemoSum"
   }, "Lorem ipsum dolor sdwadawawdwadwit.", -1 /* HOISTED */);
 });
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "StrapDemoBtn"
   }, "فروشگاه", -1 /* HOISTED */);
 });
-var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
-var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
-var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
-var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده قرار گیرد. ");
+var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
+var _hoisted_20 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
+var _hoisted_21 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
+var _hoisted_22 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
+var _hoisted_23 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
+var _hoisted_24 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده قرار گیرد. ");
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
   var _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar");
@@ -25535,22 +25538,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end of about section "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" main content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_8, [_hoisted_9, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.products, function (product) {
-    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("section", _hoisted_11, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_SingleProduct, (0,vue__WEBPACK_IMPORTED_MODULE_0__.mergeProps)({
       key: product.id
     }, product, {
       imageSelected: "HoneyBlock.jpg",
       product: product
-    }), null, 16 /* FULL_PROPS */, ["product"]);
-  }), 128 /* KEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end of main content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" section 2 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MainContentTemplate, {
+    }), null, 16 /* FULL_PROPS */, ["product"]))]);
+  }), 256 /* UNKEYED_FRAGMENT */))])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end of main content "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" section 2 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MainContentTemplate, {
     reversed: "0",
     imageSelected: "HoneyBlock2.jpg",
     textAlign: "1"
   }, {
     mainContentHeader: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_11];
+      return [_hoisted_12];
     }),
     mainContentContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_12];
+      return [_hoisted_13];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end of section 2"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" section 3 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_MainContentTemplate, {
@@ -25558,20 +25561,20 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     imageSelected: "HoneyBlock.jpg"
   }, {
     mainContentHeader: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_13];
+      return [_hoisted_14];
     }),
     mainContentContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_14];
+      return [_hoisted_15];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end of section 3"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Order section "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_StrapDemo, {
     selectedImage: "HoneyBlock2.jpg"
   }, {
     StrapDemoHeader: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_15];
+      return [_hoisted_16];
     }),
     StrapDemoSummery: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_16];
+      return [_hoisted_17];
     }),
     StrapDemoBtn: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
@@ -25581,7 +25584,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         onClick: _this.scrollToTop
       }, {
         "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-          return [_hoisted_17];
+          return [_hoisted_18];
         }),
         _: 1 /* STABLE */
       }, 8 /* PROPS */, ["onClick"])];
@@ -25593,22 +25596,22 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     imageSelectedTwo: "HoneyCells.jpg"
   }, {
     mainContentHeader: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_18];
-    }),
-    mainContentContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_19];
     }),
-    mainContentHeaderTwo: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+    mainContentContent: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_20];
     }),
-    mainContentContentTwo: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+    mainContentHeaderTwo: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_21];
     }),
-    mainContentHeaderThree: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+    mainContentContentTwo: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_22];
     }),
-    mainContentContentThree: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+    mainContentHeaderThree: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [_hoisted_23];
+    }),
+    mainContentContentThree: (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
+      return [_hoisted_24];
     }),
     _: 1 /* STABLE */
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" end of section 4"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
@@ -31872,7 +31875,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.productRow[data-v-63cd6604] {\n  display: flex;\n  flex-wrap: wrap;\n}\n.shopHeader h3[data-v-63cd6604] {\n  color: var(--mainColor);\n  font-family: var(--mainFont);\n}\n.StrapDemoHeader[data-v-63cd6604] {\n  font-size: 4rem;\n}\n.StrapDemoSum[data-v-63cd6604] {\n  font-family: var(--thirdFont);\n  font-size: 2rem;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.productRow[data-v-63cd6604] {\n  display: flex;\n  flex-wrap: wrap;\n}\n.shopHeader h3[data-v-63cd6604] {\n  color: var(--mainColor);\n  font-family: var(--mainFont);\n}\n.StrapDemoHeader[data-v-63cd6604] {\n  font-size: 4rem;\n}\n.StrapDemoSum[data-v-63cd6604] {\n  font-family: var(--thirdFont);\n  font-size: 2rem;\n}\n.productItem[data-v-63cd6604] {\n  width: 33%;\n  margin-top: 2rem;\n  margin-bottom: 2rem;\n  height: 475px;\n  padding: 10px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
