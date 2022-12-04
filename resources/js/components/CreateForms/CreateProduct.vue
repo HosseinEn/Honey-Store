@@ -120,19 +120,19 @@
                         وزن:  {{ attribute.weight }} کیلوگرم
                         <br />
                         <label for="">قیمت:</label>
-                        <input type="text" :name="`product_attributes[${attribute.id}][price]`">
+                        <input type="number" :name="`product_attributes[${attribute.id}][price]`" ref="product_attributes">
                         <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red">
                             {{ error }}
                         </div>
                         <label for="">تعداد:</label>
-                        <input type="text" :name="`product_attributes[${attribute.id}][stock]`">
+                        <input type="number" :name="`product_attributes[${attribute.id}][stock]`" ref="product_attributes">
                         <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
                             {{ error }}
                         </div>
                         <label for="">تخفیف:</label>
-                        <select :name="`product_attributes[${attribute.id}][discount_id]`">
+                        <select :name="`product_attributes[${attribute.id}][discount_id]`" ref="product_attributes">
                             <option value="">بدون تخفیف</option>
-                            <option v-for="discount in discounts" value="{{ discount.id }}">{{ discount.value }}%</option>
+                            <option v-for="discount in discounts" :value="`${discount.id}`">{{ discount.value }}%</option>
                         </select>
                     </div>
                     <div
@@ -234,15 +234,12 @@ export default {
                 formData.append('slug' , this.slug ?? '');
                 formData.append('image', this.file)
 
-                const product_attributes_inputs = document.querySelectorAll("input[name^='product_attributes[']")
+                const product_attributes_inputs = this.$refs.product_attributes
                 product_attributes_inputs.forEach(pa => {
                     if (pa.value != "") {
                         formData.set(pa.name, pa.value);
                     }
                 });
-
-                
-                console.log(formData);
 
                 axios.get("/sanctum/csrf-cookie");
                 axios.post("/api/admin/products",
@@ -254,9 +251,12 @@ export default {
 					}
 				)
                 .then(response => {
-                    console.log(response)
-                    this.errors = null;
-                    this.authorizationError = null;
+                    this.$router.push({
+                        'name' : 'admin.products'
+                    });
+                    // console.log(response)
+                    // this.errors = null;
+                    // this.authorizationError = null;
                 })
                 .catch(errors => {
                     if (errors.response.status === 401) {

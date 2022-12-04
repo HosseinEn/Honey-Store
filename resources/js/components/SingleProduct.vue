@@ -21,7 +21,7 @@ export default {
   props: ["imageSelected", "product"],
   data() {
     return {
-      imageUrl: "/images/" + this.imageSelected + "",
+      imageUrl:  this.imageSelected,
       // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
     };
   },

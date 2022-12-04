@@ -33,7 +33,7 @@
                         v-for="product in filterdProduct"
                         :key="product.id"
                         v-bind="product"
-                        imageSelected="HoneyBlock.jpg"
+                        :imageSelected="product.image.path"
                         :product="product"
                     />
                 </div>

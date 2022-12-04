@@ -22,8 +22,6 @@ class UpdateAdminProductRequest extends FormRequest
             'type_id.required' => ' نوع محصول را انتخاب نمایید!',
             'type_id.exists' => 'یک نوع معتبر را انتخاب نمایید!',
             'status.required' => 'وضعیت محصول را مشخص نمایید',
-            'image.image' => 'فایل انتخابی باید یک تصویر باشد!',
-            'image.mimes' => 'لطفا یک تصویر با پسوندهای روبه رو آپلود نمایید: jpeg, jpg, png, gif'
         ];
     }
 
@@ -36,7 +34,6 @@ class UpdateAdminProductRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'image' => 'image|mimes:jpeg,jpg,png,gif',
             'type_id' => 'required',
             'status' => 'required',
             'description' => 'required'

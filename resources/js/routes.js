@@ -11,15 +11,12 @@ import ShoppingPage from "./views/ShoppingPage.vue";
 import Cart from "./views/Cart.vue";
 import Admin from "./views/Admin.vue";
 import ShowAdminTable from "./components/ShowAdminTable.vue";
+import ProductsTable from "./components/ProductsTable.vue";
 import CreateProduct from "./components/CreateForms/CreateProduct.vue";
 import CreateAttribute from "./components/CreateForms/CreateAttribute.vue";
-import CreateCarrier from "./components/CreateForms/CreateCarrier.vue";
 import CreateDiscount from "./components/CreateForms/CreateDiscount.vue";
 import CreateType from "./components/CreateForms/CreateType.vue";
 import UpdateProduct from "./components/UpdateForms/UpdateProduct.vue";
-import UpdateAttribute from "./components/UpdateForms/UpdateAttribute.vue";
-import UpdateCarrier from "./components/UpdateForms/UpdateCarrier.vue";
-import UpdateDiscount from "./components/UpdateForms/UpdateDiscount.vue";
 import UpdateType from "./components/UpdateForms/UpdateType.vue";
 
 
@@ -77,10 +74,11 @@ const routes = [
         props: true,
         children: [
             {
-                path: "/admin",
+                path: "/admin/products",
                 components: {
-                    mainContent: ShowAdminTable,
+                    mainContent: ProductsTable,
                 },
+                name: 'admin.products'
             },
             {
                 path: "/admin/products/create",
@@ -89,7 +87,7 @@ const routes = [
                 },
             },
             {
-                path: "/admin/products/edit/:slug",
+                path: "/admin/products/edit/:slugkey",
                 props: true,
                 components: {
                     mainContent: UpdateProduct,
@@ -102,36 +100,9 @@ const routes = [
                 },
             },
             {
-                path: "/admin/attributes/edit/:id",
-                props: true,
-                components: {
-                    mainContent: UpdateAttribute,
-                },
-            },
-            {
                 path: "/admin/discounts/create",
                 components: {
                     mainContent: CreateDiscount,
-                },
-            },
-            {
-                path: "/admin/discounts/edit/:id",
-                props: true,
-                components: {
-                    mainContent: UpdateDiscount,
-                },
-            },
-            {
-                path: "/admin/carriers/create",
-                components: {
-                    mainContent: CreateCarrier,
-                },
-            },
-            {
-                path: "/admin/carriers/edit/:id",
-                props: true,
-                components: {
-                    mainContent: UpdateCarrier,
                 },
             },
             {

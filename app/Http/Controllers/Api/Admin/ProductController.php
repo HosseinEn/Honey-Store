@@ -65,7 +65,6 @@ ProductController extends Controller
         }
 
         $request->merge(['stock' => $totalStock]);
-        dd($request->all());
         $product = Product::create($request->only($dataForInsert));
         foreach ($request->product_attributes as $attribute_id => $values) {
             $product->attributes()->syncWithOutDetaching([
@@ -79,7 +78,7 @@ ProductController extends Controller
         
         if($request->hasFile('image')) {
             $path = $request->file('image')->store('public/product_images');
-            $product->image()->save(Image::make(['path' => $path]));
+            $product->image()->save(Image::make(['path' => Storage::url($path)]));
         }
 
         return new JsonResponse([
@@ -117,6 +116,14 @@ ProductController extends Controller
      */
     public function update(UpdateAdminProductRequest $request, Product $product)
     {
+        if (!empty($request->image)) {
+            $request->validate([
+                'image' => 'image|mimes:jpeg,jpg,png,gif',
+            ], [
+                'image.image' => 'فایل انتخابی باید یک تصویر باشد!',
+                'image.mimes' => 'لطفا یک تصویر با پسوندهای روبه رو آپلود نمایید: jpeg, jpg, png, gif' 
+            ]);
+        }
         if ($this->slugUpdated($request->slug, $product->slug)) {
             $request->merge(['slug' =>$this-> make_slug($request)]);
             $request->validate(['slug' => 'unique:products']);
@@ -146,9 +153,10 @@ ProductController extends Controller
 
         if($request->hasFile('image')) {
             $oldImagePath = $product->image->path;
+            $oldImagePath = str_replace('/storage', 'public', $oldImagePath);
             Storage::delete($oldImagePath);
             $path = $request->file('image')->store('public/product_images');
-            $product->image()->update(["path"=>$path]);
+            $product->image()->update(["path"=>Storage::url($path)]);
         }
 
         $product->update($request->all());
