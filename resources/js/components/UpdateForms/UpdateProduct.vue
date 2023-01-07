@@ -259,7 +259,7 @@ export default {
                 formData.append('status' , this.status ?? '');
                 formData.append('description' , this.description ?? '');
                 formData.append('slug' , this.slug ?? '');
-                formData.append('image', this.file); // probleeeeeeeeeeeeeeeeeeeeeeeeeem with image validation
+                formData.append('image', this.file); 
                 formData.append('_method', 'PUT');
 
                 const product_attributes_inputs = this.$refs.product_attributes

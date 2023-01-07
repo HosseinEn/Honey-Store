@@ -12,6 +12,7 @@ import Cart from "./views/Cart.vue";
 import Admin from "./views/Admin.vue";
 import ShowAdminTable from "./components/ShowAdminTable.vue";
 import ProductsTable from "./components/ProductsTable.vue";
+import AttributesTable from "./components/AttributesTable.vue";
 import CreateProduct from "./components/CreateForms/CreateProduct.vue";
 import CreateAttribute from "./components/CreateForms/CreateAttribute.vue";
 import CreateDiscount from "./components/CreateForms/CreateDiscount.vue";
@@ -79,6 +80,13 @@ const routes = [
                     mainContent: ProductsTable,
                 },
                 name: 'admin.products'
+            },
+            {
+                path: "/admin/attributes",
+                components: {
+                    mainContent: AttributesTable,
+                },
+                name: 'admin.attributes'
             },
             {
                 path: "/admin/products/create",
