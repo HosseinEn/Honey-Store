@@ -88,6 +88,14 @@ input[type="color"]:focus,
 .adminFormSelect {
   margin-right: 10px;
 }
+.welcomeCont {
+  margin-top: 0rem;
+}
+.welcomeCont div p {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--mainColor);
+}
 input[type="file"] {
   border: none;
 }

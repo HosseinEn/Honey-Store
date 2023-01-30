@@ -3,174 +3,136 @@
         <div class="row">
             <div class="formContainer">
                 <form>
-                    <label for="name">نام محصول:</label>
-                    <input
-                        type="text"
-                        class="adminFormInputSelectTextarea"
-                        name="name"
-                        v-model="name"
-                        :class="[
-                            {
-                                'is-invalid':
-                                    this.errors !== null && this.errors.name
-                                        ? true
-                                        : false,
-                            },
-                        ]"
-                    />
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.name"
-                    >
-                        <div v-for="error in this.errors.name" :key="error">
-                            {{ error }}
-                        </div>
-                    </div>
 
-                    <label for="slug">اسلاگ:</label>
-                    <input
-                        type="text"
-                        name="slug"
-                        v-model="slug"
-                        class="adminFormInputSelectTextarea"
-                        :class="[
-                            {
-                                'is-invalid':
-                                    this.errors !== null && this.errors.slug
-                                        ? true
-                                        : false,
-                            },
-                        ]"
-                    />
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.slug"
-                    >
-                        <div v-for="error in this.errors.slug" :key="error">
-                            {{ error }}
-                        </div>
-                    </div>
+                    <div class="row">
+                        <div class="col-12 col-lg-6">
 
-                    <label>تصویر محصول:
-                        <input 
-                            type="file"
-                            class="adminFormInputSelectTextarea"
-                            :class="[
+                            <label for="name">نام محصول:</label>
+                            <input type="text" class="adminFormInputSelectTextarea" name="name" v-model="name" :class="[
                                 {
                                     'is-invalid':
-                                        this.errors !== null && this.errors.image
+                                        this.errors !== null && this.errors.name
                                             ? true
                                             : false,
                                 },
-                            ]"
-                            @change="handleFileUpload( $event )"/>
-                    </label>
-                    <br>
+                            ]" />
+                            <div style="color: red" v-if="this.errors !== null && this.errors.name">
+                                <div v-for="error in this.errors.name" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
+
+                            <label for="slug">اسلاگ:</label>
+                            <input type="text" name="slug" v-model="slug" class="adminFormInputSelectTextarea" :class="[
+                                {
+                                    'is-invalid':
+                                        this.errors !== null && this.errors.slug
+                                            ? true
+                                            : false,
+                                },
+                            ]" />
+                            <div style="color: red" v-if="this.errors !== null && this.errors.slug">
+                                <div v-for="error in this.errors.slug" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
+
+                            <label>تصویر محصول:
+                                <input type="file" class="adminFormInputSelectTextarea" :class="[
+                                    {
+                                        'is-invalid':
+                                            this.errors !== null && this.errors.image
+                                                ? true
+                                                : false,
+                                    },
+                                ]" @change="handleFileUpload($event)" />
+                            </label>
+                            <br>
 
 
 
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.image"
-                    >
-                        <div v-for="error in this.errors.image" :key="error">
-                            {{ error }}
-                        </div>
-                    </div>
+                            <div style="color: red" v-if="this.errors !== null && this.errors.image">
+                                <div v-for="error in this.errors.image" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
 
-                    <label for="type_id">نوع محصول:</label>
-                    <select 
-                        name="type_id"
-                        v-model="type_id"
-                        class="adminFormSelect adminFormInputSelectTextarea"
-                        >
-                        <option value="">انتخاب کنید</option>
-                        <option v-for="type_id in types" :key="type_id.id" :value="`${type_id.id}`">{{ type_id.name }}</option>
-                    </select>
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.type_id"
-                    >
-                        <div v-for="error in this.errors.type_id" :key="error">
-                            {{ error }}
-                        </div>
-                    </div>
-                    <br>
+                            <label for="type_id">نوع محصول:</label>
+                            <select name="type_id" v-model="type_id"
+                                class="adminFormSelect adminFormInputSelectTextarea">
+                                <option value="">انتخاب کنید</option>
+                                <option v-for="type_id in types" :key="type_id.id" :value="`${type_id.id}`">{{
+                                    type_id.name
+                                }}</option>
+                            </select>
+                            <div style="color: red" v-if="this.errors !== null && this.errors.type_id">
+                                <div v-for="error in this.errors.type_id" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
+                            <br>
 
-                    <label for="status">وضعیت محصول:</label>
-                    <select
-                        name="status"
-                        v-model="status"
-                        class="adminFormSelect adminFormInputSelectTextarea"
-                    >
-                        <option value="1">فعال</option>
-                        <option value="0">غیرفعال</option>
-                    </select>
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.status"
-                    >
-                        <div v-for="error in this.errors.status" :key="error">
-                            {{ error }}
+                            <label for="status">وضعیت محصول:</label>
+                            <select name="status" v-model="status" class="adminFormSelect adminFormInputSelectTextarea">
+                                <option value="1">فعال</option>
+                                <option value="0">غیرفعال</option>
+                            </select>
+                            <div style="color: red" v-if="this.errors !== null && this.errors.status">
+                                <div v-for="error in this.errors.status" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
+                            <br />
+                            <label for="description">توضیحات محصول:</label>
+                            <textarea name="description" v-model="description" cols="30" rows="10"
+                                class="adminFormTextare adminFormInputSelectTextarea"></textarea>
+                            <div style="color: red" v-if="this.errors !== null && this.errors.description">
+                                <div v-for="error in this.errors.description" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <br>
-                    <div v-for="attribute in attributes" :key="attribute.id">
-                        <br />
-                        وزن:  {{ attribute.weight }} کیلوگرم
-                        <br />
-                        <label for="">قیمت:</label>
-                        <input type="number" :name="`product_attributes[${attribute.id}][price]`" ref="product_attributes">
-                        <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red">
-                            {{ error }}
-                        </div>
-                        <label for="">تعداد:</label>
-                        <input type="number" :name="`product_attributes[${attribute.id}][stock]`" ref="product_attributes">
-                        <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
-                            {{ error }}
-                        </div>
-                        <label for="">تخفیف:</label>
-                        <select :name="`product_attributes[${attribute.id}][discount_id]`" ref="product_attributes">
-                            <option value="">بدون تخفیف</option>
-                            <option v-for="discount in discounts" :value="`${discount.id}`">{{ discount.value }}%</option>
-                        </select>
-                    </div>
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.product_attributes"
-                    >
-                        <div v-for="error in this.errors.product_attributes" :key="error">
-                            {{ error }}
-                        </div>
-                    </div>
-                    <br />
-                    <label for="description">توضیحات محصول:</label>
-                    <textarea
-                        name="description"
-                        v-model="description"
-                        cols="30"
-                        rows="10"
-                        class="adminFormTextare adminFormInputSelectTextarea"
-                    ></textarea>
-                    <div
-                        style="color: red"
-                        v-if="this.errors !== null && this.errors.description"
-                    >
-                        <div v-for="error in this.errors.description" :key="error">
-                            {{ error }}
+                        <div class="col-12 col-lg-6">
+
+                            <div v-for="attribute in attributes" :key="attribute.id">
+                                <br />
+                                وزن: {{ attribute.weight }} کیلوگرم
+                                <br />
+                                <label for="">قیمت:</label>
+                                <input type="number" :name="`product_attributes[${attribute.id}][price]`"
+                                    ref="product_attributes">
+                                <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red">
+                                    {{ error }}
+                                </div>
+                                <label for="">تعداد:</label>
+                                <input type="number" :name="`product_attributes[${attribute.id}][stock]`"
+                                    ref="product_attributes">
+                                <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
+                                    {{ error }}
+                                </div>
+                                <label for="">تخفیف:</label>
+                                <select :name="`product_attributes[${attribute.id}][discount_id]`"
+                                    ref="product_attributes">
+                                    <option value="">بدون تخفیف</option>
+                                    <option v-for="discount in discounts" :value="`${discount.id}`">{{
+                                        discount.value
+                                    }}%
+                                    </option>
+                                </select>
+                            </div>
+                            <div style="color: red" v-if="this.errors !== null && this.errors.product_attributes">
+                                <div v-for="error in this.errors.product_attributes" :key="error">
+                                    {{ error }}
+                                </div>
+                            </div>
+                            <br />
                         </div>
                     </div>
                     <div style="color: red" v-if="this.authorizationError">
                         {{ this.authorizationError }}
                     </div>
-                    <button
-                        type="submit"
-                        name="Register"
-                        class="btn btn-primary"
-                        id="submit"
-                        :disabled="loading"
-                        @click.prevent="submit"
-                    >
+                    <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
+                        @click.prevent="submit">
                         ایجاد
                     </button>
                 </form>
@@ -200,17 +162,17 @@ export default {
     },
     mounted() {
         axios.get("/api/admin/attributes")
-        .then(response => {
-            this.attributes = response.data.attributes;
-        });
+            .then(response => {
+                this.attributes = response.data.attributes;
+            });
         axios.get("/api/admin/discounts")
-        .then(response => {
-            this.discounts = response.data.discounts;
-        });
+            .then(response => {
+                this.discounts = response.data.discounts;
+            });
         axios.get("/api/admin/types")
-        .then(response => {
-            this.types = response.data.types;
-        });
+            .then(response => {
+                this.types = response.data.types;
+            });
     },
     methods: {
         getAttributeErrors(id, field) {
@@ -218,41 +180,41 @@ export default {
             // console.log(this.errors[property]);
             return (this.errors && this.errors[property]) ? this.errors[property] : [];
         },
-        handleFileUpload( event ){
+        handleFileUpload(event) {
             this.file = event.target.files[0];
         },
 
         submit() {
 
 
-                let formData = new FormData();
-				
-				formData.append('name' , this.name ?? '');
-                formData.append('type_id' , this.type_id ?? '');
-                formData.append('status' , this.status ?? '');
-                formData.append('description' , this.description ?? '');
-                formData.append('slug' , this.slug ?? '');
-                formData.append('image', this.file)
+            let formData = new FormData();
 
-                const product_attributes_inputs = this.$refs.product_attributes
-                product_attributes_inputs.forEach(pa => {
-                    if (pa.value != "") {
-                        formData.set(pa.name, pa.value);
+            formData.append('name', this.name ?? '');
+            formData.append('type_id', this.type_id ?? '');
+            formData.append('status', this.status ?? '');
+            formData.append('description', this.description ?? '');
+            formData.append('slug', this.slug ?? '');
+            formData.append('image', this.file)
+
+            const product_attributes_inputs = this.$refs.product_attributes
+            product_attributes_inputs.forEach(pa => {
+                if (pa.value != "") {
+                    formData.set(pa.name, pa.value);
+                }
+            });
+
+            axios.get("/sanctum/csrf-cookie");
+            axios.post("/api/admin/products",
+                formData,
+                {
+                    headers: {
+                        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
                     }
-                });
-
-                axios.get("/sanctum/csrf-cookie");
-                axios.post("/api/admin/products",
-					formData,
-					{
-						headers: {
-                            'Content-Type': `multipart/form-data; boundary=${formData._boundary}`,
-						}
-					}
-				)
+                }
+            )
                 .then(response => {
                     this.$router.push({
-                        'name' : 'admin.products'
+                        'name': 'admin.products'
                     });
                     // console.log(response)
                     // this.errors = null;
@@ -283,6 +245,7 @@ export default {
     border: 1px solid black;
     height: auto;
 }
+
 #submit:hover {
     background-color: var(--thirdColor);
     color: white;

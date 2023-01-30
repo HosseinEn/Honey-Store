@@ -1,12 +1,22 @@
 <template>
     <div class="container">
-        <div class="row p-4">
+        <!-- Welcome Container -->
+        <div class="container-fluid welcomeCont">
+            <div class="row text-center p-4">
+                <p>جدول محصولات</p>
+            </div>
+        </div>
+        <div class="row p-4 btnParent">
+            <router-link :to="{ name: 'admin.products.create' }">
+                <button class="createProduct">
+                    ساخت محصول جدید
+                </button>
+            </router-link>
             <table>
                 <tr>
                     <th style="width: 20%">نام محصول</th>
                     <th style="width: 10%">تعداد کل</th>
                     <th style="width: 10%">وضعیت</th>
-                    <th style="width: 10%">امتیاز</th>
                     <th style="width: 20%">توضیحات</th>
                     <th style="width: 20%">تاریخ ایجاد</th>
                     <th style="width: 10%">حذف</th>
@@ -17,11 +27,16 @@
                     <td>‌ {{ product.name }}</td>
                     <td>‌ {{ product.stock }}</td>
                     <td>‌ {{ product.status == 1 ? 'فعال' : 'غیرفعال' }}</td>
-                    <td>‌ {{ product.rating }}</td>
-                    <td>‌ {{ product.description }}</td>
+                    <td>‌ {{ product.description.substring(0,20) + '...' }}</td>
                     <td>‌ {{ convertDate(product.created_at) }}</td>
                     <td><button class="remove">حذف</button></td>
-                    <td><button class="edit"><router-link :to="`/admin/products/edit/${product.slug}`">ویرایش</router-link></button></td>
+                    <td>
+                        <router-link :to="`/admin/products/edit/${product.slug}`">
+                            <button class="edit">
+                                ویرایش
+                            </button>
+                        </router-link>
+                    </td>
                     <td><button class="add">تغییر وضعیت</button></td>
                 </tr>
             </table>
@@ -49,12 +64,29 @@ export default {
         axios.get("/api/admin/products")
         .then(response => {
             this.products = response.data.products;
+
         })
     }
 };
 </script>
 
 <style scoped>
+.createProduct {
+    color: black;
+    padding: 10px;
+    position: absolute;
+    right: 60px;
+    top: -20px;
+    width: 180px;
+    height: auto;
+    text-align: center;
+    border-radius: 5px;
+    border: 1px solid green;
+    background-color: greenyellow;
+}
+.btnParent {
+    position: relative;
+}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -79,6 +111,7 @@ button {
 .add {
     background-color: green;
     color: white;
+    width:100px;
     transition: all 0.5s linear;
 }
 .add:hover {
@@ -88,6 +121,7 @@ button {
 .edit {
     background-color: var(--thirdColor);
     color: white;
+    width:100px;
     transition: all 0.5s linear;
 }
 .edit:hover {

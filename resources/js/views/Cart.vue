@@ -17,7 +17,6 @@
                 <th style="width: 30%">دسته‌بندی</th>
                 <th style="width: 20%">تعداد موجود از این نوع</th>
                 <th style="width: 15%">تعداد انتخاب شده توسط شما</th>
-                <th style="width: 25%">امتیاز</th>
                 <th style="width: 10%">قیمت واحد</th>
                 <th style="width: 10%">تخفیف</th>
                 <th style="width: 10%">افزایش مقدار</th> 
@@ -29,7 +28,6 @@
                 <td>{{ product.type.name }}</td>
                 <td>{{ product.stock }}</td>
                 <td>{{ product.cart.quantity }}</td>
-                <td>{{ product.rating }}</td>
                 <td>{{ product.selected_attribute.attribute_product.price }}</td>
                 <td>{{ product.selected_attribute.attribute_product.discount.value }}%</td>
                 <td>
@@ -53,7 +51,7 @@
             <div class="col">
                 <section class="submitingCartContainer">
                     <div class="row text-end mb-2">
-                        <h3>wdadwadwa</h3>
+                        <h3>مشخصات</h3>
                     </div>
                     <div class="row">
                         <table class="formSubmit">

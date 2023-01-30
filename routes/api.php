@@ -31,11 +31,12 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
 
 });
 
+
 // User endpoints
 Route::middleware('auth:sanctum')->group(function() {
     Route::controller(App\Http\Controllers\Api\ProductUserController::class)->group(function() {
         Route::post('add-to-cart/{product}', 'addToCart');
-        Route::post('check-out-cart', 'checkoutCart');
+        Route::post('checkout-cart', 'checkoutCart');
         Route::get('cart', 'index');
         Route::post('cart/increase-amount', 'increaseAmount');
         Route::post('cart/decrease-amount', 'decreaseAmount');
@@ -46,14 +47,24 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::get('user-order-products/{order}', 'showUserOrderProducts');
         Route::post('order-cancellation-request/{order}', 'orderCancellationRequest');
     });
+    Route::get('user', function() {
+        return response()->json([
+            'name' => Auth::user()->name,
+            'isAdmin' => Auth::user()->is_admin,
+        ]);
+    });
 });
-
+Route::get('callback-payment', [App\Http\Controllers\Api\ProductUserController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 Route::get('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy']);
 Route::get('admin/orders/filtered-by-status/{status}', [App\Http\Controllers\Api\FilterController::class, 'ordersFilterByStatus']);
-
 Route::get('/is-logged', function() {
     return response()->json([
         'isLogged' => Auth::check()
+    ]);
+});
+Route::get('/is-admin', function() {
+    return response()->json([
+        'isAdmin' => Auth::check() && Auth::user()->is_admin
     ]);
 });

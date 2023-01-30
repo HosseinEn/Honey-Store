@@ -6,13 +6,10 @@
     imageForSmall="VerticalHoneyHome.jpg"
   >
     <template v-slot:mainContentHeader>
-      شما یک طراح هستین و یا با طراحی های گرافیک
-    </template>
-    <template v-slot:mainContentDesc>
-      شما یک طراح هستین و یا با طراحی های گرافیک
+      عسل‌های طبیعی مازندران
     </template>
     <template v-slot:mainContentDescTwo>
-      شما یک طراح هستین و یا با طراحی های گرافیک
+      عسل‌های طبیعی را در این وبسایت مشاهده کنید
     </template>
   </IntroTemplate>
   <!-- end Intro -->
@@ -24,10 +21,7 @@
   <!-- About us section -->
   <StrapDemo selectedImage="HoneyBlock.jpg">
     <template v-slot:StrapDemoHeader>
-      <h1 class="StrapDemoHeader">Lسلت0ثدخزm dolor sit.</h1>
-    </template>
-    <template v-slot:StrapDemoSummery>
-      <p>Lorem ipsum dolor sdwadawawdwadwit.</p>
+      <h1 class="StrapDemoHeader">اولین فروشنده عسل آنلاین در مازندران</h1>
     </template>
     <template v-slot:StrapDemoBtn>
       <router-link :to="{ name: 'aboutUs' }" @click="this.scrollToTop">
@@ -41,7 +35,7 @@
   <div class="container-fluid demoProduct">
     <div class="container">
       <div class="row text-center pt-5 pb-0 shopHeader">
-        <h3>طراحی های گرافیک</h3>
+        <h3>محصولات</h3>
       </div>
       <div class="productRow">
         <SingleProduct
@@ -105,10 +99,7 @@
   <!-- Order section -->
   <StrapDemo selectedImage="HoneyBlock2.jpg">
     <template v-slot:StrapDemoHeader>
-      <h1 class="StrapDemoHeader">ما را بیشتر بشناسید</h1>
-    </template>
-    <template v-slot:StrapDemoSummery>
-      <p class="StrapDemoSum">Lorem ipsum dolor sdwadawawdwadwit.</p>
+      <h1 class="StrapDemoHeader">هر نوعی از عسل را که می‌خواهید را بیابید</h1>
     </template>
     <template v-slot:StrapDemoBtn>
       <router-link :to="{ name: 'shop' }" @click="this.scrollToTop">

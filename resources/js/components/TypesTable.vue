@@ -2,24 +2,34 @@
     <div class="container">
         <div class="container-fluid welcomeCont">
             <div class="row text-center p-4">
-                <p>جدول ویژگی‌ها</p>
+                <p>جدول دسته بندی ها</p>
             </div>
         </div>
         <div class="row p-4 btnParent">
-            <router-link :to="{ name: 'admin.attributes.create' }">
-                <button class="createAttributes">
-                    ساخت ویژگی جدید
+            <router-link :to="{ name: 'admin.types.create' }">
+                <button class="createTypes">
+                    ساخت دسته بندی جدید
                 </button>
             </router-link>
             <table>
                 <tr>
-                    <th style="width: 20%">وزن</th>
+                    <th style="width: 20%">نام</th>
+                    <th style="width: 20%">slug</th>
                     <th style="width: 20%">تاریخ ایجاد</th>
+                    <th style="width: 20%">ویرایش</th>
                     <th style="width: 10%">حذف</th>
                 </tr>
-                <tr v-for="attribute in attributes">
-                    <td>‌ {{ attribute.weight }}</td>
-                    <td>‌ {{ convertDate(attribute.created_at) }}</td>
+                <tr v-for="pType in types">
+                    <td>‌ {{ pType.name }}</td>
+                    <td>‌ {{ pType.slug }}</td>
+                    <td>‌ {{ convertDate(pType.created_at) }}</td>
+                    <td>
+                        <router-link :to="`/admin/types/edit/${pType.slug}`">
+                            <button class="edit">
+                                ویرایش
+                            </button>
+                        </router-link>
+                    </td>
                     <td><button class="remove">حذف</button></td>
                 </tr>
             </table>
@@ -35,7 +45,7 @@ export default {
     name: "productsTable",
     data() {
         return {
-            attributes: null,
+            types: null,
         };
     },
     methods: {
@@ -44,9 +54,9 @@ export default {
         },
     },
     mounted() {
-        axios.get("/api/admin/attributes")
+        axios.get("/api/admin/types")
         .then(response => {
-            this.attributes = response.data.attributes;
+            this.types = response.data.types;
         })
     }
 };
@@ -83,7 +93,7 @@ button {
     background-color: rgb(0, 199, 0);
     color: white;
 }
-.createAttributes {
+.createTypes {
     color: black;
     padding: 10px;
     position: absolute;
@@ -102,6 +112,7 @@ button {
 .edit {
     background-color: var(--thirdColor);
     color: white;
+    width:100px;
     transition: all 0.5s linear;
 }
 .edit:hover {

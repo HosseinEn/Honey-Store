@@ -1,27 +1,18 @@
 <template>
     <Navbar />
     <!-- Welcome Container -->
-    <div class="container-fluid welcomeCont">
+    <div class="container-fluid welcomeCont plsWork">
         <div class="row text-center p-4">
-            <p>Welcom</p>
+            <p>&nbsp;</p>
         </div>
-    </div>
-    <!-- Create -->
-    <div id="mySidenav" class="sidenav">
-        <router-link id="createProduct" to="/admin/products/create">Create</router-link>
-        <router-link id="createAttribute" to="/admin/attributes/create">attributes</router-link>
-        <router-link id="createDiscount" to="/admin/discounts/create">discounts</router-link>
-        <router-link id="createCarrier" to="/admin/carriers/create">carriers</router-link>
-        <router-link id="createType" to="/admin/types/create">types</router-link>
     </div>
 
     <!-- Update -->
     <div id="mySidenavRight" class="sidenav">
-        <router-link id="updateProduct" to="/admin/products/edit/">Update</router-link>
-        <router-link id="updateAttribute" to="/admin/attributes/edit">attributes</router-link>
-        <router-link id="updateDiscount" to="/admin/discounts/edit">discounts</router-link>
-        <router-link id="updateCarrier" to="/admin/carriers/edit">carriers</router-link>
-        <router-link id="updateType" to="/admin/types/edit">types</router-link>
+        <router-link id="createProduct" to="/admin/products">Products</router-link>
+        <router-link id="createAttribute" to="/admin/attributes">Attributes</router-link>
+        <router-link id="createDiscount" to="/admin/discounts">discounts</router-link>
+        <router-link id="createType" to="/admin/types">types</router-link>
     </div>
 
     <!-- End Welcome Container -->
@@ -82,12 +73,8 @@ export default {
     top: 160px;
     background-color: #b3ff00;
 }
-#createCarrier {
-    top: 230px;
-    background-color: #009e22;
-}
 #createType {
-    top: 300px;
+    top: 230px;
     background-color: #e136f4;
 }
 

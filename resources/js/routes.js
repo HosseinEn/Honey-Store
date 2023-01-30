@@ -19,6 +19,11 @@ import CreateDiscount from "./components/CreateForms/CreateDiscount.vue";
 import CreateType from "./components/CreateForms/CreateType.vue";
 import UpdateProduct from "./components/UpdateForms/UpdateProduct.vue";
 import UpdateType from "./components/UpdateForms/UpdateType.vue";
+import TestPayment from "./components/TestPayment.vue";
+import PaymentDone from "./components/PaymentDone.vue";
+import TypesTable from "./components/TypesTable.vue";
+import DiscountsTable from "./components/DiscountsTable.vue";
+import UpdateDiscount from "./components/UpdateForms/UpdateDiscount.vue";
 
 
 const routes = [
@@ -47,32 +52,70 @@ const routes = [
         name: "product",
         props: true,
         component: ShoppingPage,
-        // beforeEnter: (to, from, next) => {
-        //   axios
-        //     .get("/api/is-logged")
-        //     .then((response) => {
-        //       if (response.data.isLogged) {
-        //         next({ name: "home" });
-        //       } else {
-        //         next();
-        //       }
-        //     })
-        //     .catch(() => {
-        //       return next({ name: "home" });
-        //     });
-        // },
+        beforeEnter: (to, from, next) => {
+          axios
+            .get("/api/is-logged")
+            .then((response) => {
+              if (response.data.isLogged) {
+                next({ name: "home" });
+              } else {
+                next();
+              }
+            })
+            .catch(() => {
+              return next({ name: "home" });
+            });
+        },
     },
     {
         path: "/cart",
         name: "cart",
         props: true,
         component: Cart,
+        beforeEnter: (to, from, next) => {
+            axios
+              .get("/api/is-logged")
+              .then((response) => {
+                if (response.data.isLogged) {
+                    next();
+                } else {
+                    next({ name: "home" });
+                }
+              })
+              .catch(() => {
+                return next({ name: "home" });
+              });
+          },
+    },
+    {
+        path : '/test-payment',
+        name : 'test_payment',
+        component: TestPayment
+    },
+    {
+        path : '/payment-done',
+        name : 'payment_done',
+        component: PaymentDone
     },
     {
         path: "/admin",
         name: "admin",
         component: Admin,
         props: true,
+        beforeEnter: (to, from, next) => {
+            axios
+              .get("/api/is-admin")
+              .then((response) => {
+                if (response.data.isAdmin) {
+                    next();
+                } else {
+                    next({ name: "home" });
+                }
+              })
+              .catch(() => {
+                return next({ name: "home" });
+              });
+          },
         children: [
             {
                 path: "/admin/products",
@@ -93,6 +136,7 @@ const routes = [
                 components: {
                     mainContent: CreateProduct,
                 },
+                name: 'admin.products.create'
             },
             {
                 path: "/admin/products/edit/:slugkey",
@@ -106,11 +150,34 @@ const routes = [
                 components: {
                     mainContent: CreateAttribute,
                 },
+                name: 'admin.attributes.create'
+            },
+            {
+                path: "/admin/discounts",
+                components: {
+                    mainContent: DiscountsTable,
+                },
+                name: 'admin.discounts'
             },
             {
                 path: "/admin/discounts/create",
                 components: {
                     mainContent: CreateDiscount,
+                },
+                name: 'admin.discounts.create'
+            },
+            {
+                path: "/admin/discounts/edit/:slugkey",
+                props: true,
+                components: {
+                    mainContent: UpdateDiscount,
+                },
+                name: 'admin.discounts.edit'
+            },
+            {
+                path: "/admin/types",
+                components: {
+                    mainContent: TypesTable,
                 },
             },
             {
@@ -118,6 +185,7 @@ const routes = [
                 components: {
                     mainContent: CreateType,
                 },
+                name: 'admin.types.create'
             },
             {
                 path: "/admin/types/edit/:slugkey",
@@ -125,6 +193,7 @@ const routes = [
                 components: {
                     mainContent: UpdateType,
                 },
+                name: 'admin.types.edit'
             },
         ],
     },
