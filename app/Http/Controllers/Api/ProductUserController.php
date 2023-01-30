@@ -152,7 +152,6 @@ class ProductUserController extends Controller
 
 
     public function checkoutCart(Request $request) {
-        dd('hello');
         $user = Auth::user();
         if($user->products->isEmpty()) {
             throw ValidationException::withMessages([

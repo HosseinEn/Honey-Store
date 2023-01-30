@@ -71,7 +71,9 @@
                         </table>
                     </div>
                     <div class="row mt-3">
-                        <button type="submit" id="submit">تکمیل فرایند خرید</button>
+                        <form>
+                            <button type="submit" @click.prevent="checkout" style="background-color: black; color:white;">تکمیل فرایند خرید</button>
+                        </form>
                     </div>
                 </section>
             </div>
@@ -102,6 +104,19 @@ export default {
             name_of_user: null,
         }
     },
+    methods: {
+        checkout() {
+            axios.post('/api/checkout-cart')
+            .then(response => {
+                // this.$router.push({ 'path' : response.data.action})
+                window.location.href = response.data.action;
+                // console.log(response.data.action);   
+            })
+            .catch(errors => {
+                console.log(errors);
+            });
+        }
+    },  
     mounted() {
         axios.get('/api/cart')
             .then(response => {

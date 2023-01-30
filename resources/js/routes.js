@@ -55,20 +55,20 @@ const routes = [
         name: "product",
         props: true,
         component: ShoppingPage,
-        beforeEnter: (to, from, next) => {
-          axios
-            .get("/api/is-logged")
-            .then((response) => {
-              if (response.data.isLogged) {
-                next({ name: "home" });
-              } else {
-                next();
-              }
-            })
-            .catch(() => {
-              return next({ name: "home" });
-            });
-        },
+        // beforeEnter: (to, from, next) => {
+        //   axios
+        //     .get("/api/is-logged")
+        //     .then((response) => {
+        //       if (response.data.isLogged) {
+        //         next({ name: "home" });
+        //       } else {
+        //         next();
+        //       }
+        //     })
+        //     .catch(() => {
+        //       return next({ name: "home" });
+        //     });
+        // },
     },
     {
         path: "/cart",

@@ -48,7 +48,7 @@
                             </label>
                             <br>
                             <!-- {{product}} -->
-                            <img :src="imagePath" class="d-block" />
+                            <img :src="imagePath" class="d-block" style="max-width: 200px;"/>
 
                             <div style="color: red" v-if="this.errors !== null && this.errors.image">
                                 <div v-for="error in this.errors.image" :key="error">
@@ -108,19 +108,21 @@
                                     :value="getAttributeDataIfFilled(attribute.id, 'stock')" ref="product_attributes">
                                 <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
                                     {{ error }}
-                                </div>
+                                </div>  
                                 <label for="">تخفیف:</label>
                                 <select :name="`product_attributes[${attribute.id}][discount_id]`"
                                     ref="product_attributes">
-                                    <option v-if="getAttributeDataIfFilled(attribute.id, 'discount_id').length == 0"
+                                    <option v-if="getAttributeDataIfFilled(attribute.id, 'discount_id') == null || getAttributeDataIfFilled(attribute.id, 'discount_id').length == 0"
                                         value="">
                                         بدون تخفیف</option>
                                     <option v-for="discount in discounts" :value="`${discount.id}`"
                                         :selected="discount.id === getAttributeDataIfFilled(attribute.id, 'discount_id')">
                                         {{
                                             discount.value
-                                        }}%</option>
+                                        }}%
+                                    </option>
                                 </select>
+                                <!-- {{getAttributeDataIfFilled(attribute.id, 'discount_id') == null}} -->
                             </div>
                             <div style="color: red" v-if="this.errors !== null && this.errors.product_attributes">
                                 <div v-for="error in this.errors.product_attributes" :key="error">
@@ -134,7 +136,7 @@
                     </div>
                     <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
                         @click.prevent="submit">
-                        ایجاد
+                        ویرایش
                     </button>
                     <div v-if="success" style="color : green;">
                         ویرایش با موفقیت انجام شد!

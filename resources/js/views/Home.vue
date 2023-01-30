@@ -42,7 +42,7 @@
           v-for="product in products"
           :key="product.id"
           v-bind="product"
-          imageSelected="HoneyBlock.jpg"
+          :imageSelected="`${product.image.path}`"
           :product="product"
         />
       </div>
