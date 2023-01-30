@@ -9,6 +9,11 @@
         id="navbarSupportedContent"
       >
         <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+          <li v-if="name" class="nav-item ml-2">
+            <router-link :to="{ name: 'user.orders' }" @click="this.scrollToTop"
+              >سفارش‌های من</router-link
+            >
+          </li>
           <li class="nav-item">
             <router-link :to="{ name: 'shop' }" @click="this.scrollToTop"
               >فروشگاه</router-link

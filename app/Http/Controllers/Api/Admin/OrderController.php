@@ -22,6 +22,11 @@ class OrderController extends Controller
     {
 
         $orders = Order::orderBy("created_at", "desc")->get();
+        $orders->load('user');
+        $order_statuses = OrderStatus::get();
+        foreach($orders as $order) {
+            $order['order_status_text'] = $order_statuses->where('id', $order->order_status_id)->first()->name;
+        }
         $totalOrderPrice = $orders->sum('total_price');
 
         return new JsonResponse([
@@ -107,6 +112,7 @@ class OrderController extends Controller
         ]);
     }
 
+
     /**
      * Remove the specified resource from storage.
      *
@@ -132,7 +138,7 @@ class OrderController extends Controller
             ]);
         }
 
-        $order_status = OrderStatus::where('name', 'درخواست لغو')->first();
+        $order_status = OrderStatus::where('name', 'لغو شده')->first();
         // DB::connection()->enableQueryLog();
         // static status_date
         $order->order_statuses()->syncWithoutDetaching([

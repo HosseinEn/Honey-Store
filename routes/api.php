@@ -24,6 +24,7 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('attributes', 'AttributeController');
     Route::apiResource('products', 'ProductController');
     Route::apiResource('discounts', 'DiscountController');
+    Route::apiResource('users', 'UserController');
     Route::apiResource('orders', 'OrderController');
     Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);
@@ -44,7 +45,7 @@ Route::middleware('auth:sanctum')->group(function() {
     });
     Route::apiResource('orders', App\Http\Controllers\Api\OrderController::class);
     Route::controller(App\Http\Controllers\Api\OrderController::class)->group(function() {
-        Route::get('user-order-products/{order}', 'showUserOrderProducts');
+        Route::get('user-order-products', 'showUserOrderProducts');
         Route::post('order-cancellation-request/{order}', 'orderCancellationRequest');
     });
     Route::get('user', function() {

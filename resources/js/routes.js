@@ -24,6 +24,9 @@ import PaymentDone from "./components/PaymentDone.vue";
 import TypesTable from "./components/TypesTable.vue";
 import DiscountsTable from "./components/DiscountsTable.vue";
 import UpdateDiscount from "./components/UpdateForms/UpdateDiscount.vue";
+import UsersTable from "./components/UsersTable.vue";
+import UserOrders from "./views/UserOrders.vue";
+import OrdersTable from "./components/OrdersTable.vue";
 
 
 const routes = [
@@ -72,6 +75,25 @@ const routes = [
         name: "cart",
         props: true,
         component: Cart,
+        beforeEnter: (to, from, next) => {
+            axios
+              .get("/api/is-logged")
+              .then((response) => {
+                if (response.data.isLogged) {
+                    next();
+                } else {
+                    next({ name: "home" });
+                }
+              })
+              .catch(() => {
+                return next({ name: "home" });
+              });
+          },
+    },
+    {
+        path: "/user-orders",
+        name: "user.orders",
+        component: UserOrders,
         beforeEnter: (to, from, next) => {
             axios
               .get("/api/is-logged")
@@ -194,6 +216,20 @@ const routes = [
                     mainContent: UpdateType,
                 },
                 name: 'admin.types.edit'
+            },
+            {
+                path: "/admin/users",
+                components: {
+                    mainContent: UsersTable,
+                },
+                name: 'admin.users'
+            },
+            {
+                path: "/admin/orders",
+                components: {
+                    mainContent: OrdersTable,
+                },
+                name: 'admin.orders'
             },
         ],
     },

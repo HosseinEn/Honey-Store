@@ -11,8 +11,10 @@
     <div id="mySidenavRight" class="sidenav">
         <router-link id="createProduct" to="/admin/products">Products</router-link>
         <router-link id="createAttribute" to="/admin/attributes">Attributes</router-link>
-        <router-link id="createDiscount" to="/admin/discounts">discounts</router-link>
-        <router-link id="createType" to="/admin/types">types</router-link>
+        <router-link id="createDiscount" to="/admin/discounts">Discounts</router-link>
+        <router-link id="createType" to="/admin/types">Types</router-link>
+        <router-link id="createUser" to="/admin/users">Users</router-link>
+        <router-link id="createOrder" to="/admin/orders">Orders</router-link>
     </div>
 
     <!-- End Welcome Container -->
@@ -77,7 +79,14 @@ export default {
     top: 230px;
     background-color: #e136f4;
 }
-
+#createUser {
+    top: 300px;
+    background-color: #36c5f4;
+}
+#createOrder {
+    top: 370px;
+    background-color: #391797;
+}
 /* Right NAV */
 
 #mySidenavRight a {

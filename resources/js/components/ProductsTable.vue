@@ -21,7 +21,6 @@
                     <th style="width: 20%">تاریخ ایجاد</th>
                     <th style="width: 10%">حذف</th>
                     <th style="width: 10%">ویرایش</th>
-                    <th style="width: 10%">تغییر وضعیت</th>
                 </tr>
                 <tr v-for="product in products">
                     <td>‌ {{ product.name }}</td>
@@ -37,7 +36,6 @@
                             </button>
                         </router-link>
                     </td>
-                    <td><button class="add">تغییر وضعیت</button></td>
                 </tr>
             </table>
         </div>

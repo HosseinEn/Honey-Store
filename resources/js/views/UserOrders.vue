@@ -1,0 +1,135 @@
+<template>
+    <Navbar />
+    <MiniIntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
+        <template v-slot:mainContentHeader>
+            شما یک طراح هستین و یا با طراحی های گرافیک
+        </template>
+        <template v-slot:mainContentDesc>
+            شما یک طراح هستین و یا با طراحی های گرافیک
+        </template>
+    </MiniIntroTemplate>
+
+    <!-- Table -->
+    <div class="container-md tableCont p-4">
+        <table>
+            <tr>
+                <th style="width: 10%">شناسه کاربر</th>
+                <th style="width: 30%">قیمت کل (تومان)</th>
+                <th style="width: 20%">شماره فاکتور</th>
+                <th style="width: 20%">شماره پیگیری</th>
+                <th style="width: 15%">تاریخ ثبت سفارش</th>
+                <!-- <th style="width: 10%">محصولات سفارش داده شده</th> -->
+            </tr>
+            <tr v-for="order in orders" :key="order.id">
+                <td>{{ order.user_id }}</td>
+                <td>{{ order.total_price }}</td>
+                <td>{{ order.invoice_no }}</td>
+                <td>{{ order.reference_id }}</td>
+                <td>‌ {{ convertDate(order.created_at) }}</td>
+                <!-- <td>{{ order.products }}</td> -->
+            </tr>
+        </table>
+    </div>
+    <!-- End Table -->
+    <!-- End Cart Ending -->
+    <Footer />
+</template>
+
+<script>
+import Navbar from "../components/Navbar.vue";
+import Footer from "../components/Footer.vue";
+import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
+import axios from "axios";
+import moment from 'moment';
+
+
+export default {
+    name: "orders",
+    components: {
+        Navbar,
+        Footer,
+        MiniIntroTemplate,
+    },
+    data() {
+        return {
+            orders: null,
+        }
+    },
+    methods: {
+        convertDate(date) {
+            return moment(date).format("Y-M-D");
+        },
+    },
+    mounted() {
+        axios.get('/api/user-order-products')
+            .then(response => {
+                this.orders = response.data.orders;
+            })
+    },
+};
+</script>
+
+<style scoped>
+@media only screen and (max-width: 900px) {
+    .tableCont {
+        width: 100% !important;
+    }
+}
+
+.tableCont {
+    width: 80%;
+}
+
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.formSubmit td,
+th {
+    text-align: left;
+}
+
+td,
+th {
+    border: 1px solid #bdbdbd;
+    padding: 8px;
+    text-align: center;
+}
+
+#submit {
+    font-size: 1.5rem;
+    width: 100%;
+    padding: 1rem;
+    transition: 0.5s linear;
+    border-radius: 6px;
+    background-color: var(--thirdColor);
+    color: white;
+    font-family: var(--mainFont)
+}
+
+#submit:hover {
+    background-color: var(--mainColor);
+}
+
+.deleteIcon {
+    background-color: transparent;
+    color: red;
+    border-radius: 50%;
+    padding: 0.3rem 0.5rem 0.3rem;
+}
+
+.deleteIcon:hover {
+    background-color: red;
+    color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #dddddd;
+}
+
+.sumbitFormCont {
+    border: 2px solid rgb(211, 211, 211);
+}
+</style>
