@@ -1,7 +1,6 @@
 <template>
   <div class="w-100 m-auto">
     <div class="card card-body">
-      {{ this.isLogged }}
       <form>
         <div class="form-group">
           <label for="email">E-mail</label>
@@ -58,9 +57,6 @@
           </button>
         </div>
       </form>
-      <form>
-        <button type="submit" @click.prevent="logout">logout</button>
-      </form>
     </div>
   </div>
 </template>
@@ -75,21 +71,11 @@ export default {
       email: null,
       password: null,
       loading: false,
-      isLogged: null,
     };
   },
   created() {
-    axios.get("/api/is-logged").then((response) => {
-      this.isLogged = response.data.isLogged;
-    });
   },
   methods: {
-    async logout() {
-      await window.axios.post("/logout").then((response) => {
-        console.log(response.data);
-      });
-      this.isLogged = false;
-    },
     async login() {
       this.loading = true;
       this.errors = null;
@@ -99,9 +85,8 @@ export default {
           email: this.email,
           password: this.password,
         });
-        this.isLogged = true;
         // TODO redirect to admin panel
-        // this.$router.push({'name' : 'home'})
+        this.$router.push({'name' : 'home'})
       } catch (error) {
         this.errors = error.response && error.response.data.errors;
       }

@@ -11,7 +11,23 @@ import ShoppingPage from "./views/ShoppingPage.vue";
 import Cart from "./views/Cart.vue";
 import Admin from "./views/Admin.vue";
 import ShowAdminTable from "./components/ShowAdminTable.vue";
-import CreateForm from "./components/CreateForm.vue";
+import ProductsTable from "./components/ProductsTable.vue";
+import AttributesTable from "./components/AttributesTable.vue";
+import CreateProduct from "./components/CreateForms/CreateProduct.vue";
+import CreateAttribute from "./components/CreateForms/CreateAttribute.vue";
+import CreateDiscount from "./components/CreateForms/CreateDiscount.vue";
+import CreateType from "./components/CreateForms/CreateType.vue";
+import UpdateProduct from "./components/UpdateForms/UpdateProduct.vue";
+import UpdateType from "./components/UpdateForms/UpdateType.vue";
+import TestPayment from "./components/TestPayment.vue";
+import PaymentDone from "./components/PaymentDone.vue";
+import TypesTable from "./components/TypesTable.vue";
+import DiscountsTable from "./components/DiscountsTable.vue";
+import UpdateDiscount from "./components/UpdateForms/UpdateDiscount.vue";
+import UsersTable from "./components/UsersTable.vue";
+import UserOrders from "./views/UserOrders.vue";
+import OrdersTable from "./components/OrdersTable.vue";
+
 
 const routes = [
     {
@@ -59,24 +75,161 @@ const routes = [
         name: "cart",
         props: true,
         component: Cart,
+        beforeEnter: (to, from, next) => {
+            axios
+              .get("/api/is-logged")
+              .then((response) => {
+                if (response.data.isLogged) {
+                    next();
+                } else {
+                    next({ name: "home" });
+                }
+              })
+              .catch(() => {
+                return next({ name: "home" });
+              });
+          },
+    },
+    {
+        path: "/user-orders",
+        name: "user.orders",
+        component: UserOrders,
+        beforeEnter: (to, from, next) => {
+            axios
+              .get("/api/is-logged")
+              .then((response) => {
+                if (response.data.isLogged) {
+                    next();
+                } else {
+                    next({ name: "home" });
+                }
+              })
+              .catch(() => {
+                return next({ name: "home" });
+              });
+          },
+    },
+    {
+        path : '/test-payment',
+        name : 'test_payment',
+        component: TestPayment
+    },
+    {
+        path : '/payment-done',
+        name : 'payment_done',
+        component: PaymentDone
     },
     {
         path: "/admin",
         name: "admin",
         component: Admin,
-
+        props: true,
+        beforeEnter: (to, from, next) => {
+            axios
+              .get("/api/is-admin")
+              .then((response) => {
+                if (response.data.isAdmin) {
+                    next();
+                } else {
+                    next({ name: "home" });
+                }
+              })
+              .catch(() => {
+                return next({ name: "home" });
+              });
+          },
         children: [
             {
-                path: "/admin",
+                path: "/admin/products",
                 components: {
-                    mainContent: ShowAdminTable,
+                    mainContent: ProductsTable,
+                },
+                name: 'admin.products'
+            },
+            {
+                path: "/admin/attributes",
+                components: {
+                    mainContent: AttributesTable,
+                },
+                name: 'admin.attributes'
+            },
+            {
+                path: "/admin/products/create",
+                components: {
+                    mainContent: CreateProduct,
+                },
+                name: 'admin.products.create'
+            },
+            {
+                path: "/admin/products/edit/:slugkey",
+                props: true,
+                components: {
+                    mainContent: UpdateProduct,
                 },
             },
             {
-                path: "/createForm",
+                path: "/admin/attributes/create",
                 components: {
-                    mainContent: CreateForm,
+                    mainContent: CreateAttribute,
                 },
+                name: 'admin.attributes.create'
+            },
+            {
+                path: "/admin/discounts",
+                components: {
+                    mainContent: DiscountsTable,
+                },
+                name: 'admin.discounts'
+            },
+            {
+                path: "/admin/discounts/create",
+                components: {
+                    mainContent: CreateDiscount,
+                },
+                name: 'admin.discounts.create'
+            },
+            {
+                path: "/admin/discounts/edit/:slugkey",
+                props: true,
+                components: {
+                    mainContent: UpdateDiscount,
+                },
+                name: 'admin.discounts.edit'
+            },
+            {
+                path: "/admin/types",
+                components: {
+                    mainContent: TypesTable,
+                },
+            },
+            {
+                path: "/admin/types/create",
+                components: {
+                    mainContent: CreateType,
+                },
+                name: 'admin.types.create'
+            },
+            {
+                path: "/admin/types/edit/:slugkey",
+                props: true,
+                components: {
+                    mainContent: UpdateType,
+                },
+                name: 'admin.types.edit'
+            },
+            {
+                path: "/admin/users",
+                components: {
+                    mainContent: UsersTable,
+                },
+                name: 'admin.users'
+            },
+            {
+                path: "/admin/orders",
+                components: {
+                    mainContent: OrdersTable,
+                },
+                name: 'admin.orders'
             },
         ],
     },

@@ -21,7 +21,7 @@ class TypeController extends Controller
     {
         $types = Type::latest()->get();
         return new JsonResponse([
-            'type' => $types
+            'types' => $types
         ]);
     }
 
@@ -51,7 +51,7 @@ class TypeController extends Controller
     public function show(Type $type)
     {
         return new JsonResponse([
-            'type' => $type->first()
+            'type' => $type
         ]);
     }
 

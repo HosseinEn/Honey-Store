@@ -16,15 +16,35 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\AddToCartRequest;
 use Illuminate\Validation\ValidationException;
+use Shetabit\Multipay\Exceptions\InvalidPaymentException;
+use Shetabit\Multipay\Invoice;
+use Shetabit\Payment\Facade\Payment;
+
 
 class ProductUserController extends Controller
 {
     public function index() {
         $products = Auth::user()->products;
-        list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice();
-        // $totalPrice = $this->calculatePrice();
-        // $totalPriceWithDiscount = $this->calculatePrice();
+        $products->load([
+            'type',
+            'attributes'
+        ]);
+        $discount_ids = $products->pluck('attributes')->collapse()->pluck('attribute_product')->pluck('discount_id');
+        $discounts = Discount::whereIn('id', $discount_ids)->get();
+        $products->map(function($product) use ($discounts) {
+            $product->attributes->map(function($attribute) use ($discounts, $product) {
+                $discount = $discounts->where('id', $attribute->attribute_product->discount_id)->first();
+                if (!empty($discount)) {
+                    $attribute->attribute_product->discount = $discount;
+                }
+                if($product->cart->attribute_id == $attribute->id) {
+                    $product->selected_attribute = $attribute;
+                }
+            });
+        });
+        list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
         return new JsonResponse([
+            'name_of_user' => Auth::user()->name,
             'products' => $products,
             'totalPrice' => $totalPrice,
             'totalPriceWithDiscount' => $totalPriceWithDiscount
@@ -79,10 +99,10 @@ class ProductUserController extends Controller
         return DB::table('product_user')->where('id', $request->product_user_id)->get();
     }
 
-    private function calculatePrice() {
+    private function calculatePrice($products) {
         // TODO tax and carrier price ignored
-        $products = Auth::user()->products;
-        $products->load('attributes');
+        // $products = Auth::user()->products;
+        // $products->load('attributes');
         $totalPrice = 0;
         $discounts = Discount::get();
         $totalPriceAfterDiscount = 0;
@@ -106,10 +126,8 @@ class ProductUserController extends Controller
         return [$totalPrice, $totalPriceAfterDiscount];
     }
 
-    public function addToCart(AddToCartRequest $request, Product $product) {
-        // return $request->all();
+    public function addToCart(AddToCartRequest $request, Product $product) {     
         $user = Auth::user();
-
         $productAlreadyAddedToCart = DB::table('product_user')->where('attribute_id', $request->attribute_id)
                                                               ->where('product_id', $product->id)
                                                               ->where('user_id', $user->id)
@@ -172,51 +190,134 @@ class ProductUserController extends Controller
 
 
             /* sending request to bank */
+            list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
+            $invoice = new Invoice;   
+            $invoice->amount($totalPriceWithDiscount);
 
+            $payment = Payment::callbackUrl(route('paymentCallbackURL', ['price' => $totalPriceWithDiscount, 'id' => $user->id]))->purchase(
+                $invoice, 
+                function($driver, $transactionId) use ($user, $totalPriceWithDiscount) {
+                    $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+                    $order = Order::create([
+                        'user_id' => $user->id,
+                        'order_status_id' => $order_status->id,
+                        // 'carrier_id' => ,
+                        // 'tax_id' => ,
+                        // 'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
+                        'delivery_date' => null,
+                        'total_price' => $totalPriceWithDiscount,
+                        // 'total_weight' => 
+                        'invoice_no' => uniqid(),
+                        'shipping_address' => 'bullshit',
+                        'transaction_id' => $transactionId,
+                        'reference_id' => null
+                    ]);
 
-            /* create order */
+                }
+            )->pay()->toJson();
 
             // TODO tax and carrier ignored
             $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
             // dump("status ok");
-            list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice();
+            list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
 
-            $order = Order::create([
-                'user_id' => $user->id,
-                'order_status_id' => $order_status->id,
-                // 'carrier_id' => ,
-                // 'tax_id' => ,
-                'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
-                'delivery_date' => null,
-                'total_price' => $totalPrice,
-                // 'total_weight' => 
-                'invoice_no' => Str::random(20),
-                'shipping_address' => $request->address,
-                'billing_no' => Str::random(20)
-            ]);
 
-            // static status_date
-            $order->order_statuses()->attach([
-                $order_status->id => [
-                    'status_date' => now(),
-                ]
-            ]);
 
-            foreach ($products as $product) {
-                $order->products()->attach([
-                    $product->id => [
-                        'quantity' => $product->cart->quantity,
-                        'attribute_id' => $product->cart->attribute_id
-                    ]
-                ]);
-            }
-            $user->products()->detach();
 
-            return new JsonResponse([
-                'order' => $order
-            ]);
+
+            return $payment;
         }
     }
+
+    public function paymentCallbackMethod(Request $request) {
+        try {
+            if ($request->has('price') && $request->has('Authority')) {
+                $receipt = Payment::amount($request->price)->transactionId($request->Authority)->verify();
+                $referenceID =  $receipt->getReferenceId();
+                $order = Order::where('transaction_id' , $request->Authority)->first();
+                $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+                $user = $order->user;
+                $products = $user->products;
+                $products->load('attributes');
+                $order->order_statuses()->attach([
+                    $order_status->id => [
+                        'status_date' => now(),
+                    ]
+                ]);
+        
+                foreach ($products as $product) {
+                    $order->products()->attach([
+                        $product->id => [
+                            'quantity' => $product->cart->quantity,
+                            'attribute_id' => $product->cart->attribute_id
+                        ]
+                    ]);
+                }
+                $user->products()->detach();
+                $order->update([
+                    'reference_id' => $referenceID
+                ]);
+        
+                new JsonResponse([
+                    'order' => $order,
+                ]);
+            }
+            else {
+                return redirect('/');
+            }
+        
+            // You can show payment referenceId to the user.
+            // ???????????????????????????????????????
+            return redirect("/payment-done?reference={$referenceID}");
+            // return redirect(route('create.order'));
+        } catch (InvalidPaymentException $exception) {
+
+            echo $exception->getMessage();
+        }
+
+
+    }
+
+    // public function createOrder($referenceID, $userID) {
+    //     $user = User::findOrFail($userID);
+    //     $products = $user->products;
+    //     $products->load('attributes');
+    //     // TODO tax and carrier ignored
+    //     $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+    //     $order = Order::create([
+    //         'user_id' => $user->id,
+    //         'order_status_id' => $order_status->id,
+    //         // 'carrier_id' => ,
+    //         // 'tax_id' => ,
+    //         // 'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
+    //         'delivery_date' => null,
+    //         'total_price' => null,
+    //         // 'total_weight' => 
+    //         'invoice_no' => Str::random(20),
+    //         'shipping_address' => 'bullshit',
+    //         'billing_no' => null
+    //     ]);
+
+    //     $order->order_statuses()->attach([
+    //         $order_status->id => [
+    //             'status_date' => now(),
+    //         ]
+    //     ]);
+
+    //     foreach ($products as $product) {
+    //         $order->products()->attach([
+    //             $product->id => [
+    //                 'quantity' => $product->cart->quantity,
+    //                 'attribute_id' => $product->cart->attribute_id
+    //             ]
+    //         ]);
+    //     }
+    //     $user->products()->detach();
+
+    //     new JsonResponse([
+    //         'order' => $order,
+    //     ]);
+    // }
 
     public function removeFromCart(Request $request) {
         $user = Auth::user();

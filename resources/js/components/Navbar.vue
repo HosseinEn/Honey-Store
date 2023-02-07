@@ -9,6 +9,11 @@
         id="navbarSupportedContent"
       >
         <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
+          <li v-if="name" class="nav-item ml-2">
+            <router-link :to="{ name: 'user.orders' }" @click="this.scrollToTop"
+              >سفارش‌های من</router-link
+            >
+          </li>
           <li class="nav-item">
             <router-link :to="{ name: 'shop' }" @click="this.scrollToTop"
               >فروشگاه</router-link
@@ -24,10 +29,27 @@
               >خانه</router-link
             >
           </li>
-          <li class="nav-item">
+          <li v-if="name == null" class="nav-item">
             <router-link :to="{ name: 'account' }" @click="this.scrollToTop"
               >ثبت نام/ لاگین</router-link
             >
+          </li>
+          <li v-if="name" class="nav-item ml-2">
+            <form>
+              <button type="submit" style="background-color: transparent; color: white" @click.prevent="logout">خروج</button>
+            </form>
+          </li>
+          <li v-if="name" class="nav-item">
+            <span v-if="isAdmin">
+              <router-link :to="{ name: 'admin.products' }" @click="this.scrollToTop"
+                  >{{ name }}:کاربر</router-link
+                >
+            </span>
+            <span v-else>
+              <router-link :to="{ name: 'cart' }" @click="this.scrollToTop"
+                >{{ name }}:کاربر</router-link
+              >
+            </span>
           </li>
         </ul>
       </div>
@@ -48,10 +70,23 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 export default {
   name: "Navbar",
   components: {},
+  data() {
+      return {
+        name: null,
+        isAdmin: false
+      }
+  },
   mounted() {
+    axios.get('/api/user').then((response) => {
+      console.log(response.data)
+      this.name = response.data.name
+      this.isAdmin = response.data.isAdmin
+    });
     window.onscroll = function () {
       if (document.documentElement.scrollTop > 50) {
         document.getElementById("navabr").style.backgroundColor =
@@ -62,6 +97,13 @@ export default {
     };
   },
   methods: {
+    async logout() {
+      await window.axios.post("/logout").then((response) => {
+        console.log(response.data);
+      });
+      this.name = null;
+      this.isAdmin = false;
+    },
     scrollToTop() {
       window.scrollTo(0, 0);
     },

@@ -2,7 +2,7 @@
     <div
     class="container-fluid p-2 d-flex justify-content-center align-items-center"
   >
-    <p>Lorem ipsum dolor sit.</p>
+    <p>عسل‌های طبیعی</p>
   </div>
 </template>
 

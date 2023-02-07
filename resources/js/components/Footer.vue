@@ -4,7 +4,7 @@
       <div
         class="col websiteIcon col-12 col-md-2 d-flex justify-content-center align-items-center"
       >
-        dw
+        
       </div>
       <div
         class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
@@ -64,16 +64,16 @@
         class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
       >
         <ul>
-          <li class="mb-4">w</li>
-          <li>d</li>
-          <li>d</li>
-          <li>d</li>
-          <li>a</li>
+          <li class="mb-4"></li>
+          <li></li>
+          <li></li>
+          <li></li>
+          <li></li>
         </ul>
       </div>
       <div class="col col-6 col-md-3 d-flex justify-content-center">
         <ul class="socialMediaList">
-          <li class="mb-4">ما رو در فضای مجازی دنبال کنید</li>
+          <li class="mb-4">ما را در فضای مجازی دنبال کنید</li>
           <li>
             <i
               class="fa-brands fa-instagram"

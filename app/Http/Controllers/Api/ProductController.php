@@ -32,8 +32,12 @@ class ProductController extends Controller
             }, 
             'image'
         ]);
+        $minPrice = $product->attributes->min('attribute_product.price');
+        $maxPrice = $product->attributes->max('attribute_product.price');
         return new JsonResponse([
-            'product' => $product
+            'product' => $product,
+            'minPrice' => $minPrice,
+            'maxPrice' => $maxPrice
         ]);
     }
 }

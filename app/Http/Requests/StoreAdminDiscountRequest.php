@@ -20,7 +20,9 @@ class StoreAdminDiscountRequest extends FormRequest
     {
         return [
             'name.required' => 'تکمیل نام تخفیف اجباری است!',
-            'name.unique' => 'این نام قبلا تعریف شده است!'
+            'name.unique' => 'این نام قبلا تعریف شده است!',
+            'value.required' => 'تکمیل مقدار تخفیف اجباری است! (به درصد وارد نمایید)',
+            'value.numeric' => 'مقدار تخفیف باید عددی باشد!'
         ];
     }
 
@@ -32,7 +34,8 @@ class StoreAdminDiscountRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:discounts'
+            'name' => 'required|unique:discounts',
+            'value' => 'required|numeric|min:0|max:100'
         ];
     }
 }

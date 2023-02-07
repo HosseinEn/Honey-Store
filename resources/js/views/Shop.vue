@@ -1,100 +1,104 @@
 <template>
-  <Navbar />
-  <!-- Intro -->
-  <MiniIntroTemplate
-    imageSelected="HoneyBlock.jpg"
-    imageForSmall="VerticalHoneyHome.jpg"
-  >
-    <template v-slot:mainContentHeader>
-      شما یک طراح هستین و یا با طراحی های گرافیک
-    </template>
-    <template v-slot:mainContentDesc>
-      شما یک طراح هستین و یا با طراحی های گرافیک
-    </template>
-  </MiniIntroTemplate>
-  <!-- end Intro -->
+    <Navbar />
+    <!-- Intro -->
+    <MiniIntroTemplate
+        imageSelected="HoneyBlock.jpg"
+        imageForSmall="VerticalHoneyHome.jpg"
+    >
+        <template v-slot:mainContentHeader>
+            شما یک طراح هستین و یا با طراحی های گرافیک
+        </template>
+        <template v-slot:mainContentDesc>
+            شما یک طراح هستین و یا با طراحی های گرافیک
+        </template>
+    </MiniIntroTemplate>
+    <!-- end Intro -->
 
-  <div class="container-fluid mt-5">
+<div class="container-fluid mt-5">
     <div class="container">
-      <div class="row filterRow text-center">
-        <h3 class="mb-3">Filter BY :</h3>
-        <section>
-          <!-- <FilterNav
-            :currentFilter="currentFilter"
-            @handleFilter="currentFilter = $event"
-            @honeyTypeFunction="honeyType = $event"
-          /> -->
-          <button
-            @click="changeFilter('all')"
-            :class="{ activeFilter: currentFilter === 'all' }"
-          >
-            همه
-          </button>
-          <button
-            @click="changeFilter('mostDiscounted')"
-            :class="{ activeFilter: currentFilter === 'mostDiscounted' }"
-          >
-            بیشترین تخفیف
-          </button>
-          <button
-            @click="changeFilter('mostExpensive')"
-            :class="{ activeFilter: currentFilter === 'mostExpensive' }"
-          >
-            گران ترین
-          </button>
-          <button
-            @click="changeFilter('cheapest')"
-            :class="{ activeFilter: currentFilter === 'cheapest' }"
-          >
-            ارزان ترین
-          </button>
-          <button
-            @click="changeFilter('mostSale')"
-            :class="{ activeFilter: currentFilter === 'mostSale' }"
-          >
-            مرتب سازی
-          </button>
-        </section>
-      </div>
-          <!-- {{ filteredProducts }} -->
-          <div v-if="loading">
+        <div class="row filterRow text-center">
+            <h3 class="mb-3">Filter BY :</h3>
+            <section>
+            <!-- <FilterNav
+                :currentFilter="currentFilter"
+                @handleFilter="currentFilter = $event"
+                @honeyTypeFunction="honeyType = $event"
+            /> -->
+            <button
+                @click="changeFilter('all')"
+                :class="{ activeFilter: currentFilter === 'all' }"
+            >
+                همه
+            </button>
+            <button
+                @click="changeFilter('mostDiscounted')"
+                :class="{ activeFilter: currentFilter === 'mostDiscounted' }"
+            >
+                بیشترین تخفیف
+            </button>
+            <button
+                @click="changeFilter('mostExpensive')"
+                :class="{ activeFilter: currentFilter === 'mostExpensive' }"
+            >
+                گران ترین
+            </button>
+            <button
+                @click="changeFilter('cheapest')"
+                :class="{ activeFilter: currentFilter === 'cheapest' }"
+            >
+                ارزان ترین
+            </button>
+            <button
+                @click="changeFilter('mostSale')"
+                :class="{ activeFilter: currentFilter === 'mostSale' }"
+            >
+                مرتب سازی
+            </button>
+            </section>
+        </div>
+        <!-- {{ filteredProducts }} -->
+        <div v-if="loading">
             loading...
-          </div>
-          <div class="productRow" v-else>
+        </div>
+        <div class="productRow" v-else>
+
             <section class="productItem" v-for="product in filteredProducts">
-              <SingleProduct
-                :key="currentFilter === 'all' ? product.id : product['product'].id"
-                v-bind="currentFilter === 'all' ? product : product['product']"
-                imageSelected="HoneyBlock.jpg"
-                :product="currentFilter === 'all' ? product : product['product']"
+
+                <SingleProduct
+                :key="currentFilter === 'all' ? product.id : product.product.id"
+                v-bind="currentFilter === 'all' ? product : product.product"
+                :imageSelected="currentFilter === 'all' ? product.image.path : product.product.image.path" 
+                :product="currentFilter === 'all' ? product : product.product"
                 :filteredAttribute="product['filteredAttribute']"
               />
             </section>
-          </div>
+
+
+        </div>
         <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
         <!-- <div class="productRow" v-if="currentFilter === 'all'">
             <SingleProduct
-              v-for="product in filteredProducts"
-              :key="product.id"
-              v-bind="product "
-              imageSelected="HoneyBlock.jpg"
-              :product="product"
+            v-for="product in filteredProducts"
+            :key="product.id"
+            v-bind="product "
+            imageSelected="HoneyBlock.jpg"
+            :product="product"
             />
         </div>
         <div class="productRow" v-else>
-          {{ filteredProducts }}
-          <SingleProductWithFilter
+        {{ filteredProducts }}
+        <SingleProductWithFilter
             v-for="product in filteredProducts"
             :key="product['product'].id"
             v-bind="product['product']"
             imageSelected="HoneyBlock.jpg"
             :product="product['product']"
             :filteredAttribute="product['filteredAttribute']"filteredProducts = response.data.filteredData;
-          />
+        />
         </div> -->
     </div>
-  </div>
-  <Footer />
+</div>
+    <Footer />
 </template>
 
 <script>
@@ -175,12 +179,12 @@ export default {
   }
 }
 #productVfor {
-  width: 50%;
-  height: auto;
+    width: 50%;
+    height: auto;
 }
 .productRow {
-  display: flex;
-  flex-wrap: wrap;
+    display: flex;
+    flex-wrap: wrap;
 }
 button {
   margin-left: 0.5rem;

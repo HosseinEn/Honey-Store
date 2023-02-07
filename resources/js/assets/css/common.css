@@ -74,3 +74,40 @@ input[type="color"]:focus,
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 255, 255, 0.6);
   outline: 0 none;
 }
+/* ADMIN CLASSES */
+.adminFormInputSelectTextarea {
+  margin-bottom: 0.4rem;
+  margin-top: 0.7rem;
+  font-weight: 500;
+}
+.adminFormTextare {
+  display: block;
+  border: 1px solid black;
+  border-radius: 5px;
+}
+.adminFormSelect {
+  margin-right: 10px;
+}
+.welcomeCont {
+  margin-top: 0rem;
+}
+.welcomeCont div p {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--mainColor);
+}
+input[type="file"] {
+  border: none;
+}
+input {
+  background-color: white;
+  border: 1px solid var(--secondColor);
+  display: block;
+  border-radius: 5px;
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px white inset !important;
+}

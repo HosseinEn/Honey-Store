@@ -1,16 +1,20 @@
 <template>
     <Navbar />
     <!-- Welcome Container -->
-    <div class="container-fluid welcomeCont">
+    <div class="container-fluid welcomeCont plsWork">
         <div class="row text-center p-4">
-            <p>Welcom</p>
+            <p>&nbsp;</p>
         </div>
     </div>
 
-    <div id="mySidenav" class="sidenav">
-        <router-link id="createProduct" to="/createForm">Create</router-link>
-        <router-link href="#" id="mainTable" to="/admin">mainTable</router-link>
-        <a href="#" id="projects">Projects</a>
+    <!-- Update -->
+    <div id="mySidenavRight" class="sidenav">
+        <router-link id="createProduct" to="/admin/products">Products</router-link>
+        <router-link id="createAttribute" to="/admin/attributes">Attributes</router-link>
+        <router-link id="createDiscount" to="/admin/discounts">Discounts</router-link>
+        <router-link id="createType" to="/admin/types">Types</router-link>
+        <router-link id="createUser" to="/admin/users">Users</router-link>
+        <router-link id="createOrder" to="/admin/orders">Orders</router-link>
     </div>
 
     <!-- End Welcome Container -->
@@ -39,7 +43,6 @@ export default {
 .welcomeCont {
     margin-top: 6rem;
 }
-
 #mySidenav a {
     position: absolute;
     left: -80px;
@@ -59,21 +62,72 @@ export default {
 #mySidenav a:hover {
     left: 0;
 }
-
 #createProduct {
-    top: 90px;
+    top: 20px;
     background-color: var(--mainColor);
     color: var(--secondColor);
 }
-
-#mainTable {
-    top: 160px;
-    background-color: #2196f3;
-}
-
-#projects {
-    top: 230px;
+#createAttribute {
+    top: 90px;
     background-color: #f44336;
+}
+#createDiscount {
+    top: 160px;
+    background-color: #b3ff00;
+}
+#createType {
+    top: 230px;
+    background-color: #e136f4;
+}
+#createUser {
+    top: 300px;
+    background-color: #36c5f4;
+}
+#createOrder {
+    top: 370px;
+    background-color: #391797;
+}
+/* Right NAV */
+
+#mySidenavRight a {
+    position: absolute;
+    right: -80px;
+    transition: 0.3s;
+    padding: 15px;
+    width: 100px;
+    text-decoration: none;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px 0 0 5px;
+}
+#mySidenavRight {
+    position: sticky;
+    left: 0;
+    top: 0;
+}
+#mySidenavRight a:hover {
+    right: 0;
+}
+#updateProduct {
+    top: 20px;
+    background-color: var(--mainColor);
+    color: var(--secondColor);
+}
+#updateAttribute {
+    top: 90px;
+    background-color: #f44336;
+}
+#updateDiscount {
+    top: 160px;
+    background-color: #b3ff00;
+}
+#updateCarrier {
+    top: 230px;
+    background-color: #009e22;
+}
+#updateType {
+    top: 300px;
+    background-color: #e136f4;
 }
 
 </style>

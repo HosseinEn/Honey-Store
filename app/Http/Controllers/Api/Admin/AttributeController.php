@@ -19,8 +19,10 @@ class AttributeController extends Controller
      */
     public function index(Request $request)
     {
-        $attributes = Attribute::orderBy("created_at", "desc")->get();
-        return $attributes;
+        $attributes = Attribute::orderBy("weight", "asc")->get();
+        return new JsonResponse([
+            'attributes' => $attributes
+        ]);
     }
 
     /**
@@ -33,7 +35,7 @@ class AttributeController extends Controller
     {
         $attribute = Attribute::create($request->all());
         return new JsonResponse([
-            'type' => $attribute
+            'attribute' => $attribute
         ]);
     }
 
@@ -46,7 +48,7 @@ class AttributeController extends Controller
     public function show(Attribute $attribute)
     {
         return new JsonResponse([
-            'type' => $attribute
+            'attribute' => $attribute
         ]);
     }
 
@@ -59,10 +61,15 @@ class AttributeController extends Controller
      */
     public function update(Request $request, Attribute $attribute)
     {
+        // dd($request->weight, $attribute->weight);
         $validatedData = $this->validate(
             $request,
             [
-                "weight" => 'required|unique:attributes,id,'.$attribute->id,
+                "weight" => [
+                    'required', 
+                    'numeric', 
+                    Rule::unique('attributes')->ignore($attribute->id)
+                ],
             ],
             [
                 "weight.unique" => 'ویژگی با این وزن قبلا ثبت شده است'

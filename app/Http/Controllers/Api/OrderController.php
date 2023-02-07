@@ -8,6 +8,7 @@ use App\Models\OrderStatus;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
@@ -28,13 +29,15 @@ class OrderController extends Controller
     }
 
     // TODO Maybe not needed and loading data in index would be better.
-    public function showUserOrderProducts(Order $order) {
-        if (Gate::denies('view_order', $order)) {
-            return abort(404);
-        }
-        $order = $order->load('products');
+    public function showUserOrderProducts() {
+        // if (Gate::denies('view_order', $order)) {
+        //     return abort(404);
+        // }
+        $user = Auth::user();
+        $orders = $user->orders;
+        // $order = $order->load('products');
         return new JsonResponse([
-            'order' => $order,
+            'orders' => $orders,
         ]);
     }
 
