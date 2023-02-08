@@ -16,16 +16,18 @@ class SortController extends Controller
     private function getProductsByIDs($allProducts, $product_attribute_ids, $filteredBy) {
         $result = collect([]);
         foreach($product_attribute_ids as $pa_id) {
-            $product = $allProducts->where('id', $pa_id->product_id)->first();
-            if($product['attributes']) {
-                $attribute = collect($product['attributes'])
-                        ->where('attribute_product.stock', '!=', 0)
-                        ->where('id', $pa_id->attribute_id)->first();
-                if ($attribute) {
-                    $result->push([
-                        'product' => $product, 
-                        'filteredAttribute' => $attribute
-                    ]);
+            if ($allProducts->pluck('id')->contains($pa_id->product_id)) {
+                $product = $allProducts->where('id', $pa_id->product_id)->first();
+                if($product['attributes']) {
+                    $attribute = collect($product['attributes'])
+                            ->where('attribute_product.stock', '!=', 0)
+                            ->where('id', $pa_id->attribute_id)->first();
+                    if ($attribute) {
+                        $result->push([
+                            'product' => $product, 
+                            'filteredAttribute' => $attribute
+                        ]);
+                    }
                 }
             }
         }
@@ -104,22 +106,26 @@ class SortController extends Controller
             ->orderBy('discounts.value', 'desc')
             ->get();
 
+
+
         foreach($joinResult as $jr) {
-            $product = $products->where('id', $jr->product_id)->first();
-            if ($product['attributes']) {
-                $attribute = collect($product['attributes'])
-                    ->where('attribute_product.stock', '!=', 0)
-                    ->where('id', $jr->attribute_id)->first();
-                    if ($attribute) {
-                        $attribute['attribute_product']['discount_value'] = $jr->value;
-                        $mostDiscountedProducts->push([
-                            'product' => $product, 
-                            'filteredAttribute' => $attribute,
-                            // 'discount_value' => $jr->value
-                        ]);
+            if ($products->pluck('id')->contains($jr->product_id)) {
+                $product = $products->where('id', $jr->product_id)->first();
+                if ($product['attributes']) {
+                    $attribute = collect($product['attributes'])
+                        ->where('attribute_product.stock', '!=', 0)
+                        ->where('id', $jr->attribute_id)->first();
+                        if ($attribute) {
+                            $attribute['attribute_product']['discount_value'] = $jr->value;
+                            $mostDiscountedProducts->push([
+                                'product' => $product, 
+                                'filteredAttribute' => $attribute,
+                            ]);
+                    }
                 }
             }
-        }
+            }
+
         return $mostDiscountedProducts;
     }
 }
