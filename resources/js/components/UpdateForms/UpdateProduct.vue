@@ -109,12 +109,12 @@
                                 <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
                                     {{ error }}
                                 </div>  
-                                <label for="">تخفیف:</label>
+                                <label for="">تخفیف:</label> 
                                 <select :name="`product_attributes[${attribute.id}][discount_id]`"
                                     ref="product_attributes">
-                                    <option v-if="getAttributeDataIfFilled(attribute.id, 'discount_id') == null || getAttributeDataIfFilled(attribute.id, 'discount_id').length == 0"
-                                        value="">
-                                        بدون تخفیف</option>
+                                    <option value="">
+                                        بدون تخفیف
+                                    </option>
                                     <option v-for="discount in discounts" :value="`${discount.id}`"
                                         :selected="discount.id === getAttributeDataIfFilled(attribute.id, 'discount_id')">
                                         {{
@@ -122,7 +122,6 @@
                                         }}%
                                     </option>
                                 </select>
-                                <!-- {{getAttributeDataIfFilled(attribute.id, 'discount_id') == null}} -->
                             </div>
                             <div style="color: red" v-if="this.errors !== null && this.errors.product_attributes">
                                 <div v-for="error in this.errors.product_attributes" :key="error">
@@ -134,6 +133,11 @@
                     <div style="color: red" v-if="this.authorizationError">
                         {{ this.authorizationError }}
                     </div>
+                    <router-link :to="{ name: 'admin.products' }">
+                        <button type="submit" class="btn btn-primary">
+                            بازگشت
+                        </button>
+                    </router-link>
                     <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
                         @click.prevent="submit">
                         ویرایش
@@ -253,6 +257,8 @@ export default {
                     this.errors = null;
                     this.authorizationError = null;
                     this.success = true;
+                    this.productAttributes = response.data.product.attributes;
+                    console.log(this.productAttributes);
                 })
                 .catch(errors => {
                     this.success = false;

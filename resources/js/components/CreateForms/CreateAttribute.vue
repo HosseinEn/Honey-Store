@@ -24,6 +24,9 @@
                         @click.prevent="submit">
                         ایجاد
                     </button>
+                    <span style="background-color: green;">
+                        {{ success }}
+                    </span>
                 </form>
             </div>
         </div>
@@ -40,6 +43,7 @@ export default {
         return {
             weight: null,
             errors: null,
+            success: null
         };
     },
     mounted() {
@@ -52,6 +56,7 @@ export default {
                 'weight': this.weight
             })
             .then(response => {
+                this.success = 'ویژگی با موفقیت ساخته شد!'
                 this.errors = null;
                 this.authorizationError = null;
             })
@@ -61,6 +66,7 @@ export default {
                 }
                 else {
                     this.errors = errors.response && errors.response.data.errors;
+                    this.success = null;
                 }
             })
         }

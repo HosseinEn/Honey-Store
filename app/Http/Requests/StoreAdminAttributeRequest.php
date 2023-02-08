@@ -20,7 +20,8 @@ class StoreAdminAttributeRequest extends FormRequest
     {
         return [
             'weight.required' => 'تکمیل وزن اجباری است!',
-            'weight.unique' => 'این وزن قبلا تعریف شده است!'
+            'weight.unique' => 'این وزن قبلا تعریف شده است!',
+            'weight.max' => 'عدد بزرگ‌تر از سقف تعیین شده است (:max)'
         ];
     }
 
@@ -32,7 +33,7 @@ class StoreAdminAttributeRequest extends FormRequest
     public function rules()
     {
         return [
-            'weight' => 'required|numeric|unique:attributes'
+            'weight' => 'required|numeric|unique:attributes|max:‌99999999999'
         ];
     }
 }

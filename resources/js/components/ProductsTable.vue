@@ -12,6 +12,29 @@
                     ساخت محصول جدید
                 </button>
             </router-link>
+            <form @submit.prevent="handleSearch">
+                <div style="display: inline-block;">
+                    <input type="text" name="search_key" required placeholder="...در میان نام محصولات جستجو کنید" v-model="searchKey">
+                    <button style="background-color: red;">جستجو</button>
+                </div>
+            </form>
+            <form @submit.prevent="handleFilter">
+                <div style="display: inline-block;">
+                    <label for="status">وضعیت</label>
+                    <select name="status" style="background-color: blue;" id="status" v-model="status">
+                        <option value="all">همه</option>
+                        <option value="1">فعال</option>
+                        <option value="0">غیرفعال</option>
+                    </select>
+                    <br>
+                    <label for="from">از</label>
+                    <input required type="date" id="from" name="from" v-model="from">
+                    <label for="to">تا</label>
+                    <input required type="date" id="to" name="to" v-model="to">
+                    <button style="background-color: red;">فیلتر</button>
+                </div>
+            </form>
+            <button @click="showAll" style="background-color: blueviolet;">نمایش همه</button>
             <table>
                 <tr>
                     <th style="width: 20%">نام محصول</th>
@@ -51,12 +74,43 @@ export default {
     data() {
         return {
             products: null,
+            searchKey: null,
+            status: 'all',
+            from: null,
+            to: null
         };
     },
     methods: {
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
+        handleSearch() {
+            const url = '/admin/products?search_key=' + this.searchKey;
+            this.$router.push(url)
+            axios.get('/api' + url)
+            .then(response => {
+                this.products = response.data.products;
+            });
+        },
+        handleFilter() {
+            const url = '/admin/products?status=' + this.status + '&from=' + this.from + '&to=' + this.to;
+            this.$router.push(url)
+            axios.get('/api' + url)
+            .then(response => {
+                this.products = response.data.products;
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        },
+        showAll() {
+            this.$router.push('/admin/products')
+            axios.get("/api/admin/products")
+            .then(response => {
+                this.products = response.data.products;
+
+            })
+        }
     },
     mounted() {
         axios.get("/api/admin/products")

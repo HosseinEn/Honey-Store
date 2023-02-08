@@ -3,6 +3,16 @@
         <div class="container-fluid welcomeCont">
             <div class="row text-center p-4">
                 <p>جدول ویژگی‌ها</p>
+                <div v-if="success">
+                    <span style="background-color: greenyellow;">
+                        {{ success }}
+                    </span>
+                </div>
+                <div v-if="success">
+                    <span style="background-color: red;">
+                        {{ errors }}
+                    </span>
+                </div>
             </div>
         </div>
         <div class="row p-4 btnParent">
@@ -20,7 +30,7 @@
                 <tr v-for="attribute in attributes">
                     <td>‌ {{ attribute.weight }}</td>
                     <td>‌ {{ convertDate(attribute.created_at) }}</td>
-                    <td><button class="remove">حذف</button></td>
+                    <td><button class="remove" @click="deleteAttribute(attribute.id)">حذف</button></td>
                 </tr>
             </table>
         </div>
@@ -36,12 +46,25 @@ export default {
     data() {
         return {
             attributes: null,
+            success: null,
+            errors: null,
         };
     },
     methods: {
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
+        deleteAttribute(attribute_id) {
+            axios.delete("/api/admin/attributes/" + attribute_id)
+            .then(response => {
+                this.success = response.data.success
+                const index = this.attributes.findIndex(attribute => attribute.id === attribute_id)
+                if(~index) this.attributes.splice(index, 1)
+            })
+            .catch((error) => {
+                this.errors = errors.response && errors.response.data.errors;
+            })
+        }
     },
     mounted() {
         axios.get("/api/admin/attributes")

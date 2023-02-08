@@ -92,7 +92,7 @@ class AttributeController extends Controller
     {
         $attribute->delete();
         return new JsonResponse([
-            'success' => 'Attribute destroyed successfully!'
+            'success' => 'ویژگی با موفقیت حذف شد!'
         ]);
     }
 }

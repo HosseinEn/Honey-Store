@@ -21,13 +21,34 @@ ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::get();
+        if ($request->has('search_key')) {
+            $search_key = $request->get('search_key');
+            $products = Product::where('name', 'like', '%' . $search_key . '%')->get();
+        }
+        else if (
+            $request->has('status') &&
+            $request->has('from') &&
+            $request->has('to')
+        ) {
+            $products = $this->applyFilters($request->get('from'), $request->get('to'), $request->get('status'));
+        }
+        else {
+            $products = Product::get();
+        }
         $products->load(['attributes', 'image']);
         return new JsonResponse([
             'products' => $products
         ]);
+    }
+
+    private function applyFilters($from, $to, $status) {
+        $productsQuery = Product::whereBetween('created_at', [$from, $to]);
+        if ($status != 'all') {
+            $productsQuery = $productsQuery->where('status', $status);
+        }
+        return $productsQuery->get();
     }
 
     /**
@@ -144,7 +165,7 @@ ProductController extends Controller
                 $attribute_id => [
                     'stock' => $values['stock'],
                     'price' => $values['price'],
-                    'discount_id' => $values['discount_id']
+                    'discount_id' => array_key_exists('discount_id', $values) ? $values['discount_id'] : null
                 ]
             ]);
         }
@@ -162,7 +183,8 @@ ProductController extends Controller
         $product->update($request->all());
 
         return new JsonResponse([
-            'success' => 'محصول با موفقیت ویرایش شد!'
+            'success' => 'محصول با موفقیت ویرایش شد!',
+            'product' => $product->load('attributes')
         ]);
     }
 

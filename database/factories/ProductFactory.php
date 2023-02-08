@@ -18,7 +18,8 @@ class ProductFactory extends Factory
             'name' => $name = $this->faker->unique()->word(),
             'slug' => Str::slug($name),
             'description' => $this->faker->paragraph(),
-            'status' => 1
+            'status' => random_int(0, 1),
+            'created_at' => now()->addDays(random_int(-365, 0)),
         ];
     }
 }

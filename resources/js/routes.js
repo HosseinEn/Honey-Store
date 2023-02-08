@@ -27,9 +27,14 @@ import UpdateDiscount from "./components/UpdateForms/UpdateDiscount.vue";
 import UsersTable from "./components/UsersTable.vue";
 import UserOrders from "./views/UserOrders.vue";
 import OrdersTable from "./components/OrdersTable.vue";
+import PageNotFound from "./components/PageNotFound.vue";
 
 
 const routes = [
+    {
+        path: "/:catchAll(.*)", 
+        component: PageNotFound,
+    },
     {
         path: "/",
         component: Home,

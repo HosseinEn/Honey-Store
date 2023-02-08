@@ -83,7 +83,6 @@ export default {
   },
   mounted() {
     axios.get('/api/user').then((response) => {
-      console.log(response.data)
       this.name = response.data.name
       this.isAdmin = response.data.isAdmin
     });

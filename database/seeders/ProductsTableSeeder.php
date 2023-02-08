@@ -18,7 +18,7 @@ class ProductsTableSeeder extends Seeder
      */
     public function run()
     {
-        $products = Product::factory(5)->make();
+        $products = Product::factory(50)->make();
         $types = Type::get();
         $discounts = Discount::get()->pluck('id');
         $discounts->push(Null);
