@@ -17,40 +17,47 @@ class SortController extends Controller
         $result = collect([]);
         foreach($product_attribute_ids as $pa_id) {
             $product = $allProducts->where('id', $pa_id->product_id)->first();
-            $result->push([
-                'product' => $product, 
-                $filteredBy => $product->attributes->where('id', $pa_id->attribute_id)->first()
-            ]);
+            if($product['attributes']) {
+                $attribute = collect($product['attributes'])
+                        ->where('attribute_product.stock', '!=', 0)
+                        ->where('id', $pa_id->attribute_id)->first();
+                if ($attribute) {
+                    $result->push([
+                        'product' => $product, 
+                        'filteredAttribute' => $attribute
+                    ]);
+                }
+            }
         }
         return $result;
     }
 
   
     public function sortBy(Request $request) {
-        $products = $request->products;
-        if ($request->has('filterBy')) {
-            if ($request->filter_by === "mostSale") {
+        $products = collect($request->products);
+        if ($request->has('sortBy')) {
+            if ($request->sortBy === "mostSale") {
                 $mostSaleProducts = $this->filterByMostSale($products);
                 return new JsonResponse([
-                    'mostSaleProducts' => $mostSaleProducts,
+                    'filteredData' => $mostSaleProducts,
                 ]);
             }
-            else if ($request->filter_by === "cheapest") {
+            else if ($request->sortBy === "cheapest") {
                 $cheapestProducts = $this->filterByCheapest($products);
                 return new JsonResponse([
-                    'cheapestProducts' => $cheapestProducts,
+                    'filteredData' => $cheapestProducts,
                 ]);
             }
-            else if ($request->filter_by === "mostExpensive") {
+            else if ($request->sortBy === "mostExpensive") {
                 $mostExpensiveProducts = $this->filterByMostExpensive($products);
                 return new JsonResponse([
-                    'mostExpensiveProducts' => $mostExpensiveProducts,
+                    'filteredData' => $mostExpensiveProducts,
                 ]);
             }
-            else if ($request->filter_by === "mostDiscounted") { 
+            else if ($request->sortBy === "mostDiscounted") { 
                 $mostDiscountedProducts = $this->filterByMostDiscounted($products);
                 return new JsonResponse([
-                    'mostDiscountedProducts' => $mostDiscountedProducts
+                    'filteredData' => $mostDiscountedProducts
                 ]);
             }
         }
@@ -59,8 +66,6 @@ class SortController extends Controller
 
 
     private function filterByMostSale($products) {
-        // $products = Product::isActive()->get();
-        // $products->load('attributes');
         $pivotMostSale = DB::table('order_product')
         ->select('product_id', 'attribute_id', DB::raw('SUM(quantity) as total_quantity'))
         ->groupBy('product_id', 'attribute_id')
@@ -70,70 +75,51 @@ class SortController extends Controller
         $mostSaleProducts = $this->getProductsByIDs($products, $pivotMostSale, 'most_sale_attribute');
         
         return $mostSaleProducts;
-        // return new JsonResponse([
-        //     'mostSaleProducts' => $mostSaleProducts,
-        // ]);
     }
 
-    // private function pivotDataForSortingByPrice() {
-    //     $products = Product::isActive()->get();
-    //     $products->load('attributes');
-    //     $pivotProducts = DB::table('attribute_product')
-    //     ->select('product_id', 'attribute_id', 'price')
-    //     ->get();
-    //     return [$products, $pivotProducts];
-    // }
-
     public function filterByMostExpensive($products) {
-        // list($products, $pivotProducts) = $this->pivotDataForSortingByPrice();
-            //     $products = Product::isActive()->get();
-    //     $products->load('attributes');
+
         $pivotProducts = DB::table('attribute_product')
         ->select('product_id', 'attribute_id', 'price')
         ->get();
         $pivotMostExpensiveProducts = $pivotProducts->sortBy('price', null, true);
         $mostExpensiveProducts = $this->getProductsByIDs($products, $pivotMostExpensiveProducts, 'most_expensive_attribute');
         return $mostExpensiveProducts;
-        // return new JsonResponse([
-        //     'mostExpensiveProducts' => $mostExpensiveProducts,
-        // ]);
     }
 
     public function filterByCheapest($products) {
-        // list($products, $pivotProducts) = $this->pivotDataForSortingByPrice();
         $pivotProducts = DB::table('attribute_product')
         ->select('product_id', 'attribute_id', 'price')
         ->get();
         $pivotCheapestProducts = $pivotProducts->sortBy('price', null, false);
         $cheapestProducts = $this->getProductsByIDs($products, $pivotCheapestProducts, 'cheapest_attribute');
         return $cheapestProducts;
-        // return new JsonResponse([
-        //     'cheapestProducts' => $cheapestProducts,
-        // ]);
     }
 
     public function filterByMostDiscounted($products) {
-        // $products = Product::isActive()->get();
-        // $products->load('attributes');
         $mostDiscountedProducts = collect([]);
         $joinResult = DB::table('discounts')
             ->join('attribute_product', 'discounts.id', '=', 'attribute_product.discount_id')
             ->select('product_id', 'attribute_id', 'value')
             ->orderBy('discounts.value', 'desc')
             ->get();
-        
+
         foreach($joinResult as $jr) {
             $product = $products->where('id', $jr->product_id)->first();
-            $attributes = $product->attributes->where('id', $jr->attribute_id)->first();
-            $mostDiscountedProducts->push([
-                'product' => $product, 
-                'most_discounted_attribute' => $attributes
-            ]);
+            if ($product['attributes']) {
+                $attribute = collect($product['attributes'])
+                    ->where('attribute_product.stock', '!=', 0)
+                    ->where('id', $jr->attribute_id)->first();
+                    if ($attribute) {
+                        $attribute['attribute_product']['discount_value'] = $jr->value;
+                        $mostDiscountedProducts->push([
+                            'product' => $product, 
+                            'filteredAttribute' => $attribute,
+                            // 'discount_value' => $jr->value
+                        ]);
+                }
+            }
         }
-
         return $mostDiscountedProducts;
-        // return new JsonResponse([
-        //     'mostDiscountedProducts' => $mostDiscountedProducts
-        // ]);
     }
 }

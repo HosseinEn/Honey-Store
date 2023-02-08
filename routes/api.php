@@ -57,8 +57,9 @@ Route::middleware('auth:sanctum')->group(function() {
 });
 Route::get('callback-payment', [App\Http\Controllers\Api\ProductUserController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
-Route::get('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy']);
+Route::post('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy'])->withoutMiddleware('throttle');
 Route::get('admin/orders/filtered-by-status/{status}', [App\Http\Controllers\Api\FilterController::class, 'ordersFilterByStatus']);
+
 Route::get('/is-logged', function() {
     return response()->json([
         'isLogged' => Auth::check()

@@ -38,13 +38,18 @@
         <h3>محصولات</h3>
       </div>
       <div class="productRow">
-        <SingleProduct
-          v-for="product in products"
-          :key="product.id"
-          v-bind="product"
-          :imageSelected="`${product.image.path}`"
-          :product="product"
-        />
+
+        <section class="productItem" v-for="product in products">
+
+          <SingleProduct
+            
+            :key="product.id"
+            v-bind="product"
+            :imageSelected="`${product.image.path}`"
+            :product="product"
+          />
+        </section>
+
       </div>
     </div>
   </div>
@@ -205,5 +210,12 @@ export default {
 .StrapDemoSum {
   font-family: var(--thirdFont);
   font-size: 2rem;
+}
+.productItem {
+  width: 33%;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  height: 475px;
+  padding: 10px;
 }
 </style>

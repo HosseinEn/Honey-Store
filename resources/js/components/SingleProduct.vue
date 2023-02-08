@@ -1,24 +1,31 @@
 <template>
-  <section class="productItem">
+  <!-- <section class="productItem"> -->
     <section
       class="imageContainer"
       v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
     ></section>
     <section class="content text-center">
-      <div class="productTitle">{{product.name}}</div>
+      <div class="productTitle">
+        {{product.name}}
+        <div v-if="filteredAttribute">
+          {{ filteredAttribute.weight }} -
+          {{ filteredAttribute.attribute_product.discount_value }}% -
+          {{ filteredAttribute.attribute_product.price }}
+        </div>
+      </div>
       <div class="productPrice">eee</div>
     </section>
     <button class="productButton">
       <router-link :to="{ name : 'product', params : {id : product.slug} }">مشاهده محصول</router-link>
       </button>
-  </section>
+  <!-- </section> -->
 </template>
 
 <script>
 export default {
   name: "singleProduct",
   components: {},
-  props: ["imageSelected", "product"],
+  props: ["imageSelected", "product", "filteredAttribute"],
   data() {
     return {
       imageUrl:  this.imageSelected,

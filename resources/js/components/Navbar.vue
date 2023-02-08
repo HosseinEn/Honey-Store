@@ -10,6 +10,11 @@
       >
         <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
           <li v-if="name" class="nav-item ml-2">
+            <router-link :to="{ name: 'cart' }" @click="this.scrollToTop"
+              >سبد خرید من</router-link
+            >
+          </li>
+          <li v-if="name" class="nav-item ml-2">
             <router-link :to="{ name: 'user.orders' }" @click="this.scrollToTop"
               >سفارش‌های من</router-link
             >
