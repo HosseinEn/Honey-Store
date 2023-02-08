@@ -10,15 +10,16 @@ use App\Models\Discount;
 use App\Models\OrderStatus;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use CodeDredd\Soap\SoapClient;
+use Shetabit\Multipay\Invoice;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Shetabit\Payment\Facade\Payment;
 use App\Http\Requests\AddToCartRequest;
 use Illuminate\Validation\ValidationException;
 use Shetabit\Multipay\Exceptions\InvalidPaymentException;
-use Shetabit\Multipay\Invoice;
-use Shetabit\Payment\Facade\Payment;
 
 
 class ProductUserController extends Controller
@@ -191,12 +192,24 @@ class ProductUserController extends Controller
 
             /* sending request to bank */
             list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
+
+            // phpinfo();
+            // var_dump(extension_loaded('soap'));
+            // var_dump( get_cfg_var('cfg_file_path') );
+
+
             $invoice = new Invoice;   
             $invoice->amount($totalPriceWithDiscount);
-
+            // $transactionId = $invoice->transactionId();
+            
+            // var_dump($invoice->getUuid());
+            // var_dump($user->id);
+            // var_dump($totalPriceWithDiscount);
+            // phpinfo();
             $payment = Payment::callbackUrl(route('paymentCallbackURL', ['price' => $totalPriceWithDiscount, 'id' => $user->id]))->purchase(
                 $invoice, 
-                function($driver, $transactionId) use ($user, $totalPriceWithDiscount) {
+                function($driver, $transactionId) use ($user, $totalPriceWithDiscount, $invoice) {
+                    // dd($driver);
                     $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
                     $order = Order::create([
                         'user_id' => $user->id,
@@ -207,7 +220,7 @@ class ProductUserController extends Controller
                         'delivery_date' => null,
                         'total_price' => $totalPriceWithDiscount,
                         // 'total_weight' => 
-                        'invoice_no' => uniqid(),
+                        'invoice_no' => $invoice->getUuid(),
                         'shipping_address' => 'bullshit',
                         'transaction_id' => $transactionId,
                         'reference_id' => null
@@ -231,7 +244,10 @@ class ProductUserController extends Controller
 
     public function paymentCallbackMethod(Request $request) {
         try {
+            // dd($request);
+            // var_dump($request->has('Authority'));
             if ($request->has('price') && $request->has('Authority')) {
+                // dd(Payment::amount($request->price)->transactionId($request->Authority));
                 $receipt = Payment::amount($request->price)->transactionId($request->Authority)->verify();
                 $referenceID =  $receipt->getReferenceId();
                 $order = Order::where('transaction_id' , $request->Authority)->first();
@@ -271,7 +287,6 @@ class ProductUserController extends Controller
             return redirect("/payment-done?reference={$referenceID}");
             // return redirect(route('create.order'));
         } catch (InvalidPaymentException $exception) {
-
             echo $exception->getMessage();
         }
 

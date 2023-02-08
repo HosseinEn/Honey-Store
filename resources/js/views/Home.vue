@@ -38,13 +38,18 @@
         <h3>محصولات</h3>
       </div>
       <div class="productRow">
-        <SingleProduct
-          v-for="product in products"
-          :key="product.id"
-          v-bind="product"
-          :imageSelected="`${product.image.path}`"
-          :product="product"
-        />
+
+        <section class="productItem" v-for="product in products">
+
+          <SingleProduct
+            
+            :key="product.id"
+            v-bind="product"
+            :imageSelected="`${product.image.path}`"
+            :product="product"
+          />
+        </section>
+
       </div>
     </div>
   </div>

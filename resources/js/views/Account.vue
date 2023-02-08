@@ -15,13 +15,13 @@
     <div class="row">
       <div class="col-6">
         <div class="row formHeader">
-          <h1>dawdwa</h1>
+          <h1>ورود</h1>
         </div>
         <Login></Login>
       </div>
       <div class="col-6">
         <div class="row formHeader">
-          <h1>dawddawdwaawawda</h1>
+          <h1>ثبت نام</h1>
         </div>
         <Register></Register>
       </div>

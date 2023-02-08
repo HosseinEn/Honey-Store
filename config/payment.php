@@ -247,14 +247,15 @@ return [
             'sandboxApiPaymentUrl' => 'https://sandbox.zarinpal.com/pg/StartPay/',
             'sandboxApiVerificationUrl' => 'https://sandbox.zarinpal.com/pg/services/WebGate/wsdl',
 
+                
             /* zarinGate api */
             'zaringateApiPurchaseUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
             'zaringateApiPaymentUrl' => 'https://www.zarinpal.com/pg/StartPay/:authority/ZarinGate',
             'zaringateApiVerificationUrl' => 'https://ir.zarinpal.com/pg/services/WebGate/wsdl',
 
             'mode' => 'sandbox', // can be normal, sandbox, zaringate
-            'merchantId' => 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
-            'callbackUrl' => 'http://yoursite.com/path/to',
+            'merchantId' => 'xxxxxxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx',
+            'callbackUrl' => 'http://localhost:8000/callback-payment',
             'description' => 'payment using zarinpal',
         ],
         'zibal' => [
