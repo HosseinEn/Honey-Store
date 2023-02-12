@@ -45,7 +45,7 @@ export default {
 
 <style scoped>
 .imageContainer {
-    width: 100%;
+    width: 400px;
     height: 325px;
     overflow: hidden;
     background-repeat: no-repeat;
@@ -72,7 +72,7 @@ export default {
     background-color: var(--thirdColor);
 }
 .product {
-    width: 400px;
+    width: 100%;
     margin-top: 2rem;
     margin-bottom: 2rem;
     height: 475px;

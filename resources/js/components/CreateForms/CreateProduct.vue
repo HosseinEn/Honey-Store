@@ -101,20 +101,20 @@
                                 <label for="">قیمت:</label>
                                 <input type="number" :name="`product_attributes[${attribute.id}][price]`"
                                     ref="product_attributes">
-                                <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red">
+                                <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red" :key="error">
                                     {{ error }}
                                 </div>
                                 <label for="">تعداد:</label>
                                 <input type="number" :name="`product_attributes[${attribute.id}][stock]`"
                                     ref="product_attributes">
-                                <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
+                                <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red" :key="error">
                                     {{ error }}
                                 </div>
                                 <label for="">تخفیف:</label>
                                 <select :name="`product_attributes[${attribute.id}][discount_id]`"
                                     ref="product_attributes">
                                     <option value="">بدون تخفیف</option>
-                                    <option v-for="discount in discounts" :value="`${discount.id}`">{{
+                                    <option v-for="discount in discounts" :value="`${discount.id}`" :key="discount">{{
                                         discount.value
                                     }}%
                                     </option>
@@ -131,7 +131,7 @@
                     <div style="color: red" v-if="this.authorizationError">
                         {{ this.authorizationError }}
                     </div>
-                    <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
+                    <button type="submit" name="Register" class="btn btn-primary" id="submitBtnForm" :disabled="loading"
                         @click.prevent="submit">
                         ایجاد
                     </button>
@@ -235,26 +235,4 @@ export default {
 </script>
 
 <style scoped>
-#submit {
-    background-color: var(--mainColor);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    width: 50%;
-    transition: all 0.5s linear;
-    color: var(--secondColor);
-    border: 1px solid black;
-    height: auto;
-}
-
-#submit:hover {
-    background-color: var(--thirdColor);
-    color: white;
-}
-
-.formContainer {
-    width: 100%;
-    min-height: 500px;
-    direction: rtl;
-    float: right;
-}
 </style>
