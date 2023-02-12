@@ -18,7 +18,8 @@
                 <!-- Left Image -->
                 <div class="col-2 d-none d-lg-block"></div>
                 <div class="col-12 col-md-6 col-lg-5">
-                    <img :src="singleProduct.image.path" alt="image" class="imageContainer">
+                    <img src="https://picsum.photos/400/300" v-if="singleProduct.image.path == 'seed'" alt="image" class="imageContainer">
+                    <img :src="singleProduct.image.path" v-else alt="image" class="imageContainer">
                 </div>
                 <!-- Right Form -->
                 <div class="col-12 col-lg-5 col-md-6 ps-5 d-flex justify-content-md-start justify-content-center">

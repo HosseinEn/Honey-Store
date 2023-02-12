@@ -28,8 +28,7 @@ export default {
   props: ["imageSelected", "product", "filteredAttribute"],
   data() {
     return {
-      imageUrl:  this.imageSelected,
-      // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
+      imageUrl:  this.imageSelected == 'seed' ? 'https://picsum.photos/400/300' : this.imageSelected,
     };
   },
   mounted(){

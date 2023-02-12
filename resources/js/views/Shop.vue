@@ -72,30 +72,7 @@
                 :filteredAttribute="product['filteredAttribute']"
               />
             </section>
-
-
         </div>
-        <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
-        <!-- <div class="productRow" v-if="currentFilter === 'all'">
-            <SingleProduct
-            v-for="product in filteredProducts"
-            :key="product.id"
-            v-bind="product "
-            imageSelected="HoneyBlock.jpg"
-            :product="product"
-            />
-        </div>
-        <div class="productRow" v-else>
-        {{ filteredProducts }}
-        <SingleProductWithFilter
-            v-for="product in filteredProducts"
-            :key="product['product'].id"
-            v-bind="product['product']"
-            imageSelected="HoneyBlock.jpg"
-            :product="product['product']"
-            :filteredAttribute="product['filteredAttribute']"filteredProducts = response.data.filteredData;
-        />
-        </div> -->
     </div>
 </div>
     <Footer />
