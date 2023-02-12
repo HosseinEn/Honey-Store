@@ -26,14 +26,14 @@
             v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
           ></div>
 
-          <h3 class="mb-5">
+          <h3>
             <slot name="mainContentHeaderTwo"></slot>
           </h3>
           <p>
             <slot name="mainContentContentTwo"></slot>
           </p>
 
-          <h3 class="mb-5">
+          <h3>
             <slot name="mainContentHeaderThree"></slot>
           </h3>
           <p>
@@ -90,7 +90,9 @@ export default {
 }
 .mainContents h3 {
   font-family: var(--mainFont);
-  font-size: 1.2rem;
+  font-size: 1.4rem;
+   margin-bottom: 30px;
+   margin-top: 30px;
   color: var(--mainColor);
 }
 .mainContents h3:first-child {
@@ -133,4 +135,5 @@ export default {
   overflow: hidden;
   height: 50vh;
 }
+
 </style>

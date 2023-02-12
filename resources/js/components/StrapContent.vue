@@ -20,6 +20,7 @@ div p {
     margin: 10px;
     font-weight: bold;
     color : var(--thirdColor);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
+    font-family: var(--mainFont);
 }
 </style>

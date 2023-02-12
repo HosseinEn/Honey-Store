@@ -19,7 +19,7 @@
                     <!-- <th style="width: 20%">ویرایش وضعیت</th> -->
                     <th style="width: 20%">لغو سفارش</th>
                 </tr>
-                <tr v-for="order in orders">
+                <tr v-for="order in orders" :key="order">
                     <td>‌ {{ order.user.name }}</td>
                     <td>‌ {{ order.user.email }}</td>
                     <td>‌ {{ convertDate(order.created_at) }}</td>
@@ -97,6 +97,7 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+        font-family: var(--thirdFont);
 }
 
 td,
@@ -157,5 +158,9 @@ button {
 .remove:hover {
     background-color: rgb(247, 83, 83);
     color: white;
+}
+.submitingCartContainer h3 {
+    font-family: var(--mainFont);
+    color: var(--mainColor);
 }
 </style>

@@ -79,7 +79,9 @@ export default {
 .tableCont {
     width: 80%;
 }
-
+.tableCont th {
+    font-family: var(--thirdFont);
+}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
@@ -88,9 +90,12 @@ table {
 
 .formSubmit td,
 th {
-    text-align: left;
+    text-align: center;
 }
-
+.formSubmit td:first-child {
+    font-weight: bold;
+    font-family: var(--thirdFont);
+}
 td,
 th {
     border: 1px solid #bdbdbd;
@@ -104,13 +109,13 @@ th {
     padding: 1rem;
     transition: 0.5s linear;
     border-radius: 6px;
-    background-color: var(--thirdColor);
+    background-color: var(--thirdColor) !important;
     color: white;
     font-family: var(--mainFont)
 }
 
 #submit:hover {
-    background-color: var(--mainColor);
+    background-color: var(--mainColor) !important;
 }
 
 .deleteIcon {
@@ -131,5 +136,9 @@ tr:nth-child(even) {
 
 .sumbitFormCont {
     border: 2px solid rgb(211, 211, 211);
+}
+.submitingCartContainer div:first-child {
+    font-family: var(--thirdFont);
+    font-weight: 900;
 }
 </style>

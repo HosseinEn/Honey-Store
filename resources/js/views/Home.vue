@@ -21,7 +21,7 @@
   <!-- About us section -->
   <StrapDemo selectedImage="HoneyBlock.jpg">
     <template v-slot:StrapDemoHeader>
-      <h1 class="StrapDemoHeader">اولین فروشنده عسل آنلاین در مازندران</h1>
+      اولین فروشنده عسل آنلاین در مازندران
     </template>
     <template v-slot:StrapDemoBtn>
       <router-link :to="{ name: 'aboutUs' }" @click="this.scrollToTop">
@@ -39,7 +39,7 @@
       </div>
       <div class="productRow">
 
-        <section class="productItem" v-for="product in products">
+        <section class="productItem" v-for="product in products" :key="product">
 
           <SingleProduct
             
@@ -203,13 +203,6 @@ export default {
 .shopHeader h3 {
   color: var(--mainColor);
   font-family: var(--mainFont);
-}
-.StrapDemoHeader {
-  font-size: 4rem;
-}
-.StrapDemoSum {
-  font-family: var(--thirdFont);
-  font-size: 2rem;
 }
 .productItem {
   width: 33%;

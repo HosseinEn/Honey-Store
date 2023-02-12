@@ -5,12 +5,16 @@
                 <p>جدول دسته بندی ها</p>
             </div>
         </div>
+
+   <div class="filterCont">
+            <section>
+                <router-link :to="{ name: 'admin.types.create' }">
+                    <button class="createProduct">ساخت دسته بندی جدید</button>
+                </router-link>
+            </section>
+        </div>
+
         <div class="row p-4 btnParent">
-            <router-link :to="{ name: 'admin.types.create' }">
-                <button class="createTypes">
-                    ساخت دسته بندی جدید
-                </button>
-            </router-link>
             <table>
                 <tr>
                     <th style="width: 20%">نام</th>
@@ -19,7 +23,7 @@
                     <th style="width: 20%">ویرایش</th>
                     <th style="width: 10%">حذف</th>
                 </tr>
-                <tr v-for="pType in types">
+                <tr v-for="pType in types" :key="pType">
                     <td>‌ {{ pType.name }}</td>
                     <td>‌ {{ pType.slug }}</td>
                     <td>‌ {{ convertDate(pType.created_at) }}</td>
@@ -63,10 +67,14 @@ export default {
 </script>
 
 <style scoped>
+.btnParent {
+    position: relative;
+}
 table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    font-family: var(--thirdFont);
 }
 
 td,
@@ -87,32 +95,17 @@ button {
 .add {
     background-color: green;
     color: white;
+    width: 100px;
     transition: all 0.5s linear;
 }
 .add:hover {
     background-color: rgb(0, 199, 0);
     color: white;
 }
-.createTypes {
-    color: black;
-    padding: 10px;
-    position: absolute;
-    right: 60px;
-    top: -20px;
-    width: 180px;
-    height: auto;
-    text-align: center;
-    border-radius: 5px;
-    border: 1px solid green;
-    background-color: greenyellow;
-}
-.btnParent {
-    position: relative;
-}
 .edit {
     background-color: var(--thirdColor);
     color: white;
-    width:100px;
+    width: 100px;
     transition: all 0.5s linear;
 }
 .edit:hover {
@@ -127,5 +120,86 @@ button {
 .remove:hover {
     background-color: rgb(247, 83, 83);
     color: white;
+}
+
+.lastFilterSection {
+    margin-right: 10px;
+    direction: rtl;
+    float: right;
+    margin-top: 10px;
+    font-family: var(--thirdFont);
+}
+.lastFilterSection select {
+    width: 100px;
+    border: 1px solid black;
+}
+.lastFilterSection input{
+    display: inline;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 150px;
+}
+.filterSearch button {
+    background-color: var(--mainColor);
+    font-family: var(--thirdFont);
+    width: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    transition: 1s linear;
+    font-family: var(--thirdFont);
+}
+.filterSearch button:hover {
+    background-color: var(--thirdColor);
+}
+.filterSearchBtn2 {
+    background-color: var(--mainColor);
+    font-family: var(--thirdFont);
+    margin-top: 5px;
+    display: block;
+    width: 150px;
+    transition: 1s linear;
+}
+.filterSearchBtn2:hover {
+    background-color: var(--thirdColor);
+}
+.filterSearch input {
+    display: inline;
+    height: 33px;
+    padding-bottom: 7px;
+    width: 240px;
+}
+.createProduct {
+    width: 180px;
+    height: auto;
+    text-align: center;
+    border-radius: 5px;
+    float: right;
+    margin-right: 10px;
+    border: 1px solid green;
+    background-color: rgb(188, 235, 116);
+    font-family: var(--thirdFont);
+    transition: 1s linear;
+}
+.createProduct:hover {
+    background-color: rgb(172, 249, 56);
+}
+.filterCont {
+    width: 100%;
+    height: 60px;
+}
+.showAll {
+    width: 180px;
+    height: auto;
+    text-align: center;
+    border-radius: 5px;
+    float: right;
+    margin-right: 10px;
+    border: 1px solid green;
+    background-color: rgb(188, 235, 116);
+    transition: 1s linear;
+    font-family: var(--thirdFont);
+}
+.showAll:hover {
+    background-color: rgb(172, 249, 56);
 }
 </style>

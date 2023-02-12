@@ -2,7 +2,7 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg" ref="navbar" id="navabr">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Navbar</a>
+      <a class="navbar-brand" href="#">مازعسل</a>
 
       <div
         class="collapse navbar-collapse text-center"
@@ -47,12 +47,12 @@
           <li v-if="name" class="nav-item">
             <span v-if="isAdmin">
               <router-link :to="{ name: 'admin.products' }" @click="this.scrollToTop"
-                  >{{ name }}:کاربر</router-link
+                  >{{ name }}  <span class="userName">: کاربر</span> </router-link
                 >
             </span>
             <span v-else>
               <router-link :to="{ name: 'cart' }" @click="this.scrollToTop"
-                >{{ name }}:کاربر</router-link
+                >{{ name }}  <span class="userName">: کاربر</span> </router-link
               >
             </span>
           </li>
@@ -118,6 +118,8 @@ export default {
 <style scoped>
 .navbar {
   margin: 0 !important;
+  font-family: var(--mainFont);
+  font-size: 1.1rem;
   width: 100%;
   background-color: transparent;
   padding: 1.5rem 6rem 1.5rem;
@@ -138,5 +140,13 @@ li a {
 }
 li:hover {
   color: var(--mainColor)
+}
+.userName {
+  color: var(--mainColor);
+}
+.navbar-brand {
+  font-weight: 800;
+  font-size: 1.5rem;
+  color: var(--mainColor) !important;
 }
 </style>

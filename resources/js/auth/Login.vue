@@ -3,7 +3,7 @@
     <div class="card card-body">
       <form>
         <div class="form-group">
-          <label for="email">E-mail</label>
+          <label for="email">ایمیل</label>
           <input
             type="text"
             name="email"
@@ -24,7 +24,7 @@
           >{{ this.errors.email[0] }}</span
         >
         <div class="form-group">
-          <label for="password">password</label>
+          <label for="password">رمز عبور</label>
           <input
             type="password"
             name="password"
@@ -53,7 +53,7 @@
             :disabled="loading"
             @click.prevent="login"
           >
-            Login
+            ورود
           </button>
         </div>
       </form>
@@ -100,6 +100,7 @@ label {
   margin-bottom: 0.4rem;
   margin-top: 0.7rem;
   font-weight: 500;
+  font-family: var(--secondFont);
 }
 #submit {
   background-color: var(--mainColor);

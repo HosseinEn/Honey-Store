@@ -3,7 +3,7 @@
     <div class="card card-body">
       <form>
         <div class="form-group">
-          <label for="name">Name</label>
+          <label for="name">اسم</label>
           <input
             type="text"
             name="name"
@@ -24,7 +24,7 @@
           >{{ this.errors.name[0] }}</span
         >
         <div class="form-group">
-          <label for="email">E-mail</label>
+          <label for="email">ایمیل</label>
           <input
             type="text"
             name="email"
@@ -45,7 +45,7 @@
           >{{ this.errors.email[0] }}</span
         >
         <div class="form-group">
-          <label for="password">Password</label>
+          <label for="password">رمز عبور</label>
           <input
             type="password"
             name="password"
@@ -66,7 +66,7 @@
           >{{ this.errors.password[0] }}</span
         >
         <div class="form-group">
-          <label for="password_confirmation">Password Confirm</label>
+          <label for="password_confirmation">تکرار رمز عبور</label>
           <input
             type="password"
             name="password_confirmation"
@@ -97,7 +97,7 @@
             :disabled="loading"
             @click.prevent="register"
           >
-            Register
+            ثبت نام
           </button>
         </div>
       </form>

@@ -6,35 +6,61 @@
                 <p>جدول محصولات</p>
             </div>
         </div>
-        <div class="row p-4 btnParent">
-            <router-link :to="{ name: 'admin.products.create' }">
-                <button class="createProduct">
-                    ساخت محصول جدید
-                </button>
-            </router-link>
-            <form @submit.prevent="handleSearch">
-                <div style="display: inline-block;">
-                    <input type="text" name="search_key" required placeholder="...در میان نام محصولات جستجو کنید" v-model="searchKey">
-                    <button style="background-color: red;">جستجو</button>
-                </div>
-            </form>
-            <form @submit.prevent="handleFilter">
-                <div style="display: inline-block;">
-                    <label for="status">وضعیت</label>
-                    <select name="status" style="background-color: blue;" id="status" v-model="status">
+
+        <!-- Filter -->
+        <div class="filterCont">
+            <section>
+                <router-link :to="{ name: 'admin.products.create' }">
+                    <button class="createProduct">ساخت محصول جدید</button>
+                </router-link>
+                <button @click="showAll" class="showAll">نمایش همه</button>
+            </section>
+            <section>
+                <form @submit.prevent="handleSearch">
+                    <div class="filterSearch">
+                        <button>جستجو</button>
+                        <input
+                            type="text"
+                            name="search_key"
+                            required
+                            placeholder="...در میان نام محصولات جستجو کنید"
+                            v-model="searchKey"
+                        />
+                    </div>
+                </form>
+            </section>
+
+            <section class="lastFilterSection">
+                <form @submit.prevent="handleFilter">
+                    <label for="status" class="mx-2"> وضعیت </label>
+                    <select name="status" id="status" v-model="status" class="mb-2">
                         <option value="all">همه</option>
                         <option value="1">فعال</option>
                         <option value="0">غیرفعال</option>
                     </select>
-                    <br>
-                    <label for="from">از</label>
-                    <input required type="date" id="from" name="from" v-model="from">
-                    <label for="to">تا</label>
-                    <input required type="date" id="to" name="to" v-model="to">
-                    <button style="background-color: red;">فیلتر</button>
-                </div>
-            </form>
-            <button @click="showAll" style="background-color: blueviolet;">نمایش همه</button>
+                    <br />
+                    <label for="from">از : </label>
+                    <input
+                        required
+                        type="date"
+                        id="from"
+                        name="from"
+                        v-model="from"
+                    />
+                    <label for="to">تا : </label>
+                    <input
+                        required
+                        type="date"
+                        id="to"
+                        name="to"
+                        v-model="to"
+                    />
+                    <button class="filterSearchBtn2">فیلتر</button>
+                </form>
+            </section>
+        </div>
+
+        <div class="row p-4 btnParent">
             <table>
                 <tr>
                     <th style="width: 20%">نام محصول</th>
@@ -45,18 +71,20 @@
                     <th style="width: 10%">حذف</th>
                     <th style="width: 10%">ویرایش</th>
                 </tr>
-                <tr v-for="product in products">
+                <tr v-for="product in products" :key="product">
                     <td>‌ {{ product.name }}</td>
                     <td>‌ {{ product.stock }}</td>
-                    <td>‌ {{ product.status == 1 ? 'فعال' : 'غیرفعال' }}</td>
-                    <td>‌ {{ product.description.substring(0,20) + '...' }}</td>
+                    <td>‌ {{ product.status == 1 ? "فعال" : "غیرفعال" }}</td>
+                    <td>
+                        ‌ {{ product.description.substring(0, 20) + "..." }}
+                    </td>
                     <td>‌ {{ convertDate(product.created_at) }}</td>
                     <td><button class="remove">حذف</button></td>
                     <td>
-                        <router-link :to="`/admin/products/edit/${product.slug}`">
-                            <button class="edit">
-                                ویرایش
-                            </button>
+                        <router-link
+                            :to="`/admin/products/edit/${product.slug}`"
+                        >
+                            <button class="edit">ویرایش</button>
                         </router-link>
                     </td>
                 </tr>
@@ -66,8 +94,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
 export default {
     name: "productsTable",
@@ -75,9 +103,9 @@ export default {
         return {
             products: null,
             searchKey: null,
-            status: 'all',
+            status: "all",
             from: null,
-            to: null
+            to: null,
         };
     },
     methods: {
@@ -85,57 +113,46 @@ export default {
             return moment(date).format("Y-M-D");
         },
         handleSearch() {
-            const url = '/admin/products?search_key=' + this.searchKey;
-            this.$router.push(url)
-            axios.get('/api' + url)
-            .then(response => {
+            const url = "/admin/products?search_key=" + this.searchKey;
+            this.$router.push(url);
+            axios.get("/api" + url).then((response) => {
                 this.products = response.data.products;
             });
         },
         handleFilter() {
-            const url = '/admin/products?status=' + this.status + '&from=' + this.from + '&to=' + this.to;
-            this.$router.push(url)
-            axios.get('/api' + url)
-            .then(response => {
-                this.products = response.data.products;
-            })
-            .catch(error => {
-                console.log(error);
-            })
+            const url =
+                "/admin/products?status=" +
+                this.status +
+                "&from=" +
+                this.from +
+                "&to=" +
+                this.to;
+            this.$router.push(url);
+            axios
+                .get("/api" + url)
+                .then((response) => {
+                    this.products = response.data.products;
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         },
         showAll() {
-            this.$router.push('/admin/products')
-            axios.get("/api/admin/products")
-            .then(response => {
+            this.$router.push("/admin/products");
+            axios.get("/api/admin/products").then((response) => {
                 this.products = response.data.products;
-
-            })
-        }
+            });
+        },
     },
     mounted() {
-        axios.get("/api/admin/products")
-        .then(response => {
+        axios.get("/api/admin/products").then((response) => {
             this.products = response.data.products;
-
-        })
-    }
+        });
+    },
 };
 </script>
 
 <style scoped>
-.createProduct {
-    color: black;
-    padding: 10px;
-    position: absolute;
-    right: 60px;
-    top: -20px;
-    width: 180px;
-    height: auto;
-    text-align: center;
-    border-radius: 5px;
-    border: 1px solid green;
-    background-color: greenyellow;
-}
 .btnParent {
     position: relative;
 }
@@ -143,6 +160,7 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+    font-family: var(--thirdFont);
 }
 
 td,
@@ -163,7 +181,7 @@ button {
 .add {
     background-color: green;
     color: white;
-    width:100px;
+    width: 100px;
     transition: all 0.5s linear;
 }
 .add:hover {
@@ -173,7 +191,7 @@ button {
 .edit {
     background-color: var(--thirdColor);
     color: white;
-    width:100px;
+    width: 100px;
     transition: all 0.5s linear;
 }
 .edit:hover {
@@ -188,5 +206,86 @@ button {
 .remove:hover {
     background-color: rgb(247, 83, 83);
     color: white;
+}
+
+.lastFilterSection {
+    margin-right: 10px;
+    direction: rtl;
+    float: right;
+    margin-top: 10px;
+    font-family: var(--thirdFont);
+}
+.lastFilterSection select {
+    width: 100px;
+    border: 1px solid black;
+}
+.lastFilterSection input{
+    display: inline;
+    margin-right: 5px;
+    margin-left: 5px;
+    width: 150px;
+}
+.filterSearch button {
+    background-color: var(--mainColor);
+    font-family: var(--thirdFont);
+    width: 100px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    transition: 1s linear;
+    font-family: var(--thirdFont);
+}
+.filterSearch button:hover {
+    background-color: var(--thirdColor);
+}
+.filterSearchBtn2 {
+    background-color: var(--mainColor);
+    font-family: var(--thirdFont);
+    margin-top: 5px;
+    display: block;
+    width: 150px;
+    transition: 1s linear;
+}
+.filterSearchBtn2:hover {
+    background-color: var(--thirdColor);
+}
+.filterSearch input {
+    display: inline;
+    height: 33px;
+    padding-bottom: 7px;
+    width: 240px;
+}
+.createProduct {
+    width: 180px;
+    height: auto;
+    text-align: center;
+    border-radius: 5px;
+    float: right;
+    margin-right: 10px;
+    border: 1px solid green;
+    background-color: rgb(188, 235, 116);
+    font-family: var(--thirdFont);
+    transition: 1s linear;
+}
+.createProduct:hover {
+    background-color: rgb(172, 249, 56);
+}
+.filterCont {
+    width: 100%;
+    height: 180px;
+}
+.showAll {
+    width: 180px;
+    height: auto;
+    text-align: center;
+    border-radius: 5px;
+    float: right;
+    margin-right: 10px;
+    border: 1px solid green;
+    background-color: rgb(188, 235, 116);
+    transition: 1s linear;
+    font-family: var(--thirdFont);
+}
+.showAll:hover {
+    background-color: rgb(172, 249, 56);
 }
 </style>

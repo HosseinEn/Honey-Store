@@ -16,8 +16,8 @@
 
 <div class="container-fluid mt-5">
     <div class="container">
-        <div class="row filterRow text-center">
-            <h3 class="mb-3">Filter BY :</h3>
+        <div class="row filterRow text-center filterLable">
+            <h3 class="mb-3"><span>:</span><span>سسس</span></h3>
             <section>
             <!-- <FilterNav
                 :currentFilter="currentFilter"
@@ -62,7 +62,7 @@
         </div>
         <div class="productRow" v-else>
 
-            <section class="productItem" v-for="product in filteredProducts">
+            <section class="productItem" v-for="product in filteredProducts" :key="product">
 
                 <SingleProduct
                 :key="currentFilter === 'all' ? product.id : product.product.id"
@@ -191,6 +191,7 @@ button {
   padding: 0.5rem;
   background-color: var(--thirdColor);
   border-radius: 10px;
+  font-family: var(--thirdFont);
   transition: all 0.5s linear;
 }
 select {
@@ -209,5 +210,8 @@ select {
   margin-bottom: 2rem;
   height: 475px;
   padding: 10px;
+}
+.filterLable {
+  font-family: var(--thirdFont);
 }
 </style>

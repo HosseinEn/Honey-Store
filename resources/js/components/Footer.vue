@@ -2,7 +2,7 @@
   <div class="container-fluid footerContainer p-5">
     <div class="row">
       <div
-        class="col websiteIcon col-12 col-md-2 d-flex justify-content-center align-items-center"
+        class="col websiteIcon col-12 col-md-3 d-flex justify-content-center align-items-center"
       >
         
       </div>
@@ -58,17 +58,6 @@
             <section>place 2</section>
             <section>place 1</section>
           </li> -->
-        </ul>
-      </div>
-      <div
-        class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
-      >
-        <ul>
-          <li class="mb-4"></li>
-          <li></li>
-          <li></li>
-          <li></li>
-          <li></li>
         </ul>
       </div>
       <div class="col col-6 col-md-3 d-flex justify-content-center">

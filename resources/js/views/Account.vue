@@ -62,6 +62,7 @@ export default {
 }
 .formHeader {
   direction: rtl;
+  font-family: var(--thirdFont);
   margin-bottom: 1rem;
 }
 </style>

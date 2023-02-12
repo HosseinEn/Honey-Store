@@ -57,17 +57,17 @@ export default {
 .heroboxBG {
   text-align: center;
   width: 100%;
-  min-width: 1100px;
   overflow: hidden;
-  background-size: 100% auto;
+    background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
 }
 .heroBoxContetContainer span {
-  border-bottom: 3px solid red;
+  font-family: var(--mainFont);
 }
 .heroBoxContetContainer h3 {
-  font-size: 2.5rem;
+  font-size: 2.8rem;
+  font-weight: 800;
   font-family: var(--mainFont);
 }
 .allContainer {

@@ -1,17 +1,23 @@
 <template>
     <Navbar />
     <!-- Welcome Container -->
-    <div class="container-fluid welcomeCont plsWork">
-        <div class="row text-center p-4">
-            <p>&nbsp;</p>
-        </div>
+    <div class="container-fluid welcomeCont">
+        <p>&nbsp;</p>
     </div>
-
+    <div class="container-fluid welcomeCont2">
+        <p>&nbsp;</p>
+    </div>
     <!-- Update -->
     <div id="mySidenavRight" class="sidenav">
-        <router-link id="createProduct" to="/admin/products">Products</router-link>
-        <router-link id="createAttribute" to="/admin/attributes">Attributes</router-link>
-        <router-link id="createDiscount" to="/admin/discounts">Discounts</router-link>
+        <router-link id="createProduct" to="/admin/products"
+            >Products</router-link
+        >
+        <router-link id="createAttribute" to="/admin/attributes"
+            >Attributes</router-link
+        >
+        <router-link id="createDiscount" to="/admin/discounts"
+            >Discounts</router-link
+        >
         <router-link id="createType" to="/admin/types">Types</router-link>
         <router-link id="createUser" to="/admin/users">Users</router-link>
         <router-link id="createOrder" to="/admin/orders">Orders</router-link>
@@ -129,5 +135,12 @@ export default {
     top: 300px;
     background-color: #e136f4;
 }
-
+.welcomeCont2 {
+    margin-top: 6rem;
+    background: var(--secondColor);
+    position: absolute;
+    top: -100px;
+    width: 100%;
+    height: 100px;
+}
 </style>

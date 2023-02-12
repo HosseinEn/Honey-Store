@@ -131,9 +131,7 @@
       <h3>Lorem ipsum dolor sit.</h3>
     </div>
     <div class="row d-flex justify-content-center align-content-center">
-      <iframe
-        src="http://maps.google.com/maps?q=36.53452247491392, 52.66613078421115&z=15&output=embed"
-      ></iframe>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14918.626637417177!2d52.67744995439325!3d36.5558034096635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8f88494db70a07%3A0xf3a380da3076a39!2sBabol%2C%20Mazandaran%20Province%2C%20Iran!5e0!3m2!1sen!2sfr!4v1675967488866!5m2!1sen!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
   </div>
   <!-- End of Location -->

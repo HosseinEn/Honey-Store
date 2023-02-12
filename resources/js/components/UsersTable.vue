@@ -13,7 +13,7 @@
                     <th style="width: 20%">تاریخ ثبت‌نام</th>
                     <th style="width: 20%">حذف</th>
                 </tr>
-                <tr v-for="user in users">
+                <tr v-for="user in users" :key="user">
                     <td>‌ {{ user.name }}</td>
                     <td>‌ {{ user.email }}</td>
                     <td>‌ {{ convertDate(user.created_at) }}</td>
@@ -54,6 +54,7 @@ table {
     font-family: arial, sans-serif;
     border-collapse: collapse;
     width: 100%;
+        font-family: var(--thirdFont);
 }
 
 td,

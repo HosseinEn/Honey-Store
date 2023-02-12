@@ -95,6 +95,7 @@ input[type="color"]:focus,
   font-size: 2rem;
   font-weight: 600;
   color: var(--mainColor);
+  font-family: var(--thirdFont);
 }
 input[type="file"] {
   border: none;
