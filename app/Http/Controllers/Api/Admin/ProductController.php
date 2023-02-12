@@ -23,32 +23,54 @@ ProductController extends Controller
      */
     public function index(Request $request)
     {
+        $products = Product::get();
+        $products->load(['attributes', 'image']);
         if ($request->has('search_key')) {
             $search_key = $request->get('search_key');
             $products = Product::where('name', 'like', '%' . $search_key . '%')->get();
         }
         else if (
-            $request->has('status') &&
-            $request->has('from') &&
-            $request->has('to')
+            $request->has('status') ||
+            (
+                $request->has('from') &&
+                $request->has('to')
+            )
         ) {
-            $products = $this->applyFilters($request->get('from'), $request->get('to'), $request->get('status'));
+            if ($request->has('from') && $request->has('to')) {
+                $products = $this->applyDateFilter($products, $request->get('from'), $request->get('to'));
+            }
+            if ($request->has('status')) {
+                $products = $this->applyStatusFilter($products, $request->get('status'));
+            }
         }
-        else {
-            $products = Product::get();
-        }
-        $products->load(['attributes', 'image']);
         return new JsonResponse([
             'products' => $products
         ]);
     }
 
-    private function applyFilters($from, $to, $status) {
-        $productsQuery = Product::whereBetween('created_at', [$from, $to]);
-        if ($status != 'all') {
-            $productsQuery = $productsQuery->where('status', $status);
+    private function applyDateFilter($products, $from, $to) {
+        $messages = []; 
+        $dateNotFilled = $from == "null" && $to == "null";
+        if ($dateNotFilled) {
+            return $products;
         }
-        return $productsQuery->get();
+        if ($from == "null" || $to == "null") {
+            if ($from == "null") {
+                $messages['from'] = 'لطفا تاریخ شروع را وارد نمایید!';
+            }
+            if ($to == "null") {
+                $messages['to'] = 'لطفا تاریخ پایان را وارد نمایید!';
+            }
+            throw ValidationException::withMessages($messages);
+        }
+        return $products->whereBetween('created_at', [$from, $to]);
+    }
+
+    private function applyStatusFilter($products, $status) {
+        if ($status == 'all') {
+            return $products;
+        }
+        return $products->where('status', $status);
     }
 
     /**
