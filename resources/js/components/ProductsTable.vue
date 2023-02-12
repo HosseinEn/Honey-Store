@@ -31,17 +31,17 @@
             </section>
 
             <section class="lastFilterSection">
-                <form @submit.prevent="handleFilter">
-                    <label for="status" class="mx-2"> وضعیت </label>
-                    <select name="status" id="status" v-model="status" class="mb-2">
-                        <option value="all">همه</option>
-                        <option value="1">فعال</option>
-                        <option value="0">غیرفعال</option>
-                    </select>
+                <label for="status" class="mx-2"> وضعیت </label>
+                <select name="status" id="status" v-model="status" class="mb-2" @change="handleStatusFilter">
+                    <option value="all">همه</option>
+                    <option value="1">فعال</option>
+                    <option value="0">غیرفعال</option>
+                </select>
+                <form @submit.prevent="handleDateFilter">
                     <br />
                     <label for="from">از : </label>
                     <input
-                        required
+                        
                         type="date"
                         id="from"
                         name="from"
@@ -49,12 +49,20 @@
                     />
                     <label for="to">تا : </label>
                     <input
-                        required
+                        
                         type="date"
                         id="to"
                         name="to"
                         v-model="to"
                     />
+                    <div style="color: red" v-if="this.errors !== null">
+                        <div v-for="error in errors.from" :key="error">
+                            {{ error }}
+                        </div>
+                        <div v-for="error in errors.to" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
                     <button class="filterSearchBtn2">فیلتر</button>
                 </form>
             </section>
@@ -106,6 +114,7 @@ export default {
             status: "all",
             from: null,
             to: null,
+            errors: null,
         };
     },
     methods: {
@@ -117,9 +126,18 @@ export default {
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.products = response.data.products;
+                this.errors = null;
             });
         },
-        handleFilter() {
+        handleStatusFilter() {
+            const url = "/admin/products?status=" + this.status;
+            this.$router.push(url);
+            axios.get("/api" + url).then((response) => {
+                this.products = response.data.products;
+                this.errors = null;
+            });
+        },
+        handleDateFilter() {
             const url =
                 "/admin/products?status=" +
                 this.status +
@@ -132,12 +150,16 @@ export default {
                 .get("/api" + url)
                 .then((response) => {
                     this.products = response.data.products;
+                    this.errors = null;
                 })
                 .catch((error) => {
                     console.log(error);
+                    this.errors = error.response.data.errors;
                 });
         },
         showAll() {
+            this.errors = null;
+            this.status == "all";
             this.$router.push("/admin/products");
             axios.get("/api/admin/products").then((response) => {
                 this.products = response.data.products;
