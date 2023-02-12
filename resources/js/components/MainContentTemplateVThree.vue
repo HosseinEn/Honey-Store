@@ -88,6 +88,11 @@ export default {
   float: right;
   height: auto;
 }
+.mainContents p {
+    font-weight: 500;
+    font-size: 1.2rem;
+    font-family: var(--thirdFont);
+}
 .mainContents h3 {
   font-family: var(--mainFont);
   font-size: 1.4rem;

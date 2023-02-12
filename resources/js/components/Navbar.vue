@@ -2,7 +2,12 @@
   <!-- Navbar -->
   <nav class="navbar navbar-expand-lg" ref="navbar" id="navabr">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">مازعسل</a>
+      <a class="navbar-brand" href="#"   
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation">مازعسل</a>
 
       <div
         class="collapse navbar-collapse text-center"
@@ -58,17 +63,6 @@
           </li>
         </ul>
       </div>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </div>
   </nav>
   <!-- End of Navbar -->
@@ -133,6 +127,7 @@ export default {
 .navbar-toggler {
   color: white;
   background-color: white;
+  float: right;
 }
 li a {
   margin-left: 1.5rem;

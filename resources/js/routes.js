@@ -4,13 +4,10 @@ import Home from "./views/Home.vue";
 import Account from "./views/Account.vue";
 import Shop from "./views/Shop.vue";
 import AboutUs from "./views/AboutUs.vue";
-import Login from "./auth/Login.vue";
-import Register from "./auth/Register.vue";
 import axios from "axios";
 import ShoppingPage from "./views/ShoppingPage.vue";
 import Cart from "./views/Cart.vue";
 import Admin from "./views/Admin.vue";
-import ShowAdminTable from "./components/ShowAdminTable.vue";
 import ProductsTable from "./components/ProductsTable.vue";
 import AttributesTable from "./components/AttributesTable.vue";
 import CreateProduct from "./components/CreateForms/CreateProduct.vue";
@@ -60,20 +57,6 @@ const routes = [
         name: "product",
         props: true,
         component: ShoppingPage,
-        // beforeEnter: (to, from, next) => {
-        //   axios
-        //     .get("/api/is-logged")
-        //     .then((response) => {
-        //       if (response.data.isLogged) {
-        //         next({ name: "home" });
-        //       } else {
-        //         next();
-        //       }
-        //     })
-        //     .catch(() => {
-        //       return next({ name: "home" });
-        //     });
-        // },
     },
     {
         path: "/cart",
