@@ -8,7 +8,7 @@
       <h3 class="m-5">
         <slot name="mainContentHeader"></slot>
       </h3>
-      <h4 class="m-3"><slot name="mainContentDesc"></slot></h4>
+      <h4 class="m-4"><slot name="mainContentDesc"></slot></h4>
       <span><slot name="mainContentDescTwo"></slot></span>
     </div>
   </div>
@@ -76,5 +76,9 @@ position: relative;
  backdrop-filter: brightness(70%);
  color : white;
   height: 100%;
+}
+.allContainer h4 {
+  font-family: var(--mainFont);
+  font-size: 1.7rem;
 }
 </style>

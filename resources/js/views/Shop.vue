@@ -17,7 +17,7 @@
 <div class="container-fluid mt-5">
     <div class="container">
         <div class="row filterRow text-center filterLable">
-            <h3 class="mb-3"><span>:</span><span>سسس</span></h3>
+            <h3 class="mb-3"><span>:</span><span>فیلتر</span></h3>
             <section>
             <!-- <FilterNav
                 :currentFilter="currentFilter"

@@ -112,3 +112,30 @@ input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
+.formContainer {
+  font-family: var(--thirdFont);
+  width: 100%;
+  min-height: 500px;
+  direction: rtl;
+  float: right;
+}
+.formContainer label {
+  margin-bottom: 0.4rem;
+  margin-top: 0.7rem;
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+#submitBtnForm {
+  background-color: var(--mainColor);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 205px;
+  transition: all 0.5s linear;
+  color: var(--secondColor);
+  border: 1px solid black;
+  height: auto;
+}
+#submitBtnForm:hover {
+  background-color: var(--thirdColor);
+  color: white;
+}

@@ -20,7 +20,7 @@
                   v-if="this.authorizationError"
                   >{{ this.authorizationError }}</div
                 >
-                    <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
+                    <button type="submit" name="Register" class="btn btn-primary" id="submitBtnForm" :disabled="loading"
                         @click.prevent="submit">
                         ایجاد
                     </button>
@@ -75,27 +75,6 @@ export default {
 </script>
 
 <style scoped>
-label {
-    margin-bottom: 0.4rem;
-    margin-top: 0.7rem;
-    font-weight: 500;
-}
-
-#submit {
-    background-color: var(--mainColor);
-    margin-top: 1rem;
-    width: 50%;
-    transition: all 0.5s linear;
-    color: var(--secondColor);
-    border: 1px solid black;
-    height: auto;
-}
-
-#submit:hover {
-    background-color: var(--thirdColor);
-    color: white;
-}
-
 input {
     background-color: white;
     border: 1px solid var(--secondColor);
@@ -110,10 +89,4 @@ input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
 }
 
-.formContainer {
-    width: 100%;
-    min-height: 500px;
-    direction: rtl;
-    float: right;
-}
 </style>

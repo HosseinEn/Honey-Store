@@ -55,14 +55,14 @@
                         name="to"
                         v-model="to"
                     />
-                    <div style="color: red" v-if="this.errors !== null">
-                        <div v-for="error in errors.from" :key="error">
+                    <span  style="color: red;margin:13px" v-if="this.errors !== null">
+                        <span v-for="error in errors.from" :key="error">
                             {{ error }}
-                        </div>
-                        <div v-for="error in errors.to" :key="error">
+                        </span>
+                        <span v-for="error in errors.to" :key="error">
                             {{ error }}
-                        </div>
-                    </div>
+                        </span>
+                    </span>
                     <button class="filterSearchBtn2">فیلتر</button>
                 </form>
             </section>
@@ -310,4 +310,5 @@ button {
 .showAll:hover {
     background-color: rgb(172, 249, 56);
 }
+
 </style>

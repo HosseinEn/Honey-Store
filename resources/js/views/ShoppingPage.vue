@@ -32,7 +32,7 @@
                         <p class="priceP">
                             <!-- Start -->
                             از <span>{{ minPrice }} تومان</span> 
-                            <span> الی </span>
+                             الی 
                             <!-- End -->
                             <span>{{ maxPrice }} تومان</span>
                         </p>
@@ -58,12 +58,12 @@
                                     {{ success }}
                                 </div>
                                 <div style="color: red" v-if="this.errors != null && this.errors.attribute_id">
-                                    <div v-for="error in this.errors.attribute_id">
+                                    <div v-for="error in this.errors.attribute_id" :key="error">
                                         {{ error }}
                                     </div>
                                 </div>
                                 <div style="color: red" v-if="this.errors != null && this.errors.quantity">
-                                    <div v-for="error in this.errors.quantity">
+                                    <div v-for="error in this.errors.quantity" :key="error">
                                         {{ error }}
                                     </div>
                                 </div>
@@ -233,7 +233,9 @@ export default {
     font-size: 1.3rem;
     color: var(--secondColor);
 }
-
+.priceP span {
+    font-weight: bold;
+}
 section input {
     padding: 0.3rem 0.5rem 0.3rem;
     border: 1px solid black;

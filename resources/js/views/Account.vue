@@ -11,7 +11,7 @@
       شما یک طراح هستین و یا با طراحی های گرافیک
     </template>
   </MiniIntroTemplate>
-  <div class="container-fluid formContainer p-5">
+  <div class="container-fluid formCont p-5">
     <div class="row">
       <div class="col-6">
         <div class="row formHeader">
@@ -51,11 +51,11 @@ export default {
 
 <style scoped>
 @media only screen and (max-width: 1300px) {
-  .formContainer {
+  .formCont {
     width: 100% !important;
   }
 }
-.formContainer {
+.formCont {
   width: 80%;
   direction: rtl;
   padding-top: 5rem !important;

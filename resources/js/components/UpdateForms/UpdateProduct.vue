@@ -100,13 +100,13 @@
                                 <label for="">قیمت:</label>
                                 <input type="text" :name="`product_attributes[${attribute.id}][price]`"
                                     :value="getAttributeDataIfFilled(attribute.id, 'price')" ref="product_attributes">
-                                <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red">
+                                <div v-for="error in getAttributeErrors(attribute.id, 'price')" style="color : red" :key="error">
                                     {{ error }}
                                 </div>
                                 <label for="">تعداد:</label>
                                 <input type="text" :name="`product_attributes[${attribute.id}][stock]`"
                                     :value="getAttributeDataIfFilled(attribute.id, 'stock')" ref="product_attributes">
-                                <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red">
+                                <div v-for="error in getAttributeErrors(attribute.id, 'stock')" style="color : red" :key="error">
                                     {{ error }}
                                 </div>  
                                 <label for="">تخفیف:</label> 
@@ -116,7 +116,7 @@
                                         بدون تخفیف
                                     </option>
                                     <option v-for="discount in discounts" :value="`${discount.id}`"
-                                        :selected="discount.id === getAttributeDataIfFilled(attribute.id, 'discount_id')">
+                                        :selected="discount.id === getAttributeDataIfFilled(attribute.id, 'discount_id')" :key="discount">
                                         {{
                                             discount.value
                                         }}%
@@ -134,11 +134,11 @@
                         {{ this.authorizationError }}
                     </div>
                     <router-link :to="{ name: 'admin.products' }">
-                        <button type="submit" class="btn btn-primary">
+                        <button type="submit" class="returnBtn btn btn-primary">
                             بازگشت
                         </button>
                     </router-link>
-                    <button type="submit" name="Register" class="btn btn-primary" id="submit" :disabled="loading"
+                    <button type="submit" name="Register" class="btn btn-primary me-3" id="submitBtnForm" :disabled="loading"
                         @click.prevent="submit">
                         ویرایش
                     </button>
@@ -276,26 +276,18 @@ export default {
 </script>
 
 <style scoped>
-#submit {
-    background-color: var(--mainColor);
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    width: 50%;
-    transition: all 0.5s linear;
-    color: var(--secondColor);
-    border: 1px solid black;
-    height: auto;
+.returnBtn {
+      background-color: var(--mainColor);
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  width: 205px;
+  transition: all 0.5s linear;
+  color: var(--secondColor);
+  border: 1px solid black;
+  height: auto;
 }
-
-#submit:hover {
-    background-color: var(--thirdColor);
-    color: white;
-}
-
-.formContainer {
-    width: 100%;
-    min-height: 500px;
-    direction: rtl;
-    float: right;
+.returnBtn:hover {
+      background-color: var(--thirdColor);
+  color: white;
 }
 </style>

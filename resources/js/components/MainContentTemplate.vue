@@ -72,8 +72,9 @@ export default {
   height: auto;
 }
 .mainContents p {
-  font-family: var(--thirdFont);
-  font-size: 1.1rem;
+    font-weight: 500;
+    font-size: 1.2rem;
+    font-family: var(--thirdFont);
 }
 .mainContents h3 {
   font-family: var(--mainFont);
