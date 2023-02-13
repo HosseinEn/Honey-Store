@@ -58,6 +58,7 @@
               <option value="noe-1">1</option>
               <option value="noe-2">2</option>
               <option value="noe-3">3</option>
+              <option value="noe-4">4</option>
             </select>
             </section>
         </div>
@@ -65,9 +66,10 @@
         <div v-if="loading">
             loading...
         </div>
-        <div class="productRow" v-else>
-
-            <section class="productItem" v-for="product in filteredProducts" :key="product">
+        <div v-else>
+          <div class="productRow" v-if="sortAndFilteredProducts">
+            <section class="productItem" v-for="product in sortAndFilteredProducts" :key="product">
+            <!-- {{ product }} -->
 
                 <SingleProduct
                 :key="currentFilter === 'all' ? product.id : product.product.id"
@@ -77,6 +79,21 @@
                 :filteredAttribute="product['filteredAttribute']"
               />
             </section>
+          </div>
+          <div class="productRow" v-else>
+            <section class="productItem" v-for="product in filteredProducts" :key="product">
+            <!-- {{ product }} -->
+
+                <SingleProduct
+                :key="currentFilter === 'all' ? product.id : product.product.id"
+                v-bind="currentFilter === 'all' ? product : product.product"
+                :imageSelected="currentFilter === 'all' ? product.image.path : product.product.image.path" 
+                :product="currentFilter === 'all' ? product : product.product"
+                :filteredAttribute="product['filteredAttribute']"
+              />
+            </section>
+          </div>
+
         </div>
     </div>
 </div>
@@ -99,6 +116,7 @@ export default {
     return {
       products: null,
       filteredProducts: null,
+      sortAndFilteredProducts: null,
       currentFilter: "all",
       honeyType: "all",
       loading: true,
@@ -124,6 +142,7 @@ export default {
   methods: {
     changeFilter(currentFilter) {
       this.loading = true;
+      this.sortAndFilteredProducts = null;
       this.currentFilter = currentFilter;
       if (this.currentFilter !== 'all') {
         axios.post('api/sort-products?sortBy=' + currentFilter, {
@@ -140,9 +159,24 @@ export default {
       }
     },
     filterTypeMethod(){
-        this.filteredProducts = this.products.filter(product => product.type.name == this.filterType);
-    }
-  },
+      if (this.currentFilter !== 'all') {
+          // console.log(product => product.type.name)
+          // console.log(this.filteredProducts.product.type.name)
+          console.log(this.filteredProducts)
+
+          this.sortAndFilteredProducts = this.filteredProducts.filter(filproduct => filproduct.product.type.name == this.filterType);
+          console.log(this.sortAndFilteredProducts)
+
+          } 
+      else {
+          console.log(this.filteredProducts)
+
+        this.sortAndFilteredProducts = this.products.filter(product => product.type.name == this.filterType);
+          console.log(this.filteredProducts)
+
+      }
+    },
+  }
 };
 </script>
 
