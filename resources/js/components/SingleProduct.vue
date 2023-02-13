@@ -28,18 +28,17 @@
 
 <script>
 export default {
-    name: "singleProduct",
-    components: {},
-    props: ["imageSelected", "product", "filteredAttribute"],
-    data() {
-        return {
-            imageUrl: this.imageSelected,
-            // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
-        };
-    },
-    mounted() {
-        console.log(this.product.name);
-    },
+  name: "singleProduct",
+  components: {},
+  props: ["imageSelected", "product", "filteredAttribute"],
+  data() {
+    return {
+      imageUrl:  this.imageSelected == 'seed' ? 'https://picsum.photos/400/300' : this.imageSelected,
+    };
+  },
+  mounted(){
+    console.log(this.product.name)
+  }
 };
 </script>
 

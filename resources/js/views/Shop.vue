@@ -77,8 +77,6 @@
                 :filteredAttribute="product['filteredAttribute']"
               />
             </section>
-
-
         </div>
     </div>
 </div>

@@ -86,7 +86,7 @@ export default {
           password: this.password,
         });
         // TODO redirect to admin panel
-        this.$router.push({'name' : 'home'})
+        this.$router.push({'name' : 'admin.products'})
       } catch (error) {
         this.errors = error.response && error.response.data.errors;
       }
