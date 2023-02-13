@@ -85,7 +85,7 @@ export default {
           email: this.email,
           password: this.password,
         });
-        // TODO redirect to admin panel
+        this.$store.commit("setIsLogged", true)
         this.$router.push({'name' : 'admin.products'})
       } catch (error) {
         this.errors = error.response && error.response.data.errors;

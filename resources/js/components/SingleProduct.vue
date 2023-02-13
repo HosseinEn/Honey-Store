@@ -35,9 +35,6 @@ export default {
     return {
       imageUrl:  this.imageSelected == 'seed' ? 'https://picsum.photos/400/300' : this.imageSelected,
     };
-  },
-  mounted(){
-    console.log(this.product.name)
   }
 };
 </script>

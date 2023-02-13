@@ -6,19 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index() {
-        $products = Product::with([
+        // DB::enableQueryLog();
+        $productsQuery = Product::with([
             'attributes' => function($query) {
                 return $query->where('stock', '!=', 0);
             },
             'image', 
             'type'
-        ])->isActive()->get();
+        ])->isActive();
+        $counts = $productsQuery->count();
+        $products = $productsQuery->paginate(10);
+        // dd(DB::getQueryLog());
         return new JsonResponse([
-            'products' => $products
+            'products' => $products,
+            'productsLength' => $counts
         ]);
     }
 

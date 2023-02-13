@@ -81,10 +81,12 @@ export default {
       }
   },
   mounted() {
-    axios.get('/api/user').then((response) => {
-      this.name = response.data.name
-      this.isAdmin = response.data.isAdmin
-    });
+    if (this.$store.getters.isLoggedIn) {
+        axios.get('/api/user').then((response) => {
+          this.name = response.data.name
+          this.isAdmin = response.data.isAdmin
+        });
+    }
     window.onscroll = function () {
       if (document.documentElement.scrollTop > 50) {
         document.getElementById("navabr").style.backgroundColor =
@@ -97,10 +99,11 @@ export default {
   methods: {
     async logout() {
       await window.axios.post("/logout").then((response) => {
-        console.log(response.data);
       });
       this.name = null;
       this.isAdmin = false;
+      this.$store.commit("setIsLogged", false)
+      this.$router.push({'name': 'home'})
     },
     scrollToTop() {
       window.scrollTo(0, 0);

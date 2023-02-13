@@ -52,10 +52,7 @@ export default {
     return {
       imageUrl: "/images/" + this.imageSelected + "",
     };
-  },
-  mounted() {
-    console.log(this.reversed);
-  },
+  }
 };
 </script>
 

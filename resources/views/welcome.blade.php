@@ -24,7 +24,9 @@
             }
         </style>
         <script src="{{ asset('js/app.js') }}" defer></script>
-     
+        <script>
+            window.isLogged = {!! json_encode($isLogged); !!};
+        </script>
 
     
     </head>

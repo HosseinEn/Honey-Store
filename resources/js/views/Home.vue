@@ -35,11 +35,12 @@
             <div class="row text-center pt-5 pb-0 shopHeader">
                 <h3>محصولات</h3>
             </div>
-            <div class="productRow">
+            <div class="productRow" >
                 <section
                     class="productItem"
                     v-for="product in newProduct"
                     :key="product"
+                    
                 >
                     <SingleProduct
                         :key="product.id"
@@ -49,6 +50,7 @@
                     />
                 </section>
             </div>
+            <infinite-loading  @infinite="handleLoadMore"></infinite-loading>
         </div>
     </div>
     <!-- end of main content -->
@@ -169,6 +171,8 @@ import MainContentTemplate from "../components/MainContentTemplate.vue";
 import StrapDemo from "../components/StrapDemo.vue";
 import MainContentTemplateVTwo from "../components/MainContentTemplateVTwo.vue";
 import IntroTemplate from "../components/IntroTemplate.vue";
+import axios from "axios";
+import InfiniteLoading from "vue-infinite-loading";
 
 export default {
     name: "HomeView",
@@ -181,35 +185,54 @@ export default {
         MainContentTemplate,
         MainContentTemplateVTwo,
         IntroTemplate,
+        InfiniteLoading,
     },
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
         myEventHandler(e) {
-            if (e.target.outerWidth < 800) {
-                this.newProduct = this.products.slice(0, 2);
-            } else {
-                this.newProduct = this.products.slice(0, 3);
-            }
+            // if (e.target.outerWidth < 800) {
+            //     this.newProduct = this.products.slice(0, 2);
+            // } else {
+            //     this.newProduct = this.products.slice(0, 3);
+            // }
+        },
+        handleLoadMore($state) {
+            axios.get("api/products?page="+this.page).then((response) => {
+                console.log(this.newProduct.length, response.data.productsLength, this.newProduct.length < response.data.productsLength)
+                if (this.newProduct.length != response.data.productsLength) {
+                    this.products = response.data.products.data;
+                    this.products.forEach(product => {
+                        this.newProduct.push(product);
+                    });
+                    this.page = this.page + 1;
+                    $state.loaded();
+                } 
+                else {
+                    $state.complete();
+                }
+            });
         },
     },
-    mounted() {
-        axios.get("api/products").then((response) => {
-            console.log(response.data.products);
-            this.products = response.data.products;
-            this.newProduct = this.products.slice(0, 3);
-            if (window.outerWidth < 800) {
-                this.newProduct = this.products.slice(0, 2);
-            } else {
-                this.newProduct = this.products.slice(0, 3);
-            }
-        });
-    },
+    // mounted() {
+    //     axios.get("api/products").then((response) => {
+    //         this.products = response.data.products.data;
+    //         this.products.forEach(product => {
+    //             this.newProduct.push(product);
+    //         });
+    //         // if (window.outerWidth < 800) {
+    //         //     this.newProduct = this.products.slice(0, 2);
+    //         // } else {
+    //         //     this.newProduct = this.products.slice(0, 3);
+    //         // }
+    //     });
+    // },
     data() {
         return {
-            products: null,
-            newProduct: null,
+            products: [],
+            newProduct: [],
+            page: 1,
         };
     },
     created() {
