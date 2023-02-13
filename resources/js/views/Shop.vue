@@ -54,6 +54,11 @@
             >
                 مرتب سازی
             </button>
+            <select name="filterType" id="FilterTypeSelect" v-model="filterType" @change="filterTypeMethod()">
+              <option value="noe-1">1</option>
+              <option value="noe-2">2</option>
+              <option value="noe-3">3</option>
+            </select>
             </section>
         </div>
         <!-- {{ filteredProducts }} -->
@@ -75,27 +80,6 @@
 
 
         </div>
-        <!-- <SingleProduct :v-bind="product" :imageSelected="product.image.path" /> -->
-        <!-- <div class="productRow" v-if="currentFilter === 'all'">
-            <SingleProduct
-            v-for="product in filteredProducts"
-            :key="product.id"
-            v-bind="product "
-            imageSelected="HoneyBlock.jpg"
-            :product="product"
-            />
-        </div>
-        <div class="productRow" v-else>
-        {{ filteredProducts }}
-        <SingleProductWithFilter
-            v-for="product in filteredProducts"
-            :key="product['product'].id"
-            v-bind="product['product']"
-            imageSelected="HoneyBlock.jpg"
-            :product="product['product']"
-            :filteredAttribute="product['filteredAttribute']"filteredProducts = response.data.filteredData;
-        />
-        </div> -->
     </div>
 </div>
     <Footer />
@@ -119,7 +103,8 @@ export default {
       filteredProducts: null,
       currentFilter: "all",
       honeyType: "all",
-      loading: true
+      loading: true,
+      filterType: null
     };
   },
   components: {
@@ -141,7 +126,6 @@ export default {
   methods: {
     changeFilter(currentFilter) {
       this.loading = true;
-      console.log(currentFilter)
       this.currentFilter = currentFilter;
       if (this.currentFilter !== 'all') {
         axios.post('api/sort-products?sortBy=' + currentFilter, {
@@ -156,6 +140,9 @@ export default {
         this.filteredProducts = this.products;
         this.loading = false;
       }
+    },
+    filterTypeMethod(){
+        this.filteredProducts = this.products.filter(product => product.type.name == this.filterType);
     }
   },
 };
@@ -198,7 +185,7 @@ select {
   margin-left: 0.5rem;
   padding: 0.5rem;
   background-color: var(--thirdColor);
-  border-radius: 5px 5px 0px 0px;
+  border-radius: 5px 5px 5px 5px;
 }
 .activeFilter {
   background-color: var(--secondColor) !important;
