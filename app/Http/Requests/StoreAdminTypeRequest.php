@@ -25,7 +25,8 @@ class StoreAdminTypeRequest extends FormRequest
     {
         return [
             "name" => "required|max:255|unique:types",
-            "slug" => "unique:types"
+            "slug" => "unique:types",
+            "description" => "required|max:5000"
         ];
     }
 

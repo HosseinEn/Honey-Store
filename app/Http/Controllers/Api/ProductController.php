@@ -30,7 +30,8 @@ class ProductController extends Controller
             'attributes'  => function($query) {
                 return $query->where('stock', '!=', 0);
             }, 
-            'image'
+            'image',
+            'type'
         ]);
         $minPrice = $product->attributes->min('attribute_product.price');
         $maxPrice = $product->attributes->max('attribute_product.price');

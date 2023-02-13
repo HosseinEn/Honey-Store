@@ -86,20 +86,16 @@
         <!-- Info -->
         <ProductPageInfo reversed="0" imageSelected="VerticalHoneyHome.jpg" imageSelectedTwo="HoneyCells.jpg">
             <template v-slot:mainContentHeader>
-                شما یک طراح هستین و یا با طراحی های گرافیک
+                {{ this.type.name }}
             </template>
             <template v-slot:mainContentContent>
-                لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
-                از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
-                سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و
-                جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار
-                گیرد.
+                {{ this.type.description }}
             </template>
 
-            <template v-slot:mainContentHeaderTwo>
+            <!-- <template v-slot:mainContentHeaderTwo>
                 شما یک طراح هستین و یا با طراحی های گرافیک
-            </template>
-            <template v-slot:mainContentContentTwo>
+            </template> -->
+            <!-- <template v-slot:mainContentContentTwo>
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
                 از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و
                 سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و
@@ -111,7 +107,7 @@
                 لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده
                 از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا
                 مورد استفاده قرار گیرد.
-            </template>
+            </template> -->
         </ProductPageInfo>
         <!-- end of Info-->
 
@@ -143,6 +139,7 @@ export default {
             authorizationError: null,
             quantityNumber: null,
             success: null,
+            type: null,
             boxes: [
                 { isShowing: false },
                 { isShowing: false },
@@ -166,7 +163,10 @@ export default {
         axios
             .get("/api/products/" + this.id)
             .then((response) => {
+                console.log(response)
                 this.singleProduct = response.data.product;
+                this.type = response.data.product.type;
+                console.log(this.type)
                 this.minPrice = response.data.minPrice;
                 this.maxPrice = response.data.maxPrice;
                 console.log(this.minPrice);
@@ -176,7 +176,6 @@ export default {
     methods: {
         setValueWeight(e, index) {
             this.attribute_id = e;
-            // this.$refs.sizeSpan[1].classList.add('selectedSpan')
             for (var i = 0; i < this.boxes.length; i++) {
                 this.boxes[i].isShowing = false;
             }
@@ -206,7 +205,6 @@ export default {
         getStock() {
             for (var i = 0; i < this.singleProduct.attributes.length; i++) {
                 if (this.singleProduct.attributes[i].id == this.attribute_id) {
-                    // console.log(this.singleProduct.attributes[i].attribute_product.stock);
                     return this.singleProduct.attributes[i].attribute_product.stock;
                 }
             }

@@ -32,6 +32,21 @@
                             {{ error }}
                         </div>
                     </div>
+                    <label for="description">توضیحات:</label>
+                    <textarea name="description" v-model="description" id="description" cols="30" rows="10" :class="[
+                        {
+                            'is-invalid':
+                                this.errors !== null && this.errors.description ? true : false,
+                        },
+                    ]"></textarea>
+                    <div
+                        style="color: red"
+                        v-if="this.errors !== null && this.errors.description"
+                    >
+                        <div v-for="error in this.errors.description" :key="error">
+                            {{ error }}
+                        </div>
+                    </div>
                     <div
                     style="color: red"
                     v-if="this.authorizationError"
@@ -41,6 +56,9 @@
                             @click.prevent="submit">
                             ایجاد
                         </button>
+                        <span style="color: green;">
+                            {{ success }}
+                        </span>
                 </form>
             </div>
         </div>
@@ -57,6 +75,8 @@ export default {
             name: null,
             slug: null,
             errors: null,
+            description: null,
+            success: null,
         };
     },
 
@@ -67,11 +87,13 @@ export default {
             axios.get("/sanctum/csrf-cookie");
             axios.post("/api/admin/types", {
                 'name': this.name,
-                'slug': this.slug
+                'slug': this.slug,
+                'description': this.description,
             })
             .then(response => {
                 this.errors = null;
                 this.authorizationError = null;
+                this.success = response.data.success
             })
             .catch(errors => {
                 if (errors.response.status === 401) {
