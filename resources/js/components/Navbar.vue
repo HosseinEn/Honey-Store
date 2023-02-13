@@ -81,10 +81,12 @@ export default {
       }
   },
   mounted() {
-    axios.get('/api/user').then((response) => {
-      this.name = response.data.name
-      this.isAdmin = response.data.isAdmin
-    });
+    if (this.$store.getters.isLoggedIn) {
+        axios.get('/api/user').then((response) => {
+          this.name = response.data.name
+          this.isAdmin = response.data.isAdmin
+        });
+    }
     window.onscroll = function () {
       if (document.documentElement.scrollTop > 50) {
         document.getElementById("navabr").style.backgroundColor =
@@ -96,9 +98,9 @@ export default {
   },
   methods: {
     async logout() {
-      await window.axios.post("/logout").then((response) => {
-        console.log(response.data);
-      });
+      await window.axios.post("/logout");
+      this.$store.commit("setIsLogged", false)
+      this.$router.push({'name': 'home'})
       this.name = null;
       this.isAdmin = false;
     },
