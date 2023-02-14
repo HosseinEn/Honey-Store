@@ -38,7 +38,8 @@ class TypeController extends Controller
         ]);
         $type = Type::create($request->all());
         return new JsonResponse([
-            'type' => $type
+            'type' => $type,
+            'success' => 'نوع جدید با موفقیت ایجاد شد.'
         ]);
     }
 
@@ -74,7 +75,8 @@ class TypeController extends Controller
         }
         $type->update($request->all());
         return new JsonResponse([
-            'type' => $type
+            'type' => $type,
+            'success' => 'نوع با موفقیت بروزرسانی شد.'
         ]);
     }
 
