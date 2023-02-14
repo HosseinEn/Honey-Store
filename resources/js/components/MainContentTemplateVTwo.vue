@@ -79,7 +79,6 @@ export default {
     height: auto;
     direction: rtl;
     float: right;
-    max-height: 850px;
 }
 .mainContents p {
     font-weight: 500;

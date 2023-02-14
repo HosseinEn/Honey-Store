@@ -10,17 +10,17 @@
     <!-- Update -->
     <div id="mySidenavRight" class="sidenav">
         <router-link id="createProduct" to="/admin/products"
-            >Products</router-link
+            >محصولات</router-link
         >
         <router-link id="createAttribute" to="/admin/attributes"
-            >Attributes</router-link
+            >ویژگی ها</router-link
         >
         <router-link id="createDiscount" to="/admin/discounts"
-            >Discounts</router-link
+            >تخفیفات</router-link
         >
-        <router-link id="createType" to="/admin/types">Types</router-link>
-        <router-link id="createUser" to="/admin/users">Users</router-link>
-        <router-link id="createOrder" to="/admin/orders">Orders</router-link>
+        <router-link id="createType" to="/admin/types">نوع ها</router-link>
+        <router-link id="createUser" to="/admin/users">کاربر ها</router-link>
+        <router-link id="createOrder" to="/admin/orders">سفارش‌های</router-link>
     </div>
 
     <!-- End Welcome Container -->
@@ -91,13 +91,15 @@ export default {
 }
 #createOrder {
     top: 370px;
-    background-color: #391797;
+    background-color:silver;
 }
 /* Right NAV */
 
 #mySidenavRight a {
     position: absolute;
-    right: -80px;
+    right: -60px;
+    font-family: var(--thirdFont);
+    font-weight: 600;
     transition: 0.3s;
     padding: 15px;
     width: 100px;

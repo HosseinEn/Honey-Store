@@ -69,6 +69,12 @@
               onclick="window.location.href='www.google.com'"
             ></i>
           </li>
+           <li>
+            <i
+              class="fa-solid fa-phone"
+              onclick="window.location.href='www.google.com'"
+            ></i>
+          </li>
           <li>
             <i
               class="fa-solid fa-envelope"

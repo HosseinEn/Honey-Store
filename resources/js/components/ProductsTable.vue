@@ -32,34 +32,41 @@
 
             <section class="lastFilterSection">
                 <label for="status" class="mx-2"> وضعیت </label>
-                <select name="status" id="status" v-model="status" class="mb-2" @change="handleOnChangeFilter">
+                <select
+                    name="status"
+                    id="status"
+                    v-model="status"
+                    class="mb-2"
+                    @change="handleOnChangeFilter"
+                >
                     <option value="all">همه</option>
                     <option value="1">فعال</option>
                     <option value="0">غیرفعال</option>
                 </select>
                 <form @submit.prevent="handleDateFilter">
                     <label for="checkbox">محصولات موجود</label>
-                    <input type="checkbox" value="1" v-model="selected_attribute" @change="uniqueCheck">
+                    <input
+                        type="checkbox"
+                        value="1"
+                        v-model="selected_attribute"
+                        @change="uniqueCheck"
+                    />
                     <label for="checkbox">محصولات ناموجود</label>
-                    <input type="checkbox" value="0" v-model="selected_attribute" @change="uniqueCheck">
+                    <input
+                        type="checkbox"
+                        value="0"
+                        v-model="selected_attribute"
+                        @change="uniqueCheck"
+                    />
                     <br />
                     <label for="from">از : </label>
-                    <input
-                        
-                        type="date"
-                        id="from"
-                        name="from"
-                        v-model="from"
-                    />
+                    <input type="date" id="from" name="from" v-model="from" />
                     <label for="to">تا : </label>
-                    <input
-                        
-                        type="date"
-                        id="to"
-                        name="to"
-                        v-model="to"
-                    />
-                    <span  style="color: red;margin:13px" v-if="this.errors !== null">
+                    <input type="date" id="to" name="to" v-model="to" />
+                    <span
+                        style="color: red; margin: 13px"
+                        v-if="this.errors !== null"
+                    >
                         <span v-for="error in errors.from" :key="error">
                             {{ error }}
                         </span>
@@ -94,10 +101,16 @@
                     <td>
                         <!-- <button class="remove">حذف</button> -->
                         <!-- {{ product.id }} -->
-                        <button @click="deleteHolding(product.slug)" 
-                                class="btn btn-danger waves-effect waves-light remove-record" 
-                                data-toggle="modal" data-url="" 
-                                data-id="" data-target="#custom-width-modal">Delete</button>  
+                        <button
+                            @click="deleteHolding(product.slug)"
+                            class="remove"
+                            data-toggle="modal"
+                            data-url=""
+                            data-id=""
+                            data-target="#custom-width-modal"
+                        >
+                            حذف
+                        </button>
                     </td>
                     <td>
                         <router-link
@@ -110,7 +123,11 @@
             </table>
 
             <transition name="modal">
-                <DeleteModal v-if="showModal" @delete="finalDelete()"  @close="showModal = false">
+                <DeleteModal
+                    v-if="showModal"
+                    @delete="finalDelete()"
+                    @close="showModal = false"
+                >
                     <!--
                         you can use custom content here to overwrite
                         default content
@@ -120,36 +137,26 @@
                     </template>
                 </DeleteModal>
             </transition>
-
-
         </div>
-
-
 
         <!-- Delete Model -->
         {{ showModal }}
-
-
     </div>
 </template>
 
-
-
-
-
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 import DeleteModal from "./DeleteModal";
 
 export default {
     name: "productsTable",
     components: {
-        "DeleteModal": DeleteModal,
+        DeleteModal: DeleteModal,
     },
     data() {
         return {
-            holdings:[],
+            holdings: [],
             showModal: false,
             deleteSlug: null,
             products: null,
@@ -158,17 +165,16 @@ export default {
             from: null,
             to: null,
             errors: null,
-            selected_attribute:[],
-
+            selected_attribute: [],
         };
     },
     methods: {
-        uniqueCheck(e){
+        uniqueCheck(e) {
             this.selected_attribute = [];
             if (e.target.checked) {
                 this.selected_attribute.push(e.target.value);
             }
-            this.handleOnChangeFilter()
+            this.handleOnChangeFilter();
         },
         convertDate(date) {
             return moment(date).format("Y-M-D");
@@ -182,7 +188,11 @@ export default {
             });
         },
         handleOnChangeFilter() {
-            const url = "/admin/products?status=" + this.status + "&stock=" + this.selected_attribute;
+            const url =
+                "/admin/products?status=" +
+                this.status +
+                "&stock=" +
+                this.selected_attribute;
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.products = response.data.products;
@@ -191,10 +201,13 @@ export default {
         },
         handleDateFilter() {
             const url =
-                "/admin/products?status=" + this.status +
-                "&from=" + this.from +
-                "&to=" + this.to;
-                // "&stock=" + this.selected_attribute;
+                "/admin/products?status=" +
+                this.status +
+                "&from=" +
+                this.from +
+                "&to=" +
+                this.to;
+            // "&stock=" + this.selected_attribute;
             this.$router.push(url);
             axios
                 .get("/api" + url)
@@ -216,20 +229,21 @@ export default {
             });
         },
 
-        deleteHolding(id){
+        deleteHolding(id) {
             this.deleteSlug = id;
             this.showModal = true;
         },
 
-        finalDelete(){
+        finalDelete() {
             //... perform deletion
-            axios.delete("/api/admin/products/" + this.deleteSlug)
-                .then(()=>{
-                    this.products= this.products.filter(product => {return product.slug !== this.deleteSlug});
-                    this.deleteSlug = null;
-                    this.showModal = false;
-                })
-        }
+            axios.delete("/api/admin/products/" + this.deleteSlug).then(() => {
+                this.products = this.products.filter((product) => {
+                    return product.slug !== this.deleteSlug;
+                });
+                this.deleteSlug = null;
+                this.showModal = false;
+            });
+        },
     },
     mounted() {
         axios.get("/api/admin/products").then((response) => {
@@ -240,6 +254,12 @@ export default {
 </script>
 
 <style scoped>
+@media only screen and (max-width: 700px) {
+    table {
+        font-size: 10px !important;
+    }
+}
+
 .btnParent {
     position: relative;
 }
@@ -265,20 +285,10 @@ button {
     border-radius: 5px;
     padding: 0.3rem;
 }
-.add {
-    background-color: green;
-    color: white;
-    width: 100px;
-    transition: all 0.5s linear;
-}
-.add:hover {
-    background-color: rgb(0, 199, 0);
-    color: white;
-}
 .edit {
     background-color: var(--thirdColor);
     color: white;
-    width: 100px;
+    width: 70px;
     transition: all 0.5s linear;
 }
 .edit:hover {
@@ -288,6 +298,7 @@ button {
 .remove {
     background-color: red;
     color: white;
+    width: 70px;
     transition: all 0.5s linear;
 }
 .remove:hover {
@@ -306,12 +317,13 @@ button {
     width: 100px;
     border: 1px solid black;
 }
-.lastFilterSection input{
+.lastFilterSection input {
     display: inline;
     margin-right: 5px;
     margin-left: 5px;
     width: 150px;
 }
+
 .filterSearch button {
     background-color: var(--mainColor);
     font-family: var(--thirdFont);
@@ -340,6 +352,10 @@ button {
     height: 33px;
     padding-bottom: 7px;
     width: 240px;
+}
+.filterSearch input:focus {
+    outline: 1px solid var(--thirdColor);
+    border: 1px solid var(--mainColor);
 }
 .createProduct {
     width: 180px;
@@ -375,6 +391,4 @@ button {
 .showAll:hover {
     background-color: rgb(172, 249, 56);
 }
-
-
 </style>

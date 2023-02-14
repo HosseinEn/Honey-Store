@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row text-center mt-5">
-      <h3>Loadingggggggggg</h3>
+      <span>در حال لود شدن </span>
     </div>
   </div>
 </template>
@@ -15,6 +15,7 @@ export default {
 <style scoped>
 h3 {
     font-family: var(--mainfont);
-    color : var(--mainColor)
+    color : var(--mainColor);
+    font-size: 2rem;
 }
 </style>

@@ -7,7 +7,7 @@
         data-bs-target="#navbarSupportedContent"
         aria-controls="navbarSupportedContent"
         aria-expanded="false"
-        aria-label="Toggle navigation">مازعسل</a>
+        aria-label="Toggle navigation">مازدار</a>
 
       <div
         class="collapse navbar-collapse text-center"
@@ -124,11 +124,6 @@ export default {
   color: white;
   z-index: 2;
 }
-.navbar-toggler {
-  color: white;
-  background-color: white;
-  float: right;
-}
 li a {
   margin-left: 1.5rem;
   transition : all 0.5s linear
@@ -141,7 +136,7 @@ li:hover {
 }
 .navbar-brand {
   font-weight: 800;
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   color: var(--mainColor) !important;
 }
 </style>

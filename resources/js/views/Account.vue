@@ -13,14 +13,14 @@
   </MiniIntroTemplate>
   <div class="container-fluid formCont p-5">
     <div class="row">
-      <div class="col-6">
-        <div class="row formHeader">
+      <div class="col-md-6 col-12 mt-3">
+        <div class="row text-md-end text-center">
           <h1>ورود</h1>
         </div>
         <Login></Login>
       </div>
-      <div class="col-6">
-        <div class="row formHeader">
+      <div class="col-md-6 col-12 mt-3">
+        <div class="row text-md-end text-center">
           <h1>ثبت نام</h1>
         </div>
         <Register></Register>
@@ -59,10 +59,7 @@ export default {
   width: 80%;
   direction: rtl;
   padding-top: 5rem !important;
-}
-.formHeader {
-  direction: rtl;
-  font-family: var(--thirdFont);
+   font-family: var(--thirdFont);
   margin-bottom: 1rem;
 }
 </style>

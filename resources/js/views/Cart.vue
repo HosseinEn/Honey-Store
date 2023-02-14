@@ -10,13 +10,13 @@
     </MiniIntroTemplate>
 
     <!-- Table -->
-    <div class="container-md tableCont p-4">
+    <div class="container tableContMain p-4">
         <table>
             <tr>
                 <th style="width: 10%">نام محصول - وزن</th>
-                <th style="width: 30%">دسته‌بندی</th>
-                <th style="width: 20%">تعداد موجود از این نوع</th>
-                <th style="width: 15%">تعداد انتخاب شده توسط شما</th>
+                <th style="width: 10%">دسته‌ بندی</th>
+                <th style="width: 10%">تعداد موجود از این نوع</th>
+                <th style="width: 10%">تعداد انتخاب شده توسط شما</th>
                 <th style="width: 10%">قیمت واحد</th>
                 <th style="width: 10%">تخفیف</th>
                 <th style="width: 10%">افزایش مقدار</th> 
@@ -249,16 +249,16 @@ export default {
     .tableCont {
         width: 100% !important;
     }
+    .tableContMain table{
+     font-size: 13px !important;
+}
 }
 
 .tableCont {
     width: 80%;
 }
-.tableCont th {
-    font-family: var(--thirdFont);
-}
 table {
-    font-family: arial, sans-serif;
+    font-family: var(--thirdFont);
     border-collapse: collapse;
     width: 100%;
 }
