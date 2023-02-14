@@ -32,12 +32,16 @@
 
             <section class="lastFilterSection">
                 <label for="status" class="mx-2"> وضعیت </label>
-                <select name="status" id="status" v-model="status" class="mb-2" @change="handleStatusFilter">
+                <select name="status" id="status" v-model="status" class="mb-2" @change="handleOnChangeFilter">
                     <option value="all">همه</option>
                     <option value="1">فعال</option>
                     <option value="0">غیرفعال</option>
                 </select>
                 <form @submit.prevent="handleDateFilter">
+                    <label for="checkbox">محصولات موجود</label>
+                    <input type="checkbox" value="1" v-model="selected_attribute" @change="uniqueCheck">
+                    <label for="checkbox">محصولات ناموجود</label>
+                    <input type="checkbox" value="0" v-model="selected_attribute" @change="uniqueCheck">
                     <br />
                     <label for="from">از : </label>
                     <input
@@ -87,7 +91,14 @@
                         ‌ {{ product.description.substring(0, 20) + "..." }}
                     </td>
                     <td>‌ {{ convertDate(product.created_at) }}</td>
-                    <td><button class="remove">حذف</button></td>
+                    <td>
+                        <!-- <button class="remove">حذف</button> -->
+                        <!-- {{ product.id }} -->
+                        <button @click="deleteHolding(product.slug)" 
+                                class="btn btn-danger waves-effect waves-light remove-record" 
+                                data-toggle="modal" data-url="" 
+                                data-id="" data-target="#custom-width-modal">Delete</button>  
+                    </td>
                     <td>
                         <router-link
                             :to="`/admin/products/edit/${product.slug}`"
@@ -97,27 +108,68 @@
                     </td>
                 </tr>
             </table>
+
+            <transition name="modal">
+                <DeleteModal v-if="showModal" @delete="finalDelete()"  @close="showModal = false">
+                    <!--
+                        you can use custom content here to overwrite
+                        default content
+                    -->
+                    <template v-slot:header>
+                        <h3>Delete Product</h3>
+                    </template>
+                </DeleteModal>
+            </transition>
+
+
         </div>
+
+
+
+        <!-- Delete Model -->
+        {{ showModal }}
+
+
     </div>
 </template>
 
+
+
+
+
 <script>
-import axios from "axios";
-import moment from "moment";
+import axios from 'axios';
+import moment from 'moment';
+import DeleteModal from "./DeleteModal";
 
 export default {
     name: "productsTable",
+    components: {
+        "DeleteModal": DeleteModal,
+    },
     data() {
         return {
+            holdings:[],
+            showModal: false,
+            deleteSlug: null,
             products: null,
             searchKey: null,
             status: "all",
             from: null,
             to: null,
             errors: null,
+            selected_attribute:[],
+
         };
     },
     methods: {
+        uniqueCheck(e){
+            this.selected_attribute = [];
+            if (e.target.checked) {
+                this.selected_attribute.push(e.target.value);
+            }
+            this.handleOnChangeFilter()
+        },
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
@@ -129,8 +181,8 @@ export default {
                 this.errors = null;
             });
         },
-        handleStatusFilter() {
-            const url = "/admin/products?status=" + this.status;
+        handleOnChangeFilter() {
+            const url = "/admin/products?status=" + this.status + "&stock=" + this.selected_attribute;
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.products = response.data.products;
@@ -139,12 +191,10 @@ export default {
         },
         handleDateFilter() {
             const url =
-                "/admin/products?status=" +
-                this.status +
-                "&from=" +
-                this.from +
-                "&to=" +
-                this.to;
+                "/admin/products?status=" + this.status +
+                "&from=" + this.from +
+                "&to=" + this.to;
+                // "&stock=" + this.selected_attribute;
             this.$router.push(url);
             axios
                 .get("/api" + url)
@@ -165,6 +215,21 @@ export default {
                 this.products = response.data.products;
             });
         },
+
+        deleteHolding(id){
+            this.deleteSlug = id;
+            this.showModal = true;
+        },
+
+        finalDelete(){
+            //... perform deletion
+            axios.delete("/api/admin/products/" + this.deleteSlug)
+                .then(()=>{
+                    this.products= this.products.filter(product => {return product.slug !== this.deleteSlug});
+                    this.deleteSlug = null;
+                    this.showModal = false;
+                })
+        }
     },
     mounted() {
         axios.get("/api/admin/products").then((response) => {
@@ -310,5 +375,6 @@ button {
 .showAll:hover {
     background-color: rgb(172, 249, 56);
 }
+
 
 </style>

@@ -30,17 +30,21 @@ ProductController extends Controller
             $products = Product::where('name', 'like', '%' . $search_key . '%')->get();
         }
         else if (
-            $request->has('status') ||
+            $request->has('status') || $request->has('stock') ||
             (
                 $request->has('from') &&
                 $request->has('to')
             )
         ) {
+            // dd($request->get('stock'));
             if ($request->has('from') && $request->has('to')) {
                 $products = $this->applyDateFilter($products, $request->get('from'), $request->get('to'));
             }
             if ($request->has('status')) {
                 $products = $this->applyStatusFilter($products, $request->get('status'));
+            }
+            if ($request->get('stock') != null) {
+                $products = $this->applyStockFilter($products, $request->get('stock'));
             }
         }
         return new JsonResponse([
@@ -72,6 +76,15 @@ ProductController extends Controller
         }
         return $products->where('status', $status);
     }
+
+    private function applyStockFilter($products, $stock) {
+        if ($stock == "1") {
+            return $products = $products->where('stock', ">" , 0);
+        } else {
+            return $products = $products->where('stock' , 0);
+        }
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -106,20 +119,25 @@ ProductController extends Controller
             ]);
             $totalStock += $values['stock'];
         }
+        // dd($request->only($dataForInsert));
+        // dd($request->product_attributes);
 
         $request->merge(['stock' => $totalStock]);
         $product = Product::create($request->only($dataForInsert));
         foreach ($request->product_attributes as $attribute_id => $values) {
+            // dd(array_key_exists("discount_id",$values));
+            // dd(in_array("discount_id", $values));
             $product->attributes()->syncWithOutDetaching([
                 $attribute_id => [
                     'stock' => $values['stock'],
                     'price' => $values['price'],
-                    'discount_id' => $values['discount_id']
+                    'discount_id' => array_key_exists("discount_id",$values) ? $values['discount_id'] : null
                 ]
             ]);
         }  
         
         if($request->hasFile('image')) {
+
             $path = $request->file('image')->store('public/product_images');
             $product->image()->save(Image::make(['path' => Storage::url($path)]));
         }

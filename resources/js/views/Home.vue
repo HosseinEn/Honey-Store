@@ -42,6 +42,7 @@
                     :key="product"
                 >
                     <SingleProduct
+                        v-if="product.image != null"
                         :key="product.id"
                         v-bind="product"
                         :imageSelected="`${product.image.path}`"

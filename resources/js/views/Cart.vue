@@ -24,23 +24,49 @@
                 <th style="width: 10%">حذف</th>
             </tr>
             <tr v-for="product in products" :key="product.id">
+            <!-- {{ product.cart }} -->
                 <td>{{ product.name }}</td>
                 <td>{{ product.type.name }}</td>
-                <td>{{ product.stock }}</td>
+                <td>{{ product.selected_attribute.attribute_product.stock }}</td>
                 <td>{{ product.cart.quantity }}</td>
                 <td>{{ product.selected_attribute.attribute_product.price }}</td>
-                <td>{{ product.selected_attribute.attribute_product.discount.value }}%</td>
+                <td>{{ product.selected_attribute.attribute_product.discount_id != null ? product.selected_attribute.attribute_product.discount.value : "0.0" }}%</td>
                 <td>
-                    <span class="addIcon"><i class="fa-solid fa-plus"></i></span>
+                    <span class="addIcon"    @click="increaseAmount(product.cart.id)"><i class="fa-solid fa-plus"></i></span>
                 </td>
                 <td>
-                    <span class="minusIcon"><i class="fa-solid fa-minus"></i></span>
+                    <span class="minusIcon"  @click="decreaseAmount(product.cart.id)"><i class="fa-solid fa-minus"></i></span>
                 </td>
                 <td>
-                    <span class="deleteIcon"><i class="fa-solid fa-xmark"></i></span>
+                    <span class="deleteIcon" @click="deleteHolding(product.slug, product.cart.id)"><i class="fa-solid fa-xmark"></i></span>
+                    <!-- <button @click="deleteHolding(product.slug)" 
+                                class="btn btn-danger waves-effect waves-light remove-record" 
+                                data-toggle="modal" data-url="" 
+                                data-id="" data-target="#custom-width-modal">Delete</button>   -->
                 </td>
             </tr>
         </table>
+        <div class="alert alert-success mt-2" v-if="success">
+            {{ success }}
+        </div>
+        <div style="color: red; text-align: center;" v-if="this.errors != null && this.errors.product_user_id">
+            <div class="alert alert-danger mt-2" v-for="error in this.errors.product_user_id" :key="error">
+                {{ error }}
+            </div>
+        </div>
+        <transition name="modal">
+                <DeleteModal v-if="showModal" @delete="deleteFromCart()"  @close="showModal = false">
+                    <!--
+                        you can use custom content here to overwrite
+                        default content
+                    -->
+                    <template v-slot:header>
+                        <h3>Delete Product</h3>
+                    </template>
+                </DeleteModal>
+        </transition>
+
+
     </div>
     <!-- End Table -->
 
@@ -86,8 +112,12 @@
 <script>
 import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
+import DeleteModal from "../components/DeleteModal";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 import axios from "axios";
+
+
+
 
 export default {
     name: "cart",
@@ -95,6 +125,7 @@ export default {
         Navbar,
         Footer,
         MiniIntroTemplate,
+        "DeleteModal": DeleteModal,
     },
     data() {
         return {
@@ -102,6 +133,14 @@ export default {
             totalPrice: null,
             totalPriceWithDiscount: null,
             name_of_user: null,
+            showModal: false,
+            deleteSlug: null,
+            product_user_id: null,
+            deletedProduct: null,
+            increaseAmountInTable: null,
+            decreaseAmountInTable: null,
+            errors: null,
+
         }
     },
     methods: {
@@ -110,12 +149,88 @@ export default {
             .then(response => {
                 console.log(response.data);   
                 this.$router.push({ 'path' : response.data.action})
-                // window.location.href = response.data.action;
+                window.location.href = response.data.action;
             })
             .catch(errors => {
                 console.log(errors);
             });
-        }
+        },
+
+        deleteHolding(slug, id){
+            this.deleteSlug = slug;
+            this.product_user_id = id;
+            this.showModal = true;
+        },
+
+        deleteFromCart(){
+            axios.post(`/api/cart/${this.deleteSlug}`, {
+            product_user_id : this.product_user_id
+          })
+                .then(()=>{
+
+                    this.deletedProduct= this.products.filter(product => {return product.cart.id == this.product_user_id});
+                    
+                    this.totalPrice -= 
+                                    this.deletedProduct[0].selected_attribute.attribute_product.price
+                                    *
+                                    this.deletedProduct[0].cart.quantity;
+
+
+                    this.totalPriceWithDiscount -= 
+                                            this.deletedProduct[0].selected_attribute.attribute_product.price
+                                            *
+                                            this.deletedProduct[0].cart.quantity
+                                            * 
+                                            (100.0 - (this.deletedProduct[0].selected_attribute.attribute_product.discount_id != null
+                                                        ? this.deletedProduct[0].selected_attribute.attribute_product.discount.value 
+                                                        : 0.0))/100;
+                                                        
+                    this.products= this.products.filter(product => {return product.cart.id != this.product_user_id});
+                    this.deleteSlug = null;
+                    this.showModal = false;
+                })
+        },
+
+        increaseAmount(increase){
+            this.errors = null;
+            axios.post("/api/cart/increase-amount", {
+            product_user_id : increase
+          })
+                .then(()=>{
+                    this.increaseAmountInTable = this.products.filter(product => {return product.cart.id == increase});
+                    this.increaseAmountInTable[0].cart.quantity += 1;
+                    this.totalPrice += this.increaseAmountInTable[0].selected_attribute.attribute_product.price;
+                    this.totalPriceWithDiscount += 
+                                            this.increaseAmountInTable[0].selected_attribute.attribute_product.price
+                                            * (100.0 - (this.increaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null
+                                                     ? this.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value 
+                                                     : 0.0))/100;
+                })                
+                .catch(errors => {
+                    this.errors = errors.response && errors.response.data.errors;
+                })
+        },        
+        
+        decreaseAmount(decrease){
+            this.errors = null;
+            axios.post("/api/cart/decrease-amount", {
+            product_user_id : decrease
+          })
+                .then(()=>{
+                    this.decreaseAmountInTable = this.products.filter(product => {return product.cart.id == decrease});
+                    this.decreaseAmountInTable[0].cart.quantity -= 1;
+                    this.totalPrice -= this.decreaseAmountInTable[0].selected_attribute.attribute_product.price;
+                    this.totalPriceWithDiscount -= 
+                                            this.decreaseAmountInTable[0].selected_attribute.attribute_product.price
+                                            * (100.0 - (this.decreaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null
+                                                     ? this.decreaseAmountInTable[0].selected_attribute.attribute_product.discount.value 
+                                                     : 0.0))/100;
+                })
+                .catch(errors => {
+                    this.errors = errors.response && errors.response.data.errors;
+                })
+        },
+
     },  
     mounted() {
         axios.get('/api/cart')
@@ -189,6 +304,34 @@ th {
     background-color: red;
     color: white;
 }
+
+
+.addIcon {
+    background-color: transparent;
+    color: green;
+    border-radius: 50%;
+    padding: 0.3rem 0.5rem 0.3rem;
+}
+
+.addIcon:hover {
+    background-color: green;
+    color: white;
+}
+
+
+.minusIcon {
+    background-color: transparent;
+    color: yellow;
+    border-radius: 50%;
+    padding: 0.3rem 0.5rem 0.3rem;
+}
+
+.minusIcon:hover {
+    background-color: yellow;
+    color: white;
+}
+
+
 
 tr:nth-child(even) {
     background-color: #dddddd;

@@ -163,48 +163,32 @@ class ProductUserController extends Controller
 
             /* checking if given quantity is available in stock */
 
-                $products = $user->products;
-                $products->load('attributes');
+            $products = $user->products;
+            $products->load('attributes');
 
-
-                foreach ($products as $product) {
-                    $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
-                    if ($selectedAttribute->attribute_product->stock < $product->cart->quantity) {
-                        throw ValidationException::withMessages([
-                            'quantity' => ['لطفا با توجه به تعداد سفارش را انجام دهید. تعداد موجود: ' . $selectedAttribute->attribute_product->stock
-                            . ' محصول: ' . $product->name . ' وزن:' . $selectedAttribute->weight]
-                        ]);
-                    }
+   
+            foreach ($products as $product) {
+                $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
+                if ($selectedAttribute->attribute_product->stock < $product->cart->quantity) {
+                    throw ValidationException::withMessages([
+                        'quantity' => ['لطفا با توجه به تعداد سفارش را انجام دهید. تعداد موجود: ' . $selectedAttribute->attribute_product->stock
+                        . ' محصول: ' . $product->name . ' وزن:' . $selectedAttribute->weight]
+                    ]);
                 }
+                else {
+                    $product->update(["stock" => $product->stock - $product->cart->quantity]);
 
-                return $this->paymentResultMethod($user, $products);
-
-                if (true) {
-                    foreach ($products as $product) {
-                        $product->update(["stock" => $product->stock - $product->cart->quantity]);
-
-                        DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
-                            
-                            $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
-                            $product->cart->attribute_id,
-                            $product->id
-                        ]);
-                    }
+                    DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
+                        
+                        $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
+                        $product->cart->attribute_id,
+                        $product->id
+                    ]);
                 }
-
-                
-                // TODO tax and carrier ignored
-                $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
-                // dump("status ok");
-                list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
-            
-        }
-
-    }
+            }
 
 
-    private function paymentResultMethod($user, $products) {
-        
+
             /* sending request to bank */
             list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
 
@@ -243,12 +227,20 @@ class ProductUserController extends Controller
 
                 }
             )->pay()->toJson();
-            // dd($payment);
+
+            // TODO tax and carrier ignored
+            $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+            // dump("status ok");
+            list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
+
+
+
+
 
             return $payment;
+        }
     }
 
-    
     public function paymentCallbackMethod(Request $request) {
         try {
             // dd($request);
@@ -268,19 +260,7 @@ class ProductUserController extends Controller
                     ]
                 ]);
         
-
-
                 foreach ($products as $product) {
-                    $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
-                    $product->update(["stock" => $product->stock - $product->cart->quantity]);
-
-                    DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
-                        
-                        $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
-                        $product->cart->attribute_id,
-                        $product->id
-                    ]);
-
                     $order->products()->attach([
                         $product->id => [
                             'quantity' => $product->cart->quantity,
@@ -303,7 +283,7 @@ class ProductUserController extends Controller
         
             // You can show payment referenceId to the user.
             // ???????????????????????????????????????
-            return redirect("/cart");
+            return redirect("/payment-done?reference={$referenceID}");
             // return redirect(route('create.order'));
         } catch (InvalidPaymentException $exception) {
             echo $exception->getMessage();
@@ -356,14 +336,12 @@ class ProductUserController extends Controller
     public function removeFromCart(Request $request) {
         $user = Auth::user();
         // $user->products()->detach($request->product_user_id);
-        // dd($request->product_user_id);
         $user->products()->wherePivot('id', '=', $request->product_user_id)->detach();
         $products = $user->products;
         // $totalPrice = $this->calculatePrice();
         return new JsonResponse([
             'products' => $products,
             // 'totalPrice' => $totalPrice
-            'success' => 'محصول با موفقیت از سبد خرید حذف شد!' 
         ]);
     }
 
