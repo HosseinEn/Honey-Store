@@ -259,7 +259,6 @@ export default {
         font-size: 10px !important;
     }
 }
-
 .btnParent {
     position: relative;
 }
@@ -269,7 +268,6 @@ table {
     width: 100%;
     font-family: var(--thirdFont);
 }
-
 td,
 th {
     border-bottom: 1px solid var(--secondColor);

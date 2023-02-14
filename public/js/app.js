@@ -24039,7 +24039,7 @@ __webpack_require__.r(__webpack_exports__);
   props: ["imageSelected", "product", "filteredAttribute"],
   data: function data() {
     return {
-      imageUrl: this.imageSelected == 'seed' ? 'https://picsum.photos/400/300' : this.imageSelected
+      imageUrl: this.imageSelected == "seed" ? "https://picsum.photos/400/300" : this.imageSelected
     };
   },
   mounted: function mounted() {
@@ -27314,23 +27314,42 @@ var _hoisted_1 = {
   "class": "product"
 };
 var _hoisted_2 = {
-  "class": "content text-center"
+  key: 0,
+  "class": "discoundTag"
 };
 var _hoisted_3 = {
-  "class": "productTitle"
+  "class": "content text-center"
 };
 var _hoisted_4 = {
+  "class": "productTitle"
+};
+var _hoisted_5 = {
   key: 0
 };
-var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)();
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    style: {
+      "font-weight": "600"
+    }
+  }, "گرم", -1 /* HOISTED */);
+});
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
+    style: {
+      "font-weight": "600"
+    }
+  }, "تومن", -1 /* HOISTED */);
+});
+var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "productPrice"
   }, "eee", -1 /* HOISTED */);
 });
-var _hoisted_6 = {
+var _hoisted_10 = {
   "class": "productButton"
 };
-var _hoisted_7 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("مشاهده محصول");
+var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("مشاهده محصول");
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_router_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-link");
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <section class=\"productItem\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", {
@@ -27338,7 +27357,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)({
       'background-image': 'url(' + $data.imageUrl + ')'
     })
-  }, null, 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.product.name) + " ", 1 /* TEXT */), $props.filteredAttribute ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.filteredAttribute.weight) + " - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.filteredAttribute.attribute_product.discount_value) + "% - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.filteredAttribute.attribute_product.price), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_5]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, [$props.filteredAttribute && $props.filteredAttribute.attribute_product.discount_value ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_2, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.filteredAttribute.attribute_product.discount_value) + "% ", 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)], 4 /* STYLE */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("section", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.product.name) + " ", 1 /* TEXT */), $props.filteredAttribute ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.filteredAttribute.weight), 1 /* TEXT */), _hoisted_6, _hoisted_7, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" - " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($props.filteredAttribute.attribute_product.price) + " ", 1 /* TEXT */), _hoisted_8])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), _hoisted_9]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'product',
       params: {
@@ -27347,7 +27366,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     }
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [_hoisted_7];
+      return [_hoisted_11];
     }),
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["to"])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" </section> ")], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
@@ -35479,7 +35498,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.imageContainer[data-v-3da200a8] {\r\n    width: 400px;\r\n    height: 325px;\r\n    overflow: hidden;\r\n    background-repeat: no-repeat;\r\n    background-size: auto 325px;\n}\n.productTitle[data-v-3da200a8] {\r\n    font-size: 1.7rem;\r\n    margin: 0.5rem;\n}\n.productButton[data-v-3da200a8] {\r\n    position: relative;\r\n    left: 50%;\r\n    margin-top: 1rem;\r\n    transform: translate(-50%, 0);\r\n    background-color: var(--mainColor);\r\n    padding: 0.3rem 1.1rem 0.6rem;\r\n    border-radius: 5px;\r\n    transition: all 0.5s linear;\r\n    color: white;\r\n    font-size: 1rem;\r\n    font-family: var(--mainFont);\n}\n.productButton[data-v-3da200a8]:hover {\r\n    background-color: var(--thirdColor);\n}\n.product[data-v-3da200a8] {\r\n    width: 100%;\r\n    margin-top: 2rem;\r\n    margin-bottom: 2rem;\r\n    height: 475px;\r\n    padding: 10px;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.imageContainer[data-v-3da200a8] {\r\n    width: 400px;\r\n    position: relative;\r\n    height: 325px;\r\n    overflow: hidden;\r\n    background-repeat: no-repeat;\r\n    background-size: auto 325px;\n}\n.productTitle[data-v-3da200a8] {\r\n    font-size: 1.5rem;\r\n    margin: 0.5rem;\r\n    direction: rtl;\r\n    font-family: var(--thirdFont);\n}\n.productButton[data-v-3da200a8] {\r\n    position: relative;\r\n    left: 50%;\r\n    margin-top: 1rem;\r\n    transform: translate(-50%, 0);\r\n    background-color: var(--mainColor);\r\n    padding: 0.3rem 1.1rem 0.6rem;\r\n    border-radius: 5px;\r\n    transition: all 0.5s linear;\r\n    color: white;\r\n    font-size: 1rem;\r\n    font-family: var(--mainFont);\n}\n.productButton[data-v-3da200a8]:hover {\r\n    background-color: var(--thirdColor);\n}\n.product[data-v-3da200a8] {\r\n    width: 100%;\r\n    margin-top: 2rem;\r\n    margin-bottom: 2rem;\r\n    height: 475px;\r\n    padding: 10px;\r\n    position: relative;\n}\n.discoundTag[data-v-3da200a8] {\r\n    width: 80px;\r\n    background: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    font-weight: 700;\r\n    height: 30px;\r\n    position: absolute;\r\n    top: 0px;\r\n    right: 0px;\r\n    display: flex;\r\n    justify-content: center;\r\n    align-items: center;\r\n    border: 1px solid var(--thirdColor);\r\n    border-radius: 0 0 0 10px;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

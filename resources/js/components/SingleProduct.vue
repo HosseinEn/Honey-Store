@@ -4,14 +4,23 @@
         <section
             class="imageContainer"
             v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
-        ></section>
+        >
+            <div
+                class="discoundTag"
+                v-if="
+                    filteredAttribute &&
+                    filteredAttribute.attribute_product.discount_value
+                "
+            >
+                {{ filteredAttribute.attribute_product.discount_value }}%
+            </div>
+        </section>
         <section class="content text-center">
             <div class="productTitle">
                 {{ product.name }}
                 <div v-if="filteredAttribute">
-                    {{ filteredAttribute.weight }} -
-                    {{ filteredAttribute.attribute_product.discount_value }}% -
-                    {{ filteredAttribute.attribute_product.price }}
+                   <span>{{ filteredAttribute.weight }}</span> <span style="font-weight:600">گرم</span> -
+                    {{ filteredAttribute.attribute_product.price }}  <span style="font-weight:600">تومن</span>
                 </div>
             </div>
             <div class="productPrice">eee</div>
@@ -28,31 +37,37 @@
 
 <script>
 export default {
-  name: "singleProduct",
-  components: {},
-  props: ["imageSelected", "product", "filteredAttribute"],
-  data() {
-    return {
-      imageUrl:  this.imageSelected == 'seed' ? 'https://picsum.photos/400/300' : this.imageSelected,
-    };
-  },
-  mounted(){
-    console.log(this.product.name)
-  }
+    name: "singleProduct",
+    components: {},
+    props: ["imageSelected", "product", "filteredAttribute"],
+    data() {
+        return {
+            imageUrl:
+                this.imageSelected == "seed"
+                    ? "https://picsum.photos/400/300"
+                    : this.imageSelected,
+        };
+    },
+    mounted() {
+        console.log(this.product.name);
+    },
 };
 </script>
 
 <style scoped>
 .imageContainer {
     width: 400px;
+    position: relative;
     height: 325px;
     overflow: hidden;
     background-repeat: no-repeat;
     background-size: auto 325px;
 }
 .productTitle {
-    font-size: 1.7rem;
+    font-size: 1.5rem;
     margin: 0.5rem;
+    direction: rtl;
+    font-family: var(--thirdFont);
 }
 .productButton {
     position: relative;
@@ -76,5 +91,21 @@ export default {
     margin-bottom: 2rem;
     height: 475px;
     padding: 10px;
+    position: relative;
+}
+.discoundTag {
+    width: 80px;
+    background: var(--mainColor);
+    font-family: var(--thirdFont);
+    font-weight: 700;
+    height: 30px;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--thirdColor);
+    border-radius: 0 0 0 10px;
 }
 </style>
