@@ -11,10 +11,22 @@ body {
   background-color: var(--forthColor) !important;
   overflow-x: hidden !important;
   margin: 0 !important;
+  width: 100% !important;
   padding: 0 !important;
+  position: relative;
+}
+.row { 
+    margin: 0 !important; 
+    padding: 0 !important; 
+    box-sizing: border-box !important; 
 }
 .container-fluid {
   padding: 0 !important;
+  margin: 0;
+}
+.container{
+  padding: 0 !important;
+  margin: 0;
 }
 a,
 a:hover,

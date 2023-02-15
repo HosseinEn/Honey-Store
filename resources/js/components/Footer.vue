@@ -101,6 +101,7 @@ export default {
 <style scoped>
 .container-fluid {
   color: white;
+  margin:0 !important;
   background-color: var(--secondColor);
 }
 ul li {
@@ -136,4 +137,5 @@ ul li span {
   margin-top: 0;
   font-size: 1.5rem;
 }
+
 </style>

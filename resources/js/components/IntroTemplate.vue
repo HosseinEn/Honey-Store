@@ -44,6 +44,7 @@ export default {
     padding: 1rem !important;
   }
 }
+
 .heroBoxContetContainer {
   width: 60%;
   font-family: var(--thirdFont);
@@ -57,8 +58,9 @@ export default {
 .heroboxBG {
   text-align: center;
   width: 100%;
+   margin:0 !important;
   overflow: hidden;
-    background-size: cover;
+  background-size: cover;
   background-repeat: no-repeat;
   height: 100vh;
 }

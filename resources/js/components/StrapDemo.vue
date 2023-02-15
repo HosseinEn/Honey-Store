@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluid">
+    <div class="container-fluid m-0">
         <div class="row bg-secondary text-center">
             <div
                 class="container"
@@ -38,6 +38,7 @@ export default {
     font-size: 5vw !important;
 }
 }
+
 .container {
     color: white;
     position: relative;
