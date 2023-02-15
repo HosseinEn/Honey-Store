@@ -7,7 +7,7 @@
         
       </div>
       <div
-        class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
+        class="col col-6 col-md-2 d-flex justify-content-center align-items-center d-none d-md-block"
       >
         <ul>
           <li class="mb-4">صفحات</li>

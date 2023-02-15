@@ -7,7 +7,7 @@
       <h3 class="m-5">
         <slot name="mainContentHeader"></slot>
       </h3>
-      <h4 class="m-4"><slot name="mainContentDesc"></slot></h4>
+      <h4 class="m-4 d-none d-sm-block"><slot name="mainContentDesc"></slot></h4>
     </div>
   </section>
 </template>
@@ -40,6 +40,11 @@ export default {
     padding: 1rem !important;
   }
 }
+@media only screen and (max-width: 700px) {
+  .heroBoxContetContainer h3 {
+    font-size: 1.6rem !important;
+}
+}
 .heroBoxContetContainer {
   width: 60%;
   position: absolute;
@@ -52,12 +57,12 @@ export default {
 }
 .heroBoxContetContainer h3 {
   font-family: var(--mainFont);
+    font-size: 2.2rem;
 }
 .heroboxBG {
   color: white;
   text-align: center;
   width: 100%;
-  min-width: 1100px;
   overflow: hidden;
   background-size: 100% auto;
   background-repeat: no-repeat;
@@ -66,8 +71,5 @@ export default {
 }
 .heroBoxContetContainer span {
   border-bottom: 3px solid red;
-}
-.heroBoxContetContainer h3 {
-  font-size: 2.2rem;
 }
 </style>

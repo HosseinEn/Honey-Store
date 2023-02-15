@@ -15,15 +15,10 @@
     <!-- end Intro -->
 
     <div class="container-fluid mt-5">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row filterRow text-center filterLable">
                 <h3 class="mb-3"><span>:</span><span>فیلتر</span></h3>
                 <section>
-                    <!-- <FilterNav
-                :currentFilter="currentFilter"
-                @handleFilter="currentFilter = $event"
-                @honeyTypeFunction="honeyType = $event"
-            /> -->
                     <button
                         @click="changeFilter('all')"
                         :class="{ activeFilter: currentFilter === 'all' }"
@@ -232,12 +227,12 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 480px) {
     .productItem {
         width: 100% !important;
     }
 }
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 480px) {
     .productItem {
         width: 50% !important;
     }

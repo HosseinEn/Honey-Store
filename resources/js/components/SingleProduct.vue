@@ -56,7 +56,7 @@ export default {
 
 <style scoped>
 .imageContainer {
-    width: 400px;
+    width: auto;
     position: relative;
     height: 325px;
     overflow: hidden;
