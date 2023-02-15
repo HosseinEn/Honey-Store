@@ -23748,10 +23748,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     var _this = this;
-    axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
-      _this.name = response.data.name;
-      _this.isAdmin = response.data.isAdmin;
-    });
+    if (this.$store.getters.isLoggedIn) {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
+        _this.name = response.data.name;
+        _this.isAdmin = response.data.isAdmin;
+      });
+    }
     window.onscroll = function () {
       if (document.documentElement.scrollTop > 50) {
         document.getElementById("navabr").style.backgroundColor = "rgb(15, 3, 1,0.9)";
