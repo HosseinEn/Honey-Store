@@ -8,7 +8,7 @@
       <h3 class="m-5">
         <slot name="mainContentHeader"></slot>
       </h3>
-      <h4 class="m-4"><slot name="mainContentDesc"></slot></h4>
+      <h4 class="m-4 d-none d-sm-block"><slot name="mainContentDesc"></slot></h4>
       <span><slot name="mainContentDescTwo"></slot></span>
     </div>
   </div>

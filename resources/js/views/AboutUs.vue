@@ -70,7 +70,7 @@
       موجود طراحی اساسا مورد استفاده قرار گیرد.
     </template>
     <template v-slot:mainContentBtn>
-      <router-link :to="{ name: 'shop' }">
+      <router-link :to="{ name: 'shop' }" @click="this.scrollToTop">
         <button>فروشگاه</button>
       </router-link>
     </template>
@@ -161,6 +161,11 @@ export default {
     MainContentTemplateVTwo,
   },
   mounted() {},
+  methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        },
+    },
 };
 </script>
 

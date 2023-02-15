@@ -19,14 +19,16 @@
             <div class="productTitle">
                 {{ product.name }}
                 <div v-if="filteredAttribute">
-                   <span>{{ filteredAttribute.weight }}</span> <span style="font-weight:600">گرم</span> -
-                    {{ filteredAttribute.attribute_product.price }}  <span style="font-weight:600">تومن</span>
+                    <span>{{ filteredAttribute.weight }}</span>
+                    <span style="font-weight: 600">گرم</span> -
+                    {{ filteredAttribute.attribute_product.price }}
+                    <span style="font-weight: 600">تومن</span>
                 </div>
             </div>
             <div class="productPrice">eee</div>
         </section>
         <button class="productButton">
-            <router-link :to="{ name: 'product', params: { id: product.slug } }"
+            <router-link  @click="this.scrollToTop" :to="{ name: 'product', params: { id: product.slug } }"
                 >مشاهده محصول</router-link
             >
         </button>
@@ -50,6 +52,11 @@ export default {
     },
     mounted() {
         console.log(this.product.name);
+    },
+    methods: {
+        scrollToTop() {
+            window.scrollTo(0, 0);
+        },
     },
 };
 </script>

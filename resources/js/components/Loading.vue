@@ -13,7 +13,7 @@ export default {
 </script>
 
 <style scoped>
-h3 {
+span {
     font-family: var(--mainfont);
     color : var(--mainColor);
     font-size: 2rem;

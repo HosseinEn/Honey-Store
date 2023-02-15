@@ -261,6 +261,7 @@ button {
 }
 select {
     margin-left: 0.5rem;
+    margin-top: 5px;
     padding: 0.5rem;
     background-color: var(--thirdColor);
     border-radius: 5px 5px 5px 5px;
