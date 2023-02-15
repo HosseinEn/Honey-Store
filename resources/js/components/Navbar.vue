@@ -113,10 +113,12 @@ export default {
         };
     },
     mounted() {
-        axios.get("/api/user").then((response) => {
-            this.name = response.data.name;
-            this.isAdmin = response.data.isAdmin;
-        });
+        if (this.$store.getters.isLoggedIn) {
+            axios.get("/api/user").then((response) => {
+                this.name = response.data.name;
+                this.isAdmin = response.data.isAdmin;
+            });
+        }
         window.onscroll = function () {
             if (document.documentElement.scrollTop > 50) {
                 document.getElementById("navabr").style.backgroundColor =
