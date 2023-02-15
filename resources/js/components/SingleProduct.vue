@@ -101,7 +101,7 @@ export default {
     height: 30px;
     position: absolute;
     top: 0px;
-    right: 0px;
+    left: 0px;
     display: flex;
     justify-content: center;
     align-items: center;
