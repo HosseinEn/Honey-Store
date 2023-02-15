@@ -31,7 +31,7 @@
 
     <!-- main content -->
     <div class="container-fluid demoProduct">
-        <div class="container">
+        <div class="container-fluid">
             <div class="row text-center pt-5 pb-0 shopHeader">
                 <h3>محصولات</h3>
             </div>
@@ -222,25 +222,16 @@ export default {
 };
 </script>
 <style scoped>
-.productRow {
-    display: flex;
-    flex-wrap: wrap;
-}
 .shopHeader h3 {
     color: var(--mainColor);
     font-family: var(--mainFont);
 }
-.productItem {
-    display: flex;
-    flex-wrap: wrap;
-}
-@media only screen and (max-width: 700px) {
+@media only screen and (max-width: 480px) {
     .productItem {
         width: 100% !important;
-        justify-content: center;
-    }
+    } 
 }
-@media only screen and (min-width: 700px) {
+@media only screen and (min-width: 480px) {
     .productItem {
         width: 50% !important;
     }
@@ -250,5 +241,24 @@ export default {
         width: 33% !important;
         margin-bottom: 3rem !important;
     }
+}
+#productVfor {
+    width: 50%;
+    height: auto;
+}
+.productRow {
+    display: flex;
+    flex-wrap: wrap;
+}
+.activeFilter {
+    background-color: var(--secondColor) !important;
+    color: var(--mainColor) !important;
+}
+.productItem {
+    width: 33%;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+    height: 475px;
+    padding: 10px;
 }
 </style>
