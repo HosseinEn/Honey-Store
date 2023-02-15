@@ -113,6 +113,6 @@ export default {
     justify-content: center;
     align-items: center;
     border: 1px solid var(--thirdColor);
-    border-radius: 0 0 0 10px;
+    border-radius: 0 0 100px 0px;
 }
 </style>

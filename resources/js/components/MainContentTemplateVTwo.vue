@@ -74,7 +74,6 @@ export default {
 </script>
 
 <style scoped>
-
 .mainContents {
     padding: 7rem 5rem 7rem;
     height: auto;
