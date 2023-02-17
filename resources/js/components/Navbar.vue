@@ -133,6 +133,8 @@ export default {
         async logout() {
             await window.axios.post("/logout").then((response) => {
                 this.$store.commit("setIsLogged", false)
+                this.$store.commit("setIsAdmin", false);
+                this.$router.push({'name' : 'home'})
             });
             this.name = null;
             this.isAdmin = false;

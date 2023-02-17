@@ -23771,6 +23771,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context.next = 2;
                 return window.axios.post("/logout").then(function (response) {
                   _this2.$store.commit("setIsLogged", false);
+                  _this2.$store.commit("setIsAdmin", false);
+                  _this2.$router.push({
+                    'name': 'home'
+                  });
                 });
               case 2:
                 _this2.name = null;
