@@ -23344,7 +23344,6 @@ __webpack_require__.r(__webpack_exports__);
   methods: {
     getAttributeErrors: function getAttributeErrors(id, field) {
       var property = "product_attributes.".concat(id, ".").concat(field);
-      // console.log(this.errors[property]);
       return this.errors && this.errors[property] ? this.errors[property] : [];
     },
     handleFileUpload: function handleFileUpload(event) {
@@ -23379,9 +23378,6 @@ __webpack_require__.r(__webpack_exports__);
         _this2.$router.push({
           'name': 'admin.products'
         });
-        // console.log(response)
-        // this.errors = null;
-        // this.authorizationError = null;
       })["catch"](function (errors) {
         if (errors.response.status === 401) {
           _this2.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
@@ -23635,9 +23631,6 @@ __webpack_require__.r(__webpack_exports__);
     return {
       imageUrl: "/images/" + this.imageSelected + ""
     };
-  },
-  mounted: function mounted() {
-    console.log(this.reversed);
   }
 });
 
@@ -23662,9 +23655,6 @@ __webpack_require__.r(__webpack_exports__);
       imageUrl: "/images/" + this.imageSelected + ""
       // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
     };
-  },
-  mounted: function mounted() {
-    console.log(this.reversed);
   }
 });
 
@@ -23689,9 +23679,6 @@ __webpack_require__.r(__webpack_exports__);
       imageUrl: "/images/" + this.imageSelected + "",
       imageUrlTwo: "/images/" + this.imageSelectedTwo + ""
     };
-  },
-  mounted: function mounted() {
-    console.log(this.reversed);
   }
 });
 
@@ -23901,9 +23888,6 @@ __webpack_require__.r(__webpack_exports__);
       imageUrl: "/images/" + this.imageSelected + "",
       imageUrlTwo: "/images/" + this.imageSelectedTwo + ""
     };
-  },
-  mounted: function mounted() {
-    console.log(this.reversed);
   }
 });
 
@@ -24044,9 +24028,6 @@ __webpack_require__.r(__webpack_exports__);
       imageUrl: this.imageSelected == "seed" ? "https://picsum.photos/400/300" : this.imageSelected
     };
   },
-  mounted: function mounted() {
-    console.log(this.product.name);
-  },
   methods: {
     scrollToTop: function scrollToTop() {
       window.scrollTo(0, 0);
@@ -24076,9 +24057,6 @@ __webpack_require__.r(__webpack_exports__);
       imageUrl: "/images/" + this.imageSelected + ""
       // imageUrlTwo: "/images/" + this.imageSelectedTwo + "",
     };
-  },
-  mounted: function mounted() {
-    console.log(this.product.name);
   }
 });
 
@@ -24198,7 +24176,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
     axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/discounts/" + this.slugkey).then(function (response) {
-      console.log(response.data);
       _this.name = response.data.name;
       _this.value = response.data.value;
       _this.loading = false;
@@ -24347,12 +24324,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           'Content-Type': "multipart/form-data; boundary=".concat(formData._boundary)
         }
       }).then(function (response) {
-        console.log(response);
         _this2.errors = null;
         _this2.authorizationError = null;
         _this2.success = true;
         _this2.productAttributes = response.data.product.attributes;
-        console.log(_this2.productAttributes);
       })["catch"](function (errors) {
         _this2.success = false;
         if (errors.response.status === 401) {
@@ -24632,12 +24607,12 @@ __webpack_require__.r(__webpack_exports__);
     checkout: function checkout() {
       var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post('/api/checkout-cart').then(function (response) {
-        console.log(response.data);
         _this.$router.push({
           'path': response.data.action
         });
         window.location.href = response.data.action;
       })["catch"](function (errors) {
+        // TODO show this error
         console.log(errors);
       });
     },
@@ -24764,7 +24739,6 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
     axios.get("api/products").then(function (response) {
-      console.log(response.data.products);
       _this.products = response.data.products;
       _this.newProduct = _this.products.slice(0, 3);
       if (window.outerWidth < 800) {
@@ -24869,19 +24843,13 @@ __webpack_require__.r(__webpack_exports__);
     filterTypeMethod: function filterTypeMethod() {
       var _this3 = this;
       if (this.currentFilter !== "all") {
-        // console.log(product => product.type.name)
-        // console.log(this.filteredProducts.product.type.name)
-        console.log(this.filteredProducts);
         this.sortAndFilteredProducts = this.filteredProducts.filter(function (filproduct) {
           return filproduct.product.type.name == _this3.filterType;
         });
-        console.log(this.sortAndFilteredProducts);
       } else {
-        console.log(this.filteredProducts);
         this.sortAndFilteredProducts = this.products.filter(function (product) {
           return product.type.name == _this3.filterType;
         });
-        console.log(this.filteredProducts);
       }
     }
   }
@@ -24955,14 +24923,10 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     var _this = this;
     axios__WEBPACK_IMPORTED_MODULE_4___default().get("/api/products/" + this.id).then(function (response) {
-      console.log(response);
       _this.singleProduct = response.data.product;
       _this.type = response.data.product.type;
-      console.log(_this.type);
       _this.minPrice = response.data.minPrice;
       _this.maxPrice = response.data.maxPrice;
-      console.log(_this.minPrice);
-      console.log(_this.maxPrice);
     });
   },
   methods: {
@@ -24987,7 +24951,6 @@ __webpack_require__.r(__webpack_exports__);
           _this2.authorizationError = 'لطفا برای افزودن محصول ورود یا ثبت نام انجام دهید!';
         } else {
           _this2.errors = errors.response && errors.response.data.errors;
-          console.log(_this2.errors);
         }
         _this2.success = null;
       });
