@@ -197,7 +197,6 @@ export default {
     },
     mounted() {
         axios.get("api/products").then((response) => {
-            console.log(response.data.products);
             this.products = response.data.products;
             this.newProduct = this.products.slice(0, 3);
             if (window.outerWidth < 800) {

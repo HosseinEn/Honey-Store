@@ -204,22 +204,14 @@ export default {
         },
         filterTypeMethod() {
             if (this.currentFilter !== "all") {
-                // console.log(product => product.type.name)
-                // console.log(this.filteredProducts.product.type.name)
-                console.log(this.filteredProducts);
-
                 this.sortAndFilteredProducts = this.filteredProducts.filter(
                     (filproduct) =>
                         filproduct.product.type.name == this.filterType
                 );
-                console.log(this.sortAndFilteredProducts);
             } else {
-                console.log(this.filteredProducts);
-
                 this.sortAndFilteredProducts = this.products.filter(
                     (product) => product.type.name == this.filterType
                 );
-                console.log(this.filteredProducts);
             }
         },
     },

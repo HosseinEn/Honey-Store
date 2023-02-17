@@ -77,7 +77,6 @@ export default {
     mounted() {
         axios.get("/api/admin/discounts/" + this.slugkey)
         .then(response => {
-            console.log(response.data)
             this.name = response.data.name;
             this.value = response.data.value;
             this.loading = false;

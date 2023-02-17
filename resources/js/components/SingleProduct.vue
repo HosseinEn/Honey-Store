@@ -50,9 +50,6 @@ export default {
                     : this.imageSelected,
         };
     },
-    mounted() {
-        console.log(this.product.name);
-    },
     methods: {
         scrollToTop() {
             window.scrollTo(0, 0);

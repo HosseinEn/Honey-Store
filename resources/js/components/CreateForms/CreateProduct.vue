@@ -177,7 +177,6 @@ export default {
     methods: {
         getAttributeErrors(id, field) {
             let property = `product_attributes.${id}.${field}`
-            // console.log(this.errors[property]);
             return (this.errors && this.errors[property]) ? this.errors[property] : [];
         },
         handleFileUpload(event) {
@@ -216,9 +215,6 @@ export default {
                     this.$router.push({
                         'name': 'admin.products'
                     });
-                    // console.log(response)
-                    // this.errors = null;
-                    // this.authorizationError = null;
                 })
                 .catch(errors => {
                     if (errors.response.status === 401) {

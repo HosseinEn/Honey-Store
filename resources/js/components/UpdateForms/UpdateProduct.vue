@@ -253,12 +253,10 @@ export default {
                 }
             )
                 .then(response => {
-                    console.log(response)
                     this.errors = null;
                     this.authorizationError = null;
                     this.success = true;
                     this.productAttributes = response.data.product.attributes;
-                    console.log(this.productAttributes);
                 })
                 .catch(errors => {
                     this.success = false;

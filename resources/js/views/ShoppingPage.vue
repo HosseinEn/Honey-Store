@@ -163,14 +163,10 @@ export default {
         axios
             .get("/api/products/" + this.id)
             .then((response) => {
-                console.log(response)
                 this.singleProduct = response.data.product;
                 this.type = response.data.product.type;
-                console.log(this.type)
                 this.minPrice = response.data.minPrice;
                 this.maxPrice = response.data.maxPrice;
-                console.log(this.minPrice);
-                console.log(this.maxPrice);
             })
     },
     methods: {
@@ -197,7 +193,6 @@ export default {
                     }
                     else {
                         this.errors = errors.response && errors.response.data.errors;
-                        console.log(this.errors);
                     }
                     this.success = null;
                 })
