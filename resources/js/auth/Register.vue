@@ -132,6 +132,7 @@ export default {
           password: this.password,
           password_confirmation: this.password_confirmation,
         });
+        this.$store.commit("setIsLogged", true)
         this.$router.push({ name: "home" });
       } catch (error) {
         this.errors = error.response && error.response.data.errors;

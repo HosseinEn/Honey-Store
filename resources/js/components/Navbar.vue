@@ -132,7 +132,7 @@ export default {
     methods: {
         async logout() {
             await window.axios.post("/logout").then((response) => {
-                console.log(response.data);
+                this.$store.commit("setIsLogged", false)
             });
             this.name = null;
             this.isAdmin = false;

@@ -86,7 +86,17 @@ export default {
           password: this.password,
         });
         this.$store.commit("setIsLogged", true)
-        this.$router.push({'name' : 'admin.products'})
+        axios
+              .get("/api/is-admin")
+              .then(response => {
+                this.$store.commit("setIsAdmin", response.data.isAdmin)
+                if (response.data.isAdmin) {
+                  this.$router.push({'name' : 'admin.products'})
+                }
+                else {
+                  this.$router.push({'name' : 'home'})
+                }
+              })
       } catch (error) {
         this.errors = error.response && error.response.data.errors;
       }

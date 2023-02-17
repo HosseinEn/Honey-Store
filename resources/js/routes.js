@@ -16,8 +16,6 @@ import CreateDiscount from "./components/CreateForms/CreateDiscount.vue";
 import CreateType from "./components/CreateForms/CreateType.vue";
 import UpdateProduct from "./components/UpdateForms/UpdateProduct.vue";
 import UpdateType from "./components/UpdateForms/UpdateType.vue";
-import TestPayment from "./components/TestPayment.vue";
-import PaymentDone from "./components/PaymentDone.vue";
 import TypesTable from "./components/TypesTable.vue";
 import DiscountsTable from "./components/DiscountsTable.vue";
 import UpdateDiscount from "./components/UpdateForms/UpdateDiscount.vue";
@@ -25,6 +23,7 @@ import UsersTable from "./components/UsersTable.vue";
 import UserOrders from "./views/UserOrders.vue";
 import OrdersTable from "./components/OrdersTable.vue";
 import PageNotFound from "./components/PageNotFound.vue";
+import store from "./store.js";
 
 
 const routes = [
@@ -64,18 +63,12 @@ const routes = [
         props: true,
         component: Cart,
         beforeEnter: (to, from, next) => {
-            axios
-              .get("/api/is-logged")
-              .then((response) => {
-                if (response.data.isLogged) {
-                    next();
-                } else {
-                    next({ name: "home" });
-                }
-              })
-              .catch(() => {
-                return next({ name: "home" });
-              });
+            if (store.getters.isLoggedIn) {
+                next();
+            }
+            else {
+                next({ name: "home" })
+            }
           },
     },
     {
@@ -83,29 +76,13 @@ const routes = [
         name: "user.orders",
         component: UserOrders,
         beforeEnter: (to, from, next) => {
-            axios
-              .get("/api/is-logged")
-              .then((response) => {
-                if (response.data.isLogged) {
-                    next();
-                } else {
-                    next({ name: "home" });
-                }
-              })
-              .catch(() => {
-                return next({ name: "home" });
-              });
+            if (store.getters.isLoggedIn) {
+                next();
+            }
+            else {
+                next({ name: "home" })
+            }
           },
-    },
-    {
-        path : '/test-payment',
-        name : 'test_payment',
-        component: TestPayment
-    },
-    {
-        path : '/payment-done',
-        name : 'payment_done',
-        component: PaymentDone
     },
     {
         path: "/admin",
@@ -113,18 +90,12 @@ const routes = [
         component: Admin,
         props: true,
         beforeEnter: (to, from, next) => {
-            axios
-              .get("/api/is-admin")
-              .then((response) => {
-                if (response.data.isAdmin) {
-                    next();
-                } else {
-                    next({ name: "home" });
-                }
-              })
-              .catch(() => {
-                return next({ name: "home" });
-              });
+            if (store.getters.isAdmin) {
+                next();
+            }
+            else {
+                next({ name: "home" })
+            }
           },
         children: [
             {

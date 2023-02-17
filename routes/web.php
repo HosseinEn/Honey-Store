@@ -15,8 +15,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/{any}', function () {
+    $isLogged = Auth::check();
     return view('welcome', [
-        'isLogged' => Auth::check()
+        'isLogged' => $isLogged,
+        'isAdmin' => $isLogged && Auth::user()->is_admin
     ]);
 })->where('any', '^(?!api\/)[\/\w\.-]*');
 

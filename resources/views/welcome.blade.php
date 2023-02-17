@@ -27,6 +27,7 @@
      
         <script>
             window.isLogged = {!! json_encode($isLogged); !!};
+            window.isAdmin = {!! json_encode($isAdmin); !!};
         </script>
 
     
