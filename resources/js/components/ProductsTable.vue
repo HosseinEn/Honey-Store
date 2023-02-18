@@ -262,22 +262,8 @@ export default {
 .btnParent {
     position: relative;
 }
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-    font-family: var(--thirdFont);
-}
-td,
-th {
-    border-bottom: 1px solid var(--secondColor);
-    text-align: center;
-    padding: 8px;
-}
 
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
+
 button {
     width: 80%;
     border-radius: 5px;

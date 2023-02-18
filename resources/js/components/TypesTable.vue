@@ -6,7 +6,7 @@
             </div>
         </div>
 
-   <div class="filterCont">
+        <div class="filterCont">
             <section>
                 <router-link :to="{ name: 'admin.types.create' }">
                     <button class="createProduct">ساخت دسته بندی جدید</button>
@@ -29,9 +29,7 @@
                     <td>‌ {{ convertDate(pType.created_at) }}</td>
                     <td>
                         <router-link :to="`/admin/types/edit/${pType.slug}`">
-                            <button class="edit">
-                                ویرایش
-                            </button>
+                            <button class="edit">ویرایش</button>
                         </router-link>
                     </td>
                     <td><button class="remove">حذف</button></td>
@@ -42,8 +40,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
 export default {
     name: "productsTable",
@@ -58,11 +56,10 @@ export default {
         },
     },
     mounted() {
-        axios.get("/api/admin/types")
-        .then(response => {
+        axios.get("/api/admin/types").then((response) => {
             this.types = response.data.types;
-        })
-    }
+        });
+    },
 };
 </script>
 
@@ -71,21 +68,12 @@ export default {
     position: relative;
 }
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
     width: 100%;
-    font-family: var(--thirdFont);
 }
 
 td,
 th {
-    border-bottom: 1px solid var(--secondColor);
     text-align: center;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
 }
 button {
     width: 80%;
@@ -133,7 +121,7 @@ button {
     width: 100px;
     border: 1px solid black;
 }
-.lastFilterSection input{
+.lastFilterSection input {
     display: inline;
     margin-right: 5px;
     margin-left: 5px;

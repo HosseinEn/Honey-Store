@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
 export default {
     name: "usersTable",
@@ -41,31 +41,21 @@ export default {
         },
     },
     mounted() {
-        axios.get("/api/admin/users")
-        .then(response => {
+        axios.get("/api/admin/users").then((response) => {
             this.users = response.data.users;
-        })
-    }
+        });
+    },
 };
 </script>
 
 <style scoped>
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
     width: 100%;
-        font-family: var(--thirdFont);
 }
 
 td,
 th {
-    border-bottom: 1px solid var(--secondColor);
     text-align: center;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
 }
 button {
     width: 80%;
@@ -100,7 +90,7 @@ button {
 .edit {
     background-color: var(--thirdColor);
     color: white;
-    width:100px;
+    width: 100px;
     transition: all 0.5s linear;
 }
 .edit:hover {

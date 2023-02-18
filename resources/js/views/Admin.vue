@@ -8,6 +8,7 @@
         <p>&nbsp;</p>
     </div>
     <!-- Update -->
+    <div class="container-fluid TagsContainer">
     <div id="mySidenavRight" class="sidenav">
         <router-link id="createProduct" to="/admin/products"
             >محصولات</router-link
@@ -20,7 +21,9 @@
         >
         <router-link id="createType" to="/admin/types">نوع ها</router-link>
         <router-link id="createUser" to="/admin/users">کاربر ها</router-link>
-        <router-link id="createOrder" to="/admin/orders">سفارش‌های</router-link>
+        <router-link id="createOrder" to="/admin/orders">سفارش‌ها</router-link>
+    </div>
+
     </div>
 
     <!-- End Welcome Container -->
@@ -144,5 +147,8 @@ export default {
     top: -200px;
     width: 100%;
     height: 100px;
+}
+.TagsContainer {
+    position: relative;
 }
 </style>

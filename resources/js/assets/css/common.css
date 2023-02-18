@@ -152,3 +152,88 @@ input:-webkit-autofill:active {
     background-color: var(--thirdColor);
     color: white;
 }
+table {
+    border-collapse: collapse;
+    width: 100%;
+    font-family: var(--thirdFont);
+    border-radius: 10px;
+}
+td,
+th {
+    text-align: center;
+    padding: 8px;
+}
+table th {
+    background: #6F7BD9;
+    padding: 20px;
+    color: white;
+}
+tr:nth-child(even) {
+    background-color: #F8F7FE;
+}
+tr:nth-child(odd) {
+    background-color: #dad4fa;
+}
+
+
+.deleteIcon {
+    background-color: transparent;
+    color: red;
+    border-radius: 50%;
+      width: 30px;
+    margin: 0 auto;
+    height: 30px;
+    position: relative;
+}
+.deleteIcon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.deleteIcon:hover {
+    background-color: red;
+    color: white;
+}
+
+
+.addIcon {
+    background-color: transparent;
+    color: green;
+    border-radius: 50%;
+    width: 30px;
+    margin: 0 auto;
+    height: 30px;
+    position: relative;
+}
+.addIcon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.addIcon:hover {
+    background-color: green;
+    color: white;
+}
+
+
+.minusIcon {
+    background-color: transparent;
+    color: var(--mainColor);
+    border-radius: 50%;
+    width: 30px;
+    margin: 0 auto;
+    height: 30px;
+    position: relative;
+}
+.minusIcon i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.minusIcon:hover {
+    background-color: var(--mainColor);
+    color: white;
+}

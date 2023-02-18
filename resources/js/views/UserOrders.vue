@@ -88,12 +88,6 @@ export default {
 .tableCont th {
     font-family: var(--thirdFont);
 }
-table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-}
-
 .formSubmit td,
 th {
     text-align: center;
@@ -102,13 +96,6 @@ th {
     font-weight: bold;
     font-family: var(--thirdFont);
 }
-td,
-th {
-    border: 1px solid #bdbdbd;
-    padding: 8px;
-    text-align: center;
-}
-
 #submit {
     font-size: 1.5rem;
     width: 100%;
@@ -123,23 +110,6 @@ th {
 #submit:hover {
     background-color: var(--mainColor) !important;
 }
-
-.deleteIcon {
-    background-color: transparent;
-    color: red;
-    border-radius: 50%;
-    padding: 0.3rem 0.5rem 0.3rem;
-}
-
-.deleteIcon:hover {
-    background-color: red;
-    color: white;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
 .sumbitFormCont {
     border: 2px solid rgb(211, 211, 211);
 }

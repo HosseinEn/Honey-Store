@@ -29,7 +29,9 @@
                     <td>‌ {{ order.reference_id }}</td>
                     <td>‌ {{ order.shipping_address }}</td>
                     <td>
-                        <button class="remove" @click="cancelOrder(order.id)">لغو سفارش</button>
+                        <button class="remove" @click="cancelOrder(order.id)">
+                            لغو سفارش
+                        </button>
                     </td>
                 </tr>
             </table>
@@ -41,14 +43,15 @@
             <div class="col">
                 <section class="submitingCartContainer">
                     <div class="row text-end mb-2">
-                        <h3>مشخصات</h3>
+                        <h2>مشخصات</h2>
                     </div>
                     <div class="row">
                         <table class="formSubmit">
-
                             <tr>
-                                <td style="width: 20%">کل فروش </td>
-                                <td style="width: 80%">{{ totalOrderPrice }}</td>
+                                <td style="width: 20%">کل فروش</td>
+                                <td style="width: 80%">
+                                    {{ totalOrderPrice }}
+                                </td>
                             </tr>
                         </table>
                     </div>
@@ -59,8 +62,8 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
+import axios from "axios";
+import moment from "moment";
 
 export default {
     name: "ordersTable",
@@ -76,39 +79,38 @@ export default {
             return moment(date).format("Y-M-D");
         },
         cancelOrder(order_id) {
-            axios.get("/api/admin/orders/cancel-order/" + order_id)
-            .then(response => {
-                console.log(response);
-            })
-        }
+            axios
+                .get("/api/admin/orders/cancel-order/" + order_id)
+                .then((response) => {
+                    console.log(response);
+                });
+        },
     },
     mounted() {
-        axios.get("/api/admin/orders")
-        .then(response => {
+        axios.get("/api/admin/orders").then((response) => {
             this.orders = response.data.orders;
             this.totalOrderPrice = response.data.totalOrderPrice;
-        })
-    }
+        });
+    },
 };
 </script>
 
 <style scoped>
+.formSubmit td,
+th {
+    text-align: center;
+}
+.formSubmit td:first-child {
+    font-weight: bold;
+    font-family: var(--thirdFont);
+}
 table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
     width: 100%;
-        font-family: var(--thirdFont);
 }
 
 td,
 th {
-    border-bottom: 1px solid var(--secondColor);
     text-align: center;
-    padding: 8px;
-}
-
-tr:nth-child(even) {
-    background-color: #dddddd;
 }
 button {
     width: 80%;
@@ -143,7 +145,7 @@ button {
 .edit {
     background-color: var(--thirdColor);
     color: white;
-    width:100px;
+    width: 100px;
     transition: all 0.5s linear;
 }
 .edit:hover {
@@ -159,8 +161,8 @@ button {
     background-color: rgb(247, 83, 83);
     color: white;
 }
-.submitingCartContainer h3 {
-    font-family: var(--mainFont);
-    color: var(--mainColor);
+.submitingCartContainer h2 {
+     font-family: var(--thirdFont);
+    font-weight: 900;
 }
 </style>

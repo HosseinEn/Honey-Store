@@ -32,13 +32,13 @@
                 <td>{{ product.selected_attribute.attribute_product.price }}</td>
                 <td>{{ product.selected_attribute.attribute_product.discount_id != null ? product.selected_attribute.attribute_product.discount.value : "0.0" }}%</td>
                 <td>
-                    <span class="addIcon"    @click="increaseAmount(product.cart.id)"><i class="fa-solid fa-plus"></i></span>
+                    <div class="addIcon"    @click="increaseAmount(product.cart.id)"><i class="fa-solid fa-plus"></i></div>
                 </td>
                 <td>
-                    <span class="minusIcon"  @click="decreaseAmount(product.cart.id)"><i class="fa-solid fa-minus"></i></span>
+                    <div class="minusIcon"  @click="decreaseAmount(product.cart.id)"><i class="fa-solid fa-minus"></i></div>
                 </td>
                 <td>
-                    <span class="deleteIcon" @click="deleteHolding(product.slug, product.cart.id)"><i class="fa-solid fa-xmark"></i></span>
+                    <div class="deleteIcon" @click="deleteHolding(product.slug, product.cart.id)"><i class="fa-solid fa-xmark"></i></div>
                     <!-- <button @click="deleteHolding(product.slug)" 
                                 class="btn btn-danger waves-effect waves-light remove-record" 
                                 data-toggle="modal" data-url="" 
@@ -270,12 +270,6 @@ th {
     font-weight: bold;
     font-family: var(--thirdFont);
 }
-td,
-th {
-    border: 1px solid #bdbdbd;
-    padding: 8px;
-    text-align: center;
-}
 
 #submit {
     font-size: 1.5rem;
@@ -291,55 +285,10 @@ th {
 #submit:hover {
     background-color: var(--mainColor) !important;
 }
-
-.deleteIcon {
-    background-color: transparent;
-    color: red;
-    border-radius: 50%;
-    padding: 0.3rem 0.5rem 0.3rem;
-}
-
-.deleteIcon:hover {
-    background-color: red;
-    color: white;
-}
-
-
-.addIcon {
-    background-color: transparent;
-    color: green;
-    border-radius: 50%;
-    padding: 0.3rem 0.5rem 0.3rem;
-}
-
-.addIcon:hover {
-    background-color: green;
-    color: white;
-}
-
-
-.minusIcon {
-    background-color: transparent;
-    color: yellow;
-    border-radius: 50%;
-    padding: 0.3rem 0.5rem 0.3rem;
-}
-
-.minusIcon:hover {
-    background-color: yellow;
-    color: white;
-}
-
-
-
-tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
 .sumbitFormCont {
     border: 2px solid rgb(211, 211, 211);
 }
-.submitingCartContainer div:first-child {
+.submitingCartContainer h2 {
     font-family: var(--thirdFont);
     font-weight: 900;
 }
