@@ -24609,11 +24609,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkout: function checkout() {
-      var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post('/api/checkout-cart').then(function (response) {
-        _this.$router.push({
-          'path': response.data.action
-        });
         window.location.href = response.data.action;
       })["catch"](function (errors) {
         // TODO show this error
@@ -24626,62 +24622,62 @@ __webpack_require__.r(__webpack_exports__);
       this.showModal = true;
     },
     deleteFromCart: function deleteFromCart() {
-      var _this2 = this;
+      var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/cart/".concat(this.deleteSlug), {
         product_user_id: this.product_user_id
       }).then(function () {
-        _this2.deletedProduct = _this2.products.filter(function (product) {
-          return product.cart.id == _this2.product_user_id;
+        _this.deletedProduct = _this.products.filter(function (product) {
+          return product.cart.id == _this.product_user_id;
         });
-        _this2.totalPrice -= _this2.deletedProduct[0].selected_attribute.attribute_product.price * _this2.deletedProduct[0].cart.quantity;
-        _this2.totalPriceWithDiscount -= _this2.deletedProduct[0].selected_attribute.attribute_product.price * _this2.deletedProduct[0].cart.quantity * (100.0 - (_this2.deletedProduct[0].selected_attribute.attribute_product.discount_id != null ? _this2.deletedProduct[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
-        _this2.products = _this2.products.filter(function (product) {
-          return product.cart.id != _this2.product_user_id;
+        _this.totalPrice -= _this.deletedProduct[0].selected_attribute.attribute_product.price * _this.deletedProduct[0].cart.quantity;
+        _this.totalPriceWithDiscount -= _this.deletedProduct[0].selected_attribute.attribute_product.price * _this.deletedProduct[0].cart.quantity * (100.0 - (_this.deletedProduct[0].selected_attribute.attribute_product.discount_id != null ? _this.deletedProduct[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
+        _this.products = _this.products.filter(function (product) {
+          return product.cart.id != _this.product_user_id;
         });
-        _this2.deleteSlug = null;
-        _this2.showModal = false;
+        _this.deleteSlug = null;
+        _this.showModal = false;
       });
     },
     increaseAmount: function increaseAmount(increase) {
-      var _this3 = this;
+      var _this2 = this;
       this.errors = null;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/cart/increase-amount", {
         product_user_id: increase
       }).then(function () {
-        _this3.increaseAmountInTable = _this3.products.filter(function (product) {
+        _this2.increaseAmountInTable = _this2.products.filter(function (product) {
           return product.cart.id == increase;
         });
-        _this3.increaseAmountInTable[0].cart.quantity += 1;
-        _this3.totalPrice += _this3.increaseAmountInTable[0].selected_attribute.attribute_product.price;
-        _this3.totalPriceWithDiscount += _this3.increaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this3.increaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this3.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
+        _this2.increaseAmountInTable[0].cart.quantity += 1;
+        _this2.totalPrice += _this2.increaseAmountInTable[0].selected_attribute.attribute_product.price;
+        _this2.totalPriceWithDiscount += _this2.increaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this2.increaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this2.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
       })["catch"](function (errors) {
-        _this3.errors = errors.response && errors.response.data.errors;
+        _this2.errors = errors.response && errors.response.data.errors;
       });
     },
     decreaseAmount: function decreaseAmount(decrease) {
-      var _this4 = this;
+      var _this3 = this;
       this.errors = null;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/cart/decrease-amount", {
         product_user_id: decrease
       }).then(function () {
-        _this4.decreaseAmountInTable = _this4.products.filter(function (product) {
+        _this3.decreaseAmountInTable = _this3.products.filter(function (product) {
           return product.cart.id == decrease;
         });
-        _this4.decreaseAmountInTable[0].cart.quantity -= 1;
-        _this4.totalPrice -= _this4.decreaseAmountInTable[0].selected_attribute.attribute_product.price;
-        _this4.totalPriceWithDiscount -= _this4.decreaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this4.decreaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this4.decreaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
+        _this3.decreaseAmountInTable[0].cart.quantity -= 1;
+        _this3.totalPrice -= _this3.decreaseAmountInTable[0].selected_attribute.attribute_product.price;
+        _this3.totalPriceWithDiscount -= _this3.decreaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this3.decreaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this3.decreaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
       })["catch"](function (errors) {
-        _this4.errors = errors.response && errors.response.data.errors;
+        _this3.errors = errors.response && errors.response.data.errors;
       });
     }
   },
   mounted: function mounted() {
-    var _this5 = this;
+    var _this4 = this;
     axios__WEBPACK_IMPORTED_MODULE_4___default().get('/api/cart').then(function (response) {
-      _this5.products = response.data.products;
-      _this5.totalPrice = response.data.totalPrice;
-      _this5.totalPriceWithDiscount = response.data.totalPriceWithDiscount;
-      _this5.name_of_user = response.data.name_of_user;
+      _this4.products = response.data.products;
+      _this4.totalPrice = response.data.totalPrice;
+      _this4.totalPriceWithDiscount = response.data.totalPriceWithDiscount;
+      _this4.name_of_user = response.data.name_of_user;
     });
   }
 });

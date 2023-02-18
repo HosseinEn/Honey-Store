@@ -147,7 +147,6 @@ export default {
         checkout() {
             axios.post('/api/checkout-cart')
             .then(response => {
-                this.$router.push({ 'path' : response.data.action})
                 window.location.href = response.data.action;
             })
             .catch(errors => {

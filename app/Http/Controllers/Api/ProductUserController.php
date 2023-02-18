@@ -101,9 +101,6 @@ class ProductUserController extends Controller
     }
 
     private function calculatePrice($products) {
-        // TODO tax and carrier price ignored
-        // $products = Auth::user()->products;
-        // $products->load('attributes');
         $totalPrice = 0;
         $discounts = Discount::get();
         $totalPriceAfterDiscount = 0;
@@ -160,13 +157,8 @@ class ProductUserController extends Controller
             ]);
         }
         else {
-
-            /* checking if given quantity is available in stock */
-
                 $products = $user->products;
                 $products->load('attributes');
-
-
                 foreach ($products as $product) {
                     $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
                     if ($selectedAttribute->attribute_product->stock < $product->cart->quantity) {
@@ -176,65 +168,25 @@ class ProductUserController extends Controller
                         ]);
                     }
                 }
-
                 return $this->paymentResultMethod($user, $products);
-
-                if (true) {
-                    foreach ($products as $product) {
-                        $product->update(["stock" => $product->stock - $product->cart->quantity]);
-
-                        DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
-                            
-                            $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
-                            $product->cart->attribute_id,
-                            $product->id
-                        ]);
-                    }
-                }
-
-                
-                // TODO tax and carrier ignored
-                $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
-                // dump("status ok");
-                list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
-            
         }
 
     }
 
 
-    private function paymentResultMethod($user, $products) {
-        
-            /* sending request to bank */
+    private function paymentResultMethod($user, $products) {        
             list($totalPrice, $totalPriceWithDiscount) = $this->calculatePrice($products);
-
-            // phpinfo();
-            // var_dump(extension_loaded('soap'));
-            // var_dump( get_cfg_var('cfg_file_path') );
-
-
             $invoice = new Invoice;   
             $invoice->amount($totalPriceWithDiscount);
-            // $transactionId = $invoice->transactionId();
-            
-            // var_dump($invoice->getUuid());
-            // var_dump($user->id);
-            // var_dump($totalPriceWithDiscount);
-            // phpinfo();
             $payment = Payment::callbackUrl(route('paymentCallbackURL', ['price' => $totalPriceWithDiscount, 'id' => $user->id]))->purchase(
                 $invoice, 
                 function($driver, $transactionId) use ($user, $totalPriceWithDiscount, $invoice) {
-                    // dd($driver);
                     $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
                     $order = Order::create([
                         'user_id' => $user->id,
                         'order_status_id' => $order_status->id,
-                        // 'carrier_id' => ,
-                        // 'tax_id' => ,
-                        // 'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
                         'delivery_date' => null,
                         'total_price' => $totalPriceWithDiscount,
-                        // 'total_weight' => 
                         'invoice_no' => $invoice->getUuid(),
                         'shipping_address' => 'bullshit',
                         'transaction_id' => $transactionId,
@@ -243,18 +195,13 @@ class ProductUserController extends Controller
 
                 }
             )->pay()->toJson();
-            // dd($payment);
-
             return $payment;
     }
 
     
     public function paymentCallbackMethod(Request $request) {
         try {
-            // dd($request);
-            // var_dump($request->has('Authority'));
             if ($request->has('price') && $request->has('Authority')) {
-                // dd(Payment::amount($request->price)->transactionId($request->Authority));
                 $receipt = Payment::amount($request->price)->transactionId($request->Authority)->verify();
                 $referenceID =  $receipt->getReferenceId();
                 $order = Order::where('transaction_id' , $request->Authority)->first();
@@ -268,8 +215,6 @@ class ProductUserController extends Controller
                     ]
                 ]);
         
-
-
                 foreach ($products as $product) {
                     $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
                     $product->update(["stock" => $product->stock - $product->cart->quantity]);
@@ -299,12 +244,8 @@ class ProductUserController extends Controller
             }
             else {
                 return redirect('/');
-            }
-        
-            // You can show payment referenceId to the user.
-            // ???????????????????????????????????????
-            return redirect("/cart");
-            // return redirect(route('create.order'));
+            }        
+            return redirect("/user-orders");
         } catch (InvalidPaymentException $exception) {
             echo $exception->getMessage();
         }
@@ -312,57 +253,12 @@ class ProductUserController extends Controller
 
     }
 
-    // public function createOrder($referenceID, $userID) {
-    //     $user = User::findOrFail($userID);
-    //     $products = $user->products;
-    //     $products->load('attributes');
-    //     // TODO tax and carrier ignored
-    //     $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
-    //     $order = Order::create([
-    //         'user_id' => $user->id,
-    //         'order_status_id' => $order_status->id,
-    //         // 'carrier_id' => ,
-    //         // 'tax_id' => ,
-    //         // 'discount_id' => isset($request->discount_id) ? $request->discount_id : null,
-    //         'delivery_date' => null,
-    //         'total_price' => null,
-    //         // 'total_weight' => 
-    //         'invoice_no' => Str::random(20),
-    //         'shipping_address' => 'bullshit',
-    //         'billing_no' => null
-    //     ]);
-
-    //     $order->order_statuses()->attach([
-    //         $order_status->id => [
-    //             'status_date' => now(),
-    //         ]
-    //     ]);
-
-    //     foreach ($products as $product) {
-    //         $order->products()->attach([
-    //             $product->id => [
-    //                 'quantity' => $product->cart->quantity,
-    //                 'attribute_id' => $product->cart->attribute_id
-    //             ]
-    //         ]);
-    //     }
-    //     $user->products()->detach();
-
-    //     new JsonResponse([
-    //         'order' => $order,
-    //     ]);
-    // }
-
     public function removeFromCart(Request $request) {
         $user = Auth::user();
-        // $user->products()->detach($request->product_user_id);
-        // dd($request->product_user_id);
         $user->products()->wherePivot('id', '=', $request->product_user_id)->detach();
         $products = $user->products;
-        // $totalPrice = $this->calculatePrice();
         return new JsonResponse([
             'products' => $products,
-            // 'totalPrice' => $totalPrice
             'success' => 'محصول با موفقیت از سبد خرید حذف شد!' 
         ]);
     }
