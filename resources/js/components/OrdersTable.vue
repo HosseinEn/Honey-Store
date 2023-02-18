@@ -10,6 +10,22 @@
                 <button @click="showAll" class="showAll">نمایش همه</button>
             </section>
             <section>
+                    <select 
+                        name="filterStatus"
+                        id="filterStatus"
+                        v-model="filterStatus"
+                        class="mb-2"
+                        @change="handleOnChangeFilter"
+                    >
+                        <option value="default" disabled>
+                            انتخاب کنید
+                        </option>
+                        <option v-for="status in orderStatuses" :key="status.id" :value="`${status.id}`">
+                            {{ status.name }}
+                        </option>
+                    </select>
+            </section>
+            <section>
                 <form @submit.prevent="handleSearch">
                     <div class="filterSearch">
                         <button>جستجو</button>
@@ -25,12 +41,6 @@
             </section>
         </div>
         <div class="row p-4 btnParent">
-            <span style="color: green;">
-                <strong>{{ successOrderCancellation }}</strong>
-            </span>
-            <span style="color:red;">
-                <strong> {{ error }}</strong>
-            </span>
             <table>
                 <tr>
                     <th style="width: 20%">نام کاربر</th>
@@ -43,6 +53,7 @@
                     <th style="width: 20%">آدرس ارسال</th>
                     <th style="width: 20%">محصولات سفارش داده شده</th>
                     <th style="width: 20%">لغو سفارش</th>
+                    <th style="width: 20%">تغییر وضعیت سفارش</th>
                 </tr>
                 <tr v-for="order in orders" :key="order">
                     <td>‌ {{ order.user.name }}</td>
@@ -67,8 +78,37 @@
                             لغو سفارش
                         </button>
                     </td>
+                    <td>
+                        <div style="display: flex;">
+                            <select @change="onSelectChange">
+                                <option value="">
+                                    انتخاب کنید
+                                </option>
+
+                                <option v-for="status in orderStatuses" :key="status.id" type="number" :value="`${status.id}`">
+                                    {{ status.name }}
+                                </option>
+                            </select>
+                            <button @click="updateOrderStatus(order.id, selectedValue); scrollToMessage();">اعمال</button>
+                        </div>
+                    </td>
                 </tr>
             </table>
+            <div ref="scroltoThis">
+                <div class="alert alert-success mt-2 text-center" v-if="success">
+                    {{ success }}
+                </div>
+                <div style="color: red; text-align: center;" v-if="this.errors != null && this.errors.order_status_id">
+                    <div class="alert alert-danger mt-2" v-for="error in this.errors.order_status_id" :key="error">
+                        {{ error }}
+                    </div>
+                </div>
+                <div style="color: red; text-align: center;" v-if="this.notSelectedError != null">
+                    <div class="alert alert-danger mt-2">
+                        {{ notSelectedError }}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <div class="container p-4 tableCont">
@@ -96,9 +136,11 @@
 </template>
 
 <script>
+
 import axios from "axios";
 import moment from "moment";
 import { addCommas } from 'persian-tools';
+import { isProxy, toRaw } from 'vue';
 
 export default {
     name: "ordersTable",
@@ -106,12 +148,26 @@ export default {
         return {
             orders: null,
             totalOrderPrice: null,
-            orderStatus: null,
             successOrderCancellation: null,
-            error : null
+            orderStatuses: null,
+            success: null,
+            errors: null,
+            selectedValue: null,
+            notSelectedError: null,
+            filterStatus: 'default',
+            searchKey: null,
+            age    : 22,
         };
     },
     methods: {
+        scrollToMessage() {
+            return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" }))
+            }, 1000)
+            })
+            // this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" })
+        },
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
@@ -129,16 +185,24 @@ export default {
             axios
                 .get("/api/admin/orders/cancel-order/" + order_id)
                 .then((response) => {
-                    this.error = null;
-                    this.successOrderCancellation = 'وضعیت سفارش با موفقیت برای کاربر به کنسل شده تغییر کرد';
-                })
-                .catch(errors => {
-                    this.successOrderCancellation = null;
-                    this.error = errors.response && errors.response.data.errors.order_status_id[0];
-                })
+                    this.success = response.data.success;
+                    this.errors = null;
+                    
+                    this.canceledOrder= this.orders.filter(order => {return order.id == order_id});
+                    console.log(this.canceledOrder[0].order_status_text);
+
+                    this.canceledOrder[0].order_status_id = 6;
+                    this.canceledOrder[0].order_status_text = "لغو شده";
+
+            })
+            .catch(errors => {
+                this.errors = errors.response && errors.response.data.errors;
+                console.log(this.errors);
+                this.success = null;
+            })
         },
         handleSearch() {
-            console.log(this.searchKey  )
+            console.log(this.searchKey)
             const url = "/admin/orders?search_key=" + this.searchKey;
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
@@ -146,10 +210,73 @@ export default {
                 this.errors = null;
             });
         },
+
+        onSelectChange(event) {
+            this.selectedValue = event.target.value;
+        },
+        updateOrderStatus(order_id, order_status_id){
+
+            this.errors = null;
+            this.success = null;
+            this.notSelectedError = null;
+
+            let rawData
+            if (isProxy(this.orders)){
+                rawData = toRaw(this.orders)
+            }
+            if ((typeof rawData) == (typeof {})){
+                rawData = Object.entries(rawData).map(e => e[1]);
+            }
+
+            this.updatedOrder = rawData.find(element => {
+                return element.id === parseInt(order_id)
+            });
+
+            if(order_status_id === ''){
+                this.notSelectedError = "لطفا یک گزینه برای تغییر وضعیت انتخاب کنید";
+            }
+            else if(order_status_id == this.updatedOrder.order_status_id){
+                this.notSelectedError = `وضعیت کنونی این سفارش ${this.updatedOrder.order_status_text} میباشد`;
+            }
+            else{
+                axios.get(`/api/admin/orders/update-status/${order_id}/${order_status_id}`)
+                .then(response => {
+
+                    this.success = response.data.success;
+                    this.errors = null;
+
+                    this.updatedOrder.order_status_id = parseInt(order_status_id);
+                    this.updatedOrder.order_status_text = response.data.order.order_status_text;
+
+                    this.selectedValue = null;
+
+                })
+                .catch(errors => {
+                    this.errors = errors.response && errors.response.data.errors;
+                    console.log(this.errors);
+                    this.success = null;
+                })
+            }
+        },
+        handleOnChangeFilter() {
+            this.errors = null;
+            this.success = null;
+            this.notSelectedError = null;
+
+            const url =
+                "/admin/orders?status=" +
+                this.filterStatus 
+            this.$router.push(url);
+            axios.get("/api" + url).then((response) => {
+                this.orders = response.data.orders;
+            });
+        },
+
     },
     mounted() {
         axios.get("/api/admin/orders").then((response) => {
             this.orders = response.data.orders;
+            this.orderStatuses = response.data.orderStatuses;
             this.totalOrderPrice = response.data.totalOrderPrice;
         });
     },
