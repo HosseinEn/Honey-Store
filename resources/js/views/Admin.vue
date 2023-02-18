@@ -141,7 +141,7 @@ export default {
     margin-top: 6rem;
     background: var(--secondColor);
     position: absolute;
-    top: -100px;
+    top: -200px;
     width: 100%;
     height: 100px;
 }

@@ -49,7 +49,7 @@ export default {
   width: 60%;
   position: absolute;
   left: 50%;
-  top: 30%;
+  top: 50%;
   font-family: var(--thirdFont);
   backdrop-filter: blur(5px);
   padding: 2rem;
@@ -62,6 +62,7 @@ export default {
 .heroboxBG {
   color: white;
   text-align: center;
+  position: relative;
   width: 100%;
   overflow: hidden;
   background-size: 100% auto;
