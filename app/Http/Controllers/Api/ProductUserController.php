@@ -188,7 +188,7 @@ class ProductUserController extends Controller
                         'delivery_date' => null,
                         'total_price' => $totalPriceWithDiscount,
                         'invoice_no' => $invoice->getUuid(),
-                        'shipping_address' => 'bullshit',
+                        'shipping_address' => 'random place',
                         'transaction_id' => $transactionId,
                         'reference_id' => null
                     ]);
@@ -201,50 +201,40 @@ class ProductUserController extends Controller
     
     public function paymentCallbackMethod(Request $request) {
         try {
-            if ($request->has('price') && $request->has('Authority')) {
-                $receipt = Payment::amount($request->price)->transactionId($request->Authority)->verify();
-                $referenceID =  $receipt->getReferenceId();
-                $order = Order::where('transaction_id' , $request->Authority)->first();
-                $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
-                $user = $order->user;
-                $products = $user->products;
-                $products->load('attributes');
-                $order->order_statuses()->attach([
-                    $order_status->id => [
-                        'status_date' => now(),
+            $receipt = Payment::amount($request->price)->transactionId($request->Authority)->verify();
+            $referenceID =  $receipt->getReferenceId();
+            $order = Order::where('transaction_id' , $request->Authority)->first();
+            $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+            $user = $order->user;
+            $products = $user->products;
+            $products->load('attributes');
+            $order->order_statuses()->attach([
+                $order_status->id => [
+                    'status_date' => now(),
+                ]
+            ]);
+            foreach ($products as $product) {
+                $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
+                $product->update(["stock" => $product->stock - $product->cart->quantity]);
+
+                DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
+                    
+                    $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
+                    $product->cart->attribute_id,
+                    $product->id
+                ]);
+
+                $order->products()->attach([
+                    $product->id => [
+                        'quantity' => $product->cart->quantity,
+                        'attribute_id' => $product->cart->attribute_id
                     ]
                 ]);
-        
-                foreach ($products as $product) {
-                    $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
-                    $product->update(["stock" => $product->stock - $product->cart->quantity]);
-
-                    DB::update('update attribute_product set stock = ? where attribute_id = ? and product_id = ?', [
-                        
-                        $selectedAttribute->attribute_product->stock -= $product->cart->quantity,
-                        $product->cart->attribute_id,
-                        $product->id
-                    ]);
-
-                    $order->products()->attach([
-                        $product->id => [
-                            'quantity' => $product->cart->quantity,
-                            'attribute_id' => $product->cart->attribute_id
-                        ]
-                    ]);
-                }
-                $user->products()->detach();
-                $order->update([
-                    'reference_id' => $referenceID
-                ]);
-        
-                new JsonResponse([
-                    'order' => $order,
-                ]);
             }
-            else {
-                return redirect('/');
-            }        
+            $user->products()->detach();
+            $order->update([
+                'reference_id' => $referenceID
+            ]);      
             return redirect("/user-orders");
         } catch (InvalidPaymentException $exception) {
             echo $exception->getMessage();
