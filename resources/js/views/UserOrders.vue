@@ -13,20 +13,26 @@
     <div class="container-md tableCont p-4">
         <table>
             <tr>
-                <th style="width: 10%">شناسه کاربر</th>
-                <th style="width: 30%">قیمت کل (تومان)</th>
-                <th style="width: 20%">شماره فاکتور</th>
+                <th style="width: 10%">قیمت کل (تومان)</th>
+                <th style="width: 30%">شماره فاکتور</th>
                 <th style="width: 20%">شماره پیگیری</th>
-                <th style="width: 15%">تاریخ ثبت سفارش</th>
-                <!-- <th style="width: 10%">محصولات سفارش داده شده</th> -->
+                <th style="width: 20%">تاریخ ثبت سفارش</th>
+                <th style="width: 20%">محصولات سفارش داده شده</th>
             </tr>
             <tr v-for="order in orders" :key="order.id">
-                <td>{{ order.user_id }}</td>
                 <td>{{ order.total_price }}</td>
                 <td>{{ order.invoice_no }}</td>
                 <td>{{ order.reference_id }}</td>
                 <td>‌ {{ convertDate(order.created_at) }}</td>
-                <!-- <td>{{ order.products }}</td> -->
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item" v-for="product in order.products" :key="product.id">
+                            <router-link :to="{'path' : '/product/' + product.slug}">
+                                {{ product.name }} - {{ product.ordered.attribute.weight }}
+                            </router-link>
+                        </li>
+                    </ul>
+                </td>       
             </tr>
         </table>
     </div>
@@ -57,7 +63,7 @@ export default {
     },
     methods: {
         convertDate(date) {
-            return moment(date).format("Y-M-D");
+            return moment(date).format("Y-M-D H:m:s");
         },
     },
     mounted() {

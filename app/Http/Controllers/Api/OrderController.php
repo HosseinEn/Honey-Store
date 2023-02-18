@@ -3,12 +3,15 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use App\Models\Order;
 use App\Models\OrderStatus;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\ValidationException;
 
@@ -30,12 +33,15 @@ class OrderController extends Controller
 
     // TODO Maybe not needed and loading data in index would be better.
     public function showUserOrderProducts() {
-        // if (Gate::denies('view_order', $order)) {
-        //     return abort(404);
-        // }
         $user = Auth::user();
-        $orders = $user->orders;
-        // $order = $order->load('products');
+        $orders = $user->orders()->orderBy('created_at', 'desc')->get();
+        $orders->load('products');
+        $attributes = Attribute::get();
+        foreach($orders as $order) {
+            foreach($order->products as $product) {
+                $product->ordered->attribute = $attributes->where('id', $product->ordered->attribute_id)->first();
+            }
+        }
         return new JsonResponse([
             'orders' => $orders,
         ]);

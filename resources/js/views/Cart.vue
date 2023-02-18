@@ -13,7 +13,7 @@
     <div class="container tableContMain p-4">
         <table>
             <tr>
-                <th style="width: 10%">نام محصول - وزن</th>
+                <th style="width: 10%">نام محصول - وزن(کیلوگرم)</th>
                 <th style="width: 10%">دسته‌ بندی</th>
                 <th style="width: 10%">تعداد موجود از این نوع</th>
                 <th style="width: 10%">تعداد انتخاب شده توسط شما</th>
@@ -25,7 +25,7 @@
             </tr>
             <tr v-for="product in products" :key="product.id">
             <!-- {{ product.cart }} -->
-                <td>{{ product.name }}</td>
+                <td>{{ product.name  }} - {{ product.selected_attribute.weight }}</td>
                 <td>{{ product.type.name }}</td>
                 <td>{{ product.selected_attribute.attribute_product.stock }}</td>
                 <td>{{ product.cart.quantity }}</td>
@@ -147,7 +147,6 @@ export default {
         checkout() {
             axios.post('/api/checkout-cart')
             .then(response => {
-                this.$router.push({ 'path' : response.data.action})
                 window.location.href = response.data.action;
             })
             .catch(errors => {
