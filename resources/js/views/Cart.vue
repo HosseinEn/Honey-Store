@@ -29,7 +29,7 @@
                 <td>{{ product.type.name }}</td>
                 <td>{{ product.selected_attribute.attribute_product.stock }}</td>
                 <td>{{ product.cart.quantity }}</td>
-                <td>{{ product.selected_attribute.attribute_product.price }}</td>
+                <td>{{ addCommasToPrice(product.selected_attribute.attribute_product.price) }}</td>
                 <td>{{ product.selected_attribute.attribute_product.discount_id != null ? product.selected_attribute.attribute_product.discount.value : "0.0" }}%</td>
                 <td>
                     <div class="addIcon"    @click="increaseAmount(product.cart.id)"><i class="fa-solid fa-plus"></i></div>
@@ -88,11 +88,15 @@
                             </tr>
                             <tr>
                                 <td>قیمت کل</td>
-                                <td>{{ this.totalPrice }}</td>
+                                <td>{{ addCommasToPrice(this.totalPrice) }}</td>
                             </tr>
                             <tr>
                                 <td>قیمت کل با تخفیف</td>
-                                <td>{{ this.totalPriceWithDiscount }}</td>
+                                <td>{{ addCommasToPrice(this.totalPriceWithDiscount) }}</td>
+                            </tr>
+                            <tr>
+                                <td>قیمت کل با تخفیف به حروف</td>
+                                <td>{{ convertNumberToWords(this.totalPriceWithDiscount) }} تومان</td>
                             </tr>
                         </table>
                     </div>
@@ -115,7 +119,7 @@ import Footer from "../components/Footer.vue";
 import DeleteModal from "../components/DeleteModal";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 import axios from "axios";
-
+import { addCommas, NumberToWords } from 'persian-tools';
 
 
 
@@ -154,7 +158,12 @@ export default {
                 console.log(errors);
             });
         },
-
+        addCommasToPrice(price) {
+            return addCommas(price)
+        },
+        convertNumberToWords(price) {
+            return NumberToWords(price)
+        },
         deleteHolding(slug, id){
             this.deleteSlug = slug;
             this.product_user_id = id;

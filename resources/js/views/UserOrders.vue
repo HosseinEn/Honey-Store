@@ -20,13 +20,13 @@
                 <th style="width: 20%">محصولات سفارش داده شده</th>
             </tr>
             <tr v-for="order in orders" :key="order.id">
-                <td>{{ order.total_price }}</td>
+                <td>{{ addCommasToPrice(order.total_price) }}</td>
                 <td>{{ order.invoice_no }}</td>
                 <td>{{ order.reference_id }}</td>
                 <td>‌ {{ convertDate(order.created_at) }}</td>
                 <td>
                     <ul class="list-group">
-                        <li class="list-group-item" v-for="product in order.products" :key="product.id">
+                        <li class="list-group-item mt-1" v-for="product in order.products" :key="product.id">
                             <router-link :to="{'path' : '/product/' + product.slug}">
                                 {{ product.name }} - {{ product.ordered.attribute.weight }}
                             </router-link>
@@ -46,7 +46,8 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 import axios from "axios";
-import moment from 'moment';
+import moment from 'jalali-moment'
+import { addCommas } from 'persian-tools';
 
 
 export default {
@@ -63,7 +64,10 @@ export default {
     },
     methods: {
         convertDate(date) {
-            return moment(date).format("Y-M-D H:m:s");
+            return moment(date).locale('fa').format("YYYY-M-D H:m:s");
+        },
+        addCommasToPrice(price) {
+            return addCommas(price)
         },
     },
     mounted() {

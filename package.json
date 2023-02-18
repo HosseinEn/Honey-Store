@@ -18,7 +18,9 @@
     },
     "dependencies": {
         "bootstrap": "^5.2.2",
+        "jalali-moment": "^3.3.11",
         "moment": "^2.29.4",
+        "persian-tools": "^0.0.5",
         "vue": "^3.2.36",
         "vue-route": "^1.5.1",
         "vue-router": "^4.1.5",
