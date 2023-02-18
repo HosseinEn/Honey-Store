@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use App\Models\Attribute;
 use Illuminate\Validation\ValidationException;
 
 class OrderController extends Controller
@@ -20,13 +21,26 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-
-        $orders = Order::orderBy("created_at", "desc")->get();
-        $orders->load('user');
+        if ($request->has('search_key')) {
+            $search_key = $request->get('search_key');
+            $search_key = preg_replace('/\s+/', '', $search_key); // Remove all whitespace
+            $orders = Order::where('invoice_no', $search_key)->get();
+        }
+        else  {
+            $orders = Order::orderBy("created_at", "desc")->get();
+        }
+        $orders->load(['products', 'user']);
+        $attributes = Attribute::get();
+        foreach($orders as $order) {
+            foreach($order->products as $product) {
+                $product->ordered->attribute = $attributes->where('id', $product->ordered->attribute_id)->first();
+            }
+        }
         $order_statuses = OrderStatus::get();
         foreach($orders as $order) {
             $order['order_status_text'] = $order_statuses->where('id', $order->order_status_id)->first()->name;
         }
+        
         $totalOrderPrice = $orders->sum('total_price');
 
         return new JsonResponse([

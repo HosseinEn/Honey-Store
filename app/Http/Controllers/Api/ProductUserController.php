@@ -181,7 +181,7 @@ class ProductUserController extends Controller
             $payment = Payment::callbackUrl(route('paymentCallbackURL', ['price' => $totalPriceWithDiscount, 'id' => $user->id]))->purchase(
                 $invoice, 
                 function($driver, $transactionId) use ($user, $totalPriceWithDiscount, $invoice) {
-                    $order_status = OrderStatus::where('name', 'در انتظار تایید اپراتور')->first();
+                    $order_status = OrderStatus::where('name', 'تایید شده')->first();
                     $order = Order::create([
                         'user_id' => $user->id,
                         'order_status_id' => $order_status->id,

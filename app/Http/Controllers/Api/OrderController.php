@@ -42,6 +42,10 @@ class OrderController extends Controller
                 $product->ordered->attribute = $attributes->where('id', $product->ordered->attribute_id)->first();
             }
         }
+        $order_statuses = OrderStatus::get();
+        foreach($orders as $order) {
+            $order->order_status_text = $order_statuses->where('id', $order->order_status_id)->first()->name;
+        }
         return new JsonResponse([
             'orders' => $orders,
         ]);
