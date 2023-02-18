@@ -315,7 +315,6 @@ button {
     margin-right: 10px;
     margin-bottom: 10px;
     transition: 1s linear;
-    font-family: var(--thirdFont);
 }
 .filterSearch button:hover {
     background-color: var(--thirdColor);

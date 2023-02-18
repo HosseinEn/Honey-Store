@@ -157,6 +157,9 @@ export default {
 </script>
 
 <style scoped>
+.filterCont {
+    height: 100px !important;
+}
 .formSubmit td,
 th {
     text-align: center;
@@ -233,7 +236,19 @@ button {
     margin-right: 10px;
     margin-bottom: 10px;
     transition: 1s linear;
-    font-family: var(--thirdFont);
+}
+.filterSearch button:hover {
+    background-color: var(--thirdColor);
+}
+.filterSearch input {
+    display: inline;
+    height: 33px;
+    padding-bottom: 7px;
+    width: 240px;
+}
+.filterSearch input:focus {
+    outline: 1px solid var(--thirdColor);
+    border: 1px solid var(--mainColor);
 }
 .filterCont {
     width: 100%;
