@@ -17,9 +17,12 @@
                         class="mb-2"
                         @change="handleOnChangeFilter"
                     >
-                        <option value="default" disabled>
+                        <option value="all">
                             انتخاب کنید
                         </option>
+                        <option value="failed">
+                            سفارشات ناموفق
+                        </option> 
                         <option v-for="status in orderStatuses" :key="status.id" :value="`${status.id}`">
                             {{ status.name }}
                         </option>
@@ -43,6 +46,7 @@
         <div class="row p-4 btnParent">
             <table>
                 <tr>
+                    <th style="width: 20%">#</th>
                     <th style="width: 20%">نام کاربر</th>
                     <th style="width: 20%">ایمیل کاربر</th>
                     <th style="width: 20%">تاریخ ثبت</th>
@@ -55,14 +59,15 @@
                     <th style="width: 20%">لغو سفارش</th>
                     <th style="width: 20%">تغییر وضعیت سفارش</th>
                 </tr>
-                <tr v-for="order in orders" :key="order">
+                <tr v-for="(order, index) in orders" :key="order">
+                     <td>{{ index + 1 }}</td>
                     <td>‌ {{ order.user.name }}</td>
                     <td>‌ {{ order.user.email }}</td>
                     <td>‌ {{ convertDate(order.created_at) }}</td>
                     <td>‌ {{ addCommasToPrice(order.total_price) }}</td>
                     <td>‌ {{ order.order_status_text }}</td>
                     <td>‌ {{ order.invoice_no }}</td>
-                    <td>‌ {{ order.reference_id }}</td>
+                    <td>‌ {{ order.reference_id ?? 'سفارش ناموفق ❌' }}</td>
                     <td>‌ {{ order.shipping_address }}</td>
                     <td>
                         <ul class="list-group">
@@ -89,7 +94,7 @@
                                     {{ status.name }}
                                 </option>
                             </select>
-                            <button @click="updateOrderStatus(order.id, selectedValue); scrollToMessage();">اعمال</button>
+                            <button @click="updateOrderStatus(order, selectedValue); scrollToMessage();">اعمال</button>
                         </div>
                     </td>
                 </tr>
@@ -138,7 +143,7 @@
 <script>
 
 import axios from "axios";
-import moment from "moment";
+import moment from 'jalali-moment'
 import { addCommas } from 'persian-tools';
 import { isProxy, toRaw } from 'vue';
 
@@ -154,7 +159,7 @@ export default {
             errors: null,
             selectedValue: null,
             notSelectedError: null,
-            filterStatus: 'default',
+            filterStatus: 'all',
             searchKey: null,
             age    : 22,
         };
@@ -169,19 +174,21 @@ export default {
             // this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" })
         },
         convertDate(date) {
-            return moment(date).format("Y-M-D");
+            return moment(date).locale('fa').format("YYYY-M-D H:m:s");
         },
         addCommasToPrice(price) {
             return addCommas(price)
         },
         showAll() {
             this.errors = null;
+            this.notSelectedError = null;
             this.$router.push("/admin/orders");
             axios.get("/api/admin/orders").then((response) => {
                 this.orders = response.data.orders;
             });
         },
         cancelOrder(order_id) {
+            this.notSelectedError = null;
             axios
                 .get("/api/admin/orders/cancel-order/" + order_id)
                 .then((response) => {
@@ -202,51 +209,40 @@ export default {
             })
         },
         handleSearch() {
-            console.log(this.searchKey)
             const url = "/admin/orders?search_key=" + this.searchKey;
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
                 this.errors = null;
+                this.notSelectedError = null;
             });
         },
 
         onSelectChange(event) {
             this.selectedValue = event.target.value;
         },
-        updateOrderStatus(order_id, order_status_id){
-
+        updateOrderStatus(order, order_status_id){
+            console.log(order)
             this.errors = null;
             this.success = null;
             this.notSelectedError = null;
 
-            let rawData
-            if (isProxy(this.orders)){
-                rawData = toRaw(this.orders)
-            }
-            if ((typeof rawData) == (typeof {})){
-                rawData = Object.entries(rawData).map(e => e[1]);
-            }
-
-            this.updatedOrder = rawData.find(element => {
-                return element.id === parseInt(order_id)
-            });
-
-            if(order_status_id === ''){
+            if(!order_status_id){
                 this.notSelectedError = "لطفا یک گزینه برای تغییر وضعیت انتخاب کنید";
             }
-            else if(order_status_id == this.updatedOrder.order_status_id){
-                this.notSelectedError = `وضعیت کنونی این سفارش ${this.updatedOrder.order_status_text} میباشد`;
+            else if(order_status_id == order.order_status_id){
+                this.notSelectedError = `وضعیت کنونی این سفارش ${order.order_status_text} میباشد`;
             }
             else{
-                axios.get(`/api/admin/orders/update-status/${order_id}/${order_status_id}`)
+                axios.get(`/api/admin/orders/update-status/${order.id}/${order_status_id}`)
                 .then(response => {
 
                     this.success = response.data.success;
                     this.errors = null;
 
-                    this.updatedOrder.order_status_id = parseInt(order_status_id);
-                    this.updatedOrder.order_status_text = response.data.order.order_status_text;
+                    
+                    order.order_status_id = parseInt(order_status_id);
+                    order.order_status_text = response.data.order.order_status_text;
 
                     this.selectedValue = null;
 
