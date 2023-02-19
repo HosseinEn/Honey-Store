@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::get();
+        $orders = Order::orderBy('created_at', 'DESC')->get();
         $orders->load(['products', 'user']);
         // DB::connection()->enableQueryLog();
         if ($request->has('search_key')) {
@@ -32,15 +32,7 @@ class OrderController extends Controller
         else if (
             $request->has('status')
         ) {
-            // if ($request->has('from') && $request->has('to')) {
-            //     $products = $this->applyDateFilter($products, $request->get('from'), $request->get('to'));
-            // }
-            if ($request->has('status')) {
-                $orders = $this->applyStatusFilter($orders, $request->get('status'));
-            }
-            // if ($request->get('stock') != null) {
-            //     $products = $this->applyStockFilter($products, $request->get('stock'));
-            // }
+            $orders = $this->applyStatusFilter($orders, $request->get('status'));
         }
         $attributes = Attribute::get();
         $orderStatuses = OrderStatus::get();
@@ -65,6 +57,8 @@ class OrderController extends Controller
     private function applyStatusFilter($orders, $status) {
         if ($status == 'all') {
             return $orders;
+        } else if ($status == 'failed') {
+            return $orders->whereNull('reference_id');
         }
         return $orders->where('order_status_id', $status);
     }
