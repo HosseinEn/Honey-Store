@@ -24,6 +24,10 @@ import UserOrders from "./views/UserOrders.vue";
 import OrdersTable from "./components/OrdersTable.vue";
 import PageNotFound from "./components/PageNotFound.vue";
 import store from "./store.js";
+import UserProfile from "./components/UserProfile/UserProfile.vue"
+import EditProfile from "./components/UserProfile/EditProfile.vue"
+import ChangePassword from "./components/UserProfile/ChangePassword.vue"
+
 
 
 const routes = [
@@ -62,6 +66,45 @@ const routes = [
         name: "cart",
         props: true,
         component: Cart,
+        beforeEnter: (to, from, next) => {
+            if (store.getters.isLoggedIn) {
+                next();
+            }
+            else {
+                next({ name: "home" })
+            }
+          },
+    },
+    {
+        path: '/user-profile',
+        name: 'user_profile',
+        component: UserProfile,
+        beforeEnter: (to, from, next) => {
+            if (store.getters.isLoggedIn) {
+                next();
+            }
+            else {
+                next({ name: "home" })
+            }
+          },
+    },
+    {
+        path: '/user-edit-profile',
+        name: 'user_edit_profile',
+        component: EditProfile,
+        beforeEnter: (to, from, next) => {
+            if (store.getters.isLoggedIn) {
+                next();
+            }
+            else {
+                next({ name: "home" })
+            }
+          },
+    },
+    {
+        path: '/user-change-password',
+        name: 'user_change_password',
+        component: ChangePassword,
         beforeEnter: (to, from, next) => {
             if (store.getters.isLoggedIn) {
                 next();
