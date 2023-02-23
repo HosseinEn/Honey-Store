@@ -2,14 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Controllers\Controller;
 use App\Models\Product;
-use Illuminate\Http\JsonResponse;
+use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
     public function index() {
+        $discounts = Discount::all();
+
         $products = Product::with([
             'attributes' => function($query) {
                 return $query->where('stock', '!=', 0);
@@ -18,7 +21,8 @@ class ProductController extends Controller
             'type'
         ])->isActive()->get();
         return new JsonResponse([
-            'products' => $products
+            'products' => $products,
+            'discounts' => $discounts,
         ]);
     }
 

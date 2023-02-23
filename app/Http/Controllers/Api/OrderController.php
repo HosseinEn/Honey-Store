@@ -67,7 +67,7 @@ class OrderController extends Controller
             'order_status_id' => $order_status->id
         ]);
         return new JsonResponse([
-            'success' => 'وضعیت سفارش شما با موفقیت تغییر کرد!'
+            'success' => 'درخواست لغو شما با موفقیت ثبت شد. از بخش سفارشات خود وضعیت سفارش را پیگیری کنید'
         ]);
     }
 }
