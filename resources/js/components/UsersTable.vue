@@ -10,12 +10,16 @@
                 <tr>
                     <th style="width: 20%">نام کاربر</th>
                     <th style="width: 20%">ایمیل</th>
+                    <th style="width: 20%">شماره تماس</th>
+                    <th style="width: 20%">ادمین</th>
                     <th style="width: 20%">تاریخ ثبت‌نام</th>
                     <th style="width: 20%">حذف</th>
                 </tr>
                 <tr v-for="user in users" :key="user">
                     <td>‌ {{ user.name }}</td>
+                    <td>‌ {{ user.phone }}</td>
                     <td>‌ {{ user.email }}</td>
+                    <td>‌ {{ user.is_admin ? '✅' : '❌' }}</td>
                     <td>‌ {{ convertDate(user.created_at) }}</td>
                     <td><button class="remove">حذف</button></td>
                 </tr>
