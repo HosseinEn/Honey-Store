@@ -145,7 +145,6 @@
 import axios from "axios";
 import moment from 'jalali-moment'
 import { addCommas } from 'persian-tools';
-import { isProxy, toRaw } from 'vue';
 
 export default {
     name: "ordersTable",
@@ -213,6 +212,7 @@ export default {
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
+                console.log(this.orders)
                 this.errors = null;
                 this.notSelectedError = null;
             });
@@ -272,6 +272,7 @@ export default {
     mounted() {
         axios.get("/api/admin/orders").then((response) => {
             this.orders = response.data.orders;
+            console.log(this.orders)
             this.orderStatuses = response.data.orderStatuses;
             this.totalOrderPrice = response.data.totalOrderPrice;
         });

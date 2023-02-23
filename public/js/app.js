@@ -23815,8 +23815,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var jalali_moment__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(jalali_moment__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var persian_tools__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! persian-tools */ "./node_modules/persian-tools/dist/persian-tools.umd.min.js");
 /* harmony import */ var persian_tools__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(persian_tools__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
-
 
 
 
@@ -23888,6 +23886,7 @@ __webpack_require__.r(__webpack_exports__);
       this.$router.push(url);
       axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api" + url).then(function (response) {
         _this4.orders = response.data.orders;
+        console.log(_this4.orders);
         _this4.errors = null;
         _this4.notSelectedError = null;
       });
@@ -23935,6 +23934,7 @@ __webpack_require__.r(__webpack_exports__);
     var _this7 = this;
     axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/admin/orders").then(function (response) {
       _this7.orders = response.data.orders;
+      console.log(_this7.orders);
       _this7.orderStatuses = response.data.orderStatuses;
       _this7.totalOrderPrice = response.data.totalOrderPrice;
     });

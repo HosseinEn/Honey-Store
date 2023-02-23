@@ -23,11 +23,12 @@ class OrderController extends Controller
     {
         $orders = Order::orderBy('created_at', 'DESC')->get();
         $orders->load(['products', 'user']);
-        // DB::connection()->enableQueryLog();
         if ($request->has('search_key')) {
             $search_key = $request->get('search_key');
             $search_key = preg_replace('/\s+/', '', $search_key); // Remove all whitespace
-            $orders = Order::where('invoice_no', $search_key)->get();
+            $orders = $orders->filter(function ($order) use ($search_key) {
+                return $order->invoice_no == $search_key;
+            });
         }        
         else if (
             $request->has('status')
