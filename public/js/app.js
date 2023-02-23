@@ -24783,6 +24783,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_MainContentTemplateVThree_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../components/MainContentTemplateVThree.vue */ "./resources/js/components/MainContentTemplateVThree.vue");
 /* harmony import */ var _components_MainContentTemplateVTwo_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../components/MainContentTemplateVTwo.vue */ "./resources/js/components/MainContentTemplateVTwo.vue");
 /* harmony import */ var _components_IntroTemplate_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../components/IntroTemplate.vue */ "./resources/js/components/IntroTemplate.vue");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_8__);
+
 
 
 
@@ -24803,7 +24806,49 @@ __webpack_require__.r(__webpack_exports__);
     MainContentTemplateVThree: _components_MainContentTemplateVThree_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     MainContentTemplateVTwo: _components_MainContentTemplateVTwo_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   },
-  mounted: function mounted() {},
+  data: function data() {
+    return {
+      map: null
+    };
+  },
+  created: function created() {
+    var _this = this;
+    // console.log('eeee')
+    // const headers = {
+    //   'x-api-key': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA3N2U0MmNiYTVhMzAzMjdjNTVjZmRkMzA2ZjNlMGJhOWI3NGUwYTM0MDU1ZTZhZDMxNmM0YTIzMTQwMWFjODY4MTg3MWM0YjI5YTM0OWUxIn0.eyJhdWQiOiIyMTE5MCIsImp0aSI6IjA3N2U0MmNiYTVhMzAzMjdjNTVjZmRkMzA2ZjNlMGJhOWI3NGUwYTM0MDU1ZTZhZDMxNmM0YTIzMTQwMWFjODY4MTg3MWM0YjI5YTM0OWUxIiwiaWF0IjoxNjc2ODkyMTEzLCJuYmYiOjE2NzY4OTIxMTMsImV4cCI6MTY3OTMxMTMxMywic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.aOkd-f6hRG3Y_GVINHmtumlkCD98vWbAytov5mXSh4yMXSAqookmK697vcqpserijSiI24T4FiJm0SG1cvAYlHYN7-MZTi3YoxxBVQ9cRHswuExqxk9APZbG1eXOl_fiwKfiQVrqesUfHaDLB4VQbeYf1KzCc4JWeXUl3ivd4qY9cy5LRHXayVEhwE3SwEZPF_7MT6Wsvi4LDlJZbXCe9qtUlOgMqJtEedjvncpnb54Hs6e1c5LCeRkYVmTPGrepQ_VoGEqGDakwkkSg2XTZqIks--Gbr1vZdccJRhofCOB5BmaKVb6BXxSB69-OVw2WV1zUEL6FPGojSUscEryTPw',
+    //   'Content-Type':  'application/json',
+    // }
+    // axios.get('https://map.ir/static?width=700&height=400&zoom_level=12&markers=color%3Aorigin%7Clabel%3A%D9%85%D9%BE%7C51.422174%2C35.732469', {
+    //   headers: headers,
+    //   withCredentials: true,
+    // })
+    // .then(response => console.log(response.data))
+    // .catch(errors => console.log(errors.response));
+    axios__WEBPACK_IMPORTED_MODULE_8___default().get('/show-map').then(function (response) {
+      // this.map = 'data:image/png;base64,' + btoa(
+      //     new Uint8Array(response.data)
+      //     .reduce((data, byte) => data + String.fromCharCode(byte), '')
+      // );
+      // var reader = new FileReader()
+      // console.logr(reader.readAsDataURL(response.data))
+      // this.map = btoa(response.data);
+      // console.log(response.data)
+      // this.map = response.data
+      // this.map = response.data
+      // console.log(this.map)
+      var blob = new Blob([response.data], {
+        type: 'image/png'
+      });
+      // create a URL for the Blob
+      _this.map = URL.createObjectURL(blob);
+    });
+    // const url = '/show-map'
+    // fetch(url)
+    // .then(res => res.blob())
+    // .then(res => console.log(res))
+    // .catch(error => console.log(error))
+  },
+
   methods: {
     scrollToTop: function scrollToTop() {
       window.scrollTo(0, 0);
@@ -29114,26 +29159,18 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quo illum adipisci fugiat maxime quae, incidunt doloribus porro eligendi dicta ut laboriosam sint iure inventore et animi obcaecati eos expedita? طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_20 = {
+  "class": "container"
+};
+var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "container"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "row text-center mb-5"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Lorem ipsum dolor sit.")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
-    "class": "row d-flex justify-content-center align-content-center"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("iframe", {
-    src: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14918.626637417177!2d52.67744995439325!3d36.5558034096635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8f88494db70a07%3A0xf3a380da3076a39!2sBabol%2C%20Mazandaran%20Province%2C%20Iran!5e0!3m2!1sen!2sfr!4v1675967488866!5m2!1sen!2sfr",
-    width: "600",
-    height: "450",
-    style: {
-      "border": "0"
-    },
-    allowfullscreen: "",
-    loading: "lazy",
-    referrerpolicy: "no-referrer-when-downgrade"
-  })])], -1 /* HOISTED */);
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Lorem ipsum dolor sit.")], -1 /* HOISTED */);
 });
-
+var _hoisted_22 = {
+  "class": "row d-flex justify-content-center align-content-center"
+};
+var _hoisted_23 = ["src"];
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
   var _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar");
@@ -29235,7 +29272,10 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_19];
     }),
     _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Content 2 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Location "), _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End of Location "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Content 2 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Location "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14918.626637417177!2d52.67744995439325!3d36.5558034096635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8f88494db70a07%3A0xf3a380da3076a39!2sBabol%2C%20Mazandaran%20Province%2C%20Iran!5e0!3m2!1sen!2sfr!4v1675967488866!5m2!1sen!2sfr\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img :src=\"`data:${map}`\" alt=\"\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: $data.map,
+    alt: ""
+  }, null, 8 /* PROPS */, _hoisted_23), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.map), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End of Location "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -30254,6 +30294,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_css_common_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/css/common.css */ "./resources/js/assets/css/common.css");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
+/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cors */ "./node_modules/cors/lib/index.js");
+/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_7__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
@@ -30262,8 +30304,15 @@ __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 
 
+
+var cors = __webpack_require__(/*! cors */ "./node_modules/cors/lib/index.js");
+var corsConfig = {
+  credentials: true,
+  origin: true
+};
 var app = vue__WEBPACK_IMPORTED_MODULE_0__.createApp({});
 app.component('app', _App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
+// app.use(cors(corsConfig));
 app.use(_store__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.use(_routes__WEBPACK_IMPORTED_MODULE_3__["default"]).mount('#app');
 
@@ -35850,6 +35899,254 @@ defineJQueryPlugin(Toast);
 
 /***/ }),
 
+/***/ "./node_modules/cors/lib/index.js":
+/*!****************************************!*\
+  !*** ./node_modules/cors/lib/index.js ***!
+  \****************************************/
+/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+
+(function () {
+
+  'use strict';
+
+  var assign = __webpack_require__(/*! object-assign */ "./node_modules/object-assign/index.js");
+  var vary = __webpack_require__(/*! vary */ "./node_modules/vary/index.js");
+
+  var defaults = {
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204
+  };
+
+  function isString(s) {
+    return typeof s === 'string' || s instanceof String;
+  }
+
+  function isOriginAllowed(origin, allowedOrigin) {
+    if (Array.isArray(allowedOrigin)) {
+      for (var i = 0; i < allowedOrigin.length; ++i) {
+        if (isOriginAllowed(origin, allowedOrigin[i])) {
+          return true;
+        }
+      }
+      return false;
+    } else if (isString(allowedOrigin)) {
+      return origin === allowedOrigin;
+    } else if (allowedOrigin instanceof RegExp) {
+      return allowedOrigin.test(origin);
+    } else {
+      return !!allowedOrigin;
+    }
+  }
+
+  function configureOrigin(options, req) {
+    var requestOrigin = req.headers.origin,
+      headers = [],
+      isAllowed;
+
+    if (!options.origin || options.origin === '*') {
+      // allow any origin
+      headers.push([{
+        key: 'Access-Control-Allow-Origin',
+        value: '*'
+      }]);
+    } else if (isString(options.origin)) {
+      // fixed origin
+      headers.push([{
+        key: 'Access-Control-Allow-Origin',
+        value: options.origin
+      }]);
+      headers.push([{
+        key: 'Vary',
+        value: 'Origin'
+      }]);
+    } else {
+      isAllowed = isOriginAllowed(requestOrigin, options.origin);
+      // reflect origin
+      headers.push([{
+        key: 'Access-Control-Allow-Origin',
+        value: isAllowed ? requestOrigin : false
+      }]);
+      headers.push([{
+        key: 'Vary',
+        value: 'Origin'
+      }]);
+    }
+
+    return headers;
+  }
+
+  function configureMethods(options) {
+    var methods = options.methods;
+    if (methods.join) {
+      methods = options.methods.join(','); // .methods is an array, so turn it into a string
+    }
+    return {
+      key: 'Access-Control-Allow-Methods',
+      value: methods
+    };
+  }
+
+  function configureCredentials(options) {
+    if (options.credentials === true) {
+      return {
+        key: 'Access-Control-Allow-Credentials',
+        value: 'true'
+      };
+    }
+    return null;
+  }
+
+  function configureAllowedHeaders(options, req) {
+    var allowedHeaders = options.allowedHeaders || options.headers;
+    var headers = [];
+
+    if (!allowedHeaders) {
+      allowedHeaders = req.headers['access-control-request-headers']; // .headers wasn't specified, so reflect the request headers
+      headers.push([{
+        key: 'Vary',
+        value: 'Access-Control-Request-Headers'
+      }]);
+    } else if (allowedHeaders.join) {
+      allowedHeaders = allowedHeaders.join(','); // .headers is an array, so turn it into a string
+    }
+    if (allowedHeaders && allowedHeaders.length) {
+      headers.push([{
+        key: 'Access-Control-Allow-Headers',
+        value: allowedHeaders
+      }]);
+    }
+
+    return headers;
+  }
+
+  function configureExposedHeaders(options) {
+    var headers = options.exposedHeaders;
+    if (!headers) {
+      return null;
+    } else if (headers.join) {
+      headers = headers.join(','); // .headers is an array, so turn it into a string
+    }
+    if (headers && headers.length) {
+      return {
+        key: 'Access-Control-Expose-Headers',
+        value: headers
+      };
+    }
+    return null;
+  }
+
+  function configureMaxAge(options) {
+    var maxAge = (typeof options.maxAge === 'number' || options.maxAge) && options.maxAge.toString()
+    if (maxAge && maxAge.length) {
+      return {
+        key: 'Access-Control-Max-Age',
+        value: maxAge
+      };
+    }
+    return null;
+  }
+
+  function applyHeaders(headers, res) {
+    for (var i = 0, n = headers.length; i < n; i++) {
+      var header = headers[i];
+      if (header) {
+        if (Array.isArray(header)) {
+          applyHeaders(header, res);
+        } else if (header.key === 'Vary' && header.value) {
+          vary(res, header.value);
+        } else if (header.value) {
+          res.setHeader(header.key, header.value);
+        }
+      }
+    }
+  }
+
+  function cors(options, req, res, next) {
+    var headers = [],
+      method = req.method && req.method.toUpperCase && req.method.toUpperCase();
+
+    if (method === 'OPTIONS') {
+      // preflight
+      headers.push(configureOrigin(options, req));
+      headers.push(configureCredentials(options, req));
+      headers.push(configureMethods(options, req));
+      headers.push(configureAllowedHeaders(options, req));
+      headers.push(configureMaxAge(options, req));
+      headers.push(configureExposedHeaders(options, req));
+      applyHeaders(headers, res);
+
+      if (options.preflightContinue) {
+        next();
+      } else {
+        // Safari (and potentially other browsers) need content-length 0,
+        //   for 204 or they just hang waiting for a body
+        res.statusCode = options.optionsSuccessStatus;
+        res.setHeader('Content-Length', '0');
+        res.end();
+      }
+    } else {
+      // actual response
+      headers.push(configureOrigin(options, req));
+      headers.push(configureCredentials(options, req));
+      headers.push(configureExposedHeaders(options, req));
+      applyHeaders(headers, res);
+      next();
+    }
+  }
+
+  function middlewareWrapper(o) {
+    // if options are static (either via defaults or custom options passed in), wrap in a function
+    var optionsCallback = null;
+    if (typeof o === 'function') {
+      optionsCallback = o;
+    } else {
+      optionsCallback = function (req, cb) {
+        cb(null, o);
+      };
+    }
+
+    return function corsMiddleware(req, res, next) {
+      optionsCallback(req, function (err, options) {
+        if (err) {
+          next(err);
+        } else {
+          var corsOptions = assign({}, defaults, options);
+          var originCallback = null;
+          if (corsOptions.origin && typeof corsOptions.origin === 'function') {
+            originCallback = corsOptions.origin;
+          } else if (corsOptions.origin) {
+            originCallback = function (origin, cb) {
+              cb(null, corsOptions.origin);
+            };
+          }
+
+          if (originCallback) {
+            originCallback(req.headers.origin, function (err2, origin) {
+              if (err2 || !origin) {
+                next(err2);
+              } else {
+                corsOptions.origin = origin;
+                cors(corsOptions, req, res, next);
+              }
+            });
+          } else {
+            next();
+          }
+        }
+      });
+    };
+  }
+
+  // can pass either an options hash, an options delegate, or nothing
+  module.exports = middlewareWrapper;
+
+}());
+
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/bootstrap/dist/css/bootstrap.min.css":
 /*!*******************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9.use[1]!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9.use[2]!./node_modules/bootstrap/dist/css/bootstrap.min.css ***!
@@ -36635,7 +36932,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\niframe[data-v-5d5795bc] {\n  height: 400px;\n  /* The height is 400 pixels */\n  width: 100%;\n  margin-bottom: 2rem;\n  /* The width is the width of the web page */\n}\n.contentRight[data-v-5d5795bc] {\n  text-align: right;\n  background-color: red;\n  width: 100%;\n  direction: rtl;\n}\n.contentRight ul[data-v-5d5795bc] {\n  text-align: right;\n  float: right;\n  width: 100%;\n  display: block;\n  margin-bottom: 0px;\n}\n.contentRight p[data-v-5d5795bc]:last-child {\n  font-size: 10px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\niframe[data-v-5d5795bc] {\n    height: 400px;\n    /* The height is 400 pixels */\n    width: 100%;\n    margin-bottom: 2rem;\n    /* The width is the width of the web page */\n}\n.contentRight[data-v-5d5795bc] {\n    text-align: right;\n    background-color: red;\n    width: 100%;\n    direction: rtl;\n}\n.contentRight ul[data-v-5d5795bc] {\n    text-align: right;\n    float: right;\n    width: 100%;\n    display: block;\n    margin-bottom: 0px;\n}\n.contentRight p[data-v-5d5795bc]:last-child {\n    font-size: 10px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -77093,6 +77390,107 @@ webpackContext.id = "./node_modules/moment/locale sync recursive ^\\.\\/.*$";
 
 /***/ }),
 
+/***/ "./node_modules/object-assign/index.js":
+/*!*********************************************!*\
+  !*** ./node_modules/object-assign/index.js ***!
+  \*********************************************/
+/***/ ((module) => {
+
+"use strict";
+/*
+object-assign
+(c) Sindre Sorhus
+@license MIT
+*/
+
+
+/* eslint-disable no-unused-vars */
+var getOwnPropertySymbols = Object.getOwnPropertySymbols;
+var hasOwnProperty = Object.prototype.hasOwnProperty;
+var propIsEnumerable = Object.prototype.propertyIsEnumerable;
+
+function toObject(val) {
+	if (val === null || val === undefined) {
+		throw new TypeError('Object.assign cannot be called with null or undefined');
+	}
+
+	return Object(val);
+}
+
+function shouldUseNative() {
+	try {
+		if (!Object.assign) {
+			return false;
+		}
+
+		// Detect buggy property enumeration order in older V8 versions.
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=4118
+		var test1 = new String('abc');  // eslint-disable-line no-new-wrappers
+		test1[5] = 'de';
+		if (Object.getOwnPropertyNames(test1)[0] === '5') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test2 = {};
+		for (var i = 0; i < 10; i++) {
+			test2['_' + String.fromCharCode(i)] = i;
+		}
+		var order2 = Object.getOwnPropertyNames(test2).map(function (n) {
+			return test2[n];
+		});
+		if (order2.join('') !== '0123456789') {
+			return false;
+		}
+
+		// https://bugs.chromium.org/p/v8/issues/detail?id=3056
+		var test3 = {};
+		'abcdefghijklmnopqrst'.split('').forEach(function (letter) {
+			test3[letter] = letter;
+		});
+		if (Object.keys(Object.assign({}, test3)).join('') !==
+				'abcdefghijklmnopqrst') {
+			return false;
+		}
+
+		return true;
+	} catch (err) {
+		// We don't expect any of the above to throw, but better to be safe.
+		return false;
+	}
+}
+
+module.exports = shouldUseNative() ? Object.assign : function (target, source) {
+	var from;
+	var to = toObject(target);
+	var symbols;
+
+	for (var s = 1; s < arguments.length; s++) {
+		from = Object(arguments[s]);
+
+		for (var key in from) {
+			if (hasOwnProperty.call(from, key)) {
+				to[key] = from[key];
+			}
+		}
+
+		if (getOwnPropertySymbols) {
+			symbols = getOwnPropertySymbols(from);
+			for (var i = 0; i < symbols.length; i++) {
+				if (propIsEnumerable.call(from, symbols[i])) {
+					to[symbols[i]] = from[symbols[i]];
+				}
+			}
+		}
+	}
+
+	return to;
+};
+
+
+/***/ }),
+
 /***/ "./node_modules/persian-tools/dist/persian-tools.umd.min.js":
 /*!******************************************************************!*\
   !*** ./node_modules/persian-tools/dist/persian-tools.umd.min.js ***!
@@ -78775,6 +79173,166 @@ module.exports = function (list, options) {
     lastIdentifiers = newLastIdentifiers;
   };
 };
+
+/***/ }),
+
+/***/ "./node_modules/vary/index.js":
+/*!************************************!*\
+  !*** ./node_modules/vary/index.js ***!
+  \************************************/
+/***/ ((module) => {
+
+"use strict";
+/*!
+ * vary
+ * Copyright(c) 2014-2017 Douglas Christopher Wilson
+ * MIT Licensed
+ */
+
+
+
+/**
+ * Module exports.
+ */
+
+module.exports = vary
+module.exports.append = append
+
+/**
+ * RegExp to match field-name in RFC 7230 sec 3.2
+ *
+ * field-name    = token
+ * token         = 1*tchar
+ * tchar         = "!" / "#" / "$" / "%" / "&" / "'" / "*"
+ *               / "+" / "-" / "." / "^" / "_" / "`" / "|" / "~"
+ *               / DIGIT / ALPHA
+ *               ; any VCHAR, except delimiters
+ */
+
+var FIELD_NAME_REGEXP = /^[!#$%&'*+\-.^_`|~0-9A-Za-z]+$/
+
+/**
+ * Append a field to a vary header.
+ *
+ * @param {String} header
+ * @param {String|Array} field
+ * @return {String}
+ * @public
+ */
+
+function append (header, field) {
+  if (typeof header !== 'string') {
+    throw new TypeError('header argument is required')
+  }
+
+  if (!field) {
+    throw new TypeError('field argument is required')
+  }
+
+  // get fields array
+  var fields = !Array.isArray(field)
+    ? parse(String(field))
+    : field
+
+  // assert on invalid field names
+  for (var j = 0; j < fields.length; j++) {
+    if (!FIELD_NAME_REGEXP.test(fields[j])) {
+      throw new TypeError('field argument contains an invalid header name')
+    }
+  }
+
+  // existing, unspecified vary
+  if (header === '*') {
+    return header
+  }
+
+  // enumerate current values
+  var val = header
+  var vals = parse(header.toLowerCase())
+
+  // unspecified vary
+  if (fields.indexOf('*') !== -1 || vals.indexOf('*') !== -1) {
+    return '*'
+  }
+
+  for (var i = 0; i < fields.length; i++) {
+    var fld = fields[i].toLowerCase()
+
+    // append value (case-preserving)
+    if (vals.indexOf(fld) === -1) {
+      vals.push(fld)
+      val = val
+        ? val + ', ' + fields[i]
+        : fields[i]
+    }
+  }
+
+  return val
+}
+
+/**
+ * Parse a vary header into an array.
+ *
+ * @param {String} header
+ * @return {Array}
+ * @private
+ */
+
+function parse (header) {
+  var end = 0
+  var list = []
+  var start = 0
+
+  // gather tokens
+  for (var i = 0, len = header.length; i < len; i++) {
+    switch (header.charCodeAt(i)) {
+      case 0x20: /*   */
+        if (start === end) {
+          start = end = i + 1
+        }
+        break
+      case 0x2c: /* , */
+        list.push(header.substring(start, end))
+        start = end = i + 1
+        break
+      default:
+        end = i + 1
+        break
+    }
+  }
+
+  // final token
+  list.push(header.substring(start, end))
+
+  return list
+}
+
+/**
+ * Mark that a request is varied on a header field.
+ *
+ * @param {Object} res
+ * @param {String|Array} field
+ * @public
+ */
+
+function vary (res, field) {
+  if (!res || !res.getHeader || !res.setHeader) {
+    // quack quack
+    throw new TypeError('res argument is required')
+  }
+
+  // get existing header
+  var val = res.getHeader('Vary') || ''
+  var header = Array.isArray(val)
+    ? val.join(', ')
+    : String(val)
+
+  // set new header
+  if ((val = append(header, field))) {
+    res.setHeader('Vary', val)
+  }
+}
+
 
 /***/ }),
 
