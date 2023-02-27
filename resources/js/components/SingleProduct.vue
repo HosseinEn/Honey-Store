@@ -5,14 +5,10 @@
             class="imageContainer"
             v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
         >
-            <div
-                class="discoundTag"
-                v-if="
-                    filteredAttribute &&
-                    filteredAttribute.attribute_product.discount_value
-                "
-            >
-                {{ filteredAttribute.attribute_product.discount_value }}%
+            <div class="discoundTag" v-if="filteredAttribute">
+                <section>
+                    {{ filteredAttribute.attribute_product.discount_value }}%
+                </section>
             </div>
         </section>
         <section class="content text-center">
@@ -28,7 +24,9 @@
             <div class="productPrice">eee</div>
         </section>
         <button class="productButton">
-            <router-link  @click="this.scrollToTop" :to="{ name: 'product', params: { id: product.slug } }"
+            <router-link
+                @click="this.scrollToTop"
+                :to="{ name: 'product', params: { id: product.slug } }"
                 >مشاهده محصول</router-link
             >
         </button>

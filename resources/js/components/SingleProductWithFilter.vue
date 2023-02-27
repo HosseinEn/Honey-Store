@@ -6,7 +6,7 @@
       ></section>
       <section class="content text-center">
         <div class="productTitle">{{product.name}} - {{ filteredAttribute ? filteredAttribute.weight : '' }} - {{ filteredAttribute ? filteredAttribute.attribute_product.discount_id : 'بدون تخفیف' }} - {{ filteredAttribute ? filteredAttribute.attribute_product.price : '' }}</div>
-        <div class="productPrice">eee</div>
+        <div class="productPrice">aaa</div>
       </section>
       <button class="productButton">
         <router-link :to="{ name : 'product', params : {id : product.slug} }">مشاهده محصول</router-link>
