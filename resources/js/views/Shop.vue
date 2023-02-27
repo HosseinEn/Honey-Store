@@ -102,6 +102,8 @@
                                     : product.product
                             "
                             :filteredAttribute="product['filteredAttribute']"
+
+                            :discounts="discounts"
                         />
                     </section>
                 </div>
@@ -135,6 +137,9 @@
                                     : product.product
                             "
                             :filteredAttribute="product['filteredAttribute']"
+
+                            :discounts="discounts"
+
                         />
                     </section>
                 </div>
@@ -159,6 +164,7 @@ export default {
     data() {
         return {
             products: null,
+            discounts: null,
             filteredProducts: null,
             sortAndFilteredProducts: null,
             currentFilter: "all",
@@ -179,6 +185,8 @@ export default {
     mounted() {
         axios.get("api/products").then((response) => {
             this.products = response.data.products;
+            this.discounts = response.data.discounts;
+            console.log(this.discounts);
             this.filteredProducts = this.products;
             this.loading = false;
         });

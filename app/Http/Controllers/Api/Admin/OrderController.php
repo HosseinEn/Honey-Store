@@ -21,33 +21,49 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        $orders = Order::orderBy('created_at', 'DESC')->get();
+        $orders->load(['products', 'user']);
         if ($request->has('search_key')) {
             $search_key = $request->get('search_key');
             $search_key = preg_replace('/\s+/', '', $search_key); // Remove all whitespace
-            $orders = Order::where('invoice_no', $search_key)->get();
+            $orders = $orders->filter(function ($order) use ($search_key) {
+                return $order->invoice_no == $search_key;
+            });
+        }        
+        else if (
+            $request->has('status')
+        ) {
+            $orders = $this->applyStatusFilter($orders, $request->get('status'));
         }
-        else  {
-            $orders = Order::orderBy("created_at", "desc")->get();
-        }
-        $orders->load(['products', 'user']);
         $attributes = Attribute::get();
+        $orderStatuses = OrderStatus::get();
+
         foreach($orders as $order) {
+            $order['order_status_text'] = $orderStatuses->where('id', $order->order_status_id)->first()->name;
             foreach($order->products as $product) {
                 $product->ordered->attribute = $attributes->where('id', $product->ordered->attribute_id)->first();
             }
         }
-        $order_statuses = OrderStatus::get();
-        foreach($orders as $order) {
-            $order['order_status_text'] = $order_statuses->where('id', $order->order_status_id)->first()->name;
-        }
-        
+
         $totalOrderPrice = $orders->sum('total_price');
 
+        // dd(DB::getQueryLog());
         return new JsonResponse([
             'orders' => $orders,
+            'orderStatuses' => $orderStatuses,
             'totalOrderPrice' => $totalOrderPrice
         ]);
     }
+
+    private function applyStatusFilter($orders, $status) {
+        if ($status == 'all') {
+            return $orders;
+        } else if ($status == 'failed') {
+            return $orders->whereNull('reference_id');
+        }
+        return $orders->where('order_status_id', $status);
+    }
+
 
     /**
      * Display the specified resource.
@@ -84,8 +100,15 @@ class OrderController extends Controller
         
     }
 
-    public function updateOrderStatus(Order $order, OrderStatus $status)
-    {        
+    public function updateOrderStatus(Request $request, Order $order, OrderStatus $status)
+    {
+
+        $request->validate([
+            "order_status_id" => "integer",
+        ], [
+            "order_status_id.integer" => 'مقدار عددی باید ثبت شود!',
+        ]);
+
         // static status_date
         $order->order_statuses()->syncWithoutDetaching([
             $status->id => [
@@ -121,8 +144,10 @@ class OrderController extends Controller
 
             $order->products()->detach();
         }
+        $order['order_status_text'] = $status->name;
         return new JsonResponse([
-            'order' => $order
+            'order' => $order,
+            'success' => 'وضعیت سفارش با موفقیت تغییر کرد!'
         ]);
     }
 
@@ -153,8 +178,7 @@ class OrderController extends Controller
         }
 
         $order_status = OrderStatus::where('name', 'لغو شده')->first();
-        // DB::connection()->enableQueryLog();
-        // static status_date
+
         $order->order_statuses()->syncWithoutDetaching([
             $order_status->id => [
                 'status_date' => now(),
@@ -163,7 +187,8 @@ class OrderController extends Controller
 
         $order->update(["order_status_id"=>$order_status->id]);
         return new JsonResponse([
-            'order' => $order
+            'order' => $order,
+            'success' => 'سفارش با موفقیت لغو شد'
         ]);
     }
 }

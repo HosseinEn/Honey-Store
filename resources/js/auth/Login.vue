@@ -7,7 +7,7 @@
           <input
             type="text"
             name="email"
-            placeholder="Enter your email..."
+            placeholder="ایمیل خود را وارد نمایید..."
             class="form-control"
             v-model="email"
             :class="[
@@ -28,7 +28,7 @@
           <input
             type="password"
             name="password"
-            placeholder="Enter your password..."
+            placeholder=""
             class="form-control"
             v-model="password"
             :class="[

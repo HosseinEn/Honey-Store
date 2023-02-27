@@ -10,6 +10,10 @@ class Order extends Model
 {
     use HasFactory;
 
+    protected $casts = [
+        'order_status_id' => 'integer',
+    ];
+
     protected $fillable = [
         'user_id',
         'order_status_id',

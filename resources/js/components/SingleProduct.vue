@@ -1,14 +1,24 @@
 <template>
-    <!-- <section class="productItem"> -->
     <div class="product">
         <section
             class="imageContainer"
             v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
         >
-            <div class="discoundTag" v-if="filteredAttribute">
-                <section>
-                    {{ filteredAttribute.attribute_product.discount_value }}%
-                </section>
+            <div
+                class="discoundTag"
+                v-if="
+                    filteredAttribute
+                "
+            >
+            {{ discounts.map(function(e) { return e.id; }).indexOf(filteredAttribute.attribute_product.discount_id) != (-1)
+                    ?  `${discounts[discounts.map(function(e) { return e.id; }).indexOf(filteredAttribute.attribute_product.discount_id)]['value']} درصد`
+                    : "بدون تخفیف" }}
+
+            <!-- agar fekr mikonin kar mikone !! bedounin ke kar nemikone -->
+            <!-- {{ filteredAttribute.attribute_product.discount_id != null
+                    ?  `${discounts[filteredAttribute.attribute_product.discount_id - 1]['value']} درصد`
+                    : "بدون تخفیف" }} -->
+
             </div>
         </section>
         <section class="content text-center">
@@ -32,14 +42,13 @@
         </button>
     </div>
 
-    <!-- </section> -->
 </template>
 
 <script>
 export default {
     name: "singleProduct",
     components: {},
-    props: ["imageSelected", "product", "filteredAttribute"],
+    props: ["imageSelected", "product", "filteredAttribute", "discounts"],
     data() {
         return {
             imageUrl:
@@ -96,10 +105,10 @@ export default {
     position: relative;
 }
 .discoundTag {
-    width: 80px;
+    width: 150px;
     background: var(--mainColor);
     font-family: var(--thirdFont);
-    font-weight: 700;
+    font-weight: 300;
     height: 30px;
     position: absolute;
     top: 0px;

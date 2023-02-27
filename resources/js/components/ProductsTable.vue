@@ -138,9 +138,6 @@
                 </DeleteModal>
             </transition>
         </div>
-
-        <!-- Delete Model -->
-        {{ showModal }}
     </div>
 </template>
 
