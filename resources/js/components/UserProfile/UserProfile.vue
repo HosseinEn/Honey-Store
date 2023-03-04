@@ -28,7 +28,6 @@
 
 
                 <div class="col-md-6">
-                    horseshit
 
                 </div> <!-- // end col md 6 -->
 

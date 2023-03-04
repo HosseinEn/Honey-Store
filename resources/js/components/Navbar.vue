@@ -54,6 +54,13 @@
                             >خانه</router-link
                         >
                     </li>
+                     <li class="nav-item">
+                        <router-link
+                            :to="{ name: 'user_profile' }"
+                            @click="this.scrollToTop"
+                            >پروفایل</router-link
+                        >
+                    </li>
                     <li v-if="name == null" class="nav-item">
                         <router-link
                             :to="{ name: 'account' }"
