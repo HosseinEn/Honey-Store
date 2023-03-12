@@ -22987,6 +22987,7 @@ __webpack_require__.r(__webpack_exports__);
   mounted: function mounted() {
     this.$store.commit("setIsLogged", window.isLogged);
     this.$store.commit("setIsAdmin", window.isAdmin);
+    this.$store.commit("setUserName", window.userName);
   }
 });
 
@@ -23038,6 +23039,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return window.axios.post("/login", {
                   email: _this.email,
                   password: _this.password
+                }).then(function (response) {
+                  _this.$store.commit("setUserName", response.data.user.name);
                 });
               case 7:
                 _this.$store.commit("setIsLogged", true);
@@ -23128,24 +23131,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   password_confirmation: _this.password_confirmation
                 });
               case 7:
+                _this.$store.commit("setUserName", _this.name);
                 _this.$store.commit("setIsLogged", true);
                 _this.$router.push({
                   name: "home"
                 });
-                _context.next = 14;
+                _context.next = 15;
                 break;
-              case 11:
-                _context.prev = 11;
+              case 12:
+                _context.prev = 12;
                 _context.t0 = _context["catch"](2);
                 _this.errors = _context.t0.response && _context.t0.response.data.errors;
-              case 14:
-                _this.loading = false;
               case 15:
+                _this.loading = false;
+              case 16:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[2, 11]]);
+        }, _callee, null, [[2, 12]]);
       }))();
     }
   }
@@ -23743,19 +23747,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       name: null,
-      isAdmin: false
+      isAdmin: false,
+      isLogged: false
     };
   },
   mounted: function mounted() {
-    var _this = this;
-    if (this.$store.getters.isLoggedIn) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().get("/api/user").then(function (response) {
-        _this.name = response.data.name;
-        _this.isAdmin = response.data.isAdmin;
-      });
-    } else {
-      this.name = null;
-      this.isAdmin = false;
+    this.isLogged = this.$store.getters.isLoggedIn;
+    if (this.isLogged) {
+      this.name = this.$store.getters.getName;
+      this.isAdmin = this.$store.getters.isAdmin;
     }
     window.onscroll = function () {
       if (document.documentElement.scrollTop > 50) {
@@ -23767,7 +23767,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   methods: {
     logout: function logout() {
-      var _this2 = this;
+      var _this = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
@@ -23775,16 +23775,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.next = 2;
                 return window.axios.post("/logout").then(function (response) {
-                  _this2.$store.commit("setIsLogged", false);
-                  _this2.$store.commit("setIsAdmin", false);
-                  _this2.$router.push({
+                  _this.$store.commit("setIsLogged", false);
+                  _this.$store.commit("setIsAdmin", false);
+                  _this.$router.push({
                     'name': 'home'
                   });
                 });
               case 2:
-                _this2.name = null;
-                _this2.isAdmin = false;
-              case 4:
+                _this.name = null;
+                _this.isAdmin = false;
+                _this.isLogged = false;
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -25489,7 +25490,7 @@ var _hoisted_3 = {
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "for": "name"
-  }, "اسم", -1 /* HOISTED */);
+  }, "نام و نام خانوادگی", -1 /* HOISTED */);
 });
 var _hoisted_5 = {
   key: 0,
@@ -25561,7 +25562,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [_hoisted_4, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("input", {
     type: "text",
     name: "name",
-    placeholder: "نام خود را وارد نمایید...",
+    placeholder: "نام و نام خانوادگی خود را وارد نمایید...",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)(["form-control", [{
       'is-invalid': this.errors !== null && this.errors.name ? true : false
     }]]),
@@ -27010,7 +27011,7 @@ var _hoisted_23 = {
 var _hoisted_24 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "userName"
-  }, ": کاربر", -1 /* HOISTED */);
+  }, "کاربر:", -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -27076,7 +27077,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_14];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_15, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8 /* PROPS */, ["onClick"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("li", _hoisted_15, [$data.isLogged ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_router_link, {
+    key: 0,
     to: {
       name: 'user_profile'
     },
@@ -27086,7 +27088,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_16];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"])]), $data.name == null ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, 8 /* PROPS */, ["onClick"])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), !$data.isLogged ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_17, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'account'
     },
@@ -27096,7 +27098,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_18];
     }),
     _: 1 /* STABLE */
-  }, 8 /* PROPS */, ["onClick"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+  }, 8 /* PROPS */, ["onClick"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.isLogged ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
     style: {
       "background-color": "transparent",
@@ -27105,15 +27107,16 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: _cache[1] || (_cache[1] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
       return $options.logout && $options.logout.apply($options, arguments);
     }, ["prevent"]))
-  }, " خروج ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.name ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_20, [$data.isAdmin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
+  }, " خروج ")])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), $data.isLogged ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", _hoisted_20, [$data.isAdmin ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_21, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
       name: 'admin.products'
     },
     onClick: this.scrollToTop
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.name) + " ", 1 /* TEXT */), _hoisted_22];
+      return [_hoisted_22, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.name), 1 /* TEXT */)];
     }),
+
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["to", "onClick"])])) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_23, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_link, {
     to: {
@@ -27122,8 +27125,9 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onClick: this.scrollToTop
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-      return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.name) + " ", 1 /* TEXT */), _hoisted_24];
+      return [_hoisted_24, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.name), 1 /* TEXT */)];
     }),
+
     _: 1 /* STABLE */
   }, 8 /* PROPS */, ["onClick"])]))])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])], 512 /* NEED_PATCH */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End of Navbar ")], 2112 /* STABLE_FRAGMENT, DEV_ROOT_FRAGMENT */);
 }
@@ -28736,7 +28740,7 @@ var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     type: "submit",
     "class": "btn btn-danger"
-  }, " اپدیت ")], -1 /* HOISTED */);
+  }, " ویرایش ")], -1 /* HOISTED */);
 });
 
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -30657,7 +30661,8 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.createStore)({
   state: function state() {
     return {
       isLogged: false,
-      isAdmin: false
+      isAdmin: false,
+      name: false
     };
   },
   mutations: {
@@ -30666,6 +30671,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.createStore)({
     },
     setIsAdmin: function setIsAdmin(state, isAdminStatus) {
       state.isAdmin = isAdminStatus;
+    },
+    setUserName: function setUserName(state, name) {
+      state.name = name;
     }
   },
   getters: {
@@ -30674,6 +30682,9 @@ var store = (0,vuex__WEBPACK_IMPORTED_MODULE_0__.createStore)({
     },
     isAdmin: function isAdmin(state) {
       return state.isAdmin;
+    },
+    getName: function getName(state) {
+      return state.name;
     }
   }
 });

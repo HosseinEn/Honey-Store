@@ -7,6 +7,7 @@ export default {
   mounted() {
     this.$store.commit("setIsLogged", window.isLogged)
     this.$store.commit("setIsAdmin", window.isAdmin)
+    this.$store.commit("setUserName", window.userName)
   }
 }
 </script>

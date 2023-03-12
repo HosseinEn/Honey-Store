@@ -6,6 +6,7 @@ const store = createStore({
     return {
       isLogged: false,
       isAdmin: false,
+      name: false
     }
   },
   mutations: {
@@ -14,6 +15,9 @@ const store = createStore({
     },
     setIsAdmin(state, isAdminStatus) {
       state.isAdmin = isAdminStatus;
+    },
+    setUserName(state, name) {
+      state.name = name;
     }
 },
 getters: {
@@ -22,6 +26,9 @@ getters: {
     },
     isAdmin(state) {
       return state.isAdmin;
+    },
+    getName(state) {
+      return state.name;
     }
 }
 })

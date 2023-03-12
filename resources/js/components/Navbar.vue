@@ -56,19 +56,20 @@
                     </li>
                      <li class="nav-item">
                         <router-link
+                            v-if="isLogged"
                             :to="{ name: 'user_profile' }"
                             @click="this.scrollToTop"
                             >پروفایل</router-link
                         >
                     </li>
-                    <li v-if="name == null" class="nav-item">
+                    <li v-if="!isLogged" class="nav-item">
                         <router-link
                             :to="{ name: 'account' }"
                             @click="this.scrollToTop"
                             >ثبت نام/ لاگین</router-link
                         >
                     </li>
-                    <li v-if="name" class="nav-item ml-2">
+                    <li v-if="isLogged" class="nav-item ml-2">
                         <form>
                             <button
                                 type="submit"
@@ -82,21 +83,23 @@
                             </button>
                         </form>
                     </li>
-                    <li v-if="name" class="nav-item">
+                    <li v-if="isLogged" class="nav-item">
                         <span v-if="isAdmin">
                             <router-link
                                 :to="{ name: 'admin.products' }"
                                 @click="this.scrollToTop"
-                                >{{ name }}
+                                >
                                 <span class="userName">: کاربر</span>
+                                {{ name }}
                             </router-link>
                         </span>
                         <span v-else>
                             <router-link
                                 :to="{ name: 'user_profile' }"
                                 @click="this.scrollToTop"
-                                >{{ name }}
-                                <span class="userName">: کاربر</span>
+                                >
+                                <span class="userName">کاربر:</span>
+                                {{ name }}
                             </router-link>
                         </span>
                     </li>
@@ -117,18 +120,14 @@ export default {
         return {
             name: null,
             isAdmin: false,
+            isLogged: false,
         };
     },
     mounted() {
-        if (this.$store.getters.isLoggedIn) {
-            axios.get("/api/user").then((response) => {
-                this.name = response.data.name;
-                this.isAdmin = response.data.isAdmin;
-            });
-        }
-        else {
-            this.name = null;
-            this.isAdmin = false;
+        this.isLogged = this.$store.getters.isLoggedIn;
+        if (this.isLogged) {
+            this.name = this.$store.getters.getName;
+            this.isAdmin = this.$store.getters.isAdmin;
         }
         window.onscroll = function () {
             if (document.documentElement.scrollTop > 50) {
@@ -149,6 +148,7 @@ export default {
             });
             this.name = null;
             this.isAdmin = false;
+            this.isLogged = false;
         },
         scrollToTop() {
             window.scrollTo(0, 0);

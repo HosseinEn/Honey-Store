@@ -84,6 +84,8 @@ export default {
         await window.axios.post("/login", {
           email: this.email,
           password: this.password,
+        }).then(response => {
+          this.$store.commit("setUserName", response.data.user.name)
         });
         this.$store.commit("setIsLogged", true)
         axios

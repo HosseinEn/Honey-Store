@@ -3,8 +3,8 @@
         <div class="card card-body">
             <form>
                 <div class="form-group">
-                    <label for="name">اسم</label>
-                    <input type="text" name="name" placeholder="نام خود را وارد نمایید..." class="form-control" v-model="name"
+                    <label for="name">نام و نام خانوادگی</label>
+                    <input type="text" name="name" placeholder="نام و نام خانوادگی خود را وارد نمایید..." class="form-control" v-model="name"
                         :class="[
                             {
                                 'is-invalid':
@@ -101,6 +101,7 @@ export default {
                     password: this.password,
                     password_confirmation: this.password_confirmation,
                 });
+                this.$store.commit("setUserName", this.name)
                 this.$store.commit("setIsLogged", true)
                 this.$router.push({ name: "home" });
             } catch (error) {

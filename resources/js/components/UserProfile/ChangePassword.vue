@@ -113,7 +113,7 @@
                                         type="submit"
                                         class="btn btn-danger"
                                     >
-                                        اپدیت
+                                        ویرایش
                                     </button>
                                 </div>
                             </form>
