@@ -86,7 +86,7 @@
                         </span>
                         <span v-else>
                             <router-link
-                                :to="{ name: 'cart' }"
+                                :to="{ name: 'user_profile' }"
                                 @click="this.scrollToTop"
                                 >{{ name }}
                                 <span class="userName">: کاربر</span>
@@ -118,6 +118,10 @@ export default {
                 this.name = response.data.name;
                 this.isAdmin = response.data.isAdmin;
             });
+        }
+        else {
+            this.name = null;
+            this.isAdmin = false;
         }
         window.onscroll = function () {
             if (document.documentElement.scrollTop > 50) {
