@@ -79,7 +79,7 @@
             </section>
         </div>
 
-        <div class="row p-4 btnParent">
+        <div class="row pb-4 pt-4 btnParent">
             <table>
                 <tr>
                     <th style="width: 20%">نام محصول</th>
@@ -138,9 +138,6 @@
                 </DeleteModal>
             </transition>
         </div>
-
-        <!-- Delete Model -->
-        {{ showModal }}
     </div>
 </template>
 
@@ -358,7 +355,7 @@ button {
 }
 .filterCont {
     width: 100%;
-    height: 180px;
+    height: 220px;
 }
 .showAll {
     width: 180px;

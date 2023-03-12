@@ -39,7 +39,7 @@
                         </div>
                     </div>
                     <label for="description">توضیحات:</label>
-                    <textarea name="description" v-model="description" id="description" cols="30" rows="10" :class="[
+                    <textarea name="description" v-model="description" id="description" cols="50" rows="20" :class="[
                         {
                             'is-invalid':
                                 this.errors !== null && this.errors.description ? true : false,
@@ -139,5 +139,9 @@ input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
 input:-webkit-autofill:active {
     -webkit-box-shadow: 0 0 0 30px white inset !important;
+}
+textarea {
+    display: block;
+
 }
 </style>

@@ -178,6 +178,7 @@ export default {
 li a {
     margin-left: 1.5rem;
     transition: all 0.5s linear;
+    font-size: 1.2rem;
 }
 li:hover {
     color: var(--mainColor);

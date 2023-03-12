@@ -26265,52 +26265,51 @@ var _hoisted_3 = {
 var _hoisted_4 = {
   "class": "modal-container"
 };
-var _hoisted_5 = {
-  "class": "modal-header"
-};
-var _hoisted_6 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" default header ");
-var _hoisted_7 = {
+var _hoisted_5 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "modal-header"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", null, " حذف محصول ")], -1 /* HOISTED */);
+});
+var _hoisted_6 = {
   "class": "modal-body"
 };
-var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, "Are you sure you want to delete this product?", -1 /* HOISTED */);
+var _hoisted_7 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h4", null, " ایا از حذف این محصول اطمینان دارید؟ ", -1 /* HOISTED */);
 });
-var _hoisted_9 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("br", null, null, -1 /* HOISTED */);
 });
-var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Note: ");
-var _hoisted_11 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" اخطار: ");
+var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     style: {
       "color": "#ff0000",
       "font-weight": "700"
     }
-  }, "This can't be undone", -1 /* HOISTED */);
+  }, "این عمل برگشت ندارد", -1 /* HOISTED */);
 });
-var _hoisted_12 = {
+var _hoisted_11 = {
   "class": "modal-footer"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
     onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {}, ["prevent"])),
     "class": "remove-record-model"
-  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "header", {}, function () {
-    return [_hoisted_6];
-  }, true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "body", {}, function () {
-    return [_hoisted_8, _hoisted_9, _hoisted_10, _hoisted_11];
-  }, true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "footer", {}, function () {
+  }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [_hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "body", {}, function () {
+    return [_hoisted_7, _hoisted_8, _hoisted_9, _hoisted_10];
+  }, true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.renderSlot)(_ctx.$slots, "footer", {}, function () {
     return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-      "class": "btn btn-secondary waves-effect waves-light",
+      "class": "btn mx-2 btn-secondary waves-effect waves-light",
       onClick: _cache[0] || (_cache[0] = function ($event) {
         return _ctx.$emit('close');
       })
-    }, "Cancel"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+    }, "کنسل"), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
       type: "submit",
       "class": "btn btn-danger waves-effect waves-light",
       onClick: _cache[1] || (_cache[1] = function ($event) {
         return _ctx.$emit('delete');
       })
-    }, "Delete")];
+    }, "حذف")];
   }, true)])])])])], 32 /* HYDRATE_EVENTS */)]);
 }
 
@@ -27144,7 +27143,7 @@ var _hoisted_8 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", null, "جستجو", -1 /* HOISTED */);
 });
 var _hoisted_9 = {
-  "class": "row p-4 btnParent"
+  "class": "row pt-4 pb-4 btnParent"
 };
 var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
@@ -27564,7 +27563,7 @@ var _hoisted_19 = /*#__PURE__*/_withScopeId(function () {
   }, "فیلتر", -1 /* HOISTED */);
 });
 var _hoisted_20 = {
-  "class": "row p-4 btnParent"
+  "class": "row pb-4 pt-4 btnParent"
 };
 var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
@@ -27730,7 +27729,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       })) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)];
     }),
     _: 1 /* STABLE */
-  })]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Delete Model "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)((0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.showModal), 1 /* TEXT */)]);
+  })])]);
 }
 
 /***/ }),
@@ -28585,8 +28584,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return $data.description = $event;
     }),
     id: "description",
-    cols: "30",
-    rows: "10",
+    cols: "50",
+    rows: "20",
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)([{
       'is-invalid': this.errors !== null && this.errors.description ? true : false
     }])
@@ -29470,7 +29469,7 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_3 = {
-  "class": "container tableContMain p-4"
+  "class": "container tableContMain pt-4 pb-4"
 };
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
@@ -29547,7 +29546,7 @@ var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Delete Product", -1 /* HOISTED */);
 });
 var _hoisted_17 = {
-  "class": "container p-4 tableCont"
+  "class": "container pt-4 pb-4 tableCont"
 };
 var _hoisted_18 = {
   "class": "row"
@@ -29716,11 +29715,7 @@ var _hoisted_9 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNod
 var _hoisted_10 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می ه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال طلبllllllllllllllllllllllllllllllllllllllllllllllllوجود طراحی اساسص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
 var _hoisted_11 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_12 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیاز، و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد، کتابهای زیادی در شصت و سه درصد گذشته حال و آینده، شناخت فراوان جامعه و متخصصان را می طلبد، تا با نرم افزارها شناخت بیشتری را برای طراحان رایانه ای علی الخصوص طراحان خلاقی، و فرهنگ پیشرو در زبان فارسی ایجاد کرد، در این صورت می توان امید داشت که تمام و دشواری موجود در ارائه راهکارها، و شرایط سخت تایپ به پایان رسد و زمان مورد نیاز شامل حروفچینی دستاوردهای اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h1", {
-    "class": "StrapDemoHeader"
-  }, " هر نوعی از عسل را که می‌خواهید را بیابید ", -1 /* HOISTED */);
-});
+var _hoisted_13 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" هر نوعی از عسل را که می‌خواهید را بیابید ");
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
     "class": "StrapDemoBtn"
@@ -29975,20 +29970,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
       activeFilter: $data.currentFilter === 'cheapest'
     })
-  }, " ارزان ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    onClick: _cache[4] || (_cache[4] = function ($event) {
-      return $options.changeFilter('mostSale');
-    }),
-    "class": (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeClass)({
-      activeFilter: $data.currentFilter === 'mostSale'
-    })
-  }, " مرتب سازی ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+  }, " ارزان ترین ", 2 /* CLASS */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <button\r\n                        @click=\"changeFilter('mostSale')\"\r\n                        :class=\"{ activeFilter: currentFilter === 'mostSale' }\"\r\n                    >\r\n                        مرتب سازی\r\n                    </button> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
     name: "filterType",
     id: "FilterTypeSelect",
-    "onUpdate:modelValue": _cache[5] || (_cache[5] = function ($event) {
+    "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
       return $data.filterType = $event;
     }),
-    onChange: _cache[6] || (_cache[6] = function ($event) {
+    onChange: _cache[5] || (_cache[5] = function ($event) {
       return $options.filterTypeMethod();
     })
   }, _hoisted_11, 544 /* HYDRATE_EVENTS, NEED_PATCH */), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.filterType]])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" {{ filteredProducts }} "), $data.loading ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_12, _hoisted_15)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_16, [$data.sortAndFilteredProducts ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_17, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.sortAndFilteredProducts, function (product) {
@@ -30216,7 +30204,7 @@ var _withScopeId = function _withScopeId(n) {
 var _hoisted_1 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_3 = {
-  "class": "container-md tableCont p-4"
+  "class": "container tableCont pt-4 pb-4"
 };
 var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("tr", null, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
@@ -36108,7 +36096,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-cae0bcb2] {\r\n    position: fixed;\r\n    z-index: 9998;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: table;\r\n    transition: opacity 0.3s ease;\n}\n.modal-wrapper[data-v-cae0bcb2] {\r\n    display: table-cell;\r\n    vertical-align: middle;\n}\n.modal-container[data-v-cae0bcb2] {\r\n    width: 600px;\r\n    margin: 0px auto;\r\n    padding: 20px 30px;\r\n    background-color: #fff;\r\n    border-radius: 2px;\r\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n    transition: all 0.3s ease;\r\n    font-family: Helvetica, Arial, sans-serif;\n}\n.modal-header h3[data-v-cae0bcb2] {\r\n    margin-top: 0;\r\n    color: #42b983;\n}\n.modal-body[data-v-cae0bcb2] {\r\n    margin: 20px 0;\n}\n.modal-default-button[data-v-cae0bcb2] {\r\n    float: right;\n}\r\n  \r\n  /*\r\n   * The following styles are auto-applied to elements with\r\n   * transition=\"modal\" when their visibility is toggled\r\n   * by Vue.js.\r\n   *\r\n   * You can easily play with the modal transition by editing\r\n   * these styles.\r\n   */\n.modal-enter-from[data-v-cae0bcb2], .modal-leave-to[data-v-cae0bcb2] {\r\n    opacity: 0;\n}\n.modal-enter-active .modal-container[data-v-cae0bcb2],\r\n  .modal-leave-active .modal-container[data-v-cae0bcb2] {\r\n    transform: scale(1.1);\n}\r\n  \r\n  ", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.modal-mask[data-v-cae0bcb2] {\r\n    position: fixed;\r\n    z-index: 9998;\r\n    top: 0;\r\n    left: 0;\r\n    width: 100%;\r\n    height: 100%;\r\n    background-color: rgba(0, 0, 0, 0.5);\r\n    display: table;\r\n    transition: opacity 0.3s ease;\n}\nform[data-v-cae0bcb2] {\r\n    direction: rtl;\r\n    font-family: var(--thirdFont) !important;\n}\n.modal-wrapper[data-v-cae0bcb2] {\r\n    display: table-cell;\r\n    vertical-align: middle;\n}\n.modal-container[data-v-cae0bcb2] {\r\n    width: 600px;\r\n    margin: 0px auto;\r\n    padding: 20px 30px;\r\n    background-color: #fff;\r\n    border-radius: 2px;\r\n    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);\r\n    transition: all 0.3s ease;\n}\n.modal-header h3[data-v-cae0bcb2] {\r\n    margin-top: 0;\r\n    color: #42b983;\n}\n.modal-body[data-v-cae0bcb2] {\r\n    margin: 20px 0;\n}\n.modal-default-button[data-v-cae0bcb2] {\r\n    float: right;\n}\r\n  \r\n  /*\r\n   * The following styles are auto-applied to elements with\r\n   * transition=\"modal\" when their visibility is toggled\r\n   * by Vue.js.\r\n   *\r\n   * You can easily play with the modal transition by editing\r\n   * these styles.\r\n   */\n.modal-enter-from[data-v-cae0bcb2], .modal-leave-to[data-v-cae0bcb2] {\r\n    opacity: 0;\n}\n.modal-enter-active .modal-container[data-v-cae0bcb2],\r\n  .modal-leave-active .modal-container[data-v-cae0bcb2] {\r\n    transform: scale(1.1);\n}\r\n  \r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36348,7 +36336,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar[data-v-6dde423b] {\r\n    margin: 0 !important;\r\n    font-family: var(--mainFont);\r\n    font-size: 1.1rem;\r\n    width: 100%;\r\n    background-color: transparent;\r\n    padding: 1.5rem 6rem 1.5rem;\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    transition: all 0.6s linear;\r\n    color: white;\r\n    z-index: 2;\n}\nli a[data-v-6dde423b] {\r\n    margin-left: 1.5rem;\r\n    transition: all 0.5s linear;\n}\nli[data-v-6dde423b]:hover {\r\n    color: var(--mainColor);\n}\n.userName[data-v-6dde423b] {\r\n    color: var(--mainColor);\n}\n.navbar-brand[data-v-6dde423b] {\r\n    font-weight: 800;\r\n    font-size: 1.6rem;\r\n    color: var(--mainColor) !important;\n}\n.navbarBgChange[data-v-6dde423b] {\r\n    background: rgb(15, 3, 1, 0.9) !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.navbar[data-v-6dde423b] {\r\n    margin: 0 !important;\r\n    font-family: var(--mainFont);\r\n    font-size: 1.1rem;\r\n    width: 100%;\r\n    background-color: transparent;\r\n    padding: 1.5rem 6rem 1.5rem;\r\n    position: fixed;\r\n    left: 0;\r\n    top: 0;\r\n    transition: all 0.6s linear;\r\n    color: white;\r\n    z-index: 2;\n}\nli a[data-v-6dde423b] {\r\n    margin-left: 1.5rem;\r\n    transition: all 0.5s linear;\r\n    font-size: 1.2rem;\n}\nli[data-v-6dde423b]:hover {\r\n    color: var(--mainColor);\n}\n.userName[data-v-6dde423b] {\r\n    color: var(--mainColor);\n}\n.navbar-brand[data-v-6dde423b] {\r\n    font-weight: 800;\r\n    font-size: 1.6rem;\r\n    color: var(--mainColor) !important;\n}\n.navbarBgChange[data-v-6dde423b] {\r\n    background: rgb(15, 3, 1, 0.9) !important;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36372,7 +36360,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.formSubmit td[data-v-94f06364],\r\nth[data-v-94f06364] {\r\n    text-align: center;\n}\n.formSubmit td[data-v-94f06364]:first-child {\r\n    font-weight: bold;\r\n    font-family: var(--thirdFont);\n}\ntable[data-v-94f06364] {\r\n    width: 100%;\n}\ntd[data-v-94f06364],\r\nth[data-v-94f06364] {\r\n    text-align: center;\n}\nbutton[data-v-94f06364] {\r\n    width: 80%;\r\n    border-radius: 5px;\r\n    padding: 0.3rem;\n}\n.add[data-v-94f06364] {\r\n    background-color: green;\r\n    color: white;\r\n    transition: all 0.5s linear;\n}\n.add[data-v-94f06364]:hover {\r\n    background-color: rgb(0, 199, 0);\r\n    color: white;\n}\n.createDiscounts[data-v-94f06364] {\r\n    color: black;\r\n    padding: 10px;\r\n    position: absolute;\r\n    right: 60px;\r\n    top: -20px;\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    border: 1px solid green;\r\n    background-color: greenyellow;\n}\n.btnParent[data-v-94f06364] {\r\n    position: relative;\n}\n.edit[data-v-94f06364] {\r\n    background-color: var(--thirdColor);\r\n    color: white;\r\n    width: 100px;\r\n    transition: all 0.5s linear;\n}\n.edit[data-v-94f06364]:hover {\r\n    background-color: var(--mainColor);\r\n    color: white;\n}\n.remove[data-v-94f06364] {\r\n    background-color: red;\r\n    color: white;\r\n    transition: all 0.5s linear;\n}\n.remove[data-v-94f06364]:hover {\r\n    background-color: rgb(247, 83, 83);\r\n    color: white;\n}\n.submitingCartContainer h2[data-v-94f06364] {\r\n     font-family: var(--thirdFont);\r\n    font-weight: 900;\n}\n.filterSearch button[data-v-94f06364] {\r\n    background-color: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    width: 100px;\r\n    margin-right: 10px;\r\n    margin-bottom: 10px;\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\n.filterCont[data-v-94f06364] {\r\n    width: 100%;\r\n    height: 180px;\n}\n.showAll[data-v-94f06364] {\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    float: right;\r\n    margin-right: 10px;\r\n    border: 1px solid green;\r\n    background-color: rgb(188, 235, 116);\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.formSubmit td[data-v-94f06364],\r\nth[data-v-94f06364] {\r\n    text-align: center;\n}\n.formSubmit td[data-v-94f06364]:first-child {\r\n    font-weight: bold;\r\n    font-family: var(--thirdFont);\n}\ntable[data-v-94f06364] {\r\n    width: 100%;\n}\ntd[data-v-94f06364],\r\nth[data-v-94f06364] {\r\n    text-align: center;\n}\nbutton[data-v-94f06364] {\r\n    width: 80%;\r\n    border-radius: 5px;\r\n    padding: 0.3rem;\n}\n.add[data-v-94f06364] {\r\n    background-color: green;\r\n    color: white;\r\n    transition: all 0.5s linear;\n}\n.add[data-v-94f06364]:hover {\r\n    background-color: rgb(0, 199, 0);\r\n    color: white;\n}\n.createDiscounts[data-v-94f06364] {\r\n    color: black;\r\n    padding: 10px;\r\n    position: absolute;\r\n    right: 60px;\r\n    top: -20px;\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    border: 1px solid green;\r\n    background-color: greenyellow;\n}\n.btnParent[data-v-94f06364] {\r\n    position: relative;\r\n      overflow-x: scroll  !important;\n}\n.edit[data-v-94f06364] {\r\n    background-color: var(--thirdColor);\r\n    color: white;\r\n    width: 100px;\r\n    transition: all 0.5s linear;\n}\n.edit[data-v-94f06364]:hover {\r\n    background-color: var(--mainColor);\r\n    color: white;\n}\n.remove[data-v-94f06364] {\r\n    background-color: red;\r\n    color: white;\r\n    transition: all 0.5s linear;\n}\n.remove[data-v-94f06364]:hover {\r\n    background-color: rgb(247, 83, 83);\r\n    color: white;\n}\n.submitingCartContainer h2[data-v-94f06364] {\r\n     font-family: var(--thirdFont);\r\n    font-weight: 900;\n}\n.filterSearch button[data-v-94f06364] {\r\n    background-color: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    width: 100px;\r\n    margin-right: 10px;\r\n    margin-bottom: 10px;\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\n.filterCont[data-v-94f06364] {\r\n    width: 100%;\r\n    height: 180px;\n}\n.showAll[data-v-94f06364] {\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    float: right;\r\n    margin-right: 10px;\r\n    border: 1px solid green;\r\n    background-color: rgb(188, 235, 116);\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36444,7 +36432,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 700px) {\ntable[data-v-0fd55f6f] {\r\n        font-size: 10px !important;\n}\n}\n.btnParent[data-v-0fd55f6f] {\r\n    position: relative;\n}\nbutton[data-v-0fd55f6f] {\r\n    width: 80%;\r\n    border-radius: 5px;\r\n    padding: 0.3rem;\n}\n.edit[data-v-0fd55f6f] {\r\n    background-color: var(--thirdColor);\r\n    color: white;\r\n    width: 70px;\r\n    transition: all 0.5s linear;\n}\n.edit[data-v-0fd55f6f]:hover {\r\n    background-color: var(--mainColor);\r\n    color: white;\n}\n.remove[data-v-0fd55f6f] {\r\n    background-color: red;\r\n    color: white;\r\n    width: 70px;\r\n    transition: all 0.5s linear;\n}\n.remove[data-v-0fd55f6f]:hover {\r\n    background-color: rgb(247, 83, 83);\r\n    color: white;\n}\n.lastFilterSection[data-v-0fd55f6f] {\r\n    margin-right: 10px;\r\n    direction: rtl;\r\n    float: right;\r\n    margin-top: 10px;\r\n    font-family: var(--thirdFont);\n}\n.lastFilterSection select[data-v-0fd55f6f] {\r\n    width: 100px;\r\n    border: 1px solid black;\n}\n.lastFilterSection input[data-v-0fd55f6f] {\r\n    display: inline;\r\n    margin-right: 5px;\r\n    margin-left: 5px;\r\n    width: 150px;\n}\n.filterSearch button[data-v-0fd55f6f] {\r\n    background-color: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    width: 100px;\r\n    margin-right: 10px;\r\n    margin-bottom: 10px;\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\n.filterSearch button[data-v-0fd55f6f]:hover {\r\n    background-color: var(--thirdColor);\n}\n.filterSearchBtn2[data-v-0fd55f6f] {\r\n    background-color: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    margin-top: 5px;\r\n    display: block;\r\n    width: 150px;\r\n    transition: 1s linear;\n}\n.filterSearchBtn2[data-v-0fd55f6f]:hover {\r\n    background-color: var(--thirdColor);\n}\n.filterSearch input[data-v-0fd55f6f] {\r\n    display: inline;\r\n    height: 33px;\r\n    padding-bottom: 7px;\r\n    width: 240px;\n}\n.filterSearch input[data-v-0fd55f6f]:focus {\r\n    outline: 1px solid var(--thirdColor);\r\n    border: 1px solid var(--mainColor);\n}\n.createProduct[data-v-0fd55f6f] {\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    float: right;\r\n    margin-right: 10px;\r\n    border: 1px solid green;\r\n    background-color: rgb(188, 235, 116);\r\n    font-family: var(--thirdFont);\r\n    transition: 1s linear;\n}\n.createProduct[data-v-0fd55f6f]:hover {\r\n    background-color: rgb(172, 249, 56);\n}\n.filterCont[data-v-0fd55f6f] {\r\n    width: 100%;\r\n    height: 180px;\n}\n.showAll[data-v-0fd55f6f] {\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    float: right;\r\n    margin-right: 10px;\r\n    border: 1px solid green;\r\n    background-color: rgb(188, 235, 116);\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\n.showAll[data-v-0fd55f6f]:hover {\r\n    background-color: rgb(172, 249, 56);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 700px) {\ntable[data-v-0fd55f6f] {\r\n        font-size: 10px !important;\n}\n}\n.btnParent[data-v-0fd55f6f] {\r\n    position: relative;\n}\nbutton[data-v-0fd55f6f] {\r\n    width: 80%;\r\n    border-radius: 5px;\r\n    padding: 0.3rem;\n}\n.edit[data-v-0fd55f6f] {\r\n    background-color: var(--thirdColor);\r\n    color: white;\r\n    width: 70px;\r\n    transition: all 0.5s linear;\n}\n.edit[data-v-0fd55f6f]:hover {\r\n    background-color: var(--mainColor);\r\n    color: white;\n}\n.remove[data-v-0fd55f6f] {\r\n    background-color: red;\r\n    color: white;\r\n    width: 70px;\r\n    transition: all 0.5s linear;\n}\n.remove[data-v-0fd55f6f]:hover {\r\n    background-color: rgb(247, 83, 83);\r\n    color: white;\n}\n.lastFilterSection[data-v-0fd55f6f] {\r\n    margin-right: 10px;\r\n    direction: rtl;\r\n    float: right;\r\n    margin-top: 10px;\r\n    font-family: var(--thirdFont);\n}\n.lastFilterSection select[data-v-0fd55f6f] {\r\n    width: 100px;\r\n    border: 1px solid black;\n}\n.lastFilterSection input[data-v-0fd55f6f] {\r\n    display: inline;\r\n    margin-right: 5px;\r\n    margin-left: 5px;\r\n    width: 150px;\n}\n.filterSearch button[data-v-0fd55f6f] {\r\n    background-color: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    width: 100px;\r\n    margin-right: 10px;\r\n    margin-bottom: 10px;\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\n.filterSearch button[data-v-0fd55f6f]:hover {\r\n    background-color: var(--thirdColor);\n}\n.filterSearchBtn2[data-v-0fd55f6f] {\r\n    background-color: var(--mainColor);\r\n    font-family: var(--thirdFont);\r\n    margin-top: 5px;\r\n    display: block;\r\n    width: 150px;\r\n    transition: 1s linear;\n}\n.filterSearchBtn2[data-v-0fd55f6f]:hover {\r\n    background-color: var(--thirdColor);\n}\n.filterSearch input[data-v-0fd55f6f] {\r\n    display: inline;\r\n    height: 33px;\r\n    padding-bottom: 7px;\r\n    width: 240px;\n}\n.filterSearch input[data-v-0fd55f6f]:focus {\r\n    outline: 1px solid var(--thirdColor);\r\n    border: 1px solid var(--mainColor);\n}\n.createProduct[data-v-0fd55f6f] {\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    float: right;\r\n    margin-right: 10px;\r\n    border: 1px solid green;\r\n    background-color: rgb(188, 235, 116);\r\n    font-family: var(--thirdFont);\r\n    transition: 1s linear;\n}\n.createProduct[data-v-0fd55f6f]:hover {\r\n    background-color: rgb(172, 249, 56);\n}\n.filterCont[data-v-0fd55f6f] {\r\n    width: 100%;\r\n    height: 220px;\n}\n.showAll[data-v-0fd55f6f] {\r\n    width: 180px;\r\n    height: auto;\r\n    text-align: center;\r\n    border-radius: 5px;\r\n    float: right;\r\n    margin-right: 10px;\r\n    border: 1px solid green;\r\n    background-color: rgb(188, 235, 116);\r\n    transition: 1s linear;\r\n    font-family: var(--thirdFont);\n}\n.showAll[data-v-0fd55f6f]:hover {\r\n    background-color: rgb(172, 249, 56);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36540,7 +36528,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 800px) {\n.strapHeader[data-v-7cc97670] {\r\n    font-size: 5vw !important;\n}\n}\n.container[data-v-7cc97670] {\r\n    color: white;\r\n    position: relative;\r\n    left: 0;\r\n    padding: 0;\r\n    top: 0;\r\n    background-attachment: fixed;\r\n    background-position: center;\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n    width: 100%;\n}\n.strapHeader[data-v-7cc97670] {\r\n    font-family: var(--mainFont);\r\n    font-weight: bold;\r\n    font-size: 3vw;\n}\n.content[data-v-7cc97670] {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 100%;\r\n    left: 0;\r\n    font-family: var(--thirdFont);\r\n    top: 0;\r\n    padding: 6rem 10rem 6rem;\r\n    -webkit-backdrop-filter: brightness(40%);\r\n            backdrop-filter: brightness(40%);\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 900px) {\n.strapHeader[data-v-7cc97670] {\r\n    font-size: 2rem !important;\n}\n}\n.container[data-v-7cc97670] {\r\n    color: white;\r\n    position: relative;\r\n    left: 0;\r\n    padding: 0;\r\n    top: 0;\r\n    background-attachment: fixed;\r\n    background-position: center;\r\n    background-repeat: no-repeat;\r\n    background-size: cover;\r\n    width: 100%;\n}\n.strapHeader[data-v-7cc97670] {\r\n    font-family: var(--mainFont);\r\n    font-weight: bold;\r\n    font-size: 3vw;\n}\n.content[data-v-7cc97670] {\r\n    position: relative;\r\n    width: 100%;\r\n    height: 100%;\r\n    left: 0;\r\n    font-family: var(--thirdFont);\r\n    top: 0;\r\n    padding: 6rem 10rem 6rem;\r\n    -webkit-backdrop-filter: brightness(40%);\r\n            backdrop-filter: brightness(40%);\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36636,7 +36624,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\ninput[data-v-68907ab7] {\r\n    background-color: white;\r\n    border: 1px solid var(--secondColor);\r\n    display: block;\r\n    border-radius: 5px;\n}\ninput[data-v-68907ab7]:-webkit-autofill,\r\ninput[data-v-68907ab7]:-webkit-autofill:hover,\r\ninput[data-v-68907ab7]:-webkit-autofill:focus,\r\ninput[data-v-68907ab7]:-webkit-autofill:active {\r\n    -webkit-box-shadow: 0 0 0 30px white inset !important;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\ninput[data-v-68907ab7] {\r\n    background-color: white;\r\n    border: 1px solid var(--secondColor);\r\n    display: block;\r\n    border-radius: 5px;\n}\ninput[data-v-68907ab7]:-webkit-autofill,\r\ninput[data-v-68907ab7]:-webkit-autofill:hover,\r\ninput[data-v-68907ab7]:-webkit-autofill:focus,\r\ninput[data-v-68907ab7]:-webkit-autofill:active {\r\n    -webkit-box-shadow: 0 0 0 30px white inset !important;\n}\ntextarea[data-v-68907ab7] {\r\n    display: block;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36828,7 +36816,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 900px) {\n.tableCont[data-v-29106a82] {\r\n        width: 100% !important;\n}\n.tableContMain table[data-v-29106a82]{\r\n     font-size: 13px !important;\n}\n}\n.tableCont[data-v-29106a82] {\r\n    width: 80%;\n}\ntable[data-v-29106a82] {\r\n    font-family: var(--thirdFont);\r\n    border-collapse: collapse;\r\n    width: 100%;\n}\n.formSubmit td[data-v-29106a82],\r\nth[data-v-29106a82] {\r\n    text-align: center;\n}\n.formSubmit td[data-v-29106a82]:first-child {\r\n    font-weight: bold;\r\n    font-family: var(--thirdFont);\n}\n#submit[data-v-29106a82] {\r\n    font-size: 1.5rem;\r\n    width: 100%;\r\n    padding: 1rem;\r\n    transition: 0.5s linear;\r\n    border-radius: 6px;\r\n    background-color: var(--thirdColor) !important;\r\n    color: white;\r\n    font-family: var(--mainFont)\n}\n#submit[data-v-29106a82]:hover {\r\n    background-color: var(--mainColor) !important;\n}\n.sumbitFormCont[data-v-29106a82] {\r\n    border: 2px solid rgb(211, 211, 211);\n}\n.submitingCartContainer h2[data-v-29106a82] {\r\n    font-family: var(--thirdFont);\r\n    font-weight: 900;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 900px) {\n.tableContMain[data-v-29106a82] {\r\n        width: 100% !important;\n}\n.tableContMain table[data-v-29106a82]{\r\n     font-size: 13px !important;\n}\n}\n.tableContMain[data-v-29106a82] {\r\n    width: 80%;\r\n    overflow-x: scroll !important;\n}\ntable[data-v-29106a82] {\r\n    font-family: var(--thirdFont);\r\n    border-collapse: collapse;\r\n    width: 100%;\n}\n.formSubmit td[data-v-29106a82],\r\nth[data-v-29106a82] {\r\n    text-align: center;\n}\n.formSubmit td[data-v-29106a82]:first-child {\r\n    font-weight: bold;\r\n    font-family: var(--thirdFont);\n}\n#submit[data-v-29106a82] {\r\n    font-size: 1.5rem;\r\n    width: 100%;\r\n    padding: 1rem;\r\n    transition: 0.5s linear;\r\n    border-radius: 6px;\r\n    background-color: var(--thirdColor) !important;\r\n    color: white;\r\n    font-family: var(--mainFont)\n}\n#submit[data-v-29106a82]:hover {\r\n    background-color: var(--mainColor) !important;\n}\n.sumbitFormCont[data-v-29106a82] {\r\n    border: 2px solid rgb(211, 211, 211);\n}\n.submitingCartContainer h2[data-v-29106a82] {\r\n    font-family: var(--thirdFont);\r\n    font-weight: 900;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -36924,7 +36912,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 900px) {\n.tableCont[data-v-fdb82622] {\r\n        width: 100% !important;\n}\n}\n.tableCont[data-v-fdb82622] {\r\n    width: 80%;\n}\n.tableCont th[data-v-fdb82622] {\r\n    font-family: var(--thirdFont);\n}\n.formSubmit td[data-v-fdb82622],\r\nth[data-v-fdb82622] {\r\n    text-align: center;\n}\n.formSubmit td[data-v-fdb82622]:first-child {\r\n    font-weight: bold;\r\n    font-family: var(--thirdFont);\n}\n#submit[data-v-fdb82622] {\r\n    font-size: 1.5rem;\r\n    width: 100%;\r\n    padding: 1rem;\r\n    transition: 0.5s linear;\r\n    border-radius: 6px;\r\n    background-color: var(--thirdColor) !important;\r\n    color: white;\r\n    font-family: var(--mainFont)\n}\n#submit[data-v-fdb82622]:hover {\r\n    background-color: var(--mainColor) !important;\n}\n.sumbitFormCont[data-v-fdb82622] {\r\n    border: 2px solid rgb(211, 211, 211);\n}\n.submitingCartContainer div[data-v-fdb82622]:first-child {\r\n    font-family: var(--thirdFont);\r\n    font-weight: 900;\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n@media only screen and (max-width: 900px) {\n.tableCont[data-v-fdb82622] {\r\n        width: 100% !important;\n}\n}\n.tableCont[data-v-fdb82622] {\r\n    width: 80%;\r\n    overflow-x: scroll !important;\n}\n.tableCont th[data-v-fdb82622] {\r\n    font-family: var(--thirdFont);\n}\n.formSubmit td[data-v-fdb82622],\r\nth[data-v-fdb82622] {\r\n    text-align: center;\n}\n.formSubmit td[data-v-fdb82622]:first-child {\r\n    font-weight: bold;\r\n    font-family: var(--thirdFont);\n}\n#submit[data-v-fdb82622] {\r\n    font-size: 1.5rem;\r\n    width: 100%;\r\n    padding: 1rem;\r\n    transition: 0.5s linear;\r\n    border-radius: 6px;\r\n    background-color: var(--thirdColor) !important;\r\n    color: white;\r\n    font-family: var(--mainFont)\n}\n#submit[data-v-fdb82622]:hover {\r\n    background-color: var(--mainColor) !important;\n}\n.sumbitFormCont[data-v-fdb82622] {\r\n    border: 2px solid rgb(211, 211, 211);\n}\n.submitingCartContainer div[data-v-fdb82622]:first-child {\r\n    font-family: var(--thirdFont);\r\n    font-weight: 900;\n}\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

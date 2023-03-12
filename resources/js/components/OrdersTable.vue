@@ -43,7 +43,7 @@
                 </form>
             </section>
         </div>
-        <div class="row p-4 btnParent">
+        <div class="row pt-4 pb-4 btnParent">
             <table>
                 <tr>
                     <th style="width: 20%">#</th>
@@ -290,6 +290,7 @@ th {
 }
 table {
     width: 100%;
+  
 }
 
 td,
@@ -325,6 +326,7 @@ button {
 }
 .btnParent {
     position: relative;
+      overflow-x: scroll  !important;
 }
 .edit {
     background-color: var(--thirdColor);

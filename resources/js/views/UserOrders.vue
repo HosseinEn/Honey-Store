@@ -10,7 +10,7 @@
     </MiniIntroTemplate>
 
     <!-- Table -->
-    <div class="container-md tableCont p-4">
+    <div class="container tableCont pt-4 pb-4">
         <table>
             <tr>
                 <th style="width: 10%">قیمت کل (تومان)</th>
@@ -90,6 +90,7 @@ export default {
 
 .tableCont {
     width: 80%;
+    overflow-x: scroll !important;
 }
 .tableCont th {
     font-family: var(--thirdFont);

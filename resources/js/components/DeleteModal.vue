@@ -6,24 +6,25 @@
                   <div class="modal-container">
   
                   <div class="modal-header">
-                      <slot name="header">
-                      default header
-                      </slot>
+                     <h1>
+                        حذف محصول
+                     </h1>
                   </div>  
   
   
                   <div class="modal-body">
                       <slot name="body">
-                          <h4>Are you sure you want to delete this product?</h4>
+                          <h4>                      ایا از حذف این محصول اطمینان دارید؟
+</h4>
                           <br>
-                          Note: <p style="color:#ff0000;font-weight:700;">This can't be undone</p>
+                          اخطار: <p style="color:#ff0000;font-weight:700;">این عمل برگشت ندارد</p>
                       </slot>
                   </div>
   
                   <div class="modal-footer">
                       <slot name="footer">
-                      <button class="btn btn-secondary waves-effect waves-light" @click="$emit('close')">Cancel</button>
-                      <button type="submit" class="btn btn-danger waves-effect waves-light" @click="$emit('delete')">Delete</button>
+                      <button class="btn mx-2 btn-secondary waves-effect waves-light" @click="$emit('close')">کنسل</button>
+                      <button type="submit" class="btn btn-danger waves-effect waves-light" @click="$emit('delete')">حذف</button>
                       </slot>
                   </div>
                   </div>
@@ -67,7 +68,10 @@ export default {
     display: table;
     transition: opacity 0.3s ease;
   }
-  
+  form {
+    direction: rtl;
+    font-family: var(--thirdFont) !important;
+  }
   .modal-wrapper {
     display: table-cell;
     vertical-align: middle;
@@ -81,7 +85,6 @@ export default {
     border-radius: 2px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.33);
     transition: all 0.3s ease;
-    font-family: Helvetica, Arial, sans-serif;
   }
   
   .modal-header h3 {

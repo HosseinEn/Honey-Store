@@ -47,12 +47,12 @@
                     >
                         ارزان ترین
                     </button>
-                    <button
+                    <!-- <button
                         @click="changeFilter('mostSale')"
                         :class="{ activeFilter: currentFilter === 'mostSale' }"
                     >
                         مرتب سازی
-                    </button>
+                    </button> -->
                     <select
                         name="filterType"
                         id="FilterTypeSelect"
