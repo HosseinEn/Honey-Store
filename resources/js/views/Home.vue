@@ -106,9 +106,7 @@
     <!-- Order section -->
     <StrapDemo selectedImage="HoneyBlock2.jpg">
         <template v-slot:StrapDemoHeader>
-            <h1 class="StrapDemoHeader">
-                هر نوعی از عسل را که می‌خواهید را بیابید
-            </h1>
+            هر نوعی از عسل را که می‌خواهید را بیابید
         </template>
         <template v-slot:StrapDemoBtn>
             <router-link :to="{ name: 'shop' }" @click="this.scrollToTop">

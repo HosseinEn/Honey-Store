@@ -33,9 +33,9 @@ export default {
 </script>
 
 <style scoped>
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 900px) {
  .strapHeader {
-    font-size: 5vw !important;
+    font-size: 2rem !important;
 }
 }
 

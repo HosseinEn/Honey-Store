@@ -10,7 +10,7 @@
     </MiniIntroTemplate>
 
     <!-- Table -->
-    <div class="container tableContMain p-4">
+    <div class="container tableContMain pt-4 pb-4">
         <table>
             <tr>
                 <th style="width: 10%">نام محصول - وزن(کیلوگرم)</th>
@@ -71,7 +71,7 @@
     <!-- End Table -->
 
     <!-- Cart Ending -->
-    <div class="container p-4 tableCont">
+    <div class="container pt-4 pb-4 tableCont">
         <div class="row">
             <div class="col d-md-block d-none"></div>
             <div class="col">
@@ -254,7 +254,7 @@ export default {
 
 <style scoped>
 @media only screen and (max-width: 900px) {
-    .tableCont {
+    .tableContMain {
         width: 100% !important;
     }
     .tableContMain table{
@@ -262,8 +262,9 @@ export default {
 }
 }
 
-.tableCont {
+.tableContMain {
     width: 80%;
+    overflow-x: scroll !important;
 }
 table {
     font-family: var(--thirdFont);

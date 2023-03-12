@@ -29,7 +29,7 @@
                 </div> <!-- // end col md 2 -->
 
 
-                <div class="col-md-6">
+                <div class="col-md-6 mt-3 mb-3">
                     <div class="card">
                         <!-- <h3 class="text-center"><span class="text-danger">Hi....</span><strong>{{ Auth:: user() -> name
                         }}</strong> Update Your Profile </h3> -->
@@ -40,7 +40,7 @@
 
 
                                 <div class="form-group">
-                                    <label class="info-title" for="exampleInputEmail1">Name <span> </span></label>
+                                    <label class="info-title" for="exampleInputEmail1">نام <span> </span></label>
                                     <input type="text" v-model="name" name="name" :class="[
                                         'form-control',
                                         {
@@ -55,7 +55,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="info-title" for="exampleInputEmail1">Email <span> </span></label>
+                                    <label class="info-title" for="exampleInputEmail1">ایمیل <span> </span></label>
                                     <input type="email" v-model="email" name="email" :class="[
                                         'form-control',
                                         {
@@ -76,7 +76,7 @@
                                 </div> -->
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-danger">Update</button>
+                                    <button type="submit" class="btn btn-danger">اپدیت</button>
                                 </div>
 
 
@@ -148,4 +148,38 @@ export default {
 }
 </script>
 
-<style></style>
+<style scoped>
+label {
+float: right;
+ margin-bottom: 10px;
+ margin-top: 10px;
+ font-size: 1.3rem;
+ font-family: var(--thirdFont);
+}
+input {
+    direction: rtl;
+}
+button {
+    position: relative;
+    left: 50%;
+    margin-top: 1rem;
+    transform: translate(-50%, 0);
+    background-color: var(--mainColor);
+    padding: 0.3rem 1.1rem 0.6rem;
+    border-radius: 5px;
+    transition: all 0.5s linear;
+    color: white;
+    font-size: 1rem;
+    width: 200px;
+    border: none;
+    font-family: var(--mainFont);
+}
+button:hover {
+    background-color: var(--thirdColor);
+}
+h3 {
+    font-family: var(--thirdFont);
+    margin: 20px;
+    font-size: 2rem;
+    color: var(--thirdColor);
+}</style>

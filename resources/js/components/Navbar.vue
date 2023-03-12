@@ -54,6 +54,13 @@
                             >خانه</router-link
                         >
                     </li>
+                     <li class="nav-item">
+                        <router-link
+                            :to="{ name: 'user_profile' }"
+                            @click="this.scrollToTop"
+                            >پروفایل</router-link
+                        >
+                    </li>
                     <li v-if="name == null" class="nav-item">
                         <router-link
                             :to="{ name: 'account' }"
@@ -171,6 +178,7 @@ export default {
 li a {
     margin-left: 1.5rem;
     transition: all 0.5s linear;
+    font-size: 1.2rem;
 }
 li:hover {
     color: var(--mainColor);
