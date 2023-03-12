@@ -60,6 +60,7 @@ Route::middleware('auth:sanctum')->group(function() {
         Route::post('/update-profile', 'updateProfile');
     });
 });
+Route::get('types', [App\Http\Controllers\Api\TypeController::class, 'index']);
 Route::get('callback-payment', [App\Http\Controllers\Api\ProductUserController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 Route::post('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy'])->withoutMiddleware('throttle');

@@ -18,7 +18,8 @@ Route::get('/{any}', function () {
     $isLogged = Auth::check();
     return view('welcome', [
         'isLogged' => $isLogged,
-        'isAdmin' => $isLogged && Auth::user()->is_admin
+        'isAdmin' => $isLogged && Auth::user()->is_admin,
+        'userName' => $isLogged ? Auth::user()->name : null
     ]);
 })->where('any', '^(?!api\/)[\/\w\.-]*');
 

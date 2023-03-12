@@ -19,16 +19,9 @@ class TypeController extends Controller
 
 
         $types = Type::all();
-        dump($types->pluck('name'));
-
         return new JsonResponse([
-            'data' => $types
+            'types' => $types
         ]);
-
-        // $types = Type::all()->paginate(self::PAGINATEDBY);
-        // $pageNumberMultiplyPaginationSize = $this->calculate($request);
-
-        // return view('admin.types.index', compact("types", "pageNumberMultiplyPaginationSize"));
     }
 
     /**

@@ -9,8 +9,8 @@
             <table>
                 <tr>
                     <th style="width: 20%">نام کاربر</th>
-                    <th style="width: 20%">ایمیل</th>
                     <th style="width: 20%">شماره تماس</th>
+                    <th style="width: 20%">ایمیل</th>
                     <th style="width: 20%">ادمین</th>
                     <th style="width: 20%">تاریخ ثبت‌نام</th>
                     <th style="width: 20%">حذف</th>

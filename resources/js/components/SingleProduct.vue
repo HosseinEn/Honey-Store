@@ -26,7 +26,7 @@
                 {{ product.name }}
                 <div v-if="filteredAttribute">
                     <span>{{ filteredAttribute.weight }}</span>
-                    <span style="font-weight: 600">گرم</span> -
+                    <span style="font-weight: 600">کیلوگرم</span> -
                     {{ filteredAttribute.attribute_product.price }}
                     <span style="font-weight: 600">تومن</span>
                 </div>

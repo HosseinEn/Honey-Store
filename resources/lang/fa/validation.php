@@ -95,7 +95,7 @@ return [
     'multiple_of' => 'گزینه :attribute باید حاصل ضرب :value باشد',
     'not_in' => 'گزینه انتخابی :attribute صحیح نمی باشد',
     'not_regex' => 'فرمت گزینه :attribute صحیح نمی باشد',
-    'numeric' => 'گزینه :attribute باید از نوع عددی باشد',
+    'numeric' => 'گزینه :attribute باید از نوع عددی (عدد انگلیسی) باشد',
     'password' => 'رمزعبور صحیح نمی باشد',
     'present' => 'گزینه :attribute باید از نوع درصد باشد',
     'regex' => 'فرمت گزینه :attribute صحیح نمی باشد',

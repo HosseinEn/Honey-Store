@@ -16,62 +16,66 @@
 
     <div class="container-fluid mt-5">
         <div class="container-fluid">
-            <div class="row filterRow text-center filterLable">
-                <h3 class="mb-3"><span>:</span><span>فیلتر</span></h3>
-                <section>
-                    <button
-                        @click="changeFilter('all')"
-                        :class="{ activeFilter: currentFilter === 'all' }"
-                    >
-                        همه
-                    </button>
-                    <button
-                        @click="changeFilter('mostDiscounted')"
-                        :class="{
-                            activeFilter: currentFilter === 'mostDiscounted',
-                        }"
-                    >
-                        بیشترین تخفیف
-                    </button>
-                    <button
-                        @click="changeFilter('mostExpensive')"
-                        :class="{
-                            activeFilter: currentFilter === 'mostExpensive',
-                        }"
-                    >
-                        گران ترین
-                    </button>
-                    <button
-                        @click="changeFilter('cheapest')"
-                        :class="{ activeFilter: currentFilter === 'cheapest' }"
-                    >
-                        ارزان ترین
-                    </button>
-                    <!-- <button
-                        @click="changeFilter('mostSale')"
-                        :class="{ activeFilter: currentFilter === 'mostSale' }"
-                    >
-                        مرتب سازی
-                    </button> -->
-                    <select
-                        name="filterType"
-                        id="FilterTypeSelect"
-                        v-model="filterType"
-                        @change="filterTypeMethod()"
-                    >
-                        <option value="noe-1">1</option>
-                        <option value="noe-2">2</option>
-                        <option value="noe-3">3</option>
-                        <option value="noe-4">4</option>
-                    </select>
-                </section>
-            </div>
             <!-- {{ filteredProducts }} -->
             <div v-if="loading" class="loadingFilter">
                 <span>...</span><span>در حال لود شدن </span>
             </div>
 
             <div v-else>
+                <div class="row filterRow text-center filterLable">
+                    <h3 class="mb-3"><span>:</span><span>مرتب‌سازی</span></h3>
+                    <section>
+                        <button
+                            @click="changeFilter('all')"
+                            :class="{ activeFilter: currentFilter === 'all' }"
+                        >
+                            همه
+                        </button>
+                        <button
+                            @click="changeFilter('mostDiscounted')"
+                            :class="{
+                                activeFilter: currentFilter === 'mostDiscounted',
+                            }"
+                        >
+                            بیشترین تخفیف
+                        </button>
+                        <button
+                            @click="changeFilter('mostExpensive')"
+                            :class="{
+                                activeFilter: currentFilter === 'mostExpensive',
+                            }"
+                        >
+                            گران ترین
+                        </button>
+                        <button
+                            @click="changeFilter('cheapest')"
+                            :class="{ activeFilter: currentFilter === 'cheapest' }"
+                        >
+                            ارزان ترین
+                        </button>
+                        <!-- <button
+                            @click="changeFilter('mostSale')"
+                            :class="{ activeFilter: currentFilter === 'mostSale' }"
+                        >
+                            مرتب سازی
+                        </button> -->
+                        <!-- {{ types }} -->
+                        <select
+                            name="filterType"
+                            id="FilterTypeSelect"
+                            v-model="filterType"
+                            @change="filterTypeMethod()"
+                        >
+                            <option :value="`${product_type.slug}`" v-for="product_type in types" :key="product_type.id">
+                                {{ product_type.name }}
+                            </option>
+                            <!-- // <option value="noe-1">1</option>
+                            // <option value="noe-2">2</option>
+                            // <option value="noe-3">3</option>
+                            // <option value="noe-4">4</option> -->
+                        </select>
+                    </section>
+                </div>
                 <div class="productRow" v-if="sortAndFilteredProducts">
                     <section
                         class="productItem"
@@ -171,6 +175,7 @@ export default {
             honeyType: "all",
             loading: true,
             filterType: null,
+            types: null
         };
     },
     components: {
@@ -190,6 +195,9 @@ export default {
             this.filteredProducts = this.products;
             this.loading = false;
         });
+        axios.get("api/types").then(response => {
+            this.types = response.data.types;
+        })
     },
     methods: {
         changeFilter(currentFilter) {
@@ -211,14 +219,15 @@ export default {
             }
         },
         filterTypeMethod() {
+            console.log(this.filterType)
             if (this.currentFilter !== "all") {
                 this.sortAndFilteredProducts = this.filteredProducts.filter(
                     (filproduct) =>
-                        filproduct.product.type.name == this.filterType
+                        filproduct.product.type.slug == this.filterType
                 );
             } else {
                 this.sortAndFilteredProducts = this.products.filter(
-                    (product) => product.type.name == this.filterType
+                    (product) => product.type.slug == this.filterType
                 );
             }
         },
