@@ -18,7 +18,7 @@
         <div class="container-fluid">
             <!-- {{ filteredProducts }} -->
             <div v-if="loading" class="loadingFilter">
-                <span>...</span><span>منتظر بمانید...</span>
+                <span>...</span><span>منتظر بمانید</span>
             </div>
 
             <div v-else>
