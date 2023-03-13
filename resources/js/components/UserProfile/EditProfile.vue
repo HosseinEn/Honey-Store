@@ -31,16 +31,13 @@
 
                 <div class="col-md-6 mt-3 mb-3">
                     <div class="card">
-                        <!-- <h3 class="text-center"><span class="text-danger">Hi....</span><strong>{{ Auth:: user() -> name
-                        }}</strong> Update Your Profile </h3> -->
-
                         <div class="card-body">
-
+                            <div style="background-color: green;">
+                                {{ success }}
+                            </div>
                             <form method="post" @submit.prevent="updateProfile" enctype="multipart/form-data">
-
-
                                 <div class="form-group">
-                                    <label class="info-title" for="exampleInputEmail1">نام <span> </span></label>
+                                    <label class="info-title" for="exampleInputEmail1">:نام <span> </span></label>
                                     <input type="text" v-model="name" name="name" :class="[
                                         'form-control',
                                         {
@@ -55,7 +52,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="info-title" for="exampleInputEmail1">ایمیل <span> </span></label>
+                                    <label class="info-title" for="exampleInputEmail1">:ایمیل<span> </span></label>
                                     <input type="email" v-model="email" name="email" :class="[
                                         'form-control',
                                         {
@@ -63,24 +60,40 @@
                                         }
                                     ]">
                                 </div>
+                                <div class="form-group">
+                                    <label for="phone">:شماره تماس</label>
+                                    <input type="text" name="phone" placeholder="شماره تماس خود را وارد نمایید..." class="form-control" v-model="phone"
+                                        :class="[
+                                            {
+                                                'is-invalid':
+                                                    this.errors !== null && this.errors.phone ? true : false,
+                                            },
+                                        ]" />
+                                </div>
+                                <span style="color: red" v-if="this.errors !== null && this.errors.phone">{{ this.errors.phone[0] }}</span>
                                 <div style="color: red" v-if="this.errors !== null && this.errors.email">
                                         <div v-for="error in this.errors.email" :key="error">
                                             {{ error }}
                                         </div>
                                 </div>
-
-
-                                <!-- <div class="form-group">
-                                    <label class="info-title" for="exampleInputEmail1">Phone <span> </span></label>
-                                    <input type="text" name="phone" class="form-control">
-                                </div> -->
-
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-danger">اپدیت</button>
+                                    <label for="address">:آدرس</label>
+                                    <textarea name="address" :class="[
+                                        'form-control',
+                                        {
+                                            'is-invalid':
+                                                this.errors !== null && this.errors.address
+                                                    ? true
+                                                    : false,
+                                        },
+                                    ]" v-model="address" id="address" cols="30" rows="3"></textarea>
                                 </div>
-
-
-
+                                <span style="color: red" v-if="this.errors !== null && this.errors.address">
+                                    {{ this.errors.address[0] }}
+                                </span>
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-danger">ویرایش</button>
+                                </div>
                             </form>
                         </div> 
 
@@ -122,7 +135,10 @@ export default {
         return {
             name: null,
             email: null,
+            address: null,
+            phone: null,
             errors: null,
+            success: null
         }
     },
     mounted() {
@@ -131,15 +147,21 @@ export default {
             console.log(response.data)
             this.name = response.data.user.name;
             this.email = response.data.user.email;
+            this.address = response.data.user.address;
+            this.phone = response.data.user.phone;
         })
     },
     methods: {
         updateProfile() {
+            this.success = null;
+            this.errors = null;
             axios.post('/api/update-profile', {
                 'name': this.name,
-                'email': this.email
+                'email': this.email,
+                'address': this.address,
+                'phone': this.phone,
             })
-            .then(response => console.log(response.data))
+            .then(response => this.success = 'ویرایش با موفقیت انجام شد.')
             .catch(errors => {
                 this.errors = errors.response && errors.response.data.errors;
             })

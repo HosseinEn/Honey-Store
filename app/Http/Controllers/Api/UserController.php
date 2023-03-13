@@ -49,12 +49,11 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'max:255', 'unique:users,email,' . $user->id],
+            'address' => ['required', 'max:100'],
+            'phone' => ['required', 'numeric'],
         ]);
 
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
-        ]);
+        $user->update($request->all());
   
         return new JsonResponse([
             'success' => 'پروفایل شما با موفقیت ویرایش شد!'

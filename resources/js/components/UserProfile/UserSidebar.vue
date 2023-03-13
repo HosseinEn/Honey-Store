@@ -8,8 +8,6 @@
              <router-link class="btn btn-sm btn-block" :to="{ name: 'user_profile' }">خانه</router-link>
              <router-link class="btn btn-sm btn-block" :to="{ name: 'user_edit_profile' }">ویراش پروفایل</router-link>
              <router-link class="btn btn-sm btn-block" :to="{ name: 'user_change_password' }">تغییر پسوورد</router-link>
-             <router-link class="btn btn-sm btn-block" :to="{ name: 'user.orders' }">سفارش‌های من</router-link>
-             <router-link class="btn btn-sm btn-block" :to="{ name: 'cart' }">سبد خرید</router-link>
              <button @click="logout" class="btn  btn-sm btn-block">خروج</button>
 
          </ul>

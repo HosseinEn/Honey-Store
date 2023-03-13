@@ -59,6 +59,20 @@
                             },
                         ]" />
                 </div>
+                <div class="form-group">
+                    <label for="address">آدرس:</label>
+                    <textarea name="address" :class="[
+                        'form-control',
+                        {
+                            'is-invalid':
+                                this.errors !== null && this.errors.address
+                                    ? true
+                                    : false,
+                        },
+                    ]" v-model="address" id="address" cols="30" rows="3"></textarea>
+                </div>
+                <span style="color: red" v-if="this.errors !== null && this.errors.address">{{
+                    this.errors.address[0] }}</span>
                 <span style="color: red" v-if="this.errors !== null && this.errors.password_confirmation">{{
                     this.errors.password_confirmation[0] }}</span>
                 <div class="row d-flex justify-content-center align-items-center">
@@ -81,6 +95,7 @@ export default {
             errors: null,
             name: null,
             email: null,
+            address: null,
             phone: null,
             password: null,
             password_confirmation: null,
@@ -98,6 +113,7 @@ export default {
                     name: this.name,
                     email: this.email,
                     phone: this.phone,
+                    address: this.address,
                     password: this.password,
                     password_confirmation: this.password_confirmation,
                 });

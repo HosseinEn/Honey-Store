@@ -54,6 +54,11 @@ Route::middleware('auth:sanctum')->group(function() {
             'isAdmin' => Auth::user()->is_admin,
         ]);
     });
+    Route::controller(App\Http\Controllers\Api\UserController::class)->group(function() {
+        Route::post('/user-change-password', 'passwordUpdate');
+        Route::get('/get-user', 'getUser');
+        Route::post('/update-profile', 'updateProfile');
+    });
 });
 Route::get('callback-payment', [App\Http\Controllers\Api\CheckoutController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
