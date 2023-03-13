@@ -58,6 +58,7 @@
                     <th style="width: 20%">محصولات سفارش داده شده</th>
                     <th style="width: 20%">لغو سفارش</th>
                     <th style="width: 20%">تغییر وضعیت سفارش</th>
+                    <th style="width: 20%">توضیحات</th>
                 </tr>
                 <tr v-for="(order, index) in orders" :key="order">
                      <td>{{ index + 1 }}</td>
@@ -96,6 +97,9 @@
                             </select>
                             <button @click="updateOrderStatus(order, selectedValue); scrollToMessage();">اعمال</button>
                         </div>
+                    </td>
+                    <td>
+                        {{ order.description }}
                     </td>
                 </tr>
             </table>

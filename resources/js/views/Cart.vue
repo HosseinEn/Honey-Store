@@ -103,6 +103,9 @@
                     <div class="row mt-3">
                         <form>
                             <button id="submit" type="submit" @click.prevent="checkout" style="background-color: black; color:white;">تکمیل فرایند خرید</button>
+                            <div v-for="error in errors" :key="error" style="color:red;">
+                                {{error[0]}}
+                            </div>
                         </form>
                     </div>
                 </section>
@@ -154,8 +157,7 @@ export default {
                 window.location.href = response.data.action;
             })
             .catch(errors => {
-                // TODO show this error
-                console.log(errors);
+                this.errors = errors.response && errors.response.data.errors;
             });
         },
         addCommasToPrice(price) {

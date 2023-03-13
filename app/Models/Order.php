@@ -26,7 +26,8 @@ class Order extends Model
         'invoice_no',
         'reference_id',
         'shipping_address',
-        'transaction_id'
+        'transaction_id',
+        'description'
     ];
 
     public function user() {

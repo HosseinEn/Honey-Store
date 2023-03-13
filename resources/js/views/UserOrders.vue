@@ -23,7 +23,8 @@
             <tr v-for="order in orders" :key="order.id">
                 <td>{{ addCommasToPrice(order.total_price) }}</td>
                 <td>{{ order.invoice_no }}</td>
-                <td>{{ order.reference_id }}</td>
+                <td v-if="order.reference_id">{{ order.reference_id }}</td>
+                <td v-else>ندارد</td>
                 <td>‌ {{ convertDate(order.created_at) }}</td>
                 <td>{{ order.order_status_text }}</td>
                 <td>

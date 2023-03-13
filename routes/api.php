@@ -35,9 +35,9 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
 
 // User endpoints
 Route::middleware('auth:sanctum')->group(function() {
-    Route::controller(App\Http\Controllers\Api\ProductUserController::class)->group(function() {
+    Route::post('checkout-cart', [App\Http\Controllers\Api\CheckoutController::class, 'checkoutCart']);
+    Route::controller(App\Http\Controllers\Api\CartController::class)->group(function() {
         Route::post('add-to-cart/{product}', 'addToCart');
-        Route::post('checkout-cart', 'checkoutCart');
         Route::get('cart', 'index');
         Route::post('cart/increase-amount', 'increaseAmount');
         Route::post('cart/decrease-amount', 'decreaseAmount');
@@ -54,14 +54,8 @@ Route::middleware('auth:sanctum')->group(function() {
             'isAdmin' => Auth::user()->is_admin,
         ]);
     });
-    Route::controller(App\Http\Controllers\Api\UserController::class)->group(function() {
-        Route::post('/user-change-password', 'passwordUpdate');
-        Route::get('/get-user', 'getUser');
-        Route::post('/update-profile', 'updateProfile');
-    });
 });
-Route::get('types', [App\Http\Controllers\Api\TypeController::class, 'index']);
-Route::get('callback-payment', [App\Http\Controllers\Api\ProductUserController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
+Route::get('callback-payment', [App\Http\Controllers\Api\CheckoutController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
 Route::post('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy'])->withoutMiddleware('throttle');
 Route::get('admin/orders/filtered-by-status/{status}', [App\Http\Controllers\Api\FilterController::class, 'ordersFilterByStatus']);

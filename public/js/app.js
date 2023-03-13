@@ -24925,11 +24925,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     checkout: function checkout() {
+      var _this = this;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post('/api/checkout-cart').then(function (response) {
         window.location.href = response.data.action;
       })["catch"](function (errors) {
-        // TODO show this error
-        console.log(errors);
+        _this.errors = errors.response && errors.response.data.errors;
       });
     },
     addCommasToPrice: function addCommasToPrice(price) {
@@ -24944,62 +24944,62 @@ __webpack_require__.r(__webpack_exports__);
       this.showModal = true;
     },
     deleteFromCart: function deleteFromCart() {
-      var _this = this;
+      var _this2 = this;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/cart/".concat(this.deleteSlug), {
         product_user_id: this.product_user_id
       }).then(function () {
-        _this.deletedProduct = _this.products.filter(function (product) {
-          return product.cart.id == _this.product_user_id;
+        _this2.deletedProduct = _this2.products.filter(function (product) {
+          return product.cart.id == _this2.product_user_id;
         });
-        _this.totalPrice -= _this.deletedProduct[0].selected_attribute.attribute_product.price * _this.deletedProduct[0].cart.quantity;
-        _this.totalPriceWithDiscount -= _this.deletedProduct[0].selected_attribute.attribute_product.price * _this.deletedProduct[0].cart.quantity * (100.0 - (_this.deletedProduct[0].selected_attribute.attribute_product.discount_id != null ? _this.deletedProduct[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
-        _this.products = _this.products.filter(function (product) {
-          return product.cart.id != _this.product_user_id;
+        _this2.totalPrice -= _this2.deletedProduct[0].selected_attribute.attribute_product.price * _this2.deletedProduct[0].cart.quantity;
+        _this2.totalPriceWithDiscount -= _this2.deletedProduct[0].selected_attribute.attribute_product.price * _this2.deletedProduct[0].cart.quantity * (100.0 - (_this2.deletedProduct[0].selected_attribute.attribute_product.discount_id != null ? _this2.deletedProduct[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
+        _this2.products = _this2.products.filter(function (product) {
+          return product.cart.id != _this2.product_user_id;
         });
-        _this.deleteSlug = null;
-        _this.showModal = false;
+        _this2.deleteSlug = null;
+        _this2.showModal = false;
       });
     },
     increaseAmount: function increaseAmount(increase) {
-      var _this2 = this;
+      var _this3 = this;
       this.errors = null;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/cart/increase-amount", {
         product_user_id: increase
       }).then(function () {
-        _this2.increaseAmountInTable = _this2.products.filter(function (product) {
+        _this3.increaseAmountInTable = _this3.products.filter(function (product) {
           return product.cart.id == increase;
         });
-        _this2.increaseAmountInTable[0].cart.quantity += 1;
-        _this2.totalPrice += _this2.increaseAmountInTable[0].selected_attribute.attribute_product.price;
-        _this2.totalPriceWithDiscount += _this2.increaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this2.increaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this2.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
+        _this3.increaseAmountInTable[0].cart.quantity += 1;
+        _this3.totalPrice += _this3.increaseAmountInTable[0].selected_attribute.attribute_product.price;
+        _this3.totalPriceWithDiscount += _this3.increaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this3.increaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this3.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
       })["catch"](function (errors) {
-        _this2.errors = errors.response && errors.response.data.errors;
+        _this3.errors = errors.response && errors.response.data.errors;
       });
     },
     decreaseAmount: function decreaseAmount(decrease) {
-      var _this3 = this;
+      var _this4 = this;
       this.errors = null;
       axios__WEBPACK_IMPORTED_MODULE_4___default().post("/api/cart/decrease-amount", {
         product_user_id: decrease
       }).then(function () {
-        _this3.decreaseAmountInTable = _this3.products.filter(function (product) {
+        _this4.decreaseAmountInTable = _this4.products.filter(function (product) {
           return product.cart.id == decrease;
         });
-        _this3.decreaseAmountInTable[0].cart.quantity -= 1;
-        _this3.totalPrice -= _this3.decreaseAmountInTable[0].selected_attribute.attribute_product.price;
-        _this3.totalPriceWithDiscount -= _this3.decreaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this3.decreaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this3.decreaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
+        _this4.decreaseAmountInTable[0].cart.quantity -= 1;
+        _this4.totalPrice -= _this4.decreaseAmountInTable[0].selected_attribute.attribute_product.price;
+        _this4.totalPriceWithDiscount -= _this4.decreaseAmountInTable[0].selected_attribute.attribute_product.price * (100.0 - (_this4.decreaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null ? _this4.decreaseAmountInTable[0].selected_attribute.attribute_product.discount.value : 0.0)) / 100;
       })["catch"](function (errors) {
-        _this3.errors = errors.response && errors.response.data.errors;
+        _this4.errors = errors.response && errors.response.data.errors;
       });
     }
   },
   mounted: function mounted() {
-    var _this4 = this;
+    var _this5 = this;
     axios__WEBPACK_IMPORTED_MODULE_4___default().get('/api/cart').then(function (response) {
-      _this4.products = response.data.products;
-      _this4.totalPrice = response.data.totalPrice;
-      _this4.totalPriceWithDiscount = response.data.totalPriceWithDiscount;
-      _this4.name_of_user = response.data.name_of_user;
+      _this5.products = response.data.products;
+      _this5.totalPrice = response.data.totalPrice;
+      _this5.totalPriceWithDiscount = response.data.totalPriceWithDiscount;
+      _this5.name_of_user = response.data.name_of_user;
     });
   }
 });
@@ -27232,7 +27232,11 @@ var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
     style: {
       "width": "20%"
     }
-  }, "تغییر وضعیت سفارش")], -1 /* HOISTED */);
+  }, "تغییر وضعیت سفارش"), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("th", {
+    style: {
+      "width": "20%"
+    }
+  }, "توضیحات")], -1 /* HOISTED */);
 });
 var _hoisted_11 = {
   "class": "list-group"
@@ -27387,7 +27391,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
         $options.updateOrderStatus(order, $data.selectedValue);
         $options.scrollToMessage();
       }
-    }, "اعمال", 8 /* PROPS */, _hoisted_16)])])]);
+    }, "اعمال", 8 /* PROPS */, _hoisted_16)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.description), 1 /* TEXT */)]);
   }), 128 /* KEYED_FRAGMENT */))]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [$data.success ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.success), 1 /* TEXT */)) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), this.errors != null && this.errors.order_status_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_19, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(this.errors.order_status_id, function (error) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
       "class": "alert alert-danger mt-2",
@@ -29717,7 +29721,14 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       "background-color": "black",
       "color": "white"
     }
-  }, "تکمیل فرایند خرید")])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Cart Ending "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }, "تکمیل فرایند خرید"), ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.errors, function (error) {
+    return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", {
+      key: error,
+      style: {
+        "color": "red"
+      }
+    }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(error[0]), 1 /* TEXT */);
+  }), 128 /* KEYED_FRAGMENT */))])])])])])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Cart Ending "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -30106,7 +30117,7 @@ var _hoisted_17 = ["onClick"];
 var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h5", {
     "class": "mt-3"
-  }, "تعداد:", -1 /* HOISTED */);
+  }, "تعداد (عدد انگلیسی):", -1 /* HOISTED */);
 });
 var _hoisted_19 = ["max"];
 var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
@@ -30271,6 +30282,12 @@ var _hoisted_4 = /*#__PURE__*/_withScopeId(function () {
   }, "محصولات سفارش داده شده")], -1 /* HOISTED */);
 });
 var _hoisted_5 = {
+  key: 0
+};
+var _hoisted_6 = {
+  key: 1
+};
+var _hoisted_7 = {
   "class": "list-group"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
@@ -30292,7 +30309,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
   }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Table "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("table", null, [_hoisted_4, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($data.orders, function (order) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
       key: order.id
-    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.addCommasToPrice(order.total_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.invoice_no), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.reference_id), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "‌ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.convertDate(order.created_at)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.order_status_text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_5, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(order.products, function (product) {
+    }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.addCommasToPrice(order.total_price)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.invoice_no), 1 /* TEXT */), order.reference_id ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_5, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.reference_id), 1 /* TEXT */)) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("td", _hoisted_6, "ندارد")), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, "‌ " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.convertDate(order.created_at)), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(order.order_status_text), 1 /* TEXT */), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("ul", _hoisted_7, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)(order.products, function (product) {
       return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("li", {
         "class": "list-group-item mt-1",
         key: product.id

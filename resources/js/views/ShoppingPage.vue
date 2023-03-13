@@ -49,7 +49,7 @@
                             </div>
 
                             <!-- Count -->
-                            <h5 class="mt-3">تعداد:</h5>
+                            <h5 class="mt-3">تعداد (عدد انگلیسی):</h5>
                             <section>
                                 <input type="number" name="quantity" min="0" :max="getStock()" step="1"
                                     v-model="quantityNumber" />
