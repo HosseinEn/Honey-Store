@@ -19,42 +19,42 @@
                 id="navbarSupportedContent"
             >
                 <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
-                    <li v-if="name" class="nav-item ml-2">
+                    <li v-if="name" class="nav-item ml-2 mb-2">
                         <router-link
                             :to="{ name: 'cart' }"
                             @click="this.scrollToTop"
                             >سبد خرید من</router-link
                         >
                     </li>
-                    <li v-if="name" class="nav-item ml-2">
+                    <li v-if="name" class="nav-item ml-2 mb-2">
                         <router-link
                             :to="{ name: 'user.orders' }"
                             @click="this.scrollToTop"
                             >سفارش‌های من</router-link
                         >
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-2">
                         <router-link
                             :to="{ name: 'shop' }"
                             @click="this.scrollToTop"
                             >فروشگاه</router-link
                         >
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-2">
                         <router-link
                             :to="{ name: 'aboutUs' }"
                             @click="this.scrollToTop"
                             >درباره ما</router-link
                         >
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item mb-2">
                         <router-link
                             :to="{ name: 'home' }"
                             @click="this.scrollToTop"
                             >خانه</router-link
                         >
                     </li>
-                     <li class="nav-item">
+                     <li class="nav-item mb-2">
                         <router-link
                             v-if="isLogged"
                             :to="{ name: 'user_profile' }"
@@ -62,14 +62,14 @@
                             >پروفایل</router-link
                         >
                     </li>
-                    <li v-if="!isLogged" class="nav-item">
+                    <li v-if="!isLogged" class="nav-item mb-2">
                         <router-link
                             :to="{ name: 'account' }"
                             @click="this.scrollToTop"
                             >ثبت نام/ لاگین</router-link
                         >
                     </li>
-                    <li v-if="isLogged" class="nav-item ml-2">
+                    <li v-if="isLogged" class="nav-item ml-2 mb-2">
                         <form>
                             <button
                                 type="submit"
@@ -83,22 +83,24 @@
                             </button>
                         </form>
                     </li>
-                    <li v-if="isLogged" class="nav-item">
+                    <li v-if="isLogged" class="nav-item mb-2">
                         <span v-if="isAdmin">
                             <router-link
                                 :to="{ name: 'admin.products' }"
                                 @click="this.scrollToTop"
                                 >
-                                <span class="userName">: کاربر</span>
+                                
                                 {{ name }}
                             </router-link>
+                            <span class="userName"> : کاربر</span>
                         </span>
                         <span v-else>
+                            <span class="userName">کاربر:</span>
                             <router-link
                                 :to="{ name: 'user_profile' }"
                                 @click="this.scrollToTop"
                                 >
-                                <span class="userName">کاربر:</span>
+                                
                                 {{ name }}
                             </router-link>
                         </span>

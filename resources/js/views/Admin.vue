@@ -100,7 +100,7 @@ export default {
 
 #mySidenavRight a {
     position: absolute;
-    right: -60px;
+    right: -30px;
     font-family: var(--thirdFont);
     font-weight: 600;
     transition: 0.3s;

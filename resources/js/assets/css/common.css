@@ -175,6 +175,12 @@ tr:nth-child(odd) {
     background-color: #dad4fa;
 }
 
+.btnParent {
+    position: relative;
+    width: 100%;
+    overflow-x: scroll !important;
+    
+}
 
 .deleteIcon {
     background-color: transparent;

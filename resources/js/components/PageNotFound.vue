@@ -1,7 +1,6 @@
 <template>
     <div>
         <Navbar />
-        <MiniIntroTemplate title="صفحه مورد نظر یافت نشد" />
         <div class="container">
             <div class="row">
                 <div class="col-12">
@@ -29,6 +28,10 @@ export default {
 </script>
 
 <style scoped>
+.container {
+    margin-top: 240px !important;
+     margin-bottom: 150px !important;
+}
 .text-center {
     text-align: center;
 }

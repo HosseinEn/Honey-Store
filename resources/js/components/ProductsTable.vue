@@ -79,7 +79,7 @@
             </section>
         </div>
 
-        <div class="row pb-4 pt-4 btnParent">
+        <div class="pb-4 pt-4 btnParent">
             <table>
                 <tr>
                     <th style="width: 20%">نام محصول</th>
@@ -258,9 +258,14 @@ export default {
 }
 .btnParent {
     position: relative;
+    width: 100%;
+    overflow-x: scroll !important;
+    
 }
 
-
+table th {
+    text-align: center !important;
+}
 button {
     width: 80%;
     border-radius: 5px;

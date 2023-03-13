@@ -98,8 +98,8 @@ export default {
 }
 .product {
     width: 100%;
-    margin-top: 2rem;
-    margin-bottom: 2rem;
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
     height: 475px;
     padding: 10px;
     position: relative;

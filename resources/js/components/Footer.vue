@@ -7,7 +7,7 @@
         
       </div>
       <div
-        class="col col-6 col-md-2 d-flex justify-content-center align-items-center d-none d-md-block"
+        class="col col-6 col-md-2 d-flex justify-content-center align-items-center"
       >
         <ul>
           <li class="mb-4">صفحات</li>
@@ -60,7 +60,7 @@
           </li> -->
         </ul>
       </div>
-      <div class="col col-6 col-md-3 d-flex justify-content-center">
+      <div class="col col-6 col-md-3 d-flex justify-content-center  d-none d-md-block ">
         <ul class="socialMediaList">
           <li class="mb-4">ما را در فضای مجازی دنبال کنید</li>
           <li>
