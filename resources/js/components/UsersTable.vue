@@ -8,12 +8,12 @@
         <div class="row p-4 btnParent">
             <table>
                 <tr>
-                    <th style="width: 20%">نام کاربر</th>
+                    <th style="width: 10%">نام کاربر</th>
                     <th style="width: 20%">شماره تماس</th>
                     <th style="width: 20%">ایمیل</th>
-                    <th style="width: 20%">ادمین</th>
+                    <th style="width: 5%">ادمین</th>
                     <th style="width: 20%">تاریخ ثبت‌نام</th>
-                    <th style="width: 20%">حذف</th>
+                    <th style="width: 20%">ارتقا/تنزل ادمین</th>
                 </tr>
                 <tr v-for="user in users" :key="user">
                     <td>‌ {{ user.name }}</td>
@@ -21,7 +21,7 @@
                     <td>‌ {{ user.email }}</td>
                     <td>‌ {{ user.is_admin ? '✅' : '❌' }}</td>
                     <td>‌ {{ convertDate(user.created_at) }}</td>
-                    <td><button class="remove">حذف</button></td>
+                    <td><button class="btn btn-secondary" @click="updateIsAdmin(user)"><i :class="[user.is_admin ? 'fa fa-arrow-down' : 'fa fa-arrow-up']"></i> {{ user.is_admin ? 'تنزل به کاربر عادی' : 'ارتقا به ادمین' }}</button></td>
                 </tr>
             </table>
         </div>
@@ -37,12 +37,17 @@ export default {
     data() {
         return {
             users: null,
+            success: null,
         };
     },
     methods: {
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
+        updateIsAdmin(user) {
+            user.is_admin = !user.is_admin;
+            axios.get("/api/admin/toggle-is-admin/" + user.id)
+        }
     },
     mounted() {
         axios.get("/api/admin/users").then((response) => {

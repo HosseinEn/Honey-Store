@@ -25,6 +25,7 @@ Route::name('api.')->prefix('admin')->middleware('auth:sanctum', 'is_admin')->na
     Route::apiResource('products', 'ProductController');
     Route::apiResource('discounts', 'DiscountController');
     Route::apiResource('users', 'UserController');
+    Route::get('toggle-is-admin/{user}', [App\Http\Controllers\Api\Admin\UserController::class, 'toggleIsAdminForUser']);
     Route::apiResource('orders', 'OrderController');
     Route::get('orders/user/{user}', [App\Http\Controllers\Api\Admin\OrderController::class, 'showUserOrder']);
     Route::get('orders/cancel-order/{order}', [App\Http\Controllers\Api\Admin\OrderController::class, 'cancelOrder']);

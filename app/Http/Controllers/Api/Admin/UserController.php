@@ -42,6 +42,10 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         // TODO all models related to user must be handled during user delete.
-        $user->delete();
+        // $user->delete();
+    }
+
+    public function toggleIsAdminForUser(User $user) {
+        $user->update(['is_admin' => !$user->is_admin]);
     }
 }
