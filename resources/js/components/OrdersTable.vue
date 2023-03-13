@@ -50,7 +50,8 @@
                     <th style="width: 20%">نام کاربر</th>
                     <th style="width: 20%">ایمیل کاربر</th>
                     <th style="width: 20%">تاریخ ثبت</th>
-                    <th style="width: 20%">مبلغ سفارش</th>
+                    <th style="width: 20%;">مبلغ سفارش (با تخفیف)</th>
+                    <th style="width: 20%;">مبلغ سفارش (بدون تخفیف)</th>
                     <th style="width: 20%">وضعیت سفارش</th>
                     <th style="width: 20%">شماره سفارش</th>
                     <th style="width: 20%">شماره پیگیری</th>
@@ -65,6 +66,7 @@
                     <td>‌ {{ order.user.name }}</td>
                     <td>‌ {{ order.user.email }}</td>
                     <td>‌ {{ convertDate(order.created_at) }}</td>
+                    <td>‌ {{ addCommasToPrice(order.price_with_discount) }}</td>
                     <td>‌ {{ addCommasToPrice(order.total_price) }}</td>
                     <td>‌ {{ order.order_status_text }}</td>
                     <td>‌ {{ order.invoice_no }}</td>

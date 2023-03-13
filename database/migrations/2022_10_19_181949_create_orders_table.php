@@ -22,13 +22,11 @@ class CreateOrdersTable extends Migration
             $table->string('description')->nullable();
             $table->date('delivery_date')->nullable();
             $table->bigInteger('total_price');
-            $table->unsignedBigInteger('discount_id')->nullable();
-            // $table->decimal('total_weight');
+            $table->bigInteger('price_with_discount');
             $table->string('invoice_no');
             $table->text('shipping_address');
             $table->text('transaction_id');
             $table->text('reference_id')->nullable();
-            // city_id or province_id
             $table->timestamps();
         });
     }

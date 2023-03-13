@@ -1,7 +1,7 @@
 <template>
   <div class="container-fluid">
     <div class="row text-center mt-5">
-      <span>در حال لود شدن </span>
+      <span>...منتظر بمانید</span>
     </div>
   </div>
 </template>
