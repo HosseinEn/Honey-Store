@@ -33,13 +33,14 @@ class CheckoutController extends Controller
             $invoice->amount($totalPriceWithDiscount);
             $payment = Payment::callbackUrl(route('paymentCallbackURL', ['price' => $totalPriceWithDiscount, 'id' => $user->id]))->purchase(
                 $invoice, 
-                function($driver, $transactionId) use ($user, $totalPriceWithDiscount, $invoice) {
+                function($driver, $transactionId) use ($user, $totalPrice, $totalPriceWithDiscount, $invoice) {
                     $order_status = OrderStatus::where('name', 'تایید شده')->first();
                     $order = Order::create([
                         'user_id' => $user->id,
                         'order_status_id' => $order_status->id,
                         'delivery_date' => null,
-                        'total_price' => $totalPriceWithDiscount,
+                        'total_price' => $totalPrice,
+                        'price_with_discount' => $totalPriceWithDiscount,
                         'invoice_no' => $invoice->getUuid(),
                         'shipping_address' => 'random place',
                         'transaction_id' => $transactionId,

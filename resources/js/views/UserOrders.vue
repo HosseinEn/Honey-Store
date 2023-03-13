@@ -13,7 +13,8 @@
     <div class="container tableCont pt-4 pb-4">
         <table>
             <tr>
-                <th style="width: 10%">قیمت کل (تومان)</th>
+                <th style="width: 10%">قیمت کل بدون تخفیف(تومان)</th>
+                <th style="width: 10%">قیمت کل با تخفیف(تومان)</th>
                 <th style="width: 30%">شماره فاکتور</th>
                 <th style="width: 20%">شماره پیگیری</th>
                 <th style="width: 10%">تاریخ ثبت سفارش</th>
@@ -22,6 +23,7 @@
             </tr>
             <tr v-for="order in orders" :key="order.id">
                 <td>{{ addCommasToPrice(order.total_price) }}</td>
+                <td>{{ addCommasToPrice(order.price_with_discount) }}</td>
                 <td>{{ order.invoice_no }}</td>
                 <td v-if="order.reference_id">{{ order.reference_id }}</td>
                 <td v-else>ندارد</td>

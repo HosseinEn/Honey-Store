@@ -18,7 +18,7 @@
         <div class="container-fluid">
             <!-- {{ filteredProducts }} -->
             <div v-if="loading" class="loadingFilter">
-                <span>...</span><span>در حال لود شدن </span>
+                <span>...</span><span>منتظر بمانید...</span>
             </div>
 
             <div v-else>
@@ -66,13 +66,10 @@
                             v-model="filterType"
                             @change="filterTypeMethod()"
                         >
+                            <option value="all">انتخاب کنید</option>
                             <option :value="`${product_type.slug}`" v-for="product_type in types" :key="product_type.id">
                                 {{ product_type.name }}
                             </option>
-                            <!-- // <option value="noe-1">1</option>
-                            // <option value="noe-2">2</option>
-                            // <option value="noe-3">3</option>
-                            // <option value="noe-4">4</option> -->
                         </select>
                     </section>
                 </div>
@@ -174,7 +171,7 @@ export default {
             currentFilter: "all",
             honeyType: "all",
             loading: true,
-            filterType: null,
+            filterType: 'all',
             types: null
         };
     },
@@ -219,16 +216,20 @@ export default {
             }
         },
         filterTypeMethod() {
-            console.log(this.filterType)
             if (this.currentFilter !== "all") {
-                this.sortAndFilteredProducts = this.filteredProducts.filter(
-                    (filproduct) =>
-                        filproduct.product.type.slug == this.filterType
-                );
-            } else {
-                this.sortAndFilteredProducts = this.products.filter(
-                    (product) => product.type.slug == this.filterType
-                );
+                this.sortAndFilteredProducts = this.filterType !== 'all' 
+                    ?   this.filteredProducts.filter(
+                            (filproduct) => filproduct.product.type.slug == this.filterType
+                        ) 
+                    : this.filteredProducts;
+
+            } 
+            else {
+                this.sortAndFilteredProducts = this.filterType !== 'all'
+                ?   this.products.filter(
+                        (product) => product.type.slug == this.filterType
+                    )
+                : this.products;
             }
         },
     },
