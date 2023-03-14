@@ -34,7 +34,7 @@ class CheckoutController extends Controller
             $payment = Payment::callbackUrl(route('paymentCallbackURL', ['price' => $totalPriceWithDiscount, 'id' => $user->id]))->purchase(
                 $invoice, 
                 function($driver, $transactionId) use ($user, $totalPrice, $totalPriceWithDiscount, $invoice) {
-                    $order_status = OrderStatus::where('name', 'تایید شده')->first();
+                    $order_status = OrderStatus::where('name', 'پرداخت نشده')->first();
                     $order = Order::create([
                         'user_id' => $user->id,
                         'order_status_id' => $order_status->id,
@@ -77,11 +77,6 @@ class CheckoutController extends Controller
             $user = $order->user;
             $products = $user->products;
             $products->load('attributes');
-            $order->order_statuses()->attach([
-                $order_status->id => [
-                    'status_date' => now(),
-                ]
-            ]);
             DB::beginTransaction();
             foreach ($products as $product) {
                 $selectedAttribute = $product->attributes->where('id', $product->cart->attribute_id)->first();
@@ -110,7 +105,8 @@ class CheckoutController extends Controller
             }
             $user->products()->detach();
             $order->update([
-                'reference_id' => $referenceID
+                'reference_id' => $referenceID,
+                'order_status_id' => $order_status->id
             ]);  
             DB::commit();    
             return redirect("/user-orders");

@@ -27,7 +27,7 @@
             >
           </li>
           <router-link :to="{ name: 'account' }" @click="this.scrollToTop"
-            >ثبت نام/ لاگین</router-link
+            >ثبت نام/ ورود</router-link
           >
         </ul>
       </div>

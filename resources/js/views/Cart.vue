@@ -102,7 +102,9 @@
                     </div>
                     <div class="row mt-3">
                         <form>
-                            <button id="submit" type="submit" @click.prevent="checkout" style="background-color: black; color:white;">تکمیل فرایند خرید</button>
+                            <button id="submit" type="submit" @click.prevent="checkout" 
+                                style="background-color: black; color:white;"
+                                :disabled="disableCheckoutButton">{{ disableCheckoutButton ? '...منتظر بمانید' : 'تکمیل فرایند خرید' }}</button>
                             <div v-for="error in errors" :key="error" style="color:red;">
                                 {{error[0]}}
                             </div>
@@ -147,17 +149,19 @@ export default {
             increaseAmountInTable: null,
             decreaseAmountInTable: null,
             errors: null,
-
+            disableCheckoutButton: false
         }
     },
     methods: {
         checkout() {
+            this.disableCheckoutButton = true;
             axios.post('/api/checkout-cart')
             .then(response => {
                 window.location.href = response.data.action;
             })
             .catch(errors => {
                 this.errors = errors.response && errors.response.data.errors;
+                this.disableCheckoutButton = false;
             });
         },
         addCommasToPrice(price) {

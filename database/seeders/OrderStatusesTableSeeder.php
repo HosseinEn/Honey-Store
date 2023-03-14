@@ -26,6 +26,9 @@ class OrderStatusesTableSeeder extends Seeder
             ],
             [
                 'name' => 'استرداد وجه انجام شده'
+            ],
+            [
+                'name' => 'پرداخت نشده'
             ]
         ]);
 

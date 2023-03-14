@@ -53,7 +53,7 @@
                             <section>
                                 <input type="number" name="quantity" min="0" :max="getStock()" step="1"
                                     v-model="quantityNumber" />
-                                <button type="submit" class="mt-2">Add to Cart</button>
+                                <button type="submit" class="mt-2">افزودن به سبد خرید</button>
                                 <div class="alert alert-success mt-2" v-if="success">
                                     {{ success }}
                                 </div>

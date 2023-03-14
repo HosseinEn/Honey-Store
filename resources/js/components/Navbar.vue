@@ -66,7 +66,7 @@
                         <router-link
                             :to="{ name: 'account' }"
                             @click="this.scrollToTop"
-                            >ثبت نام/ لاگین</router-link
+                            >ثبت نام/ ورود</router-link
                         >
                     </li>
                     <li v-if="isLogged" class="nav-item ml-2 mb-2">

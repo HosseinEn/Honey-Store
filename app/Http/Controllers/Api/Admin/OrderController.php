@@ -23,18 +23,29 @@ class OrderController extends Controller
     {
         $orders = Order::orderBy('created_at', 'DESC')->get();
         $orders->load(['products', 'user']);
+
+
+
+
+
         if ($request->has('search_key')) {
             $search_key = $request->get('search_key');
             $search_key = preg_replace('/\s+/', '', $search_key); // Remove all whitespace
             $orders = $orders->filter(function ($order) use ($search_key) {
-                return $order->invoice_no == $search_key;
+                return stristr($order->invoice_no, $search_key) ||
+                       stristr($order->user->name, $search_key) ||
+                       stristr($order->user->phone, $search_key) ||
+                       stristr($order->user->email, $search_key) ||
+                       stristr($order->user->address, $search_key);
             });
         }        
-        else if (
-            $request->has('status')
-        ) {
+        if ($request->has('status')) {
             $orders = $this->applyStatusFilter($orders, $request->get('status'));
         }
+
+
+
+
         $attributes = Attribute::get();
         $orderStatuses = OrderStatus::get();
 

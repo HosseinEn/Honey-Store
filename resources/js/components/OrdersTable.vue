@@ -20,9 +20,6 @@
                         <option value="all">
                             انتخاب کنید
                         </option>
-                        <option value="failed">
-                            سفارشات ناموفق
-                        </option> 
                         <option v-for="status in orderStatuses" :key="status.id" :value="`${status.id}`">
                             {{ status.name }}
                         </option>
@@ -214,11 +211,11 @@ export default {
             })
         },
         handleSearch() {
-            const url = "/admin/orders?search_key=" + this.searchKey;
+            const url = "/admin/orders?search_key=" + this.searchKey 
+                    + (this.filterStatus ? ("&status=" + this.filterStatus) : '');
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
-                console.log(this.orders)
                 this.errors = null;
                 this.notSelectedError = null;
             });
@@ -228,7 +225,6 @@ export default {
             this.selectedValue = event.target.value;
         },
         updateOrderStatus(order, order_status_id){
-            console.log(order)
             this.errors = null;
             this.success = null;
             this.notSelectedError = null;
@@ -267,7 +263,7 @@ export default {
 
             const url =
                 "/admin/orders?status=" +
-                this.filterStatus 
+                this.filterStatus + (this.searchKey ? ("&search_key=" + this.searchKey) : '');
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
@@ -278,7 +274,6 @@ export default {
     mounted() {
         axios.get("/api/admin/orders").then((response) => {
             this.orders = response.data.orders;
-            console.log(this.orders)
             this.orderStatuses = response.data.orderStatuses;
             this.totalOrderPrice = response.data.totalOrderPrice;
         });
