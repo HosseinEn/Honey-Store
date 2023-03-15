@@ -7,6 +7,24 @@
         </div>
         <div class="filterCont">
             <section>
+                <form @submit.prevent="handleFilterAndSearch">
+                    <label for="from">از : </label>
+                    <input type="date" id="from" name="from" v-model="from" />
+                    <label for="to">تا : </label>
+                    <input type="date" id="to" name="to" v-model="to" />
+                    <span
+                        style="color: red; margin: 13px"
+                        v-if="this.errors !== null"
+                    >
+                        <span v-for="error in errors.from" :key="error">
+                            {{ error }}
+                        </span>
+                        <span v-for="error in errors.to" :key="error">
+                            {{ error }}
+                        </span>
+                    </span>
+                    <button class="filterSearchBtn2" style="background-color: red;">فیلتر</button>
+                </form>
                 <button @click="showAll" class="showAll">نمایش همه</button>
             </section>
             <section>
@@ -15,7 +33,7 @@
                         id="filterStatus"
                         v-model="filterStatus"
                         class="mb-2"
-                        @change="handleOnChangeFilter"
+                        @change="handleFilterAndSearch"
                     >
                         <option value="all">
                             انتخاب کنید
@@ -26,7 +44,7 @@
                     </select>
             </section>
             <section>
-                <form @submit.prevent="handleSearch">
+                <form @submit.prevent="handleFilterAndSearch">
                     <div class="filterSearch">
                         <button>جستجو</button>
                         <input
@@ -161,6 +179,8 @@ export default {
             errors: null,
             selectedValue: null,
             notSelectedError: null,
+            from: null,
+            to: null,
             filterStatus: 'all',
             searchKey: null,
             age    : 22,
@@ -210,17 +230,55 @@ export default {
                 this.success = null;
             })
         },
-        handleSearch() {
-            const url = "/admin/orders?search_key=" + this.searchKey 
-                    + (this.filterStatus ? ("&status=" + this.filterStatus) : '');
+        // handleSearch() {
+        //     // const url = "/admin/orders?search_key=" + this.searchKey 
+        //     //         + (this.filterStatus ? ("&status=" + this.filterStatus) : '')
+        //     //         + (this.filterStatus ? ("&status=" + this.filterStatus) : '');
+        //     const url = this.buildURL()
+        //     this.$router.push(url);
+        //     axios.get("/api" + url).then((response) => {
+        //         this.orders = response.data.orders;
+        //         this.errors = null;
+        //         this.notSelectedError = null;
+        //     });
+        // },
+        // handleOnChangeFilter() {
+        //     this.errors = null;
+        //     this.success = null;
+        //     this.notSelectedError = null;
+
+        //     // const url =
+        //     //     "/admin/orders?status=" +
+        //     //     this.filterStatus + (this.searchKey ? ("&search_key=" + this.searchKey) : '');
+        //     // this.$router.push(url);
+        //     const url = this.buildURL()
+        //     this.$router.push(url);
+        //     axios.get("/api" + url).then((response) => {
+        //         this.orders = response.data.orders;
+        //     });
+        // },
+        // handleDateFilter() {
+
+        // }
+        buildURL() {
+            const baseURL = '/admin/orders';
+            const params = new URLSearchParams();
+            if (this.searchKey) params.append('search_key', this.searchKey);            
+            if (this.filterStatus) params.append('status', this.filterStatus);            
+            if (this.from) params.append('from', this.from);
+            if (this.to) params.append('to', this.to);
+            return `${baseURL}?${params.toString()}`;
+        },
+        handleFilterAndSearch() {
+            this.errors = null;
+            this.success = null;
+            this.notSelectedError = null;
+            const url = this.buildURL()
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
-                this.errors = null;
-                this.notSelectedError = null;
             });
         },
-
         onSelectChange(event) {
             this.selectedValue = event.target.value;
         },
@@ -256,20 +314,6 @@ export default {
                 })
             }
         },
-        handleOnChangeFilter() {
-            this.errors = null;
-            this.success = null;
-            this.notSelectedError = null;
-
-            const url =
-                "/admin/orders?status=" +
-                this.filterStatus + (this.searchKey ? ("&search_key=" + this.searchKey) : '');
-            this.$router.push(url);
-            axios.get("/api" + url).then((response) => {
-                this.orders = response.data.orders;
-            });
-        },
-
     },
     mounted() {
         axios.get("/api/admin/orders").then((response) => {

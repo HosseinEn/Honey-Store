@@ -24,10 +24,6 @@ class OrderController extends Controller
         $orders = Order::orderBy('created_at', 'DESC')->get();
         $orders->load(['products', 'user']);
 
-
-
-
-
         if ($request->has('search_key')) {
             $search_key = $request->get('search_key');
             $search_key = preg_replace('/\s+/', '', $search_key); // Remove all whitespace
@@ -42,9 +38,9 @@ class OrderController extends Controller
         if ($request->has('status')) {
             $orders = $this->applyStatusFilter($orders, $request->get('status'));
         }
-
-
-
+        if ($request->has('from') && $request->has('to')) {
+            $products = $this->applyDateFilter($orders, $request->get('from'), $request->get('to'));
+        }
 
         $attributes = Attribute::get();
         $orderStatuses = OrderStatus::get();
@@ -73,6 +69,24 @@ class OrderController extends Controller
             return $orders->whereNull('reference_id');
         }
         return $orders->where('order_status_id', $status);
+    }
+
+    private function applyDateFilter($orders, $from, $to) {
+        $messages = []; 
+        $dateNotFilled = $from == "null" && $to == "null";
+        if ($dateNotFilled) {
+            return $orders;
+        }
+        if ($from == "null" || $to == "null") {
+            if ($from == "null") {
+                $messages['from'] = 'لطفا تاریخ شروع را وارد نمایید!';
+            }
+            if ($to == "null") {
+                $messages['to'] = 'لطفا تاریخ پایان را وارد نمایید!';
+            }
+            throw ValidationException::withMessages($messages);
+        }
+        return $orders->whereBetween('created_at', [$from, $to]);
     }
 
 
