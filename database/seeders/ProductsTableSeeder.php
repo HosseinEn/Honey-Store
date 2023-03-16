@@ -35,7 +35,7 @@ class ProductsTableSeeder extends Seeder
             foreach ($attributesToAttach as $attribute) {
                 $product->attributes()->attach([
                     $attribute->id => [
-                        'stock' => $stock = random_int(1, 1000),
+                        'stock' => $stock = random_int(10, 1000),
                         'price' => random_int(100000, 1000000),
                         'discount_id' => $discounts->random()
                     ]

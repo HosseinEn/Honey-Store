@@ -66,13 +66,14 @@
                     <th style="width: 20%">#</th>
                     <th style="width: 20%">نام کاربر</th>
                     <th style="width: 20%">ایمیل کاربر</th>
+                    <th style="width: 20%">شماره تماس کاربر</th>
+                    <th style="width: 20%">آدرس کاربر</th>
                     <th style="width: 20%">تاریخ ثبت</th>
                     <th style="width: 20%;">مبلغ سفارش (با تخفیف)</th>
                     <th style="width: 20%;">مبلغ سفارش (بدون تخفیف)</th>
                     <th style="width: 20%">وضعیت سفارش</th>
                     <th style="width: 20%">شماره سفارش</th>
                     <th style="width: 20%">شماره پیگیری</th>
-                    <th style="width: 20%">آدرس ارسال</th>
                     <th style="width: 20%">محصولات سفارش داده شده</th>
                     <th style="width: 20%">لغو سفارش</th>
                     <th style="width: 20%">تغییر وضعیت سفارش</th>
@@ -82,13 +83,14 @@
                      <td>{{ index + 1 }}</td>
                     <td>‌ {{ order.user.name }}</td>
                     <td>‌ {{ order.user.email }}</td>
+                    <td>‌ {{ order.user.phone }}</td>
+                    <td>‌ {{ order.user.address }}</td>
                     <td>‌ {{ convertDate(order.created_at) }}</td>
                     <td>‌ {{ addCommasToPrice(order.price_with_discount) }}</td>
                     <td>‌ {{ addCommasToPrice(order.total_price) }}</td>
                     <td>‌ {{ order.order_status_text }}</td>
                     <td>‌ {{ order.invoice_no }}</td>
                     <td>‌ {{ order.reference_id ?? 'سفارش ناموفق ❌' }}</td>
-                    <td>‌ {{ order.shipping_address }}</td>
                     <td>
                         <ul class="list-group">
                             <li class="list-group-item mt-1" v-for="product in order.products" :key="product.id">

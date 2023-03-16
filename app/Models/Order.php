@@ -18,12 +18,10 @@ class Order extends Model
         'user_id',
         'order_status_id',
         'discount_id',
-        'delivery_date',
         'total_price',
         'price_with_discount',
         'invoice_no',
         'reference_id',
-        'shipping_address',
         'transaction_id',
         'description'
     ];

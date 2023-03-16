@@ -38,11 +38,9 @@ class CheckoutController extends Controller
                     $order = Order::create([
                         'user_id' => $user->id,
                         'order_status_id' => $order_status->id,
-                        'delivery_date' => null,
                         'total_price' => $totalPrice,
                         'price_with_discount' => $totalPriceWithDiscount,
                         'invoice_no' => $invoice->getUuid(),
-                        'shipping_address' => 'random place',
                         'transaction_id' => $transactionId,
                         'reference_id' => null
                     ]);

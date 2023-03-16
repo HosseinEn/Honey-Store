@@ -20,11 +20,9 @@ class CreateOrdersTable extends Migration
             $table->unsignedBigInteger('order_status_id');
             $table->foreign('order_status_id')->references('id')->on('order_statuses');
             $table->string('description')->nullable();
-            $table->date('delivery_date')->nullable();
             $table->bigInteger('total_price');
             $table->bigInteger('price_with_discount');
             $table->string('invoice_no');
-            $table->text('shipping_address');
             $table->text('transaction_id');
             $table->text('reference_id')->nullable();
             $table->timestamps();

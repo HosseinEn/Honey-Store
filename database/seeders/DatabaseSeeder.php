@@ -17,15 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        \App\Models\User::factory(1)->createAdmin()->create();
         $this->call([
+            UsersTableSeeder::class,
             TypesTableSeeder::class,
             AttributesTableSeeder::class,
             DiscountsTableSeeder::class,
             TaxesTableSeeder::class,
             OrderStatusesTableSeeder::class,
             ProductsTableSeeder::class,
-            CarrierTableSeeder::class
+            CarrierTableSeeder::class,
+            ProductUserTablesSeeder::class
         ]);
     }
 }
