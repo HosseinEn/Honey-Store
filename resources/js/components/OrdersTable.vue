@@ -209,6 +209,7 @@ export default {
         showAll() {
             this.errors = null;
             this.notSelectedError = null;
+            this.searchKey = null;
             this.$router.push("/admin/orders");
             axios.get("/api/admin/orders").then((response) => {
                 this.orders = response.data.orders;

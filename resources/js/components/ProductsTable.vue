@@ -21,7 +21,7 @@
                 <button @click="showAll" class="showAll">نمایش همه</button>
             </section>
             <section>
-                <form @submit.prevent="handleSearch">
+                <form @submit.prevent="handleFilterAndSearch">
                     <div class="filterSearch">
                         <button>جستجو</button>
                         <input
@@ -42,14 +42,27 @@
                     id="status"
                     v-model="status"
                     class="mb-2"
-                    @change="handleOnChangeFilter"
+                    @change="handleFilterAndSearch"
                 >
                     <option value="all">همه</option>
                     <option value="1">فعال</option>
                     <option value="0">غیرفعال</option>
                 </select>
-                <form @submit.prevent="handleDateFilter">
-                    <label for="checkbox">محصولات موجود</label>
+                <br>
+                <label for="status" class="mx-2"> محصولات بدون موجودی / با موجودی </label>
+                <select
+                    name="stock"
+                    id="stock"
+                    v-model="stock"
+                    class="mb-2"
+                    @change="handleFilterAndSearch"
+                >
+                    <option value="all">همه</option>
+                    <option value="1">محصولات موجود</option>
+                    <option value="0">محصولات ناموجود</option>
+                </select>  
+                <form @submit.prevent="handleFilterAndSearch">
+                    <!-- <label for="checkbox">محصولات موجود</label>
                     <input
                         type="checkbox"
                         value="1"
@@ -62,12 +75,14 @@
                         value="0"
                         v-model="selected_attribute"
                         @change="uniqueCheck"
-                    />
+                    /> -->
                     <br />
                     <label for="from">از : </label>
-                    <input type="date" id="from" name="from" v-model="from" />
+                    <date-picker v-model="from" 
+                      ></date-picker>
                     <label for="to">تا : </label>
-                    <input type="date" id="to" name="to" v-model="to" />
+                    <date-picker v-model="to" 
+                        ></date-picker>
                     <span
                         style="color: red; margin: 13px"
                         v-if="this.errors !== null"
@@ -148,13 +163,15 @@
 
 <script>
 import axios from "axios";
-import moment from "moment";
+import moment from "jalali-moment";
 import DeleteModal from "./DeleteModal";
+import DatePicker from 'vue3-persian-datetime-picker'
 
 export default {
     name: "productsTable",
     components: {
         DeleteModal: DeleteModal,
+        DatePicker : DatePicker
     },
     data() {
         return {
@@ -167,7 +184,8 @@ export default {
             from: null,
             to: null,
             errors: null,
-            selected_attribute: [],
+            stock: "all",
+            // selected_attribute: [],
         };
     },
     methods: {
@@ -178,60 +196,39 @@ export default {
             }, 1000)
             })
         },
-        uniqueCheck(e) {
-            this.selected_attribute = [];
-            if (e.target.checked) {
-                this.selected_attribute.push(e.target.value);
-            }
-            this.handleOnChangeFilter();
-        },
+        // uniqueCheck(e) {
+        //     this.selected_attribute = [];
+        //     if (e.target.checked) {
+        //         this.selected_attribute.push(e.target.value);
+        //     }
+        //     this.handleFilterAndSearch();
+        // },
         convertDate(date) {
-            return moment(date).format("Y-M-D");
+            return moment(date).locale('fa').format("YYYY-M-D");
         },
-        handleSearch() {
-            const url = "/admin/products?search_key=" + this.searchKey;
+        buildURL() {
+            const baseURL = '/admin/products';
+            const params = new URLSearchParams();
+            if (this.searchKey) params.append('search_key', this.searchKey);            
+            if (this.status) params.append('status', this.status);
+            if (this.stock && this.stock != 'all') params.append('stock', this.stock);
+            if (this.from) params.append('from', moment(this.from, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
+            if (this.to) params.append('to', moment(this.to, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
+            return `${baseURL}?${params.toString()}`;
+        },
+        handleFilterAndSearch() {
+            this.errors = null;
+            const url = this.buildURL()
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.products = response.data.products;
-                this.errors = null;
             });
         },
-        handleOnChangeFilter() {
-            const url =
-                "/admin/products?status=" +
-                this.status +
-                "&stock=" +
-                this.selected_attribute;
-            this.$router.push(url);
-            axios.get("/api" + url).then((response) => {
-                this.products = response.data.products;
-                this.errors = null;
-            });
-        },
-        handleDateFilter() {
-            const url =
-                "/admin/products?status=" +
-                this.status +
-                "&from=" +
-                this.from +
-                "&to=" +
-                this.to;
-            // "&stock=" + this.selected_attribute;
-            this.$router.push(url);
-            axios
-                .get("/api" + url)
-                .then((response) => {
-                    this.products = response.data.products;
-                    this.errors = null;
-                })
-                .catch((error) => {
-                    console.log(error);
-                    this.errors = error.response.data.errors;
-                });
-        },
+
         showAll() {
             this.errors = null;
             this.status == "all";
+            this.searchKey = null;
             this.$router.push("/admin/products");
             axios.get("/api/admin/products").then((response) => {
                 this.products = response.data.products;
