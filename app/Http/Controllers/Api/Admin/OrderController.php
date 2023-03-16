@@ -39,7 +39,7 @@ class OrderController extends Controller
             $orders = $this->applyStatusFilter($orders, $request->get('status'));
         }
         if ($request->has('from') && $request->has('to')) {
-            $products = $this->applyDateFilter($orders, $request->get('from'), $request->get('to'));
+            $orders = $this->applyDateFilter($orders, $request->get('from'), $request->get('to'));
         }
 
         $attributes = Attribute::get();

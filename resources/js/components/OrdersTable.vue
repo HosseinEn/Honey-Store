@@ -9,9 +9,12 @@
             <section>
                 <form @submit.prevent="handleFilterAndSearch">
                     <label for="from">از : </label>
-                    <input type="date" id="from" name="from" v-model="from" />
+                    <date-picker v-model="from" 
+                      ></date-picker>
+                    <!-- <input type="date" id="from" name="from" v-model="from" /> -->
                     <label for="to">تا : </label>
-                    <input type="date" id="to" name="to" v-model="to" />
+                    <date-picker v-model="to" 
+                        ></date-picker>
                     <span
                         style="color: red; margin: 13px"
                         v-if="this.errors !== null"
@@ -166,8 +169,10 @@
 import axios from "axios";
 import moment from 'jalali-moment'
 import { addCommas } from 'persian-tools';
+import DatePicker from 'vue3-persian-datetime-picker'
 
 export default {
+    components: { DatePicker },
     name: "ordersTable",
     data() {
         return {
@@ -183,7 +188,6 @@ export default {
             to: null,
             filterStatus: 'all',
             searchKey: null,
-            age    : 22,
         };
     },
     methods: {
@@ -230,43 +234,13 @@ export default {
                 this.success = null;
             })
         },
-        // handleSearch() {
-        //     // const url = "/admin/orders?search_key=" + this.searchKey 
-        //     //         + (this.filterStatus ? ("&status=" + this.filterStatus) : '')
-        //     //         + (this.filterStatus ? ("&status=" + this.filterStatus) : '');
-        //     const url = this.buildURL()
-        //     this.$router.push(url);
-        //     axios.get("/api" + url).then((response) => {
-        //         this.orders = response.data.orders;
-        //         this.errors = null;
-        //         this.notSelectedError = null;
-        //     });
-        // },
-        // handleOnChangeFilter() {
-        //     this.errors = null;
-        //     this.success = null;
-        //     this.notSelectedError = null;
-
-        //     // const url =
-        //     //     "/admin/orders?status=" +
-        //     //     this.filterStatus + (this.searchKey ? ("&search_key=" + this.searchKey) : '');
-        //     // this.$router.push(url);
-        //     const url = this.buildURL()
-        //     this.$router.push(url);
-        //     axios.get("/api" + url).then((response) => {
-        //         this.orders = response.data.orders;
-        //     });
-        // },
-        // handleDateFilter() {
-
-        // }
         buildURL() {
             const baseURL = '/admin/orders';
             const params = new URLSearchParams();
             if (this.searchKey) params.append('search_key', this.searchKey);            
             if (this.filterStatus) params.append('status', this.filterStatus);            
-            if (this.from) params.append('from', this.from);
-            if (this.to) params.append('to', this.to);
+            if (this.from) params.append('from', moment(this.from, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
+            if (this.to) params.append('to', moment(this.to, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
             return `${baseURL}?${params.toString()}`;
         },
         handleFilterAndSearch() {
