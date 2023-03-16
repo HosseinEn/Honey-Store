@@ -2,8 +2,13 @@
     <div class="container">
         <!-- Welcome Container -->
         <div class="container-fluid welcomeCont">
-            <div class="row text-center p-4">
+            <div class="row text-center p-4" ref="error">
                 <p>جدول محصولات</p>
+                <div  v-if="errors">
+                    <span style="background-color: red;">
+                         حذف این ویژگی در حال حاضر امکان پذیر نمی‌باشد!
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -166,6 +171,13 @@ export default {
         };
     },
     methods: {
+        scrollToMessage() {
+            return new Promise((resolve, reject) => {
+            setTimeout(() => {
+                resolve(this.$refs["error"].scrollIntoView({ behavior: "smooth" }))
+            }, 1000)
+            })
+        },
         uniqueCheck(e) {
             this.selected_attribute = [];
             if (e.target.checked) {
@@ -239,6 +251,10 @@ export default {
                 });
                 this.deleteSlug = null;
                 this.showModal = false;
+            }).catch(errors => {
+                this.errors = errors.response.data ? true : false;
+                this.showModal = false;
+                this.scrollToMessage()
             });
         },
     },

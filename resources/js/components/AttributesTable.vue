@@ -8,9 +8,9 @@
                         {{ success }}
                     </span>
                 </div>
-                <div v-if="success">
+                <div v-if="errors">
                     <span style="background-color: red;">
-                        {{ errors }}
+                         حذف این ویژگی در حال حاضر امکان پذیر نمی‌باشد!
                     </span>
                 </div>
             </div>
@@ -64,8 +64,8 @@ export default {
                 const index = this.attributes.findIndex(attribute => attribute.id === attribute_id)
                 if(~index) this.attributes.splice(index, 1)
             })
-            .catch((error) => {
-                this.errors = errors.response && errors.response.data.errors;
+            .catch((errors) => {
+                this.errors =  errors.response.data ? true : false;
             })
         }
     },

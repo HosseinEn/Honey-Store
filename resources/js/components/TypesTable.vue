@@ -3,6 +3,11 @@
         <div class="container-fluid welcomeCont">
             <div class="row text-center p-4">
                 <p>جدول دسته بندی ها</p>
+                <div v-if="errors">
+                    <span style="background-color: red;">
+                        امکان حذف این ویژگی در حال حاضر امکان پذیر نمی‌باشد!
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -32,7 +37,7 @@
                             <button class="edit">ویرایش</button>
                         </router-link>
                     </td>
-                    <td><button class="remove">حذف</button></td>
+                    <td><button class="remove" @click="deleteType(pType.slug)">حذف</button></td>
                 </tr>
             </table>
         </div>
@@ -48,12 +53,25 @@ export default {
     data() {
         return {
             types: null,
+            errors:null,
         };
     },
     methods: {
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
+        deleteType(type_id) {
+            axios.delete("/api/admin/types/" + type_id)
+            .then(response => {
+                this.success = response.data.success
+                const index = this.types.findIndex(type => type.slug === type_id)
+                console.log(index)
+                if(~index) this.types.splice(index, 1)
+            })
+            .catch((errors) => {
+                this.errors =  errors.response.data ? true : false;
+            })
+        }
     },
     mounted() {
         axios.get("/api/admin/types").then((response) => {

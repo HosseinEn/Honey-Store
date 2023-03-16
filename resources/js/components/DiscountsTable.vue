@@ -3,6 +3,16 @@
         <div class="container-fluid welcomeCont">
             <div class="row text-center p-4">
                 <p>جدول تخفیف‌ها</p>
+                <div v-if="success">
+                    <span style="background-color: greenyellow;">
+                        {{ success }}
+                    </span>
+                </div>
+                <div v-if="errors">
+                    <span style="background-color: red;">
+                         حذف این تخفیف در حال حاضر امکان پذیر نمی‌باشد!
+                    </span>
+                </div>
             </div>
         </div>
 
@@ -34,7 +44,7 @@
                             <button class="edit">ویرایش</button>
                         </router-link>
                     </td>
-                    <td><button class="remove">حذف</button></td>
+                    <td><button class="remove" @click="deleteDiscount(discount.id)">حذف</button></td>
                 </tr>
             </table>
         </div>
@@ -56,6 +66,17 @@ export default {
         convertDate(date) {
             return moment(date).format("Y-M-D");
         },
+        deleteDiscount(discount_id) {
+            axios.delete("/api/admin/discounts/" + discount_id)
+            .then(response => {
+                this.success = response.data.success
+                const index = this.discount.findIndex(discount => discount.id === discount_id)
+                if(~index) this.discount.splice(index, 1)
+            })
+            .catch((errors) => {
+                this.errors =  errors.response ? true : false;
+            })
+        }
     },
     mounted() {
         axios.get("/api/admin/discounts").then((response) => {
