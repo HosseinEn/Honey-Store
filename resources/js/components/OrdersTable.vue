@@ -11,7 +11,6 @@
                     <label for="from">از : </label>
                     <date-picker v-model="from" 
                       ></date-picker>
-                    <!-- <input type="date" id="from" name="from" v-model="from" /> -->
                     <label for="to">تا : </label>
                     <date-picker v-model="to" 
                         ></date-picker>
@@ -26,7 +25,7 @@
                             {{ error }}
                         </span>
                     </span>
-                    <button class="filterSearchBtn2" style="background-color: red;">فیلتر</button>
+                    <button class="" style="background-color: red;">فیلتر</button>
                 </form>
                 <button @click="showAll" class="showAll">نمایش همه</button>
             </section>
@@ -49,12 +48,12 @@
             <section>
                 <form @submit.prevent="handleFilterAndSearch">
                     <div class="filterSearch">
-                        <button>جستجو</button>
+                        <button>جستجو </button>
                         <input
                             type="text"
                             name="search_key"
                             required
-                            placeholder="...در میان شماره سفارشات جستجو کنید"
+                            placeholder="...در میان سفارشات (نام، ایمیل، شماره تماس، شماره سفارش، آدرس) جستجو کنید"
                             v-model="searchKey"
                         />
                     </div>
@@ -389,7 +388,7 @@ button {
     display: inline;
     height: 33px;
     padding-bottom: 7px;
-    width: 240px;
+    width: 600px;
 }
 .filterSearch input:focus {
     outline: 1px solid var(--thirdColor);
