@@ -243,3 +243,38 @@ tr:nth-child(odd) {
     background-color: var(--mainColor);
     color: white;
 }
+.toolTips {
+  position: relative !important;
+  width: 100%;
+  left: 0;
+  top: 0;
+  height: 100%;
+  color: white;
+  border-radius: 5px;
+  padding: 3px;
+  font-family: var(--thirdFont);
+  font-size: 1rem;
+  display: inline-block;
+  background-color: #6F7BD9;
+  overflow: visible;
+}
+.toolTips .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: #6F7BD9;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    /* background-color: var(--mainColor); */
+    padding: 8px 8px;
+    /* Position the tooltip */
+    position: fixed;
+    z-index: 10 !important;
+    top: 50%;
+    right: 30%;
+    transform: translate(-50%,-50%);
+}
+
+.toolTips:hover .tooltiptext {
+  visibility: visible;
+}

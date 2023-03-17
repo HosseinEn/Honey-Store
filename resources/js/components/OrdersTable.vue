@@ -7,48 +7,53 @@
         </div>
         <div class="filterCont">
             <section>
-                <form @submit.prevent="handleFilterAndSearch">
-                    <label for="from">از : </label>
-                    <date-picker v-model="from" 
-                      ></date-picker>
-                    <label for="to">تا : </label>
-                    <date-picker v-model="to" 
-                        ></date-picker>
-                    <span
-                        style="color: red; margin: 13px"
-                        v-if="this.errors !== null"
-                    >
-                        <span v-for="error in errors.from" :key="error">
-                            {{ error }}
+                <form
+                    @submit.prevent="handleFilterAndSearch"
+                    style="width: 100%;direction:rtl"
+                >
+                    <section style="direction:rtl;width:350px">
+                        <label for="from">از : </label>
+                        <date-picker v-model="from"></date-picker>
+                        <label for="to">تا : </label>
+                        <date-picker v-model="to"></date-picker>
+                        <span
+                            style="color: red; margin: 13px"
+                            v-if="this.errors !== null"
+                        >
+                            <span v-for="error in errors.from" :key="error">
+                                {{ error }}
+                            </span>
+                            <span v-for="error in errors.to" :key="error">
+                                {{ error }}
+                            </span>
                         </span>
-                        <span v-for="error in errors.to" :key="error">
-                            {{ error }}
-                        </span>
-                    </span>
-                    <button class="" style="background-color: red;">فیلتر</button>
+                        <button class="secondFilteringBtn">فیلتر</button>
+                    </section>
                 </form>
                 <button @click="showAll" class="showAll">نمایش همه</button>
             </section>
             <section>
-                    <select 
-                        name="filterStatus"
-                        id="filterStatus"
-                        v-model="filterStatus"
-                        class="mb-2"
-                        @change="handleFilterAndSearch"
+                <select
+                    name="filterStatus"
+                    id="filterStatus"
+                    v-model="filterStatus"
+                    class="mb-2"
+                    @change="handleFilterAndSearch"
+                >
+                    <option value="all">انتخاب کنید</option>
+                    <option
+                        v-for="status in orderStatuses"
+                        :key="status.id"
+                        :value="`${status.id}`"
                     >
-                        <option value="all">
-                            انتخاب کنید
-                        </option>
-                        <option v-for="status in orderStatuses" :key="status.id" :value="`${status.id}`">
-                            {{ status.name }}
-                        </option>
-                    </select>
+                        {{ status.name }}
+                    </option>
+                </select>
             </section>
             <section>
                 <form @submit.prevent="handleFilterAndSearch">
                     <div class="filterSearch">
-                        <button>جستجو </button>
+                        <button>جستجو</button>
                         <input
                             type="text"
                             name="search_key"
@@ -69,8 +74,8 @@
                     <th style="width: 20%">شماره تماس کاربر</th>
                     <th style="width: 20%">آدرس کاربر</th>
                     <th style="width: 20%">تاریخ ثبت</th>
-                    <th style="width: 20%;">مبلغ سفارش (با تخفیف)</th>
-                    <th style="width: 20%;">مبلغ سفارش (بدون تخفیف)</th>
+                    <th style="width: 20%">مبلغ سفارش (با تخفیف)</th>
+                    <th style="width: 20%">مبلغ سفارش (بدون تخفیف)</th>
                     <th style="width: 20%">وضعیت سفارش</th>
                     <th style="width: 20%">شماره سفارش</th>
                     <th style="width: 20%">شماره پیگیری</th>
@@ -80,7 +85,7 @@
                     <th style="width: 20%">توضیحات</th>
                 </tr>
                 <tr v-for="(order, index) in orders" :key="order">
-                     <td>{{ index + 1 }}</td>
+                    <td>{{ index + 1 }}</td>
                     <td>‌ {{ order.user.name }}</td>
                     <td>‌ {{ order.user.email }}</td>
                     <td>‌ {{ order.user.phone }}</td>
@@ -90,33 +95,50 @@
                     <td>‌ {{ addCommasToPrice(order.total_price) }}</td>
                     <td>‌ {{ order.order_status_text }}</td>
                     <td>‌ {{ order.invoice_no }}</td>
-                    <td>‌ {{ order.reference_id ?? 'سفارش ناموفق ❌' }}</td>
+                    <td>‌ {{ order.reference_id ?? "ناموفق ❌" }}</td>
                     <td>
                         <ul class="list-group">
-                            <li class="list-group-item mt-1" v-for="product in order.products" :key="product.id">
-                                <router-link :to="{'path' : '/product/' + product.slug}">
-                                    {{ product.name }} - {{ product.ordered.attribute.weight }}
+                            <li
+                                class="list-group-item mt-1"
+                                v-for="product in order.products"
+                                :key="product.id"
+                            >
+                                <router-link
+                                    :to="{ path: '/product/' + product.slug }"
+                                >
+                                    {{ product.name }} -
+                                    {{ product.ordered.attribute.weight }}
                                 </router-link>
                             </li>
                         </ul>
-                    </td>  
+                    </td>
                     <td>
                         <button class="remove" @click="cancelOrder(order.id)">
-                            لغو سفارش
+                            لغو
                         </button>
                     </td>
                     <td>
-                        <div style="display: flex;">
+                        <div style="display: flex">
                             <select @change="onSelectChange">
-                                <option value="">
-                                    انتخاب کنید
-                                </option>
+                                <option value="">انتخاب کنید</option>
 
-                                <option v-for="status in orderStatuses" :key="status.id" type="number" :value="`${status.id}`">
+                                <option
+                                    v-for="status in orderStatuses"
+                                    :key="status.id"
+                                    type="number"
+                                    :value="`${status.id}`"
+                                >
                                     {{ status.name }}
                                 </option>
                             </select>
-                            <button @click="updateOrderStatus(order, selectedValue); scrollToMessage();">اعمال</button>
+                            <button
+                                @click="
+                                    updateOrderStatus(order, selectedValue);
+                                    scrollToMessage();
+                                "
+                            >
+                                اعمال
+                            </button>
                         </div>
                     </td>
                     <td>
@@ -125,15 +147,28 @@
                 </tr>
             </table>
             <div ref="scroltoThis">
-                <div class="alert alert-success mt-2 text-center" v-if="success">
+                <div
+                    class="alert alert-success mt-2 text-center"
+                    v-if="success"
+                >
                     {{ success }}
                 </div>
-                <div style="color: red; text-align: center;" v-if="this.errors != null && this.errors.order_status_id">
-                    <div class="alert alert-danger mt-2" v-for="error in this.errors.order_status_id" :key="error">
+                <div
+                    style="color: red; text-align: center"
+                    v-if="this.errors != null && this.errors.order_status_id"
+                >
+                    <div
+                        class="alert alert-danger mt-2"
+                        v-for="error in this.errors.order_status_id"
+                        :key="error"
+                    >
                         {{ error }}
                     </div>
                 </div>
-                <div style="color: red; text-align: center;" v-if="this.notSelectedError != null">
+                <div
+                    style="color: red; text-align: center"
+                    v-if="this.notSelectedError != null"
+                >
                     <div class="alert alert-danger mt-2">
                         {{ notSelectedError }}
                     </div>
@@ -166,11 +201,10 @@
 </template>
 
 <script>
-
 import axios from "axios";
-import moment from 'jalali-moment'
-import { addCommas } from 'persian-tools';
-import DatePicker from 'vue3-persian-datetime-picker'
+import moment from "jalali-moment";
+import { addCommas } from "persian-tools";
+import DatePicker from "vue3-persian-datetime-picker";
 
 export default {
     components: { DatePicker },
@@ -187,24 +221,28 @@ export default {
             notSelectedError: null,
             from: null,
             to: null,
-            filterStatus: 'all',
+            filterStatus: "all",
             searchKey: null,
         };
     },
     methods: {
         scrollToMessage() {
             return new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve(this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" }))
-            }, 1000)
-            })
+                setTimeout(() => {
+                    resolve(
+                        this.$refs["scroltoThis"].scrollIntoView({
+                            behavior: "smooth",
+                        })
+                    );
+                }, 1000);
+            });
             // this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" })
         },
         convertDate(date) {
-            return moment(date).locale('fa').format("YYYY-M-D H:m:s");
+            return moment(date).locale("fa").format("YYYY-M-D H:m:s");
         },
         addCommasToPrice(price) {
-            return addCommas(price)
+            return addCommas(price);
         },
         showAll() {
             this.errors = null;
@@ -222,34 +260,44 @@ export default {
                 .then((response) => {
                     this.success = response.data.success;
                     this.errors = null;
-                    
-                    this.canceledOrder= this.orders.filter(order => {return order.id == order_id});
+
+                    this.canceledOrder = this.orders.filter((order) => {
+                        return order.id == order_id;
+                    });
                     console.log(this.canceledOrder[0].order_status_text);
 
                     this.canceledOrder[0].order_status_id = 6;
                     this.canceledOrder[0].order_status_text = "لغو شده";
-
-            })
-            .catch(errors => {
-                this.errors = errors.response && errors.response.data.errors;
-                console.log(this.errors);
-                this.success = null;
-            })
+                })
+                .catch((errors) => {
+                    this.errors =
+                        errors.response && errors.response.data.errors;
+                    console.log(this.errors);
+                    this.success = null;
+                });
         },
         buildURL() {
-            const baseURL = '/admin/orders';
+            const baseURL = "/admin/orders";
             const params = new URLSearchParams();
-            if (this.searchKey) params.append('search_key', this.searchKey);            
-            if (this.filterStatus) params.append('status', this.filterStatus);            
-            if (this.from) params.append('from', moment(this.from, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
-            if (this.to) params.append('to', moment(this.to, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
+            if (this.searchKey) params.append("search_key", this.searchKey);
+            if (this.filterStatus) params.append("status", this.filterStatus);
+            if (this.from)
+                params.append(
+                    "from",
+                    moment(this.from, "jYYYY-jMM-jDD").format("YYYY-MM-DD")
+                );
+            if (this.to)
+                params.append(
+                    "to",
+                    moment(this.to, "jYYYY-jMM-jDD").format("YYYY-MM-DD")
+                );
             return `${baseURL}?${params.toString()}`;
         },
         handleFilterAndSearch() {
             this.errors = null;
             this.success = null;
             this.notSelectedError = null;
-            const url = this.buildURL()
+            const url = this.buildURL();
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
@@ -258,36 +306,37 @@ export default {
         onSelectChange(event) {
             this.selectedValue = event.target.value;
         },
-        updateOrderStatus(order, order_status_id){
+        updateOrderStatus(order, order_status_id) {
             this.errors = null;
             this.success = null;
             this.notSelectedError = null;
 
-            if(!order_status_id){
-                this.notSelectedError = "لطفا یک گزینه برای تغییر وضعیت انتخاب کنید";
-            }
-            else if(order_status_id == order.order_status_id){
+            if (!order_status_id) {
+                this.notSelectedError =
+                    "لطفا یک گزینه برای تغییر وضعیت انتخاب کنید";
+            } else if (order_status_id == order.order_status_id) {
                 this.notSelectedError = `وضعیت کنونی این سفارش ${order.order_status_text} میباشد`;
-            }
-            else{
-                axios.get(`/api/admin/orders/update-status/${order.id}/${order_status_id}`)
-                .then(response => {
+            } else {
+                axios
+                    .get(
+                        `/api/admin/orders/update-status/${order.id}/${order_status_id}`
+                    )
+                    .then((response) => {
+                        this.success = response.data.success;
+                        this.errors = null;
 
-                    this.success = response.data.success;
-                    this.errors = null;
+                        order.order_status_id = parseInt(order_status_id);
+                        order.order_status_text =
+                            response.data.order.order_status_text;
 
-                    
-                    order.order_status_id = parseInt(order_status_id);
-                    order.order_status_text = response.data.order.order_status_text;
-
-                    this.selectedValue = null;
-
-                })
-                .catch(errors => {
-                    this.errors = errors.response && errors.response.data.errors;
-                    console.log(this.errors);
-                    this.success = null;
-                })
+                        this.selectedValue = null;
+                    })
+                    .catch((errors) => {
+                        this.errors =
+                            errors.response && errors.response.data.errors;
+                        console.log(this.errors);
+                        this.success = null;
+                    });
             }
         },
     },
@@ -303,7 +352,7 @@ export default {
 
 <style scoped>
 .filterCont {
-    height: 100px !important;
+    height: auto !important;
 }
 .formSubmit td,
 th {
@@ -315,7 +364,6 @@ th {
 }
 table {
     width: 100%;
-  
 }
 
 td,
@@ -351,7 +399,19 @@ button {
 }
 .btnParent {
     position: relative;
-      overflow-x: scroll  !important;
+    overflow-x: scroll !important;
+}
+.secondFilteringBtn {
+    background: var(--mainColor);
+    transition: 0.4s linear;
+    font-family: var(--thirdFont);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100px;
+    float: end;
+}
+.secondFilteringBtn:hover {
+    background-color: var(--thirdColor);
 }
 .edit {
     background-color: var(--thirdColor);
@@ -373,7 +433,7 @@ button {
     color: white;
 }
 .submitingCartContainer h2 {
-     font-family: var(--thirdFont);
+    font-family: var(--thirdFont);
     font-weight: 900;
 }
 .filterSearch button {
@@ -391,7 +451,7 @@ button {
     display: inline;
     height: 33px;
     padding-bottom: 7px;
-    width: 600px;
+    width: 40%;
 }
 .filterSearch input:focus {
     outline: 1px solid var(--thirdColor);

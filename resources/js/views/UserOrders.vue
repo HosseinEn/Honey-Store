@@ -1,6 +1,9 @@
 <template>
     <Navbar />
-    <MiniIntroTemplate imageSelected="HoneyBlock.jpg" imageForSmall="VerticalHoneyHome.jpg">
+    <MiniIntroTemplate
+        imageSelected="HoneyBlock.jpg"
+        imageForSmall="VerticalHoneyHome.jpg"
+    >
         <template v-slot:mainContentHeader>
             شما یک طراح هستین و یا با طراحی های گرافیک
         </template>
@@ -30,14 +33,30 @@
                 <td>‌ {{ convertDate(order.created_at) }}</td>
                 <td>{{ order.order_status_text }}</td>
                 <td>
-                    <ul class="list-group">
-                        <li class="list-group-item mt-1" v-for="product in order.products" :key="product.id">
-                            <router-link :to="{'path' : '/product/' + product.slug}">
-                                {{ product.name }} - {{ product.ordered.attribute.weight }}
-                            </router-link>
-                        </li>
-                    </ul>
-                </td>       
+                    
+                    <div class="toolTips">
+                        مشاهده
+                        <!-- <span class="tooltiptext">Tooltip text</span> -->
+                      
+                            <ul class="list-group tooltiptext">
+                                <li
+                                    class="list-group-item mt-1"
+                                    v-for="product in order.products"
+                                    :key="product.id"
+                                >
+                                    <router-link
+                                        :to="{
+                                            path: '/product/' + product.slug,
+                                        }"
+                                    >
+                                        {{ product.name }} -
+                                        {{ product.ordered.attribute.weight }}
+                                    </router-link>
+                                </li>
+                            </ul>
+                        
+                    </div>
+                </td>
             </tr>
         </table>
     </div>
@@ -51,9 +70,8 @@ import Navbar from "../components/Navbar.vue";
 import Footer from "../components/Footer.vue";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 import axios from "axios";
-import moment from 'jalali-moment'
-import { addCommas } from 'persian-tools';
-
+import moment from "jalali-moment";
+import { addCommas } from "persian-tools";
 
 export default {
     name: "orders",
@@ -65,21 +83,20 @@ export default {
     data() {
         return {
             orders: null,
-        }
+        };
     },
     methods: {
         convertDate(date) {
-            return moment(date).locale('fa').format("YYYY-M-D H:m:s");
+            return moment(date).locale("fa").format("YYYY-M-D H:m:s");
         },
         addCommasToPrice(price) {
-            return addCommas(price)
+            return addCommas(price);
         },
     },
     mounted() {
-        axios.get('/api/user-order-products')
-            .then(response => {
-                this.orders = response.data.orders;
-            })
+        axios.get("/api/user-order-products").then((response) => {
+            this.orders = response.data.orders;
+        });
     },
 };
 </script>
@@ -114,7 +131,7 @@ th {
     border-radius: 6px;
     background-color: var(--thirdColor) !important;
     color: white;
-    font-family: var(--mainFont)
+    font-family: var(--mainFont);
 }
 
 #submit:hover {
