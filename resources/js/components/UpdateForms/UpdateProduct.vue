@@ -95,7 +95,7 @@
                         <div class="col-12 col-lg-6">
                             <div v-for="attribute in attributes" :key="attribute.id">
                                 <br />
-                                وزن: {{ attribute.weight }} کیلوگرم
+                                <h4><b>وزن: {{ attribute.weight }} کیلوگرم</b></h4>
                                 <br />
                                 <label for="">قیمت:</label>
                                 <input type="text" :name="`product_attributes[${attribute.id}][price]`"

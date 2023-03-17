@@ -62,20 +62,6 @@
                     <option value="0">محصولات ناموجود</option>
                 </select>  
                 <form @submit.prevent="handleFilterAndSearch">
-                    <!-- <label for="checkbox">محصولات موجود</label>
-                    <input
-                        type="checkbox"
-                        value="1"
-                        v-model="selected_attribute"
-                        @change="uniqueCheck"
-                    />
-                    <label for="checkbox">محصولات ناموجود</label>
-                    <input
-                        type="checkbox"
-                        value="0"
-                        v-model="selected_attribute"
-                        @change="uniqueCheck"
-                    /> -->
                     <br />
                     <label for="from">از : </label>
                     <date-picker v-model="from" 
@@ -102,10 +88,11 @@
         <div class="pb-4 pt-4 btnParent">
             <table>
                 <tr>
-                    <th style="width: 20%">نام محصول</th>
+                    <th style="width: ۱0%">نام محصول</th>
                     <th style="width: 10%">تعداد کل</th>
                     <th style="width: 10%">وضعیت</th>
                     <th style="width: 20%">توضیحات</th>
+                    <th style="width: 30%"> ویژگی - تعداد - قیمت - تخفیف</th>
                     <th style="width: 20%">تاریخ ایجاد</th>
                     <th style="width: 10%">حذف</th>
                     <th style="width: 10%">ویرایش</th>
@@ -116,6 +103,22 @@
                     <td>‌ {{ product.status == 1 ? "فعال" : "غیرفعال" }}</td>
                     <td>
                         ‌ {{ product.description.substring(0, 20) + "..." }}
+                    </td>
+                    <td>
+                        <ul class="list-group">
+                            <li
+                                class="list-group-item mt-1"
+                                v-for="attribute in product.attributes"
+                                :key="attribute.id"
+                            >
+                                <span :class="{'text-danger': attribute.attribute_product.stock == 0 }">
+                                    {{ attribute.weight }} - 
+                                    {{ attribute.attribute_product.stock }} - 
+                                    {{ attribute.attribute_product.price }} - 
+                                    {{ attribute.attribute_product.discount_id ? 'با تخفیف' : 'بدون تخفیف' }}
+                                </span> 
+                            </li>
+                        </ul>
                     </td>
                     <td>‌ {{ convertDate(product.created_at) }}</td>
                     <td>
