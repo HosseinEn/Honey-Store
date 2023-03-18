@@ -13,7 +13,19 @@
                 aria-label="Toggle navigation"
                 >مازدار</a
             >
-
+            <button
+            id="navBarBtn"
+                class="navbar-toggler"
+                type="button"
+                 @click="navbarBg()"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <div
                 class="collapse navbar-collapse text-center"
                 id="navbarSupportedContent"
@@ -54,7 +66,7 @@
                             >خانه</router-link
                         >
                     </li>
-                     <li class="nav-item mb-2">
+                    <li class="nav-item mb-2">
                         <router-link
                             v-if="isLogged"
                             :to="{ name: 'user_profile' }"
@@ -88,8 +100,7 @@
                             <router-link
                                 :to="{ name: 'admin.products' }"
                                 @click="this.scrollToTop"
-                                >
-                                
+                            >
                                 {{ name }}
                             </router-link>
                             <span class="userName"> : کاربر</span>
@@ -99,8 +110,7 @@
                             <router-link
                                 :to="{ name: 'user_profile' }"
                                 @click="this.scrollToTop"
-                                >
-                                
+                            >
                                 {{ name }}
                             </router-link>
                         </span>
@@ -144,9 +154,9 @@ export default {
     methods: {
         async logout() {
             await window.axios.post("/logout").then((response) => {
-                this.$store.commit("setIsLogged", false)
+                this.$store.commit("setIsLogged", false);
                 this.$store.commit("setIsAdmin", false);
-                this.$router.push({'name' : 'home'})
+                this.$router.push({ name: "home" });
             });
             this.name = null;
             this.isAdmin = false;
@@ -195,5 +205,8 @@ li:hover {
 }
 .navbarBgChange {
     background: rgb(15, 3, 1, 0.9) !important;
+}
+#navBarBtn {
+    background-color: white;
 }
 </style>

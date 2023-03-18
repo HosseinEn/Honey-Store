@@ -34,9 +34,12 @@ export default {
 
 <style scoped>
 @media only screen and (max-width: 900px) {
- .strapHeader {
-    font-size: 2rem !important;
-}
+    .strapHeader {
+        font-size: 2rem !important;
+    }
+    .content {
+        padding: 6rem 2rem 6rem !important;
+    }
 }
 
 .container {
