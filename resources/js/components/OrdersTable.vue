@@ -187,7 +187,13 @@
                     <div class="row">
                         <table class="formSubmit">
                             <tr>
-                                <td style="width: 20%">کل فروش</td>
+                                <td style="width: 30%">کل فروش این ماه</td>
+                                <td style="width: 70%">
+                                    {{ addCommasToPrice(totalOrderPriceThisMonth) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="width: 20%">کل فروش تا به حال</td>
                                 <td style="width: 80%">
                                     {{ addCommasToPrice(totalOrderPrice) }}
                                 </td>
@@ -213,6 +219,7 @@ export default {
         return {
             orders: null,
             totalOrderPrice: null,
+            totalOrderPriceThisMonth: null,
             successOrderCancellation: null,
             orderStatuses: null,
             success: null,
@@ -239,7 +246,7 @@ export default {
             // this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" })
         },
         convertDate(date) {
-            return moment(date).locale("fa").format("YYYY-M-D H:m:s");
+            return moment(date).locale("fa").format("YYYY-M-D H:mm:ss");
         },
         addCommasToPrice(price) {
             return addCommas(price);
@@ -345,6 +352,7 @@ export default {
             this.orders = response.data.orders;
             this.orderStatuses = response.data.orderStatuses;
             this.totalOrderPrice = response.data.totalOrderPrice;
+            this.totalOrderPriceThisMonth = response.data.totalOrderPriceThisMonth;
         });
     },
 };

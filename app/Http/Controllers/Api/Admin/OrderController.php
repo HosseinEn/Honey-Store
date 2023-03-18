@@ -51,14 +51,18 @@ class OrderController extends Controller
                 $product->ordered->attribute = $attributes->where('id', $product->ordered->attribute_id)->first();
             }
         }
+        $paymentDoneStatus = $orderStatuses->where('name', 'تایید شده')->first()->id;
+        $totalOrderPrice = $orders->where('order_status_id', $paymentDoneStatus)
+                                  ->sum('price_with_discount');
+        $totalOrderPriceThisMonth = $orders->where('order_status_id', $paymentDoneStatus)
+                                           ->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])
+                                           ->sum('price_with_discount');
 
-        $totalOrderPrice = $orders->sum('total_price');
-
-        // dd(DB::getQueryLog());
         return new JsonResponse([
             'orders' => $orders,
             'orderStatuses' => $orderStatuses,
-            'totalOrderPrice' => $totalOrderPrice
+            'totalOrderPrice' => $totalOrderPrice,
+            'totalOrderPriceThisMonth' => $totalOrderPriceThisMonth
         ]);
     }
 

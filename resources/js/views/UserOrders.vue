@@ -87,7 +87,7 @@ export default {
     },
     methods: {
         convertDate(date) {
-            return moment(date).locale("fa").format("YYYY-M-D H:m:s");
+            return moment(date).locale("fa").format("YYYY-M-D H:mm:ss");
         },
         addCommasToPrice(price) {
             return addCommas(price);
