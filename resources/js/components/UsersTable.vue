@@ -21,9 +21,11 @@
                     <td>‌ {{ user.address }}</td>
                     <td>‌ {{ user.phone }}</td>
                     <td>‌ {{ user.email }}</td>
-                    <td>‌ {{ user.is_admin ? '✅' : '❌' }}</td>
+                    <td>‌ 
+                        {{ user.is_admin == 1 ? '✅' : '❌' }}
+                    </td>
                     <td>‌ {{ convertDate(user.created_at) }}</td>
-                    <td><button class="btn btn-secondary" @click="updateIsAdmin(user)"><i :class="[user.is_admin ? 'fa fa-arrow-down' : 'fa fa-arrow-up']"></i> {{ user.is_admin ? 'تنزل به کاربر عادی' : 'ارتقا به ادمین' }}</button></td>
+                    <td><button class="btn btn-secondary" @click="updateIsAdmin(user)"><i :class="[user.is_admin == 1 ? 'fa fa-arrow-down' : 'fa fa-arrow-up']"></i> {{ user.is_admin == 1 ? 'تنزل به کاربر عادی' : 'ارتقا به ادمین' }}</button></td>
                 </tr>
             </table>
         </div>
