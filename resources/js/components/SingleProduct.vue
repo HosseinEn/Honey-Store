@@ -10,8 +10,8 @@
                     filteredAttribute
                 "
             >
-            {{ discounts.map(function(e) { return e.id; }).indexOf(filteredAttribute.attribute_product.discount_id) != (-1)
-                    ?  `${discounts[discounts.map(function(e) { return e.id; }).indexOf(filteredAttribute.attribute_product.discount_id)]['value']} درصد`
+            {{ filteredAttribute.attribute_product.discount_id != null
+                    ?  `${getDiscountById()['value']} درصد`
                     : "بدون تخفیف" }}
 
             <!-- agar fekr mikonin kar mikone !! bedounin ke kar nemikone -->
@@ -61,6 +61,13 @@ export default {
         scrollToTop() {
             window.scrollTo(0, 0);
         },
+        getDiscountById() {
+            const discount_id = this.filteredAttribute.attribute_product.discount_id;
+            const discount_index = this.discounts.findIndex(discount => {
+                return discount.id == discount_id;
+            })
+            return this.discounts[discount_index];
+        }
     },
 };
 </script>
