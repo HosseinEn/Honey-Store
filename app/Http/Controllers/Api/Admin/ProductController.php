@@ -23,7 +23,7 @@ ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::get();
+        $products = Product::orderBy("created_at", "desc")->get();
         $products->load(['attributes', 'image']);
         if ($request->has('search_key')) {
             $search_key = $request->get('search_key');

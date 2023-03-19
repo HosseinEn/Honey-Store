@@ -19,7 +19,7 @@ class AttributeController extends Controller
      */
     public function index(Request $request)
     {
-        $attributes = Attribute::orderBy("weight", "asc")->get();
+        $attributes = Attribute::orderBy("weight", "desc")->get();
         return new JsonResponse([
             'attributes' => $attributes
         ]);
