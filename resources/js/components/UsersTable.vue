@@ -18,8 +18,8 @@
                 </tr>
                 <tr v-for="user in users" :key="user">
                     <td>‌ {{ user.name }}</td>
-                    <td>‌ {{ user.address }}</td>
                     <td>‌ {{ user.phone }}</td>
+                    <td>‌ {{ user.address }}</td>
                     <td>‌ {{ user.email }}</td>
                     <td>‌ 
                         {{ user.is_admin == 1 ? '✅' : '❌' }}
