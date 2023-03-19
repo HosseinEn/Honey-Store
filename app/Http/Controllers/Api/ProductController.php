@@ -27,7 +27,7 @@ class ProductController extends Controller
     }
 
     public function show(Product $product) {
-        if($product->status !== 1) {
+        if($product->status != 1) {
             return abort(404);
         }
         $product->load([

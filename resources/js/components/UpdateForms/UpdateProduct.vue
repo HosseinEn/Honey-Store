@@ -1,7 +1,10 @@
 <template>
     <div class="container">
         <div class="row">
-            <div class="formContainer">
+            <div v-if="loading">
+                <Loading />
+            </div>
+            <div v-else class="formContainer">
                 <form>
                     <div class="row">
 
@@ -189,6 +192,7 @@ export default {
                 this.description = response.data.product.description;
                 this.imagePath = response.data.product.image.path;
                 this.productAttributes = response.data.product.attributes;
+                console.log(this.productAttributes)
                 this.loading = false;
             });
         axios.get("/api/admin/attributes")
