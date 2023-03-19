@@ -119,7 +119,7 @@
                                         بدون تخفیف
                                     </option>
                                     <option v-for="discount in discounts" :value="`${discount.id}`"
-                                        :selected="discount.id === getAttributeDataIfFilled(attribute.id, 'discount_id')" :key="discount">
+                                        :selected="discount.id == getAttributeDataIfFilled(attribute.id, 'discount_id')" :key="discount">
                                         {{
                                             discount.value
                                         }}%
