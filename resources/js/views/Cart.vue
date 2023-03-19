@@ -212,12 +212,12 @@ export default {
           })
                 .then(()=>{
                     this.increaseAmountInTable = this.products.filter(product => {return product.cart.id == increase});
-                    this.increaseAmountInTable[0].cart.quantity += 1;
-                    this.totalPrice += this.increaseAmountInTable[0].selected_attribute.attribute_product.price;
-                    this.totalPriceWithDiscount += 
+                    this.increaseAmountInTable[0].cart.quantity = Number(this.increaseAmountInTable[0].cart.quantity) + 1;
+                    this.totalPrice = Number(this.totalPrice) + Number(this.increaseAmountInTable[0].selected_attribute.attribute_product.price);
+                    this.totalPriceWithDiscount = Number(this.totalPriceWithDiscount) +
                                             this.increaseAmountInTable[0].selected_attribute.attribute_product.price
                                             * (100.0 - (this.increaseAmountInTable[0].selected_attribute.attribute_product.discount_id != null
-                                                     ? this.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value 
+                                                     ? Number(this.increaseAmountInTable[0].selected_attribute.attribute_product.discount.value )
                                                      : 0.0))/100;
                 })                
                 .catch(errors => {
