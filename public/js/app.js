@@ -24812,43 +24812,12 @@ __webpack_require__.r(__webpack_exports__);
     };
   },
   created: function created() {
-    var _this = this;
-    // console.log('eeee')
-    // const headers = {
-    //   'x-api-key': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA3N2U0MmNiYTVhMzAzMjdjNTVjZmRkMzA2ZjNlMGJhOWI3NGUwYTM0MDU1ZTZhZDMxNmM0YTIzMTQwMWFjODY4MTg3MWM0YjI5YTM0OWUxIn0.eyJhdWQiOiIyMTE5MCIsImp0aSI6IjA3N2U0MmNiYTVhMzAzMjdjNTVjZmRkMzA2ZjNlMGJhOWI3NGUwYTM0MDU1ZTZhZDMxNmM0YTIzMTQwMWFjODY4MTg3MWM0YjI5YTM0OWUxIiwiaWF0IjoxNjc2ODkyMTEzLCJuYmYiOjE2NzY4OTIxMTMsImV4cCI6MTY3OTMxMTMxMywic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.aOkd-f6hRG3Y_GVINHmtumlkCD98vWbAytov5mXSh4yMXSAqookmK697vcqpserijSiI24T4FiJm0SG1cvAYlHYN7-MZTi3YoxxBVQ9cRHswuExqxk9APZbG1eXOl_fiwKfiQVrqesUfHaDLB4VQbeYf1KzCc4JWeXUl3ivd4qY9cy5LRHXayVEhwE3SwEZPF_7MT6Wsvi4LDlJZbXCe9qtUlOgMqJtEedjvncpnb54Hs6e1c5LCeRkYVmTPGrepQ_VoGEqGDakwkkSg2XTZqIks--Gbr1vZdccJRhofCOB5BmaKVb6BXxSB69-OVw2WV1zUEL6FPGojSUscEryTPw',
-    //   'Content-Type':  'application/json',
-    // }
-    // axios.get('https://map.ir/static?width=700&height=400&zoom_level=12&markers=color%3Aorigin%7Clabel%3A%D9%85%D9%BE%7C51.422174%2C35.732469', {
-    //   headers: headers,
-    //   withCredentials: true,
-    // })
-    // .then(response => console.log(response.data))
-    // .catch(errors => console.log(errors.response));
-    axios__WEBPACK_IMPORTED_MODULE_8___default().get('/show-map').then(function (response) {
-      // this.map = 'data:image/png;base64,' + btoa(
-      //     new Uint8Array(response.data)
-      //     .reduce((data, byte) => data + String.fromCharCode(byte), '')
-      // );
-      // var reader = new FileReader()
-      // console.logr(reader.readAsDataURL(response.data))
-      // this.map = btoa(response.data);
-      // console.log(response.data)
-      // this.map = response.data
-      // this.map = response.data
-      // console.log(this.map)
-      var blob = new Blob([response.data], {
-        type: 'image/png'
-      });
-      // create a URL for the Blob
-      _this.map = URL.createObjectURL(blob);
-    });
-    // const url = '/show-map'
-    // fetch(url)
-    // .then(res => res.blob())
-    // .then(res => console.log(res))
-    // .catch(error => console.log(error))
+    try {
+      __webpack_require__(/*! ../../../storage/map.png */ "./storage/app/public/map.png");
+    } catch (_unused) {
+      axios__WEBPACK_IMPORTED_MODULE_8___default().get('/show-map');
+    }
   },
-
   methods: {
     scrollToTop: function scrollToTop() {
       window.scrollTo(0, 0);
@@ -29159,18 +29128,19 @@ var _hoisted_16 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNo
 var _hoisted_17 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است، و برای شرایط فعلی تکنولوژی مورد نیا اصلی، و جوابگوی سوالات پیوسته اهل دنیای موجود طراحی اساسا مورد استفاده قرار گیرد. ");
 var _hoisted_18 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" شما یک طراح هستین و یا با طراحی های گرافیک ");
 var _hoisted_19 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ، و با استفاده از Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsam quo illum adipisci fugiat maxime quae, incidunt doloribus porro eligendi dicta ut laboriosam sint iure inventore et animi obcaecati eos expedita? طراحان گرافیک است، چاپگرها و متون بلکه روزنامه و مجوجود طراحی اساسا مورد استفاده قرار گیرد. ");
-var _hoisted_20 = {
-  "class": "container"
-};
-var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "container"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "row text-center mb-5"
-  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Lorem ipsum dolor sit.")], -1 /* HOISTED */);
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("h3", null, "Lorem ipsum dolor sit.")]), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
+    "class": "row d-flex justify-content-center align-content-center"
+  }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
+    src: "/storage/map.png",
+    alt: ""
+  })])], -1 /* HOISTED */);
 });
-var _hoisted_22 = {
-  "class": "row d-flex justify-content-center align-content-center"
-};
-var _hoisted_23 = ["src"];
+
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _this = this;
   var _component_Navbar = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Navbar");
@@ -29272,10 +29242,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [_hoisted_19];
     }),
     _: 1 /* STABLE */
-  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Content 2 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Location "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_20, [_hoisted_21, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_22, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14918.626637417177!2d52.67744995439325!3d36.5558034096635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8f88494db70a07%3A0xf3a380da3076a39!2sBabol%2C%20Mazandaran%20Province%2C%20Iran!5e0!3m2!1sen!2sfr!4v1675967488866!5m2!1sen!2sfr\" width=\"600\" height=\"450\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\" referrerpolicy=\"no-referrer-when-downgrade\"></iframe> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <img :src=\"`data:${map}`\" alt=\"\"> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("img", {
-    src: $data.map,
-    alt: ""
-  }, null, 8 /* PROPS */, _hoisted_23), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" " + (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.map), 1 /* TEXT */)])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End of Location "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
+  }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End Content 2 "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" Location "), _hoisted_20, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" End of Location "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Footer)], 64 /* STABLE_FRAGMENT */);
 }
 
 /***/ }),
@@ -30294,10 +30261,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_css_common_css__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./assets/css/common.css */ "./resources/js/assets/css/common.css");
 /* harmony import */ var bootstrap__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! bootstrap */ "./node_modules/bootstrap/dist/js/bootstrap.esm.js");
 /* harmony import */ var bootstrap_dist_css_bootstrap_min_css__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! bootstrap/dist/css/bootstrap.min.css */ "./node_modules/bootstrap/dist/css/bootstrap.min.css");
-/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! cors */ "./node_modules/cors/lib/index.js");
-/* harmony import */ var cors__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(cors__WEBPACK_IMPORTED_MODULE_7__);
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-
 
 
 
@@ -30312,7 +30276,6 @@ var corsConfig = {
 };
 var app = vue__WEBPACK_IMPORTED_MODULE_0__.createApp({});
 app.component('app', _App_vue__WEBPACK_IMPORTED_MODULE_1__["default"]);
-// app.use(cors(corsConfig));
 app.use(_store__WEBPACK_IMPORTED_MODULE_2__["default"]);
 app.use(_routes__WEBPACK_IMPORTED_MODULE_3__["default"]).mount('#app');
 
@@ -37180,6 +37143,21 @@ module.exports = function (cssWithMappingToString) {
 
   return list;
 };
+
+/***/ }),
+
+/***/ "./storage/app/public/map.png":
+/*!************************************!*\
+  !*** ./storage/app/public/map.png ***!
+  \************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ("/images/map.png?3ad2857b694e69e09c49c9c54173146b");
 
 /***/ }),
 

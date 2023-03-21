@@ -127,10 +127,7 @@
             <h3>Lorem ipsum dolor sit.</h3>
         </div>
         <div class="row d-flex justify-content-center align-content-center">
-            <!-- <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14918.626637417177!2d52.67744995439325!3d36.5558034096635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3f8f88494db70a07%3A0xf3a380da3076a39!2sBabol%2C%20Mazandaran%20Province%2C%20Iran!5e0!3m2!1sen!2sfr!4v1675967488866!5m2!1sen!2sfr" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> -->
-            <!-- <img :src="`data:${map}`" alt=""> -->
-            <img :src="map" alt="">
-            {{map}}
+            <img src="/storage/map.png" alt="">
         </div>
     </div>
     <!-- End of Location -->
@@ -167,39 +164,12 @@ export default {
         }
     },
     created() {
-        // console.log('eeee')
-        // const headers = {
-        //   'x-api-key': 'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjA3N2U0MmNiYTVhMzAzMjdjNTVjZmRkMzA2ZjNlMGJhOWI3NGUwYTM0MDU1ZTZhZDMxNmM0YTIzMTQwMWFjODY4MTg3MWM0YjI5YTM0OWUxIn0.eyJhdWQiOiIyMTE5MCIsImp0aSI6IjA3N2U0MmNiYTVhMzAzMjdjNTVjZmRkMzA2ZjNlMGJhOWI3NGUwYTM0MDU1ZTZhZDMxNmM0YTIzMTQwMWFjODY4MTg3MWM0YjI5YTM0OWUxIiwiaWF0IjoxNjc2ODkyMTEzLCJuYmYiOjE2NzY4OTIxMTMsImV4cCI6MTY3OTMxMTMxMywic3ViIjoiIiwic2NvcGVzIjpbImJhc2ljIl19.aOkd-f6hRG3Y_GVINHmtumlkCD98vWbAytov5mXSh4yMXSAqookmK697vcqpserijSiI24T4FiJm0SG1cvAYlHYN7-MZTi3YoxxBVQ9cRHswuExqxk9APZbG1eXOl_fiwKfiQVrqesUfHaDLB4VQbeYf1KzCc4JWeXUl3ivd4qY9cy5LRHXayVEhwE3SwEZPF_7MT6Wsvi4LDlJZbXCe9qtUlOgMqJtEedjvncpnb54Hs6e1c5LCeRkYVmTPGrepQ_VoGEqGDakwkkSg2XTZqIks--Gbr1vZdccJRhofCOB5BmaKVb6BXxSB69-OVw2WV1zUEL6FPGojSUscEryTPw',
-        //   'Content-Type':  'application/json',
-        // }
-        // axios.get('https://map.ir/static?width=700&height=400&zoom_level=12&markers=color%3Aorigin%7Clabel%3A%D9%85%D9%BE%7C51.422174%2C35.732469', {
-        //   headers: headers,
-        //   withCredentials: true,
-        // })
-        // .then(response => console.log(response.data))
-        // .catch(errors => console.log(errors.response));
-        axios.get('/show-map')
-            .then(response => {
-                // this.map = 'data:image/png;base64,' + btoa(
-                //     new Uint8Array(response.data)
-                //     .reduce((data, byte) => data + String.fromCharCode(byte), '')
-                // );
-                // var reader = new FileReader()
-                // console.logr(reader.readAsDataURL(response.data))
-                // this.map = btoa(response.data);
-                // console.log(response.data)
-                // this.map = response.data
-                // this.map = response.data
-                // console.log(this.map)
-                const blob = new Blob([response.data], { type: 'image/png' });
-                // create a URL for the Blob
-                this.map = URL.createObjectURL(blob);
-            })
-        // const url = '/show-map'
-        // fetch(url)
-        // .then(res => res.blob())
-        // .then(res => console.log(res))
-        // .catch(error => console.log(error))
+        try {
+            require('/storage/map.png')
+        } catch {
+            axios.get('/show-map')
+        }
+
     },
     methods: {
         scrollToTop() {
