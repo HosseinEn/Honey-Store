@@ -21,18 +21,52 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = Order::orderBy('created_at', 'DESC')->get();
-        $orders->load(['products', 'user']);
+        $orders = null;
+        if (!$request->has('search_key') && !$request->has('status') && !($request->has('from') && $request->has('to'))) {
+            $orders = Order::with(['products', 'user'])
+                            ->latest()
+                            ->get();
+        }
+        else {
+            if ($request->has('search_key')) {
+                $search_key = trim($request->search_key);
+                $orders = Order::with(['products', 'user'])
+                                ->latest()
+                                ->search($search_key)
+                                ->get();
+            }        
+            if ($request->has('status')) {
+                if ($orders == null) {
+                    if ($request->status == 'all') {
+                        $orders = Order::with(['products', 'user'])
+                                        ->latest()
+                                        ->get();
+                    }
+                    else {
+                        $orders = Order::with(['products', 'user'])
+                                    ->latest()
+                                    ->filterByStatus($request->status)
+                                    ->get();
+                    }
+                }
+                else {
+                    $orders = $this->applyStatusFilter($orders, $request->get('status'));
+                }
+            }
+            if ($request->has('from') && $request->has('to')) {
+                if ($orders == null) {
+                    $orders = Order::with(['products', 'user'])
+                                    ->latest()
+                                    ->filterByDate($request->from, $request->to)
+                                    ->get();
+                }
+                else {
+                    $orders = $this->applyDateFilter($orders, $request->get('from'), $request->get('to'));
+                }
+            }
+    
+        }
 
-        if ($request->has('search_key')) {
-            $orders = $this->applySearchFilter($orders, $request->get('search_key'));
-        }        
-        if ($request->has('status')) {
-            $orders = $this->applyStatusFilter($orders, $request->get('status'));
-        }
-        if ($request->has('from') && $request->has('to')) {
-            $orders = $this->applyDateFilter($orders, $request->get('from'), $request->get('to'));
-        }
 
         $attributes = Attribute::get();
         $orderStatuses = OrderStatus::get();
@@ -55,22 +89,6 @@ class OrderController extends Controller
             'totalOrderPrice' => $totalOrderPrice,
             'totalOrderPriceThisMonth' => $totalOrderPriceThisMonth
         ]);
-    }
-
-    private function applySearchFilter($orders, $search_key) {
-        preg_match_all('/[a-zA-Z-.0-9_@ ]*/', $search_key, $finalArray);
-        $search_key = array_filter($finalArray[0], function($element) {
-            return strlen($element) != 0;
-        });
-        $search_key = array_pop($search_key);
-        $orders = $orders->filter(function ($order) use ($search_key) {
-            return stristr($order->invoice_no, $search_key) ||
-                   stristr($order->user->name, $search_key) ||
-                   stristr($order->user->phone, $search_key) ||
-                   stristr($order->user->email, $search_key) ||
-                   stristr($order->user->address, $search_key);
-        });
-        return $orders;
     }
 
     private function applyStatusFilter($orders, $status) {

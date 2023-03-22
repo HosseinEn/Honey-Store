@@ -58,6 +58,24 @@ class Order extends Model
         return $query->orderBy(static::CREATED_AT, 'DESC');
     }
 
+    public function scopeSearch(Builder $query, $search_key) {
+        return $query->where('invoice_no', 'like', '%' . $search_key . '%')
+                    ->orWhereHas('user', function($query) use ($search_key) {
+                        return $query->where('name', 'like', '%' . $search_key . '%')
+                                    ->orWhere('phone', 'like', '%' . $search_key . '%')
+                                    ->orWhere('email', 'like', '%' . $search_key . '%')
+                                    ->orWhere('address', 'like', '%' . $search_key . '%');
+                    });
+    }
+
+    public function scopeFilterByStatus(Builder $query, $status) {
+        return $query->where('order_status_id', $status);
+    }
+
+    public function scopeFilterByDate(Builder $query, $from, $to) {
+        return $query->whereBetween('created_at', [$from, $to]);
+    }
+
     // public function scopeMostSaleProduct(Builder $query) {
     //     return $query->orderBy(static::product_id, 'DESC');
     // }
