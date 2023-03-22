@@ -71,7 +71,7 @@ export default {
   height: auto;
   direction: rtl;
   float: right;
-  max-height: 850px;
+  /* max-height: 850px; */
   background-color: white;
 }
 .mainContents h3 {

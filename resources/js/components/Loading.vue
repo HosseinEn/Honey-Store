@@ -1,6 +1,6 @@
 <template>
-  <div class="container-fluid">
-    <div class="row text-center mt-5">
+  <div class="container-fluid" style="margin-top:200px">
+    <div class="row text-center">
       <span>...منتظر بمانید</span>
     </div>
   </div>
