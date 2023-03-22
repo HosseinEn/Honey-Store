@@ -25,15 +25,7 @@ class OrderController extends Controller
         $orders->load(['products', 'user']);
 
         if ($request->has('search_key')) {
-            $search_key = $request->get('search_key');
-            $search_key = preg_replace('/\s+/', '', $search_key); // Remove all whitespace
-            $orders = $orders->filter(function ($order) use ($search_key) {
-                return stristr($order->invoice_no, $search_key) ||
-                       stristr($order->user->name, $search_key) ||
-                       stristr($order->user->phone, $search_key) ||
-                       stristr($order->user->email, $search_key) ||
-                       stristr($order->user->address, $search_key);
-            });
+            $orders = $this->applySearchFilter($orders, $request->get('search_key'));
         }        
         if ($request->has('status')) {
             $orders = $this->applyStatusFilter($orders, $request->get('status'));
@@ -57,13 +49,28 @@ class OrderController extends Controller
         $totalOrderPriceThisMonth = $orders->where('order_status_id', $paymentDoneStatus)
                                            ->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])
                                            ->sum('price_with_discount');
-
         return new JsonResponse([
             'orders' => $orders,
             'orderStatuses' => $orderStatuses,
             'totalOrderPrice' => $totalOrderPrice,
             'totalOrderPriceThisMonth' => $totalOrderPriceThisMonth
         ]);
+    }
+
+    private function applySearchFilter($orders, $search_key) {
+        preg_match_all('/[a-zA-Z-.0-9_@ ]*/', $search_key, $finalArray);
+        $search_key = array_filter($finalArray[0], function($element) {
+            return strlen($element) != 0;
+        });
+        $search_key = array_pop($search_key);
+        $orders = $orders->filter(function ($order) use ($search_key) {
+            return stristr($order->invoice_no, $search_key) ||
+                   stristr($order->user->name, $search_key) ||
+                   stristr($order->user->phone, $search_key) ||
+                   stristr($order->user->email, $search_key) ||
+                   stristr($order->user->address, $search_key);
+        });
+        return $orders;
     }
 
     private function applyStatusFilter($orders, $status) {

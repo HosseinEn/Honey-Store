@@ -49,7 +49,7 @@ export default {
             return moment(date).format("Y-M-D");
         },
         updateIsAdmin(user) {
-            user.is_admin = !user.is_admin;
+            user.is_admin = user.is_admin == true ? false : true;
             axios.get("/api/admin/toggle-is-admin/" + user.id)
         }
     },
