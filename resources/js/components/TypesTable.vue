@@ -28,7 +28,10 @@
                     <th style="width: 20%">ویرایش</th>
                     <th style="width: 10%">حذف</th>
                 </tr>
-                <tr v-for="pType in types" :key="pType">
+                <tr v-if="loading" >
+                    <td colspan="15">...لطفاً منتظر بمانید</td>
+                </tr>
+                <tr v-else v-for="pType in types" :key="pType">
                     <td>‌ {{ pType.name }}</td>
                     <td>‌ {{ pType.slug }}</td>
                     <td>‌ {{ convertDate(pType.created_at) }}</td>
@@ -54,6 +57,7 @@ export default {
         return {
             types: null,
             errors:null,
+            loading: true,
         };
     },
     methods: {
@@ -76,6 +80,7 @@ export default {
     mounted() {
         axios.get("/api/admin/types").then((response) => {
             this.types = response.data.types;
+            this.loading = false;
         });
     },
 };

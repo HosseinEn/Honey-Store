@@ -97,7 +97,10 @@
                     <th style="width: 10%">حذف</th>
                     <th style="width: 10%">ویرایش</th>
                 </tr>
-                <tr v-for="product in products" :key="product">
+                <tr v-if="loading" >
+                    <td colspan="15">...لطفاً منتظر بمانید</td>
+                </tr>
+                <tr v-else v-for="product in products" :key="product">
                     <td>‌ {{ product.name }}</td>
                     <td>‌ {{ product.stock }}</td>
                     <td>‌ {{ product.status == 1 ? "فعال" : "غیرفعال" }}</td>
@@ -122,8 +125,6 @@
                     </td>
                     <td>‌ {{ convertDate(product.created_at) }}</td>
                     <td>
-                        <!-- <button class="remove">حذف</button> -->
-                        <!-- {{ product.id }} -->
                         <button
                             @click="deleteHolding(product.slug)"
                             class="remove"
@@ -151,10 +152,6 @@
                     @delete="finalDelete()"
                     @close="showModal = false"
                 >
-                    <!--
-                        you can use custom content here to overwrite
-                        default content
-                    -->
                     <template v-slot:header>
                         <h3>Delete Product</h3>
                     </template>
@@ -188,7 +185,7 @@ export default {
             to: null,
             errors: null,
             stock: "all",
-            // selected_attribute: [],
+            loading: true
         };
     },
     methods: {
@@ -199,13 +196,6 @@ export default {
             }, 1000)
             })
         },
-        // uniqueCheck(e) {
-        //     this.selected_attribute = [];
-        //     if (e.target.checked) {
-        //         this.selected_attribute.push(e.target.value);
-        //     }
-        //     this.handleFilterAndSearch();
-        // },
         convertDate(date) {
             return moment(date).locale('fa').format("YYYY-M-D");
         },
@@ -220,21 +210,25 @@ export default {
             return `${baseURL}?${params.toString()}`;
         },
         handleFilterAndSearch() {
+            this.loading = true;
             this.errors = null;
             const url = this.buildURL()
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.products = response.data.products;
+                this.loading = false;
             });
         },
 
         showAll() {
+            this.loading = true;
             this.errors = null;
             this.status == "all";
             this.searchKey = null;
             this.$router.push("/admin/products");
             axios.get("/api/admin/products").then((response) => {
                 this.products = response.data.products;
+                this.loading = false;
             });
         },
 
@@ -261,6 +255,7 @@ export default {
     mounted() {
         axios.get("/api/admin/products").then((response) => {
             this.products = response.data.products;
+            this.loading = false;
         });
     },
 };

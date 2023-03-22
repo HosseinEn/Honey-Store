@@ -16,7 +16,10 @@
                     <th style="width: 10%">تاریخ ثبت‌نام</th>
                     <th style="width: 20%">ارتقا/تنزل ادمین</th>
                 </tr>
-                <tr v-for="user in users" :key="user">
+                <tr v-if="loading" >
+                    <td colspan="15">...لطفاً منتظر بمانید</td>
+                </tr>
+                <tr v-else v-for="user in users" :key="user">
                     <td>‌ {{ user.name }}</td>
                     <td>‌ {{ user.phone }}</td>
                     <td>‌ {{ user.address }}</td>
@@ -42,6 +45,7 @@ export default {
         return {
             users: null,
             success: null,
+            loading: true
         };
     },
     methods: {
@@ -56,6 +60,7 @@ export default {
     mounted() {
         axios.get("/api/admin/users").then((response) => {
             this.users = response.data.users;
+            this.loading = false;
         });
     },
 };

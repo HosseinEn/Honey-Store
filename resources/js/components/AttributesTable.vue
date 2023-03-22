@@ -30,7 +30,10 @@
                     <th style="width: 20%">تاریخ ایجاد</th>
                     <th style="width: 10%">حذف</th>
                 </tr>
-                <tr v-for="attribute in attributes" :key="attribute">
+                <tr v-if="loading" >
+                    <td colspan="15">...لطفاً منتظر بمانید</td>
+                </tr>
+                <tr v-else v-for="attribute in attributes" :key="attribute">
                     <td>‌ {{ attribute.weight }}</td>
                     <td>‌ {{ convertDate(attribute.created_at) }}</td>
                     <td><button class="remove" @click="deleteAttribute(attribute.id)">حذف</button></td>
@@ -51,6 +54,7 @@ export default {
             attributes: null,
             success: null,
             errors: null,
+            loading: true
         };
     },
     methods: {
@@ -73,6 +77,7 @@ export default {
         axios.get("/api/admin/attributes")
         .then(response => {
             this.attributes = response.data.attributes;
+            this.loading = false;
         })
     }
 };

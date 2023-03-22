@@ -33,7 +33,10 @@
                     <th style="width: 20%">ویرایش</th>
                     <th style="width: 10%">حذف</th>
                 </tr>
-                <tr v-for="discount in discounts" :key="discount">
+                <tr v-if="loading" >
+                    <td colspan="15">...لطفاً منتظر بمانید</td>
+                </tr>
+                <tr v-else v-for="discount in discounts" :key="discount">
                     <td>‌ {{ discount.name }}</td>
                     <td>‌ {{ discount.value }}</td>
                     <td>‌ {{ convertDate(discount.created_at) }}</td>
@@ -60,6 +63,7 @@ export default {
     data() {
         return {
             discounts: null,
+            loading: true
         };
     },
     methods: {
@@ -81,6 +85,7 @@ export default {
     mounted() {
         axios.get("/api/admin/discounts").then((response) => {
             this.discounts = response.data.discounts;
+            this.loading = false;
         });
     },
 };
