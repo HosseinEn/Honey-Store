@@ -241,7 +241,7 @@ export default {
             //... perform deletion
             axios.delete("/api/admin/products/" + this.deleteSlug).then(() => {
                 this.products = this.products.filter((product) => {
-                    return product.slug !== this.deleteSlug;
+                    return product.slug != this.deleteSlug;
                 });
                 this.deleteSlug = null;
                 this.showModal = false;

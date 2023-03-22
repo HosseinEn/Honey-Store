@@ -64,9 +64,10 @@ export default {
         deleteAttribute(attribute_id) {
             axios.delete("/api/admin/attributes/" + attribute_id)
             .then(response => {
-                this.success = response.data.success
-                const index = this.attributes.findIndex(attribute => attribute.id === attribute_id)
-                if(~index) this.attributes.splice(index, 1)
+                this.success = response.data.success;
+                this.attributes = this.attributes.filter((attribute) => {
+                    return attribute.id != attribute_id;
+                });
             })
             .catch((errors) => {
                 this.errors =  errors.response.data ? true : false;

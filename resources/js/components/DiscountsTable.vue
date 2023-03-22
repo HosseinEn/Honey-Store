@@ -74,8 +74,9 @@ export default {
             axios.delete("/api/admin/discounts/" + discount_id)
             .then(response => {
                 this.success = response.data.success
-                const index = this.discount.findIndex(discount => discount.id === discount_id)
-                if(~index) this.discount.splice(index, 1)
+                this.discounts = this.discounts.filter(discount => {
+                    return discount.id != discount_id;
+                })
             })
             .catch((errors) => {
                 this.errors =  errors.response ? true : false;

@@ -68,9 +68,9 @@ export default {
             axios.delete("/api/admin/types/" + type_id)
             .then(response => {
                 this.success = response.data.success
-                const index = this.types.findIndex(type => type.slug === type_id)
-                console.log(index)
-                if(~index) this.types.splice(index, 1)
+                this.types = this.types.filter(type => {
+                    return type.slug != type_id;
+                })
             })
             .catch((errors) => {
                 this.errors =  errors.response.data ? true : false;
