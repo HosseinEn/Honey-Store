@@ -84,18 +84,21 @@
                     <th style="width: 20%">تغییر وضعیت سفارش</th>
                     <th style="width: 20%">توضیحات</th>
                 </tr>
-                <tr v-for="(order, index) in orders" :key="order">
+                <tr v-if="loading" >
+                    <td colspan="15">...لطفاً منتظر بمانید</td>
+                </tr>
+                <tr v-else v-for="(order, index) in orders" :key="order">
                     <td>{{ index + 1 }}</td>
-                    <td>‌ {{ order.user.name }}</td>
-                    <td>‌ {{ order.user.email }}</td>
-                    <td>‌ {{ order.user.phone }}</td>
-                    <td>‌ {{ order.user.address }}</td>
-                    <td>‌ {{ convertDate(order.created_at) }}</td>
-                    <td>‌ {{ addCommasToPrice(order.price_with_discount) }}</td>
-                    <td>‌ {{ addCommasToPrice(order.total_price) }}</td>
-                    <td>‌ {{ order.order_status_text }}</td>
-                    <td>‌ {{ order.invoice_no }}</td>
-                    <td>‌ {{ order.reference_id ?? "ناموفق ❌" }}</td>
+                    <td>‌{{ order.user.name }}</td>
+                    <td>‌{{ order.user.email }}</td>
+                    <td>‌{{ order.user.phone }}</td>
+                    <td>‌{{ order.user.address }}</td>
+                    <td>‌{{ convertDate(order.created_at) }}</td>
+                    <td>‌{{ addCommasToPrice(order.price_with_discount) }}</td>
+                    <td>‌{{ addCommasToPrice(order.total_price) }}</td>
+                    <td>‌{{ order.order_status_text }}</td>
+                    <td>‌{{ order.invoice_no }}</td>
+                    <td>‌{{ order.reference_id ?? "ناموفق ❌" }}</td>
                     <td>
                         <ul class="list-group">
                             <li
@@ -230,6 +233,7 @@ export default {
             to: null,
             filterStatus: "all",
             searchKey: null,
+            loading: true,
         };
     },
     methods: {
@@ -252,12 +256,14 @@ export default {
             return addCommas(price);
         },
         showAll() {
+            this.loading = true;
             this.errors = null;
             this.notSelectedError = null;
             this.searchKey = null;
             this.$router.push("/admin/orders");
             axios.get("/api/admin/orders").then((response) => {
                 this.orders = response.data.orders;
+                this.loading = false;
             });
         },
         cancelOrder(order_id) {
@@ -301,6 +307,7 @@ export default {
             return `${baseURL}?${params.toString()}`;
         },
         handleFilterAndSearch() {
+            this.loading = true;
             this.errors = null;
             this.success = null;
             this.notSelectedError = null;
@@ -308,6 +315,7 @@ export default {
             this.$router.push(url);
             axios.get("/api" + url).then((response) => {
                 this.orders = response.data.orders;
+                this.loading = false;
             });
         },
         onSelectChange(event) {
@@ -353,6 +361,7 @@ export default {
             this.orderStatuses = response.data.orderStatuses;
             this.totalOrderPrice = response.data.totalOrderPrice;
             this.totalOrderPriceThisMonth = response.data.totalOrderPriceThisMonth;
+            this.loading = false;
         });
     },
 };
