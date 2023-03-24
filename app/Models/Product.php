@@ -53,6 +53,10 @@ class Product extends Model
         return $query->where('status', 1);
     }
 
+    public function scopeLatest(Builder $query) {
+        return $query->orderBy(static::CREATED_AT, 'DESC');
+    }
+
     protected static function boot() {
         parent::boot();
 
