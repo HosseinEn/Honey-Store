@@ -408,25 +408,7 @@
             font-family: 'Nunito', sans-serif;
         }
 
-        #userHelp {
-            background-color: gold;
-            position: fixed;
-            right: 10px;
-            bottom: 20px;
-            height: 60px;
-            border-radius: 50%;
-            z-index: 10;
-            width: 60px;
-        }
 
-        #userHelp div {
-            width: 100%;
-            height: 100%;
-            font-size: 1.5rem;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
     </style>
     <script src="{{ asset('js/app.js') }}" defer></script>
 
@@ -442,15 +424,6 @@
 <body class="antialiased">
     <div id="app">
         <app></app>
-        <div id="userHelp" class="d-block d-lg-none">
-            <div>
-                <i class="fa fa-sign-in" aria-hidden="true"></i>
-                {{-- 
-                    agar LOGIN kardan , ghabli ro var dar , ino bezar
-                    --}}
-                    {{-- <i class="fa-solid fa-cart-shopping"></i> --}}
-            </div>
-        </div>
     </div>
 </body>
 
