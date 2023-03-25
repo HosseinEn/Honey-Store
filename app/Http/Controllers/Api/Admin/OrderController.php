@@ -23,14 +23,26 @@ class OrderController extends Controller
     {
         $orders = Order::with(['products', 'user'])
                         ->latest();
-        $request->has('search_key') ? $orders->search(trim($request->search_key)) : null;
-        ($request->has('status') && $request->status != 'all') ? $orders->filterByStatus($request->status): null;
-        ($request->has('from') && $request->has('to')) ? $orders->filterByDate($request->from, $request->to) : null;
+        $orders->when($request->has('search_key'), function($query) use ($request) {
+            return $query->search(trim($request->search_key));
+        });
+        $orders->when($request->has('status') && $request->status != 'all', function($query) use ($request) {
+            return $query->filterByStatus($request->status);
+        });
+        $orders->when($request->has('from') && $request->has('to'), function($query) use ($request) {
+            return $query->filterByDate($request->from, $request->to);
+        });
+
+        $orderStatuses = OrderStatus::get();
+        $paymentDoneStatus = $orderStatuses->where('name', 'تایید شده')->first()->id;
+        $totalOrderPrice = Order::where('order_status_id', $paymentDoneStatus)
+                                  ->sum('price_with_discount');
+        $totalOrderPriceThisMonth = Order::where('order_status_id', $paymentDoneStatus)
+                                           ->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])
+                                           ->sum('price_with_discount');
 
         $orders = $orders->paginate(10);
-
         $attributes = Attribute::get();
-        $orderStatuses = OrderStatus::get();
 
         foreach($orders as $order) {
             $order['order_status_text'] = $orderStatuses->where('id', $order->order_status_id)->first()->name;
@@ -38,29 +50,13 @@ class OrderController extends Controller
                 $product->ordered->attribute = $attributes->where('id', $product->ordered->attribute_id)->first();
             }
         }
-        $paymentDoneStatus = $orderStatuses->where('name', 'تایید شده')->first()->id;
-        $totalOrderPrice = $orders->where('order_status_id', $paymentDoneStatus)
-                                  ->sum('price_with_discount');
-        $totalOrderPriceThisMonth = $orders->where('order_status_id', $paymentDoneStatus)
-                                           ->whereBetween('created_at', [now()->startOfMonth(), now()->endOfMonth()])
-                                           ->sum('price_with_discount');
+
         return new JsonResponse([
             'orders' => $orders,
             'orderStatuses' => $orderStatuses,
             'totalOrderPrice' => $totalOrderPrice,
             'totalOrderPriceThisMonth' => $totalOrderPriceThisMonth
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Order $order)
-    {
-        //
     }
 
     public function showUserOrder(User $user) {
@@ -73,18 +69,6 @@ class OrderController extends Controller
             'orders' => $orders,
             'totalSpent' => $totalSpent,
         ]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Order $order)
-    {
-        
     }
 
     public function updateOrderStatus(Request $request, Order $order, OrderStatus $status)
@@ -136,18 +120,6 @@ class OrderController extends Controller
             'order' => $order,
             'success' => 'وضعیت سفارش با موفقیت تغییر کرد!'
         ]);
-    }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Order $order)
-    {
-        //
     }
 
     public function cancelOrder(Order $order, Request $request)

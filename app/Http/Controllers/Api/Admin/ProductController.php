@@ -24,10 +24,18 @@ class ProductController extends Controller
     {
         $products = Product::with(['attributes', 'image'])
                             ->latest();
-        $request->has('search_key') ? $products->search(trim($request->search_key)) : null;
-        ($request->has('status') && $request->status != 'all') ? $products->filterByStatus($request->status): null;
-        ($request->has('from') && $request->has('to')) ? $products->filterByDate($request->from, $request->to) : null;
-        ($request->has('stock') && $request->stock != 'all') ? $products->filterByStock($request->stock) : null;
+        $products->when($request->has('search_key'), function($query) use ($request) {
+            return $query->search(trim($request->search_key));
+        });
+        $products->when($request->has('status') && $request->status != 'all', function($query) use ($request) {
+            return $query->filterByStatus($request->status);
+        });
+        $products->when($request->has('from') && $request->has('to'), function($query) use ($request) {
+            return $query->filterByDate($request->from, $request->to);
+        });
+        $products->when($request->has('stock') && $request->stock != 'all', function($query) use ($request) {
+            return $query->filterByStock($request->stock);
+        });
         return new JsonResponse([
             'products' => $products->paginate(10)
         ]);
