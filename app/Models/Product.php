@@ -57,6 +57,27 @@ class Product extends Model
         return $query->orderBy(static::CREATED_AT, 'DESC');
     }
 
+    public function scopeSearch(Builder $query, $search) {
+        return $query->where('name', 'LIKE', "%{$search}%");
+    }
+
+    public function scopeFilterByStatus(Builder $query, $status) {
+        return $query->where('status', $status);
+    }
+
+    public function scopeFilterByDate(Builder $query, $from, $to) {
+        return $query->whereBetween('created_at', [$from, $to]);
+    }
+
+    public function scopeFilterByStock(Builder $query, $stock) {
+        if ($stock == '1') {
+            return $query->where('stock', '>', 0);
+        }
+        else {
+            return $query->where('stock', 0);
+        }
+    }
+
     protected static function boot() {
         parent::boot();
 

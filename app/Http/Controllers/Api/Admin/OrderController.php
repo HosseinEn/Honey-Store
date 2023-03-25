@@ -21,52 +21,13 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-        $orders = null;
-        if (!$request->has('search_key') && !$request->has('status') && !($request->has('from') && $request->has('to'))) {
-            $orders = Order::with(['products', 'user'])
-                            ->latest()
-                            ->get();
-        }
-        else {
-            if ($request->has('search_key')) {
-                $search_key = trim($request->search_key);
-                $orders = Order::with(['products', 'user'])
-                                ->latest()
-                                ->search($search_key)
-                                ->get();
-            }        
-            if ($request->has('status')) {
-                if ($orders == null) {
-                    if ($request->status == 'all') {
-                        $orders = Order::with(['products', 'user'])
-                                        ->latest()
-                                        ->get();
-                    }
-                    else {
-                        $orders = Order::with(['products', 'user'])
-                                    ->latest()
-                                    ->filterByStatus($request->status)
-                                    ->get();
-                    }
-                }
-                else {
-                    $orders = $this->applyStatusFilter($orders, $request->get('status'));
-                }
-            }
-            if ($request->has('from') && $request->has('to')) {
-                if ($orders == null) {
-                    $orders = Order::with(['products', 'user'])
-                                    ->latest()
-                                    ->filterByDate($request->from, $request->to)
-                                    ->get();
-                }
-                else {
-                    $orders = $this->applyDateFilter($orders, $request->get('from'), $request->get('to'));
-                }
-            }
-    
-        }
+        $orders = Order::with(['products', 'user'])
+                        ->latest();
+        $request->has('search_key') ? $orders->search(trim($request->search_key)) : null;
+        ($request->has('status') && $request->status != 'all') ? $orders->filterByStatus($request->status): null;
+        ($request->has('from') && $request->has('to')) ? $orders->filterByDate($request->from, $request->to) : null;
 
+        $orders = $orders->paginate(10);
 
         $attributes = Attribute::get();
         $orderStatuses = OrderStatus::get();
@@ -90,34 +51,6 @@ class OrderController extends Controller
             'totalOrderPriceThisMonth' => $totalOrderPriceThisMonth
         ]);
     }
-
-    private function applyStatusFilter($orders, $status) {
-        if ($status == 'all') {
-            return $orders;
-        } else if ($status == 'failed') {
-            return $orders->whereNull('reference_id');
-        }
-        return $orders->where('order_status_id', $status);
-    }
-
-    private function applyDateFilter($orders, $from, $to) {
-        $messages = []; 
-        $dateNotFilled = $from == "null" && $to == "null";
-        if ($dateNotFilled) {
-            return $orders;
-        }
-        if ($from == "null" || $to == "null") {
-            if ($from == "null") {
-                $messages['from'] = 'لطفا تاریخ شروع را وارد نمایید!';
-            }
-            if ($to == "null") {
-                $messages['to'] = 'لطفا تاریخ پایان را وارد نمایید!';
-            }
-            throw ValidationException::withMessages($messages);
-        }
-        return $orders->whereBetween('created_at', [$from, $to]);
-    }
-
 
     /**
      * Display the specified resource.

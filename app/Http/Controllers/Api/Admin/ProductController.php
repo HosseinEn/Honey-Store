@@ -13,8 +13,7 @@ use Illuminate\Validation\ValidationException;
 use App\Http\Requests\StoreAdminProductRequest;
 use App\Http\Requests\UpdateAdminProductRequest;
 
-class
-ProductController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,68 +22,16 @@ ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $products = Product::orderBy("created_at", "desc")->get();
-        $products->load(['attributes', 'image']);
-        if ($request->has('search_key')) {
-            $search_key = $request->get('search_key');
-            $products = Product::where('name', 'like', '%' . $search_key . '%')->get();
-        }
-        else if (
-            $request->has('status') || $request->has('stock') ||
-            (
-                $request->has('from') &&
-                $request->has('to')
-            )
-        ) {
-            // dd($request->get('stock'));
-            if ($request->has('from') && $request->has('to')) {
-                $products = $this->applyDateFilter($products, $request->get('from'), $request->get('to'));
-            }
-            if ($request->has('status')) {
-                $products = $this->applyStatusFilter($products, $request->get('status'));
-            }
-            if ($request->get('stock') != null) {
-                $products = $this->applyStockFilter($products, $request->get('stock'));
-            }
-        }
+        $products = Product::with(['attributes', 'image'])
+                            ->latest();
+        $request->has('search_key') ? $products->search(trim($request->search_key)) : null;
+        ($request->has('status') && $request->status != 'all') ? $products->filterByStatus($request->status): null;
+        ($request->has('from') && $request->has('to')) ? $products->filterByDate($request->from, $request->to) : null;
+        ($request->has('stock') && $request->stock != 'all') ? $products->filterByStock($request->stock) : null;
         return new JsonResponse([
-            'products' => $products
+            'products' => $products->paginate(10)
         ]);
     }
-
-    private function applyDateFilter($products, $from, $to) {
-        $messages = []; 
-        $dateNotFilled = $from == "null" && $to == "null";
-        if ($dateNotFilled) {
-            return $products;
-        }
-        if ($from == "null" || $to == "null") {
-            if ($from == "null") {
-                $messages['from'] = 'لطفا تاریخ شروع را وارد نمایید!';
-            }
-            if ($to == "null") {
-                $messages['to'] = 'لطفا تاریخ پایان را وارد نمایید!';
-            }
-            throw ValidationException::withMessages($messages);
-        }
-        return $products->whereBetween('created_at', [$from, $to]);
-    }
-
-    private function applyStatusFilter($products, $status) {
-        if ($status == 'all') {
-            return $products;
-        }
-        return $products->where('status', $status);
-    }
-
-    private function applyStockFilter($products, $stock) {
-        if ($stock == "1") {
-            return $products = $products->where('stock', ">" , 0);
-        } else {
-            return $products = $products->where('stock' , 0);
-        }
-    }
-
 
     /**
      * Store a newly created resource in storage.
@@ -119,14 +66,10 @@ ProductController extends Controller
             ]);
             $totalStock += $values['stock'];
         }
-        // dd($request->only($dataForInsert));
-        // dd($request->product_attributes);
 
         $request->merge(['stock' => $totalStock]);
         $product = Product::create($request->only($dataForInsert));
         foreach ($request->product_attributes as $attribute_id => $values) {
-            // dd(array_key_exists("discount_id",$values));
-            // dd(in_array("discount_id", $values));
             $product->attributes()->syncWithOutDetaching([
                 $attribute_id => [
                     'stock' => $values['stock'],

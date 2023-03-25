@@ -178,6 +178,7 @@
                 </div>
             </div>
         </div>
+        <Pagination :pagination="paginatedData"/>
     </div>
     <div class="container p-4 tableCont">
         <div class="row">
@@ -214,9 +215,13 @@ import axios from "axios";
 import moment from "jalali-moment";
 import { addCommas } from "persian-tools";
 import DatePicker from "vue3-persian-datetime-picker";
+import Pagination from "./Pagination.vue"
 
 export default {
-    components: { DatePicker },
+    components: { 
+        DatePicker,
+        Pagination
+    },
     name: "ordersTable",
     data() {
         return {
@@ -234,6 +239,7 @@ export default {
             filterStatus: "all",
             searchKey: null,
             loading: true,
+            paginatedData: {},
         };
     },
     methods: {
@@ -247,7 +253,6 @@ export default {
                     );
                 }, 1000);
             });
-            // this.$refs["scroltoThis"].scrollIntoView({ behavior: "smooth" })
         },
         convertDate(date) {
             return moment(date).locale("fa").format("YYYY-M-D H:mm:ss");
@@ -260,9 +265,13 @@ export default {
             this.errors = null;
             this.notSelectedError = null;
             this.searchKey = null;
+            this.filterStatus = "all";
+            this.from = null;
+            this.to = null;
             this.$router.push("/admin/orders");
             axios.get("/api/admin/orders").then((response) => {
-                this.orders = response.data.orders;
+                this.orders = response.data.orders.data;
+                this.paginatedData = response.data.orders;
                 this.loading = false;
             });
         },
@@ -289,11 +298,12 @@ export default {
                     this.success = null;
                 });
         },
-        buildURL() {
+        buildURL(page = null) {
             const baseURL = "/admin/orders";
             const params = new URLSearchParams();
+            if (page != null) params.append('page', page);
             if (this.searchKey) params.append("search_key", this.searchKey);
-            if (this.filterStatus) params.append("status", this.filterStatus);
+            if (this.filterStatus && this.filterStatus != 'all') params.append("status", this.filterStatus);
             if (this.from)
                 params.append(
                     "from",
@@ -307,14 +317,21 @@ export default {
             return `${baseURL}?${params.toString()}`;
         },
         handleFilterAndSearch() {
+            this.getItems(1);
+        },
+        getItems(page = 1) {
             this.loading = true;
             this.errors = null;
             this.success = null;
             this.notSelectedError = null;
-            const url = this.buildURL();
+            const url = this.buildURL(page)
             this.$router.push(url);
-            axios.get("/api" + url).then((response) => {
-                this.orders = response.data.orders;
+            axios.get('/api' + url).then((response) => {
+                this.orders = response.data.orders.data;
+                this.orderStatuses = response.data.orderStatuses;
+                this.totalOrderPrice = response.data.totalOrderPrice;
+                this.totalOrderPriceThisMonth = response.data.totalOrderPriceThisMonth;
+                this.paginatedData = response.data.orders;
                 this.loading = false;
             });
         },
@@ -356,13 +373,7 @@ export default {
         },
     },
     mounted() {
-        axios.get("/api/admin/orders").then((response) => {
-            this.orders = response.data.orders;
-            this.orderStatuses = response.data.orderStatuses;
-            this.totalOrderPrice = response.data.totalOrderPrice;
-            this.totalOrderPriceThisMonth = response.data.totalOrderPriceThisMonth;
-            this.loading = false;
-        });
+        this.getItems();
     },
 };
 </script>

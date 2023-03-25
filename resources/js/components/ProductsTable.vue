@@ -145,7 +145,7 @@
                     </td>
                 </tr>
             </table>
-
+            <Pagination :pagination="paginatedData"/>
             <transition name="modal">
                 <DeleteModal
                     v-if="showModal"
@@ -165,13 +165,15 @@
 import axios from "axios";
 import moment from "jalali-moment";
 import DeleteModal from "./DeleteModal";
-import DatePicker from 'vue3-persian-datetime-picker'
+import DatePicker from "vue3-persian-datetime-picker"
+import Pagination from "./Pagination.vue"
 
 export default {
     name: "productsTable",
     components: {
-        DeleteModal: DeleteModal,
-        DatePicker : DatePicker
+        DeleteModal,
+        DatePicker,
+        Pagination
     },
     data() {
         return {
@@ -185,7 +187,8 @@ export default {
             to: null,
             errors: null,
             stock: "all",
-            loading: true
+            loading: true,
+            paginatedData: {},
         };
     },
     methods: {
@@ -199,35 +202,29 @@ export default {
         convertDate(date) {
             return moment(date).locale('fa').format("YYYY-M-D");
         },
-        buildURL() {
+        buildURL(page = null) {
             const baseURL = '/admin/products';
             const params = new URLSearchParams();
-            if (this.searchKey) params.append('search_key', this.searchKey);            
-            if (this.status) params.append('status', this.status);
+            if (page != null) params.append('page', page);
+            if (this.searchKey) params.append('search_key', this.searchKey);
+            if (this.status && this.status != 'all') params.append('status', this.status);
             if (this.stock && this.stock != 'all') params.append('stock', this.stock);
             if (this.from) params.append('from', moment(this.from, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
             if (this.to) params.append('to', moment(this.to, 'jYYYY-jMM-jDD').format('YYYY-MM-DD'));
             return `${baseURL}?${params.toString()}`;
         },
-        handleFilterAndSearch() {
-            this.loading = true;
-            this.errors = null;
-            const url = this.buildURL()
-            this.$router.push(url);
-            axios.get("/api" + url).then((response) => {
-                this.products = response.data.products;
-                this.loading = false;
-            });
-        },
-
         showAll() {
             this.loading = true;
             this.errors = null;
             this.status == "all";
             this.searchKey = null;
+            this.from = null;
+            this.to = null;
+            this.stock = "all";
             this.$router.push("/admin/products");
             axios.get("/api/admin/products").then((response) => {
-                this.products = response.data.products;
+                this.products = response.data.products.data;
+                this.paginatedData = response.data.products;
                 this.loading = false;
             });
         },
@@ -251,12 +248,21 @@ export default {
                 this.scrollToMessage()
             });
         },
+        handleFilterAndSearch() {
+            this.getItems(1);
+        },
+        getItems(page = 1) {
+            const url = this.buildURL(page)
+            this.$router.push(url);
+            axios.get('/api' + url).then((response) => {
+                this.products = response.data.products.data;
+                this.paginatedData = response.data.products;
+                this.loading = false;
+            });
+        },
     },
     mounted() {
-        axios.get("/api/admin/products").then((response) => {
-            this.products = response.data.products;
-            this.loading = false;
-        });
+        this.getItems();
     },
 };
 </script>
