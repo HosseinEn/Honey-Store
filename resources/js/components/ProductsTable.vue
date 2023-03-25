@@ -252,6 +252,7 @@ export default {
             this.getItems(1);
         },
         getItems(page = 1) {
+            this.loading = true;
             const url = this.buildURL(page)
             this.$router.push(url);
             axios.get('/api' + url).then((response) => {

@@ -6,7 +6,7 @@
                     href="#"
                     @click.prevent="changePage(pagination.current_page - 1)"
                 >
-                    Previous
+                    قبلی
                 </a>
             </li>
             <li
@@ -21,7 +21,7 @@
                     href="#"
                     @click.prevent="changePage(pagination.current_page + 1)"
                 >
-                    Next
+                    بعدی
                 </a>
             </li>
         </ul>
