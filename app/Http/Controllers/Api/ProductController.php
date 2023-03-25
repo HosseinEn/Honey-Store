@@ -19,7 +19,9 @@ class ProductController extends Controller
             },
             'image', 
             'type'
-        ])->isActive()->get();
+        ])->isActive()
+          ->latest()
+          ->get();
         return new JsonResponse([
             'products' => $products,
             'discounts' => $discounts,

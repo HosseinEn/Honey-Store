@@ -38,7 +38,7 @@
                         </p>
                         <form @submit.prevent="handleSubmit">
                             <!-- Size -->
-                            <h5>وزن‌های موجود :</h5>
+                            <h5>وزن‌های موجود (کیلوگرم):</h5>
                             <div class="sizeContainer">
                                 <div id="sizeContainerVfor" v-for="(attribute, index) in singleProduct.attributes"
                                     :key="attribute.weight">
