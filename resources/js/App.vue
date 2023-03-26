@@ -1,7 +1,7 @@
 <template>
     <router-view></router-view>
     <div id="userHelp" class="d-block d-lg-none">
-        <div>            
+        <div>
             <router-link v-if="isLogged()" :to="{name: 'cart'}"><i class="fa-solid fa-cart-shopping"></i></router-link>
             <router-link v-else :to="{name: 'account'}"><i class="fa fa-sign-in" aria-hidden="true"></i></router-link>
         </div>
@@ -23,12 +23,12 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #userHelp {
     background-color: gold;
     position: fixed;
-    right: 10px;
-    bottom: 20px;
+    right: 40px;
+    bottom: 30px;
     height: 60px;
     border-radius: 50%;
     z-index: 10;
