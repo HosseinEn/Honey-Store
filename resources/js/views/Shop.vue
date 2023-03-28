@@ -26,124 +26,64 @@
                     <h3 class="mb-3"><span>:</span><span>مرتب‌سازی</span></h3>
                     <section>
                         <button
-                            @click="changeFilter('all')"
-                            :class="{ activeFilter: currentFilter === 'all' }"
+                            @click="sortAndFilter('all')"
+                            :class="{ activeFilter: currentSort === 'all' }"
                         >
                             همه
                         </button>
                         <button
-                            @click="changeFilter('mostDiscounted')"
+                            @click="sortAndFilter('mostDiscounted')"
                             :class="{
-                                activeFilter: currentFilter === 'mostDiscounted',
+                                activeFilter: currentSort === 'mostDiscounted',
                             }"
                         >
                             بیشترین تخفیف
                         </button>
                         <button
-                            @click="changeFilter('mostExpensive')"
+                            @click="sortAndFilter('mostExpensive')"
                             :class="{
-                                activeFilter: currentFilter === 'mostExpensive',
+                                activeFilter: currentSort === 'mostExpensive',
                             }"
                         >
                             گران ترین
                         </button>
                         <button
-                            @click="changeFilter('cheapest')"
-                            :class="{ activeFilter: currentFilter === 'cheapest' }"
+                            @click="sortAndFilter('cheapest')"
+                            :class="{ activeFilter: currentSort === 'cheapest' }"
                         >
                             ارزان ترین
                         </button>
-                        <!-- <button
-                            @click="changeFilter('mostSale')"
-                            :class="{ activeFilter: currentFilter === 'mostSale' }"
+                        <button
+                            @click="sortAndFilter('mostSale')"
+                            :class="{ activeFilter: currentSort === 'mostSale' }"
                         >
-                            مرتب سازی
-                        </button> -->
+                            پرفروش ترین
+                        </button>
                         <!-- {{ types }} -->
-                        <select
+                        <!-- <select
                             name="filterType"
                             id="FilterTypeSelect"
                             v-model="filterType"
-                            @change="filterTypeMethod()"
+                            @change="sortAndFilter()"
                         >
                             <option value="all">انتخاب کنید</option>
                             <option :value="`${product_type.slug}`" v-for="product_type in types" :key="product_type.id">
                                 {{ product_type.name }}
                             </option>
-                        </select>
+                        </select> -->
                     </section>
                 </div>
-                <div class="productRow" v-if="sortAndFilteredProducts">
+                <div class="productRow">
                     <section
-                        class="productItem"
-                        v-for="product in sortAndFilteredProducts"
-                        :key="product"
+                            class="productItem"
+                            v-for="product in products"
+                            :key="product"
                     >
-                        <!-- {{ product }} -->
-
-                        <SingleProduct
-                            :key="
-                                currentFilter === 'all'
-                                    ? product.id
-                                    : product.product.id
-                            "
-                            v-bind="
-                                currentFilter === 'all'
-                                    ? product
-                                    : product.product
-                            "
-                            :imageSelected="
-                                currentFilter === 'all'
-                                    ? product.image.path
-                                    : product.product.image.path
-                            "
-                            :product="
-                                currentFilter === 'all'
-                                    ? product
-                                    : product.product
-                            "
-                            :filteredAttribute="product['filteredAttribute']"
-
-                            :discounts="discounts"
-                        />
+                        <!-- <div class="">{{ product }}</div> -->
+                        <SingleProduct :sort-by="currentSort" :product="product" :image-selected="product.image.path" />
                     </section>
                 </div>
-                <div class="productRow" v-else>
-                    <section
-                        class="productItem"
-                        v-for="product in filteredProducts"
-                        :key="product"
-                    >
-                        <!-- {{ product }} -->
-
-                        <SingleProduct
-                            :key="
-                                currentFilter === 'all'
-                                    ? product.id
-                                    : product.product.id
-                            "
-                            v-bind="
-                                currentFilter === 'all'
-                                    ? product
-                                    : product.product
-                            "
-                            :imageSelected="
-                                currentFilter === 'all'
-                                    ? product.image.path
-                                    : product.product.image.path
-                            "
-                            :product="
-                                currentFilter === 'all'
-                                    ? product
-                                    : product.product
-                            "
-                            :filteredAttribute="product['filteredAttribute']"
-
-                            :discounts="discounts"
-
-                        />
-                    </section>
-                </div>
+                <Pagination :pagination="paginatedData"/>
             </div>
         </div>
     </div>
@@ -159,6 +99,7 @@ import IntroTemplate from "../components/IntroTemplate.vue";
 import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 import axios from "axios";
 import FilterNav from "../components/FilterNav.vue";
+import Pagination from "../components/Pagination.vue"
 
 export default {
     name: "shop",
@@ -168,11 +109,12 @@ export default {
             discounts: null,
             filteredProducts: null,
             sortAndFilteredProducts: null,
-            currentFilter: "all",
+            currentSort: "all",
             honeyType: "all",
             loading: true,
             filterType: 'all',
-            types: null
+            types: null,
+            paginatedData: null
         };
     },
     components: {
@@ -183,55 +125,39 @@ export default {
         SingleProduct,
         MiniIntroTemplate,
         SingleProductWithFilter,
+        Pagination,
     },
     mounted() {
-        axios.get("api/products").then((response) => {
-            this.products = response.data.products;
-            this.discounts = response.data.discounts;
-            console.log(this.discounts);
-            this.filteredProducts = this.products;
-            this.loading = false;
-        });
-        axios.get("api/types").then(response => {
-            this.types = response.data.types;
-        })
+        this.getItems(1)
     },
     methods: {
-        changeFilter(currentFilter) {
+        getItems(page = 1) {
             this.loading = true;
-            this.sortAndFilteredProducts = null;
-            this.currentFilter = currentFilter;
-            if (this.currentFilter !== "all") {
-                axios
-                    .post("api/sort-products?sortBy=" + currentFilter, {
-                        products: this.products,
-                    })
-                    .then((response) => {
-                        this.filteredProducts = response.data.filteredData;
-                        this.loading = false;
-                    });
-            } else {
-                this.filteredProducts = this.products;
-                this.loading = false;
-            }
+            const url = this.buildURL(page)
+            axios.post(url)
+                .then(response => {
+                    this.products = response.data.products.data;
+                    this.paginatedData = response.data.products;
+                    this.loading = false;
+                    console.log(this.products)
+                })
         },
-        filterTypeMethod() {
-            if (this.currentFilter !== "all") {
-                this.sortAndFilteredProducts = this.filterType !== 'all' 
-                    ?   this.filteredProducts.filter(
-                            (filproduct) => filproduct.product.type.slug == this.filterType
-                        ) 
-                    : this.filteredProducts;
-
-            } 
-            else {
-                this.sortAndFilteredProducts = this.filterType !== 'all'
-                ?   this.products.filter(
-                        (product) => product.type.slug == this.filterType
-                    )
-                : this.products;
+        buildURL(page = null) {
+            const baseURL = 'api/sort-products'
+            let params = new URLSearchParams()
+            if (page != null) params.append('page', page);
+            if (this.filterType != null && this.filterType != 'all') {
+                params.append('type', this.filterType)
             }
+            if (this.currentSort != null && this.currentSort != 'all') {
+                params.append('sortBy', this.currentSort)
+            }
+            return `${baseURL}?${params.toString()}`;
         },
+        sortAndFilter(sortBy = null) {
+            this.currentSort = sortBy
+            this.getItems()
+        }
     },
 };
 </script>

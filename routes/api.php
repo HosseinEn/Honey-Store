@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Order;
+use App\Models\Product;
 use App\Models\Type;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -76,4 +78,19 @@ Route::get('/is-admin', function() {
     return response()->json([
         'isAdmin' => Auth::check() && Auth::user()->is_admin
     ]);
+});
+
+
+
+Route::get('/testing-query', function() {
+    // DB::enableQueryLog();
+    // (Product::with('image')
+    // ->select('products.name', 'products.id', 'attributes.weight', DB::raw('discounts.name as discount_name, discounts.value as discount_value'))
+    // ->join('attribute_product', 'products.id', 'attribute_product.product_id')
+    // ->join('discounts', 'discounts.id', 'attribute_product.discount_id')
+    // ->join('attributes', 'attributes.id', 'attribute_product.attribute_id')
+    // ->orderBy('discounts.value', 'desc')
+    // ->paginate(10));
+    // dd(DB::getQueryLog());
+    // ->pluck('discount_value');
 });

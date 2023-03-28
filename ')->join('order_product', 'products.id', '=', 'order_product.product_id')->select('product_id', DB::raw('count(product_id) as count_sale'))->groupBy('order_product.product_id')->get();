@@ -1,0 +1,23 @@
+=> [34;4mIlluminate\Support\Collection[39;24m {#3619
+     [34mall[39m: [
+       {#3593
+         +"[1mproduct_id[22m": [35m4[39m,
+       },
+       {#3616
+         +"[1mproduct_id[22m": [35m10[39m,
+       },
+       {#3621
+         +"[1mproduct_id[22m": [35m11[39m,
+       },
+       {#3612
+         +"[1mproduct_id[22m": [35m20[39m,
+       },
+       {#3596
+         +"[1mproduct_id[22m": [35m25[39m,
+       },
+       {#3618
+         +"[1mproduct_id[22m": [35m28[39m,
+       },
+     ],
+   }
+
