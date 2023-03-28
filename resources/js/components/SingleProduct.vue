@@ -7,17 +7,6 @@
             <div class="discoundTag" v-if="sortBy == 'mostDiscounted'">
                 {{ product.discount_name }} - {{ product.discount_value }}
             </div>
-            <!-- <div
-                class="discoundTag"
-                v-if="
-                    filteredAttribute
-                "
-            >
-            {{ filteredAttribute.attribute_product.discount_id != null
-                    ?  `${getDiscountById()['value']} درصد`
-                    : "بدون تخفیف" }}
-                    
-            </div> -->
         </section>
         <section class="content text-center">
             <div class="productTitle">
@@ -28,12 +17,6 @@
                     {{ product.price }}
                     <span style="font-weight: 600">تومن</span>
                 </div>
-                <!-- <div v-if="filteredAttribute">
-                    <span>{{ filteredAttribute.weight }}</span>
-                    <span style="font-weight: 600">کیلوگرم</span> -
-                    {{ filteredAttribute.attribute_product.price }}
-                    <span style="font-weight: 600">تومن</span>
-                </div> -->
             </div>
             <div class="productPrice">{{ product.type.name }}</div>
         </section>

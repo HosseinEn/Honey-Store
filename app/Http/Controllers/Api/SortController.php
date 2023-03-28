@@ -33,24 +33,8 @@ class SortController extends Controller
             ]);
         }
         else {
-        //     DB::enableQueryLog();
-        //    Product::with([
-        //         // 'attributes' => function($query) {
-        //         //     return $query->where('stock', '!=', 0);
-        //         // },
-        //         'image', 
-        //         'type'
-        //     ])
-        //       ->select('products.name', 'products.id', 'products.type_id',)
-        //       ->latest()
-        //       ->isActive()
-        //       ->paginate(10);
-        //     dd(DB::getQueryLog());
             return new JsonResponse([
                 'products' => Product::with([
-                    // 'attributes' => function($query) {
-                    //     return $query->where('stock', '!=', 0);
-                    // },
                     'image', 
                     'type' => function($query) {
                         return $query->select('id', 'name');
@@ -82,13 +66,6 @@ class SortController extends Controller
             ->orderBy('count_sale', 'desc')
             ->isActive()
             ->paginate(10);
-
-        // $products = Product::with('attributes')
-        //           ->join('order_product', 'products.id', '=', 'order_product.product_id')
-        //           ->select('products.*', DB::raw('count(order_product.product_id) as count_sale'))
-        //           ->groupBy('order_product.product_id')
-        //           ->orderBy('count_sale', 'desc')
-        //           ->paginate(10);
         return $products;
     }
 
@@ -112,11 +89,6 @@ class SortController extends Controller
                         ->orderBy('attribute_product.price', 'desc')
                         ->isActive()
                         ->paginate(10);
-
-        // $products = Product::with('attributes')
-        //                    ->join('attribute_product', 'products.id', '=', 'attribute_product.product_id')
-        //                    ->orderBy('attribute_product.price')
-        //                    ->paginate(10);
         return $products;
     }
 
@@ -140,11 +112,6 @@ class SortController extends Controller
                         ->orderBy('attribute_product.price', 'asc')
                         ->isActive()
                         ->paginate(10);
-         
-        // $products = Product::with('attributes')
-        //                    ->join('attribute_product', 'products.id', '=', 'attribute_product.product_id')
-        //                    ->orderBy('attribute_product.price', 'asc')
-        //                    ->paginate(10);
         return $products;
     }
 
