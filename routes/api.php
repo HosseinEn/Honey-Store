@@ -1,10 +1,6 @@
 <?php
 
-use App\Models\Order;
-use App\Models\Product;
-use App\Models\Type;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -66,7 +62,6 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::get('types', [App\Http\Controllers\Api\TypeController::class, 'index']);
 Route::get('callback-payment', [App\Http\Controllers\Api\CheckoutController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
-Route::post('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy'])->withoutMiddleware('throttle');
 Route::get('admin/orders/filtered-by-status/{status}', [App\Http\Controllers\Api\FilterController::class, 'ordersFilterByStatus']);
 
 Route::get('/is-logged', function() {
@@ -78,19 +73,4 @@ Route::get('/is-admin', function() {
     return response()->json([
         'isAdmin' => Auth::check() && Auth::user()->is_admin
     ]);
-});
-
-
-
-Route::get('/testing-query', function() {
-    // DB::enableQueryLog();
-    // (Product::with('image')
-    // ->select('products.name', 'products.id', 'attributes.weight', DB::raw('discounts.name as discount_name, discounts.value as discount_value'))
-    // ->join('attribute_product', 'products.id', 'attribute_product.product_id')
-    // ->join('discounts', 'discounts.id', 'attribute_product.discount_id')
-    // ->join('attributes', 'attributes.id', 'attribute_product.attribute_id')
-    // ->orderBy('discounts.value', 'desc')
-    // ->paginate(10));
-    // dd(DB::getQueryLog());
-    // ->pluck('discount_value');
 });

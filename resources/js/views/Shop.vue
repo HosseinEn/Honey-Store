@@ -16,7 +16,6 @@
 
     <div class="container-fluid mt-5">
         <div class="container-fluid">
-            <!-- {{ filteredProducts }} -->
             <div v-if="loading" class="loadingFilter">
                 <span>...</span><span>منتظر بمانید</span>
             </div>
@@ -59,18 +58,17 @@
                         >
                             پرفروش ترین
                         </button>
-                        <!-- {{ types }} -->
-                        <!-- <select
+                        <select
                             name="filterType"
                             id="FilterTypeSelect"
                             v-model="filterType"
-                            @change="sortAndFilter()"
+                            @change="sortAndFilter(currentSort)"
                         >
                             <option value="all">انتخاب کنید</option>
-                            <option :value="`${product_type.slug}`" v-for="product_type in types" :key="product_type.id">
+                            <option :value="`${product_type.id}`" v-for="product_type in types" :key="product_type.id">
                                 {{ product_type.name }}
                             </option>
-                        </select> -->
+                        </select>
                     </section>
                 </div>
                 <div class="productRow">
@@ -79,11 +77,10 @@
                             v-for="product in products"
                             :key="product"
                     >
-                        <!-- <div class="">{{ product }}</div> -->
                         <SingleProduct :sort-by="currentSort" :product="product" :image-selected="product.image.path" />
                     </section>
                 </div>
-                <Pagination :pagination="paginatedData"/>
+                <Pagination class="mb-4" :pagination="paginatedData"/>
             </div>
         </div>
     </div>
@@ -134,16 +131,17 @@ export default {
         getItems(page = 1) {
             this.loading = true;
             const url = this.buildURL(page)
-            axios.post(url)
+            axios.get(url)
                 .then(response => {
                     this.products = response.data.products.data;
                     this.paginatedData = response.data.products;
+                    this.types = response.data.types;
                     this.loading = false;
                     console.log(this.products)
                 })
         },
         buildURL(page = null) {
-            const baseURL = 'api/sort-products'
+            const baseURL = 'api/products'
             let params = new URLSearchParams()
             if (page != null) params.append('page', page);
             if (this.filterType != null && this.filterType != 'all') {
@@ -156,6 +154,7 @@ export default {
         },
         sortAndFilter(sortBy = null) {
             this.currentSort = sortBy
+            console.log(this.currentSort)
             this.getItems()
         }
     },
