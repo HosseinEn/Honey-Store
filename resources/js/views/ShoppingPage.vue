@@ -49,9 +49,9 @@
                             </div>
 
                             <!-- Count -->
-                            <h5 class="mt-3">تعداد (عدد انگلیسی):</h5>
+                            <h5 class="mt-3">تعداد:</h5>
                             <section>
-                                <input type="number" name="quantity" min="0" :max="getStock()" step="1"
+                                <input type="" name="quantity" min="0" :max="getStock()" step="1"
                                     v-model="quantityNumber" />
                                 <button type="submit" class="mt-2">افزودن به سبد خرید</button>
                                 <div class="alert alert-success mt-2" v-if="success">
@@ -109,6 +109,7 @@ import MiniIntroTemplate from "../components/MiniIntroTemplate.vue";
 import ProductPageInfo from "../components/ProductPageInfo.vue";
 import axios from "axios";
 import Loading from "../components/Loading.vue";
+import {digitsFaToEn} from "persian-tools"
 
 export default {
     name: "shopingPage",
@@ -164,7 +165,7 @@ export default {
         handleSubmit() {
             axios.post(`/api/add-to-cart/${this.singleProduct.slug}`, {
                 attribute_id: this.attribute_id,
-                quantity: this.quantityNumber
+                quantity: digitsFaToEn(this.quantityNumber)
             })
                 .then(response => {
                     this.errors = null;
