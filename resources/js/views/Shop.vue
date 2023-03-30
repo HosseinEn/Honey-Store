@@ -16,11 +16,7 @@
 
     <div class="container-fluid mt-5">
         <div class="container-fluid">
-            <div v-if="loading" class="loadingFilter">
-                <span>...</span><span>منتظر بمانید</span>
-            </div>
-
-            <div v-else>
+            <div>
                 <div class="row filterRow text-center filterLable">
                     <h3 class="mb-3"><span>:</span><span>مرتب‌سازی</span></h3>
                     <section>
@@ -71,7 +67,10 @@
                         </select>
                     </section>
                 </div>
-                <div class="productRow">
+                <div v-if="loading" class="loadingFilter">
+                    <span>...</span><span>منتظر بمانید</span>
+                </div>
+                <div v-else class="productRow">
                     <section
                             class="productItem"
                             v-for="product in products"
@@ -80,7 +79,7 @@
                         <SingleProduct :sort-by="currentSort" :product="product" :image-selected="product.image.path" />
                     </section>
                 </div>
-                <Pagination class="mb-4" :pagination="paginatedData"/>
+                <Pagination v-if="!loading" class="mb-4" :pagination="paginatedData"/>
             </div>
         </div>
     </div>
