@@ -35,6 +35,8 @@ This project is a single-product shop for buying and selling honey implemented b
 - Data pagination
 - Sorting and filtering 
 - Searchable tables
+- Vuex for state management and SPA authentication
+- persian-tools and jalali-moment for persian date and number formatting
 ...
 
 
