@@ -1,8 +1,6 @@
 <?php
 
-use App\Models\Type;
-use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -64,7 +62,6 @@ Route::middleware('auth:sanctum')->group(function() {
 Route::get('types', [App\Http\Controllers\Api\TypeController::class, 'index']);
 Route::get('callback-payment', [App\Http\Controllers\Api\CheckoutController::class, 'paymentCallbackMethod'])->name('paymentCallbackURL');
 Route::apiResource('products', App\Http\Controllers\Api\ProductController::class)->only('index', 'show');
-Route::post('sort-products', [App\Http\Controllers\Api\SortController::class, 'sortBy'])->withoutMiddleware('throttle');
 Route::get('admin/orders/filtered-by-status/{status}', [App\Http\Controllers\Api\FilterController::class, 'ordersFilterByStatus']);
 
 Route::get('/is-logged', function() {

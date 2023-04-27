@@ -4,34 +4,21 @@
             class="imageContainer"
             v-bind:style="{ 'background-image': 'url(' + imageUrl + ')' }"
         >
-            <div
-                class="discoundTag"
-                v-if="
-                    filteredAttribute
-                "
-            >
-            {{ filteredAttribute.attribute_product.discount_id != null
-                    ?  `${getDiscountById()['value']} درصد`
-                    : "بدون تخفیف" }}
-
-            <!-- agar fekr mikonin kar mikone !! bedounin ke kar nemikone -->
-            <!-- {{ filteredAttribute.attribute_product.discount_id != null
-                    ?  `${discounts[filteredAttribute.attribute_product.discount_id - 1]['value']} درصد`
-                    : "بدون تخفیف" }} -->
-
+            <div class="discoundTag" v-if="sortBy == 'mostDiscounted'">
+                {{ product.discount_name }} - {{ product.discount_value }}
             </div>
         </section>
         <section class="content text-center">
             <div class="productTitle">
                 {{ product.name }}
-                <div v-if="filteredAttribute">
-                    <span>{{ filteredAttribute.weight }}</span>
+                <div v-if="sortBy != null && sortBy != 'all' && sortBy != 'mostSale'">
+                    <span>{{ product.weight }}</span>
                     <span style="font-weight: 600">کیلوگرم</span> -
-                    {{ filteredAttribute.attribute_product.price }}
+                    {{ product.price }}
                     <span style="font-weight: 600">تومن</span>
                 </div>
             </div>
-            <div class="productPrice">eee</div>
+            <div class="productPrice">{{ product.type.name }}</div>
         </section>
         <button class="productButton">
             <router-link
@@ -48,7 +35,7 @@
 export default {
     name: "singleProduct",
     components: {},
-    props: ["imageSelected", "product", "filteredAttribute", "discounts"],
+    props: ["imageSelected", "product", "discounts", "sortBy"],
     data() {
         return {
             imageUrl:

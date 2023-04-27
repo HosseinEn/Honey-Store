@@ -7,24 +7,49 @@ use App\Models\Discount;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
+use App\Models\Type;
 
 class ProductController extends Controller
 {
-    public function index() {
-        $discounts = Discount::all();
-
+    public function index(Request $request) {
+        $types = Type::get();
         $products = Product::with([
-            'attributes' => function($query) {
-                return $query->where('stock', '!=', 0);
-            },
             'image', 
-            'type'
-        ])->isActive()
-          ->latest()
-          ->get();
+            'type' => function($query) {
+                return $query->select('id', 'name');
+            }
+        ]);
+        $products->when($request->has('type'), function($query) use ($request) {
+            return $query->where('type_id', $request->type);
+        });
+        if ($request->has('sortBy')) {
+            switch($request->sortBy) {
+                case 'mostSale':
+                    $products = $products->sortByMostSale();
+                    break;
+                case 'cheapest':
+                    $products = $products->sortByCheapest();
+                    break;
+                case 'mostExpensive':
+                    $products = $products->sortByMostExpensive();
+                    break;
+                case 'mostDiscounted':
+                    $products = $products->sortByMostDiscounted();
+                    break;
+            }
+            $products = $products->isActive()->paginate(10);
+        }
+        else {
+            $products = $products
+                ->select('products.name', 'products.id', 'products.type_id', 'products.slug')
+                ->latest()
+                ->isActive()
+                ->paginate(10);
+                
+        }
         return new JsonResponse([
             'products' => $products,
-            'discounts' => $discounts,
+            'types' => $types,
         ]);
     }
 
