@@ -1,6 +1,6 @@
 # Honey store
 
-This project is a single-product shop for buying and selling honey implemented by Laravel 8 and Vue 3, which includes the basic features of a store; registering an order, shopping cart, payment within the software and etc.
+This is a single-product shop and RESTful API project for buying and selling honey, implemented using Laravel 8 and Vue 3. It includes the basic features of a store, such as registering an order, a shopping cart, payment within the software and etc.
 
 ## Requirements
 
@@ -37,8 +37,19 @@ This project is a single-product shop for buying and selling honey implemented b
 - Searchable tables
 - Vuex for state management and SPA authentication
 - persian-tools and jalali-moment for persian date and number formatting
-...
+- axios for ajax requests
+- ...
 
 
 ## Demo
 You can checkout the online demo at https://bobby.adiosmfs.ga/
+
+![shopping_cart](https://user-images.githubusercontent.com/83599557/234820873-4dcb5800-4e9c-4ed3-9dd8-d045ee5a6e7f.png)
+
+![user_orders](https://user-images.githubusercontent.com/83599557/234820959-e238d89b-23e7-44c4-bf1d-b5d24068470c.png)
+
+![products_table](https://user-images.githubusercontent.com/83599557/234820995-9437c0ba-04d9-4127-af51-3db71b2fd674.png)
+
+![orders_table](https://user-images.githubusercontent.com/83599557/234821030-be464121-0418-418c-8313-6b1a5d2d5781.png)
+
+
