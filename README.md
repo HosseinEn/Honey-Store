@@ -1,10 +1,12 @@
 # Honey store
 
-This is a single-product shop and RESTful API project for buying and selling honey, implemented using Laravel 8 and Vue 3. It includes the basic features of a store, such as registering an order, a shopping cart, payment within the software and etc.
+This is a single-product shop and RESTful API project for selling honey, implemented using Laravel 8 and Vue 3. It includes the basic features of a store, such as registering an order, a shopping cart, payment within the software and etc.
 
 ## Requirements
 
 - PHP 7.3+
+- NPM
+- Node JS 16+
 - Composer
 - Git
 - MYSQL 5.7+
