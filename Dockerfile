@@ -28,7 +28,19 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 
+
+RUN apt-get update && \
+    apt-get install -y libxml2-dev
+
+RUN docker-php-ext-install soap
+
+
 # Set working directory
 WORKDIR /var/www
+
+#COPY --chown=www:www . /var/www
+
+
+#USER root
 
 USER $user
